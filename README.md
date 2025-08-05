@@ -826,22 +826,386 @@ I dettagli della tokenizzazione che analizzeremo in questo capitolo costituiscon
   </li>
 </ul>
 
+<h2>3 Trasformatori: come gli ingressi diventano uscite</h2>
+
+<table align="center">
+  <td>
+    <h3>Questo capitolo copre</h3>
+    <ul>
+      <li>
+          Conversione di token in vettori
+      </li>
+      <li>
+     Transformers, i loro tipi e i loro ruoli   
+      </li>
+      <li>
+       Conversione dei vettori in token 
+      </li>
+      <li>
+        Creazione del ciclo di generazione del testo
+      </li>
+</ul>
+  </td>
+</table>
+
+<p align="justify">
+Nel capitolo 2, abbiamo visto come i modelli linguistici di grandi dimensioni (LLM) considerino il testo come unità fondamentali note come token. Ora è il momento di parlare di cosa fanno gli LLM con i token che vedono. Il processo che gli LLM utilizzano per generare il loro testo è notevolmente diverso da quello con cui gli esseri umani formano frasi coerenti. Quando un LLM opera, lavora sui token, ma allo stesso tempo non può manipolarli come fanno gli esseri umani perché l'LLM non comprende la struttura e la relazione tra le lettere che ogni token rappresenta.
+</p>
+
+<p align="justify">
+Ad esempio, chi parla inglese sa che le parole "magia", "magico" e "mago" sono tutte correlate. Possiamo capire che le frasi che contengono queste parole siano tutte collegate allo stesso argomento perché condividono una radice comune. Tuttavia, gli LLM che operano su numeri interi che rappresentano i token che compongono queste parole non possono comprendere le relazioni tra i token senza un lavoro aggiuntivo per stabilire tali connessioni.
+</p>
+
+<p align="justify">
+Per questo motivo, gli LLM vantano una lunga tradizione nell'ambito dell'apprendimento automatico e del deep learning, eseguendo una sorta di conversione ciclica. Innanzitutto, i token vengono convertiti in una forma numerica su cui gli algoritmi di deep learning possono lavorare. Successivamente, l'LLM riconverte questa rappresentazione numerica in un nuovo token. Questo ciclo si ripete iterativamente, il che non è paragonabile al funzionamento umano. Sareste incredibilmente preoccupati se i vostri colleghi dovessero tirare fuori una calcolatrice per risolvere diversi problemi matematici tra una parola e l'altra.
+</p>
+
+<p align="justify">
+Eppure, questo processo è, in effetti, il modo in cui gli LLM producono output. In questo capitolo, lo analizzeremo in due fasi. In primo luogo, esamineremo l'intero processo a un livello più alto per introdurre concetti fondamentali e costruire un modello mentale di come gli LLM generano testo. In secondo luogo, questo modello servirà da impalcatura per una discussione più approfondita dei dettagli e delle scelte progettuali associate ai componenti che gli LLM utilizzano per catturare le relazioni tra parole e linguaggio e, in definitiva, generare l'output con cui abbiamo familiarità.
+</p>
+
+<h3>3.1 Il modello del trasformatore</h3>
+
+<p align="justify">
+Molti LLM che si incontrano oggi interpretano i token e producono output utilizzando un'architettura software nota come trasformatore. Questa architettura consiste in un insieme di algoritmi e strutture dati che memorizzano le informazioni rappresentandole come numeri in una rete neurale. In sostanza, i trasformatori sono algoritmi di predizione di sequenze. Sebbene sia comune descriverli come linguaggio di "ragionamento" o di "comprensione", ciò che in realtà fanno è predire i token. I trasformatori offrono tre diversi approcci alla predizione dei token. Mentre ci concentriamo sulla famosa architettura GPT (più formalmente nota come modelli solo decodificatore), vale la pena introdurre anche i modelli solo codificatore e codificatore-decodificatore:
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+Modelli basati solo su codificatore : questi modelli sono progettati per creare rappresentazioni della conoscenza che possono essere utilizzate per eseguire attività, ovvero per codificare l'input in una rappresentazione numerica più utile per un algoritmo. Il modo migliore per considerarli è che prendono il testo e lo elaborano in una forma più facile da utilizzare per un algoritmo di apprendimento automatico. Sono ampiamente utilizzati nella ricerca scientifica. Esempi famosi includono BERT e RoBERTa.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Modelli "decoder-only" — Questi modelli sono progettati per generare testo. Il modo migliore per immaginarli è che prendano un documento parzialmente scritto e ne producano una probabile continuazione prevedendo il token successivo. Esempi famosi includono GPT di OpenAI e Gemini di Google.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Modelli di codifica-decodifica — Questi modelli sono progettati anche per generare testo. A differenza dei modelli di sola decodifica, prendono un intero passaggio di testo e creano un passaggio corrispondente anziché continuare quello esistente. Sono meno popolari dei modelli di sola decodifica perché sono più costosi da addestrare e il loro utilizzo è talvolta più impegnativo. Per attività con una sequenza di input e output chiaramente definita, i modelli di codifica-decodifica tendono a superare i modelli di sola decodifica. Ad esempio, sono molto più efficaci nelle attività di traduzione e riassunto rispetto ai modelli di sola decodifica. Esempi famosi includono T5 e l'algoritmo alla base di Google Translate.
+    </p>
+  </li>
+</ul>
+
+<p align="justify">
+Indipendentemente dal tipo di trasformatore utilizzato, i componenti essenziali del modello sono costituiti da tre strati base, disposti internamente in modo diverso. Un'analogia ragionevole alla loro intercambiabilità è quella dei motori delle auto a benzina: funzionano tutti in modo simile e hanno gli stessi componenti generali. Il modo in cui questi componenti (leggi: strati) sono assemblati all'interno del motore (leggi: trasformatore) determina diversi compromessi in termini di prestazioni.
+</p>
+
+<table align="center">
+  <td>
+    <h4>Cos'è esattamente uno strato di rete neurale?</h4>
+    <p align="justify">
+Gli LLM sono uno delle centinaia di algoritmi che oggi chiamiamo reti neurali . Tuttavia, questa denominazione è impropria sotto diversi aspetti. In primo luogo, ciò che oggi costituisce un approccio basato sulle reti neurali è molto ampio, al punto che fare riferimento a un "approccio basato sulle reti neurali" non fornisce al lettore troppe informazioni sull'approccio esatto descritto. In secondo luogo, la parte neurale del nome ha poco o nulla a che fare con le neuroscienze o con il funzionamento del cervello. A volte, c'è un'ispirazione intuitiva del tipo "Ehi, il cervello fa più o meno questo; possiamo imitare quel comportamento e trarne qualcosa di utile?", ma non per la maggior parte dei metodi attuali. In terzo luogo, una rete neurale descrive più un accordo standard sull'assemblaggio di strutture dati che un algoritmo specifico. Pensate alla costruzione di una casa: usate assi di legno, cartongesso e molte opzioni per mobili, vernici e scelte di design per assemblare tutto in una casa. Ogni casa ha un aspetto unico ma anche familiare: sono tutte assemblate in modo prevedibile. Il "livello" di una rete neurale è il componente più piccolo, ma è possibile utilizzare molti tipi di livelli in modi diversi. I trasformatori sono solo uno dei tanti elementi che vengono assemblati in una rete più ampia
+    </p>
+  </td>
+</table>
+
+<h3>3.1.1 Strati del modello del trasformatore</h3>
+
+<p align="justify">
+La figura 3.1 descrive i componenti essenziali del modello del trasformatore: lo strato di incorporamento , che genera rappresentazioni di token che possono contenere più significato; lo strato del trasformatore , che effettua previsioni basate sulle relazioni tra le parole; e lo strato di output , che trasforma le rappresentazioni numeriche utilizzate all'interno del trasformatore in parole che gli esseri umani possono leggere.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.1 I componenti di base del modello del trasformatore, costituiti dallo strato di incorporamento, da più strati del trasformatore e dallo strato di uscita
+      </p>
+    </figcaption>
+    
+<img width="1100" height="288" alt="CH03_F01_Boozallen" src="https://github.com/user-attachments/assets/0377d1bd-b430-4561-b392-89f3eebeffc9" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Diamo un'occhiata più in dettaglio a questi strati:
+</p>
+
+<ul>
+  <li>
+  <p align="justify">
+Livello di incorporamento — Il livello di incorporamento accetta i token grezzi come input e li mappa in rappresentazioni che catturano il significato di ciascun token. Ad esempio, nel capitolo 2, abbiamo discusso di come i token rappresentino concetti, ma i singoli token non hanno alcuna relazione tra loro. Consideriamo le parole "cane" e "lupo". Grazie alla nostra comprensione del linguaggio, sappiamo che questi termini sono correlati, ma abbiamo bisogno di un modo per catturare questa relazione all'interno di una rete neurale. Questo è esattamente ciò che fa il livello di incorporamento. Cattura informazioni su ciascun token che ne codificano il significato e ci permettono di esprimere la sua relazione concettuale con gli altri token. Di conseguenza, possiamo catturare l'idea che le rappresentazioni dei token doge wolfsiano più simili tra loro rispetto alle rappresentazioni dei token rede France. Possiamo pensare al livello di incorporamento come alla parte del modello che elabora le parole su una pagina e le mappa in rappresentazioni concettuali astratte nella nostra mente.
+  </p>    
+  </li>
+  <li>
+  <p align="justify">
+Livello di trasformazione — I livelli di trasformazione sono il luogo in cui avviene la maggior parte del calcolo in un modello linguistico: catturano le relazioni tra le parole create dal livello di incorporamento e svolgono la maggior parte del lavoro effettivo per ottenere l'output. Sebbene i LLM abbiano generalmente un solo livello di incorporamento e un livello di output, hanno molti livelli di trasformazione. I modelli più potenti hanno più livelli di trasformazione.
+È allettante descrivere il livello di trasformazione come la parte "pensante" del modello. Questa definizione implica erroneamente che i livelli di trasformazione (o il modello più ampio costruito da essi) possano pensare, ma il pensiero umano è autoriflessivo e variabile in durata e impegno. Si può pensare a qualcosa per mezzo secondo o mesi, a seconda dell'impegno richiesto per l'attività. Un trasformatore ripete sempre lo stesso processo con lo stesso impegno per ogni attività. Non c'è introspezione né alterazione dello stato mentale di un livello di trasformazione. Pertanto, un modo migliore per immaginare un livello di trasformazione è un insieme di regole fuzzy : fuzzy perché non richiedono corrispondenze esatte (perché gli embedding potrebbero restituire qualcosa di simile a "cane" per "lupo") e regole perché i trasformatori non hanno flessibilità. Una volta completato l'apprendimento, un livello di trasformazione farà la stessa cosa ogni volta.
+  </p>    
+  </li>
+  <li>
+  <p align="justify">
+Livello di output : dopo che il modello ha eseguito il calcolo, vengono eseguite ulteriori trasformazioni nel livello di output per ottenere un risultato utile. Più comunemente, il livello di output funziona come l'inverso del livello di incorporamento, trasformando il risultato del calcolo dallo spazio degli incorporamenti, che cattura i concetti, nello spazio dei token, che cattura le sottoparole effettive per creare l'output testuale. Si può pensare a questo come alla parte del modello che prende la risposta che si è scelta e poi sceglie le parole effettive per esprimere quella risposta su una pagina, selezionando le parole che più probabilmente rappresentano i concetti che compongono la risposta. Infine, si conclude con un processo di unembedding, che converte gli incorporamenti in token. Poiché ogni token ha una mappatura biunivoca a una sottoparola, possiamo utilizzare un semplice dizionario o una mappa per convertire nuovamente i token in testo leggibile. Questo processo è descritto in dettaglio nella figura 3.2 .
+  </p>    
+  </li>
+</ul>
+
+<h3>3.2 Esplorazione dettagliata dell'architettura del trasformatore</h3>
+
+<p align="justify">
+Per comprendere meglio cosa accade all'interno di un LLM, può essere utile riformulare quella che abbiamo descritto come una sequenza di passaggi. Facciamolo nella figura 3.2 , che descrive sette passaggi. Contrassegneremo ciascuno di essi con riferimento alla sezione in cui lo abbiamo trattato in precedenza o vi informeremo quando stiamo per spiegare un nuovo dettaglio. Questo capitolo fornisce molte informazioni contemporaneamente, quindi le analizzeremo pezzo per pezzo man mano che procederemo.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.2 Il processo di conversione dell'input in output utilizzando un modello linguistico di grandi dimensioni
+      </p>
+    </figcaption>
+    
+<img width="1100" height="736" alt="CH03_F02_Boozallen" src="https://github.com/user-attachments/assets/08bd38cc-b43f-4052-bcbd-a8e25fb810ff" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+I sette passaggi per conseguire un LLM sono i seguenti:
+</p>
+
+<ol>
+  <li>
+    <p align="justify">
+Mappare il testo sui token (capitolo 2).
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Mappare i token nello spazio di incorporamento ( nuovo , sottosezione Rappresentazione dei token con vettori ).
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Aggiungere informazioni a ciascun incorporamento che catturino la posizione di ciascun token nel testo di input ( nuovo , sottosezione Aggiunta di informazioni sulla posizione ).
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Passare i dati attraverso uno strato trasformatore (ripetere \(L\) volte) ( nuovo , sottosezione 3.2.2 ).
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Applicare il livello di unembedding per ottenere token che potrebbero generare buone risposte ( nuovo , sottosezione 3.2.3 ).
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Prendi un campione dall'elenco dei possibili token per generare una singola risposta ( nuovo , sottosezione Campionamento dei token per produrre output ).
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Decodificare i token della risposta in testo effettivo (capitolo 2).
+    </p>
+  </li>
+</ol>
+
+<h3>3.2.1 Incorporamento dei livelli</h3>
+
+<p align="justify">
+Ci sono molte sfumature nella tokenizzazione, negli embedding e nella precisione con cui il linguaggio viene tradotto in cose che i modelli possono comprendere. La sfumatura più importante è che le reti neurali non funzionano ancora direttamente con i token. Nel complesso, le reti neurali hanno bisogno di numeri che possano essere manipolati e un token ha un'identità numerica fissa. Non possiamo cambiare l'identità di un token perché l'identità ci permette di riconvertire i token in testo leggibile. Abbiamo bisogno di un livello che trasformi i token in forma numerica nelle parole o sotto-parole che rappresentano.
+</p>
+
+<b>Rappresentazione dei token con vettori</b>
+
+<p align="justify">
+Il nostro trasformatore ha bisogno di numeri su cui lavorare. Con questo intendiamo numeri continui , quindi qualsiasi valore frazionario è disponibile: 0,3, -5, 3,14, ecc. Abbiamo anche bisogno di più di un numero per rappresentare ogni token, in modo da catturare le sfumature di significato e le relazioni tra i token. Se provassimo a usare un solo numero per rappresentare ogni parola, incontreremmo difficoltà a catturare i molteplici significati, sinonimi, contrari e le relazioni che questi creano. Ad esempio, potremmo dire che l'antonimo (opposto) di una parola dovrebbe essere ottenibile moltiplicando una parola per \(-1\) . Come mostra la figura 3.3 , questo porta rapidamente a conclusioni assurde sulle relazioni tra le parole.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.3 Se si utilizza un solo numero per rappresentare un token, si incontrano rapidamente problemi in cui parole simili/dissimili non possono essere adattate tra loro. Qui vediamo come cercare di rappresentare semplici relazioni sinonimo/contrario diventa rapidamente insensato anche con solo una manciata di parole.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="487" alt="CH03_F03_Boozallen" src="https://github.com/user-attachments/assets/a82bc4d2-ac3a-4b6c-8bc5-cfacaff1157a" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Ad esempio, supponiamo di avere un token stockche abbiamo arbitrariamente deciso verrà convertito in un numero (ad esempio, 5.2). Voglio assegnare a parole finanziarie correlate, come capital, un numero simile (ad esempio, 5.3) perché hanno significati simili. Esistono anche antonimi di stockaltri significati di , come rare. Supponiamo di usare un valore negativo per catturare l'idea di un antonimo e di assegnargli il valore di -5.2. Ma ora le cose si complicano perché un altro antonimo di capitalè debt. Ma se gli antonimi sono negazioni debte rarehanno un significato simile, il che è assurdo. La Figura 3.3 illustra il problema: quando usiamo un singolo numero per rappresentare una parola, non possiamo codificare le loro relazioni senza implicare strane relazioni con altre parole, e non siamo ancora andati oltre le quattro parole!
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.4 L'aggiunta di un'ulteriore dimensione alla nostra rappresentazione simbolica ci consente di rappresentare una disposizione più diversificata delle relazioni semantiche. Qui vediamo come due dimensioni possano catturare le relazioni per molteplici significati della stessa parola.
+      </p>
+    </figcaption>
+    
+![CH03_F04_Boozallen](https://github.com/user-attachments/assets/91fed6bf-0a78-41f5-9e18-c5cd690337bc)
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Il trucco sta nell'utilizzare più numeri per rappresentare ogni token, consentendo di trovare rappresentazioni migliori che tengano conto delle diverse relazioni tra le parole. Un esempio che utilizza due numeri è mostrato nella figura 3.4 . Possiamo vedere cose come blandessere quasi equidistanti da raree well-done, pur avendo anche spazio per bankessere lontani da tutte e tre le parole appena menzionate e invece essere vicini a stock. Siamo persino riusciti a inserire qualche parola in più. Più numeri si utilizzano, chiamati dimensioni nel gergo del settore, più complesse saranno le relazioni che si potranno rappresentare.
+</p>
+
+<table align="center">
+<td>
+  <h3>La maledizione della dimensionalità</h3>
+  <p align="justify">
+Se più dimensioni sono più efficaci nel catturare significati sottili, perché non usarne quante più dimensioni possibili per rappresentare i nostri dati? Quando si ha a che fare con un gran numero di dimensioni, sorgono diversi problemi. Una preoccupazione principale è che i LLM gestiscono molti embedding e l'aggiunta di più dimensioni aumenta la memoria e il calcolo necessari per memorizzare ed elaborare gli embedding. Inoltre, aggiungendo più dimensioni, la dimensione dello spazio semantico esplode e la quantità di dati e il tempo necessari per addestrare un modello di apprendimento automatico a conoscere tutte le posizioni nello spazio semantico crescono in modo esponenziale. Il matematico Richard E. Bellman ha coniato il termine "maledizione della dimensionalità" per descrivere questo fenomeno perché, sebbene desideriamo creare uno spazio in grado di catturare significati sfumati, siamo limitati dalle proprietà fondamentali dello spazio che creiamo.
+  </p>
+</td>
+</table>
+
+<p align="justify">
+Nel gergo LLM, gli elenchi di numeri utilizzati per rappresentare i token sono chiamati embedding . Si può pensare a un embedding come a un array o a un elenco di valori in virgola mobile. In breve, chiamiamo tali array vettori . Ogni posizione nel vettore è chiamata dimensione. Come mostrato nella figura 3.4 , l'utilizzo di più dimensioni ci consente di catturare le sottigliezze nelle relazioni tra le parole nel linguaggio umano.
+</p>
+
+<p align="justify">
+Poiché gli embedding esistono in più dimensioni, spesso affermiamo che risiedono in uno spazio semantico . In alcune applicazioni di apprendimento automatico, questo è chiamato spazio latente , soprattutto quando non si ha a che fare con il testo. Lo spazio semantico è un termine vago e poco definito nel settore, ma è comunemente usato come abbreviazione per dire che gli embedding vettoriali che rappresentano ciascun token si comportano bene, in quanto sinonimi/contrari hanno distanze più vicine/più lontane e che possiamo usare queste relazioni in modo produttivo. Ad esempio, nella figura 3.5 , mostriamo un caso famoso in cui una trasformazione "make female" può essere costruita sottraendo l'embedding for malee aggiungendo l'embedding for female. Questa trasformazione può essere applicata a molte parole di genere maschile diverse per trovare parole di genere femminile dello stesso concetto. Anche la collocazione di tutte le parole "reali" in basso a destra nella figura 3.5 è intenzionale, poiché molti tipi diversi di relazioni possono essere mantenuti simultaneamente in uno spazio ad alta dimensione.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.5 Una dimostrazione di come le relazioni tra gli embedding creino uno spazio semantico. Le parole con significati simili sono vicine tra loro e la stessa trasformazione può essere applicata a più parole per ottenere un risultato simile: in questo caso, una trasformazione per trovare la versione femminile di una parola maschile.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="553" alt="CH03_F05_Boozallen" src="https://github.com/user-attachments/assets/d87d8820-8661-4496-a0cb-45b19785d66c" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Sorprendentemente, non possiamo garantire che queste relazioni semantiche si formino durante il processo di addestramento. Capita spesso che si formino, e si è scoperto che sono molto utili. Per estensione, le relazioni in uno spazio semantico non sono infallibili e possono insinuarsi distorsioni nei dati. Ad esempio, i modelli spesso determinano che " doctorè più simile a" malee " nurseè più simile a" femaleperché, nel testo generalmente disponibile utilizzato per costruire la maggior parte dei modelli, è più comune che i medici siano descritti come uomini e le infermiere come donne. Le relazioni non sono quindi una verità scoperta del mondo, ma un riflesso dei dati che sono entrati nel processo.
+</p>
+
+<b>Aggiunta di informazioni posizionali</b>
+
+<p align="justify">
+Un problema critico è che un trasformatore standard non comprende le informazioni sequenziali. Se si fornisse al trasformatore una frase e si riorganizzassero tutti i token, considererebbe tutte le possibili permutazioni dei token come identiche! Questo problema è illustrato nella figura 3.6 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.6 Senza informazioni posizionali, i trasformatori non capiscono che i loro input hanno un ordine specifico e tutte le possibili riorganizzazioni dei token appaiono identiche all'algoritmo. Questo è problematico perché l'ordine delle parole può modificare il contesto della parola o, se eseguito in modo casuale, diventare incomprensibile.
+      </p>
+    </figcaption>
+    
+<img width="1043" height="511" alt="CH03_F06_Boozallen" src="https://github.com/user-attachments/assets/cca43e08-c390-4e83-9a5f-6ca8ed8b9a03" />
 
 
+  </figure>
+</div>
+  </td>
+</table>
 
+<p align="justify">
+Per questo motivo, il livello di embedding genera due diversi tipi di embedding. In primo luogo, crea un embedding di parola che cattura il significato del token e, in secondo luogo, crea un embedding posizionale che cattura la posizione del token in una sequenza.
+</p>
 
+<p align="justify">
+L'idea è sorprendentemente semplice. Proprio come abbiamo mappato ogni token univoco a un vettore di significato univoco, mapperemo anche ogni posizione univoca del token (prima, seconda, terza e così via) a un vettore di posizione. Quindi ogni token verrà incorporato due volte: una volta per la sua identità e una seconda per la sua posizione. Questi due vettori vengono poi sommati per creare un unico vettore che rappresenta la parola e la sua posizione nella frase. Questo processo è descritto nella figura 3.7 .
+</p>
 
+<p align="justify">
+Nota: l'utilizzo di più dimensioni anziché posizioni assolute semplifica l'apprendimento del posizionamento relativo da parte del trasformatore, anche se per noi umani è eccessivamente ridondante [1].
+</p>
 
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.7 Gli embedding di parole non catturano il fatto che i token di input appaiano in un ordine specifico. Questa informazione viene catturata da un embedding posizionale. Gli embedding di posizione funzionano allo stesso modo degli embedding di parole e vengono sommati. Gli embedding combinati risultanti contengono le informazioni necessarie al modello per comprendere l'ordine dei token.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="438" alt="CH03_F07_Boozallen" src="https://github.com/user-attachments/assets/3ab8fb46-12cb-4f7a-b767-125a25c3d792" />
 
+  </figure>
+</div>
+  </td>
+</table>
 
+<p align="justify">
+Questi sono tutti i dettagli mancanti necessari per comprendere come i token vengono convertiti in vettori per i livelli del trasformatore. Questa strategia può sembrare un po' ingenua, ed è proprio così. Si sono provati metodi più sofisticati per gestire queste informazioni, ma questo semplice approccio "Trasformiamo tutto in un vettore e sommiamolo" funziona sorprendentemente bene. È importante sottolineare che ha avuto successo anche con video e immagini. Avere una strategia semplice che funzioni abbastanza bene per molti problemi diversi è prezioso, ed è per questo che questo approccio ingenuo ha preso piede.
+</p>
 
+<h3>3.2.2 Strati del trasformatore</h3>
 
+<p align="justify">
+Lo strato del trasformatore mira a trasformare l'input in un output più utile. La maggior parte degli strati precedenti delle reti neurali, come lo strato di incorporamento, sono progettati per incorporare convinzioni molto specifiche su come funziona il mondo nel loro funzionamento. L'idea è che se la convinzione codificata è accurata rispetto a come funziona effettivamente il mondo, il modello raggiungerà una soluzione migliore utilizzando meno dati. I trasformatori adottano la strategia opposta. Codificano un meccanismo generico che può apprendere molte attività se si ottengono dati sufficienti.
+</p>
 
+<p align="justify">
+Per fare ciò, i trasformatori funzionano con tre componenti principali:
+</p>
 
+<ul>
+  <li>
+    <p align="justify">
+Query : le query sono vettori (da un livello di incorporamento) che rappresentano ciò che stai cercando.
+    </p
+    <li>
+    <p align="justify">
+Chiave : i vettori chiave rappresentano le possibili risposte a cui associare una query.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Valore : ogni chiave ha un vettore di valori corrispondente, ovvero il valore effettivo da restituire quando una query e una chiave corrispondono.
+    </p>
+  </li>
+  </li>
+</ul>
 
+<p align="justify">
+Questa terminologia corrisponde al comportamento di un dictoggetto dizionario o in Python. Si cerca un elemento nel dizionario tramite la sua chiave, in modo da poter poi creare un output utile. La differenza è che un trasformatore è fuzzy. Non stiamo cercando una singola chiave, ma stiamo valutando tutte le chiavi , ponderate in base al loro grado di similarità con la query. La Figura 3.8 mostra come funziona con un semplice esempio. Mentre le query e le chiavi sono mostrate come stringhe, queste stringhe sono sostitutive dei vettori a cui ciascuna stringa verrà mappata tramite il livello di incorporamento.
+</p>
 
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.8 Un esempio di come funzionano query, chiavi e valori all'interno di un trasformatore rispetto a un dizionario Python. Quando un dizionario Python abbina query a chiavi, necessita di una corrispondenza esatta per trovare il valore, altrimenti non restituirà nulla. Un trasformatore restituisce sempre qualcosa in base alle corrispondenze più simili tra query e chiavi.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="561" alt="CH03_F08_Boozallen" src="https://github.com/user-attachments/assets/33f8fe72-c17b-4993-aee1-f8c54a48a1dc" />
 
-
-
-
-
+  </figure>
+</div>
+  </td>
+</table>
