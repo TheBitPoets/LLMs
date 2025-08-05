@@ -2,7 +2,7 @@
 
 <h2>1 Quadro generale: cosa sono gli LLM?</h2>
 
-<table>
+<table align="center">
   <td>
     <h3>Questo capitolo copre</h3>
     <ul>
@@ -37,7 +37,7 @@ Innanzitutto, dobbiamo essere più specifici su ciò di cui parliamo quando parl
 I chatbot basati sull'intelligenza artificiale come ChatGPT sono una forma di intelligenza artificiale generativa . In generale, l'intelligenza artificiale generativa è un software in grado di creare o generare vari media (ad esempio, testo, immagini, audio e video) sulla base di dati osservati in passato e influenzati da ciò che le persone considerano un output piacevole e accurato. Ad esempio, se a ChatGPT viene chiesto "Scrivi un haiku sulla neve che cade sui pini", utilizzerà tutti i dati con cui è stato addestrato su haiku, neve, pini e altre forme di poesia per generare un haiku originale, come mostrato nella figura 1.1.
 </p>
 
-<table>
+<table align="center">
   <td>
 <div align="center">
   <figure>
@@ -52,7 +52,7 @@ I chatbot basati sull'intelligenza artificiale come ChatGPT sono una forma di in
 Fondamentalmente, questi sistemi sono modelli di apprendimento automatico che generano nuovi output, quindi l'intelligenza artificiale generativa è una descrizione appropriata. Alcuni possibili input e output sono illustrati nella figura 1.2 . Sebbene ChatGPT si occupi principalmente di testo come input e output, offre anche un supporto più sperimentale per diversi tipi di dati, come audio e immagini. Tuttavia, dalla nostra definizione, si può immaginare che molti tipi diversi di algoritmi e attività rientrino nella descrizione dell'intelligenza artificiale generativa.
 </p>
 
-<table>
+<table align="center">
   <td>
 <div align="center">
   <figure>
@@ -79,7 +79,7 @@ Per questo motivo, il termine " large language models" (LLM) è diventato piutto
 Un diagramma di queste relazioni è visibile nella figura 1.3 . ChatGPT, Copilot, Claude e Gemini sono alcuni dei prodotti che operano tramite testo e sono costruiti utilizzando LLM. Gli LLM utilizzano tecniche di intelligenza artificiale e PNL. Il componente principale di un LLM è un trasformatore, che spiegheremo in dettaglio nel capitolo 3.
 </p>
 
-<table>
+<table align="center">
   <td>
 <div align="center">
   <figure>
@@ -102,7 +102,7 @@ Nota: la vista e il linguaggio non sono le uniche opzioni per l'IA generativa. L
 Come suggerisce il nome , questi modelli non sono piccoli. Si dice specificamente che ChatGPT [1] contenga 1,76 trilioni di parametri che vengono utilizzati per determinarne il comportamento. Ogni parametro è in genere memorizzato come un numero in virgola mobile (un numero con un punto decimale) che utilizza 4 byte per l'archiviazione. Ciò significa che il modello stesso occupa 7 terabyte di memoria. Questa dimensione è maggiore di quanto la maggior parte dei computer potrebbe contenere nella RAM, per non parlare delle unità di elaborazione grafica (GPU) più potenti con 80 gigabyte di memoria. Le GPU sono componenti hardware speciali che eccellono nell'esecuzione delle operazioni matematiche che rendono possibili gli LLM. Attualmente, per la realizzazione di LLM sono necessarie molte GPU, quindi stiamo già discutendo di un'ampia infrastruttura computazionale e di complessità su più macchine per costruire un LLM. Al contrario, i modelli linguistici più comuni sarebbero di 2 GB o meno nella maggior parte dei casi, ovvero oltre 5.000 volte più piccoli, una dimensione molto più ragionevole se si considera la creazione e l'utilizzo di un modello del genere su hardware più standard.
 </p>
 
-<table>
+<table align="center">
   <td>
     <h4>Ottimizzazione degli LLM</h4>
     <p align="justify">
@@ -111,7 +111,7 @@ Molti ricercatori stanno studiando modi per ridurre il consumo di memoria dei LL
   </td>
 </table>
 
-<table>
+<table align="center">
   <td>
     <h4>Alternative GPU</h4>
     <p align="justify">
@@ -142,7 +142,7 @@ Questo approccio implica che in questo libro verrà presentato pochissimo codice
 In particolare, la prima parte di questo libro si concentra su cosa fanno gli LLM: i loro input e output, la conversione degli input in output e come vincoliamo la natura di tali output. Nella seconda parte, ci concentriamo su cosa fanno gli esseri umani: come interagiscono con la tecnologia e quali rischi ciò comporta per l'utilizzo dell'IA generativa. Analogamente, discuteremo alcune considerazioni etiche che sorgono durante l'utilizzo e la creazione di LLM.
 </p>
 
-<table>
+<table align="center">
   <td>
     <h4>La formazione LLM è costosa</h4>
     <p align="justify">
@@ -169,7 +169,7 @@ Se inserisci il prompt di testo "Riassumi il testo seguente in due frasi", segui
 Quando visiti il sito web di OpenAI e ti registri a ChatGPT, potresti notare un'opzione simile a quella mostrata nella figura 1.4 . Come suggerisce il nome GPT-4, OpenAI sta, al momento della stesura di questo articolo, lavorando alla sua quarta generazione di modelli GPT. I LLM come GPT-4 rappresentano un'area consolidata della ricerca in ML per la creazione di algoritmi in grado di sintetizzare e reagire alle informazioni, producendo output che sembrano generati dall'uomo. Questa capacità sblocca diverse aree di interazione tra persone e macchine che in precedenza esistevano solo nella fantascienza. La potenza della rappresentazione linguistica codificata in ChatGPT consente dialoghi convincenti, la comprensione delle istruzioni, la generazione di riassunti, la risposta alle domande, la creazione di contenuti e molte altre applicazioni. In effetti, è probabile che molte possibili applicazioni di questa tecnologia non esistano ancora perché la nostra reazione istintiva è quella di pensare ai nostri problemi attuali piuttosto che a nuove capacità o prodotti che potrebbero esistere.
 </p>
 
-<table>
+<table align="center">
   <td>
 <div align="center">
   <figure>
@@ -277,7 +277,7 @@ Nei prossimi capitoli discuteremo i dettagli del funzionamento degli LLM, ma val
 Gli LLM dimostrano una tendenza più recente. Invece di sviluppare algoritmi più complessi, li semplificano e implementano un algoritmo ingenuo che cattura semplicemente le relazioni tra le informazioni. Per molti versi, gli LLM hanno meno convinzioni sul mondo, forzatamente integrate nell'algoritmo. Fondamentalmente, questo offre maggiore flessibilità. Come potrebbe essere una buona idea se vi dicessi che l'approccio opposto è il modo in cui le persone hanno migliorato gli algoritmi? La differenza è che gli LLM e tecniche simili sono semplicemente più grandi, enormemente più grandi. Sono addestrati su molti più dati e con una capacità molto maggiore di catturare più relazioni tra più parole in più frasi; questo approccio basato sulla forza bruta sembra aver superato i metodi di apprendimento automatico classici in termini di prestazioni. Questa idea è illustrata nella figura 1.5 .
 </p>
 
-<table>
+<table align="center">
   <td>
 <div align="center">
   <figure>
@@ -326,7 +326,7 @@ Si potrebbe sostenere che se qualcuno fosse così intelligente da capire come in
 Non vediamo l'ora di unirti a noi per esplorare il funzionamento degli LLM. Alla fine, avrai una comprensione dettagliata di molti aspetti da considerare quando impieghi le rivoluzionarie potenzialità degli LLM nella tua attività o nella tua vita quotidiana.
 </p>
 
-<table>
+<table align="center">
   <td>
     <h4>Riepilogo</h4>
     <ul>
