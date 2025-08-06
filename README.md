@@ -1333,7 +1333,9 @@ Può sembrare controintuitivo che i token vengano selezionati casualmente. Tutta
   <figure>
     <figcaption>
       <p align="justify">
-Figura 3.11 Dimostriamo la generazione di testo iniziando con la frase "Amo mangiare" e poi mostrando che alcuni possibili completamenti che sono cibi, come barbecue e sushi, hanno alte probabilità, mentre un'auto e il numero 42 hanno basse probabilità. La selezione casuale ponderata sceglie la parola tacos . Il ciclo di generazione si interrompe quando appare il token EoS.    </figcaption>
+Figura 3.11 Dimostriamo la generazione di testo iniziando con la frase "Amo mangiare" e poi mostrando che alcuni possibili completamenti che sono cibi, come barbecue e sushi, hanno alte probabilità, mentre un'auto e il numero 42 hanno basse probabilità. La selezione casuale ponderata sceglie la parola tacos . Il ciclo di generazione si interrompe quando appare il token EoS.    
+      </p>
+    </figcaption>
     
 <img width="1100" height="793" alt="CH03_F11_Boozallen" src="https://github.com/user-attachments/assets/324a0efe-3507-45f9-816a-41df8fdee666" />
 
@@ -1435,7 +1437,610 @@ L'intensità della casualità può essere controllata, ottenendo risultati più 
   </li>
 </ul>
 
+<h2>4 Come imparano gli LLM</h2>
+
+<table align="center">
+  <td>
+    <h3>Questo capitolo copre</h3>
+    <ul>
+      <li>
+        <p align="justify">
+        Algoritmi di addestramento con funzioni di perdita e discesa del gradiente
+        </p>
+      </li>
+      <li>
+        <p align="justify">
+        Come gli LLM imitano il testo umano
+        </p>
+      </li>
+      <li>
+        <p align="justify">
+        Come la formazione può portare gli LLM a commettere errori
+        </p>
+      </li>
+      <li>
+        <p align="justify">
+        Sfide nella scalabilità degli LLM
+        </p>
+      </li>
+    </ul>
+  </td>
+</table>
+
+<p align="justify">
+I termini apprendimento e addestramento sono comunemente usati nella comunità del machine learning per descrivere il comportamento degli algoritmi quando osservano i dati e formulano previsioni basate su tali osservazioni. Usiamo questa terminologia a malincuore perché, sebbene semplifichi la discussione sul funzionamento di questi algoritmi, riteniamo che non sia la soluzione ideale. Fondamentalmente, questa terminologia porta a idee sbagliate sugli LLM e sull'intelligenza artificiale. Queste parole implicano che questi algoritmi abbiano qualità simili a quelle umane; inducono a credere che gli algoritmi mostrino comportamenti emergenti e siano capaci di fare più di quanto siano realmente capaci. Fondamentalmente, questa terminologia è errata. Un computer non impara in alcun modo simile a come apprendono gli esseri umani. I modelli migliorano in base ai dati e al feedback, ma è estremamente importante mantenere questo meccanismo distinto da qualsiasi cosa che assomigli all'apprendimento umano. In effetti, probabilmente non si desidera che un'IA impari come un essere umano: passiamo molti anni della nostra vita concentrati sull'istruzione e prendiamo ancora decisioni stupide.
+</p>
+
+<p align="justify">
+Gli algoritmi di deep learning si addestrano in un modo molto più stereotipato di quello umano. È stereotipato nel senso letterale di utilizzare molta matematica e nel senso figurato di seguire una semplice procedura ripetitiva miliardi di volte fino al completamento. Vi risparmieremo la matematica, ma in questo capitolo vi aiuteremo a svelare il mistero di come vengono addestrati gli LLM.
+</p>
+
+<p align="justify">
+Molti algoritmi di apprendimento automatico utilizzano l'algoritmo di addestramento chiamato "discesa del gradiente" . Il nome di questo algoritmo implica alcuni dettagli che esamineremo con una panoramica generale su come la discesa del gradiente viene utilizzata per l'apprendimento automatico. Una volta compreso l'approccio generale utilizzato per addestrare diversi tipi di modelli, esploreremo come la discesa del gradiente viene applicata agli LLM per creare un modello che produca un output testuale convincente.
+</p>
+
+<p align="justify">
+Comprendere questi dettagli ti aiuterà a evitare le connotazioni imprecise implicite in parole come " imparare" . Ancora più importante, ti preparerà anche a comprendere meglio quando gli LLM hanno successo e falliscono nella loro attuale configurazione e i modi spesso subdoli in cui tali algoritmi possono produrre risultati fuorvianti.
+</p>
+
+<h3>4.1 Discesa del gradiente</h3>
+
+<p align="justify">
+La discesa del gradiente è la chiave di tutti i moderni algoritmi di deep learning. Quando un professionista del settore menziona la discesa del gradiente, si riferisce implicitamente a due elementi critici del processo di addestramento. Il primo è noto come funzione di perdita , e il secondo è il calcolo dei gradienti , ovvero misurazioni che indicano come regolare i parametri della rete neurale in modo che la funzione di perdita produca risultati specifici. Si possono considerare questi due componenti di alto livello:
+</p>
+
+<p align="justify">
+Funzione di perdita : è necessario un singolo punteggio numerico che calcoli il livello di malfunzionamento dell'algoritmo.
+Discesa del gradiente : è necessario un processo meccanico che modifichi i valori numerici all'interno di un algoritmo per ridurre al minimo il punteggio della funzione di perdita.
+La funzione di perdita e la discesa del gradiente sono componenti dell'algoritmo di addestramento utilizzato per produrre un modello di apprendimento automatico. Oggi vengono utilizzati molti algoritmi di addestramento diversi, ma in genere ogni algoritmo invia input a un modello, ne osserva l'output e lo modifica per migliorarne le prestazioni. Un algoritmo di addestramento ripeterà questo processo un numero enorme di volte. Con dati sufficienti, un modello produrrà gli output previsti ripetutamente e in modo affidabile quando confrontato con input non osservati in precedenza.
+</p>
+
+<h3>4.1.1 Che cos'è una funzione di perdita?</h3>
+
+<p align="justify">
+Useremo l'esempio del desiderio di fare soldi per aiutarci a sviluppare un'immagine mentale di una funzione di perdita adatta. In effetti, una persona intelligente può fare soldi, quindi se hai un computer intelligente, dovrebbe essere in grado di aiutarti a fare soldi. Per scegliere una funzione di perdita adatta a questo o a qualsiasi altro compito (queste lezioni si generalizzano a qualsiasi problema di apprendimento automatico oltre agli LLM), dobbiamo soddisfare tre criteri: specificità , computabilità e fluidità . In altre parole, la funzione di perdita deve essere
+</p>
+
+<ul>
+  <li>
+  <p align="justify">
+Specifico e correlato al comportamento desiderato del modello
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+Calcolabile in un lasso di tempo ragionevole con una quantità ragionevole di risorse
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+Uniforme, nel senso che l'output della funzione non fluttua in modo eccessivo quando vengono forniti input simili
+  </p>
+  </li>
+</ul>
+
+<p align="justify">
+Utilizzeremo i seguenti esempi e controesempi per aiutarti a sviluppare un'intuizione per ciascuna proprietà.
+</p>
+
+<b>Specificità della funzione di perdita</b>
+
+<p align="justify">
+Innanzitutto, iniziamo con un pessimo esempio di specificità. Se il tuo capo venisse da te e ti dicesse: "Costruisci un computer intelligente", sarebbe un obiettivo magnifico, ma non è un obiettivo specifico. Ricorda, nel capitolo 1, abbiamo discusso di quanto sia difficile definire l'intelligenza. In cosa esattamente il tuo capo vuole che questo computer sia intelligente? Basterebbe un computer intelligente che non sa fare i tuoi compiti di calcolo? Invece, potresti provare a ottimizzare per un punteggio di QI specifico, ma questo è correlato a ciò che vuole il tuo capo? Siamo riusciti a far superare ai computer i test del QI per oltre un decennio [1], anche prima dell'introduzione degli LLM. Tuttavia, non potevano fare altro che superare un test del QI ed eseguire compiti limitati. In definitiva, il test del QI non è correlato a ciò che vogliamo che i computer facciano. Di conseguenza, non vale la pena ottimizzare il QI come metrica per il successo nell'apprendimento automatico o per costruire il computer intelligente che il tuo capo ti ha chiesto di creare.
+</p>
+
+<p align="justify">
+Un altro esempio riguarda la sfida della gestione del denaro. Consideriamo uno scenario in cui si desidera ridurre al minimo il debito. Potremmo persino volere che il debito diventi negativo, il che significa che altri ci devono dei soldi! Usiamo l'esempio del debito qui perché è intrinsecamente un valore che si desidera ridurre. Questa analogia si allinea perfettamente con la terminologia utilizzata nella pratica: si desidera ridurre al minimo la perdita così come si desidera ridurre il debito. Anche il volume del debito è una misura oggettiva, il che lo rende un buon modo per garantire che la nostra funzione di perdita sia rilevante in condizioni mutevoli. Infine, se il nostro obiettivo generale è mantenere un surplus di denaro, la minimizzazione del debito è ben correlata a tale obiettivo. La minimizzazione del debito ha tutte le caratteristiche di una buona funzione di perdita!
+</p>
+
+<table align="center">
+  <td>
+    <h3>Una nota sulla terminologia</h3>
+<p align="justify">
+    Potresti anche sentire le funzioni di perdita descritte come funzioni obiettivo . Ti consigliamo di evitare questo termine perché è ambiguo. Ad esempio, non è chiaro se si desidera minimizzare (il debito) o massimizzare il proprio obiettivo (il profitto). Entrambi gli approcci funzionano tecnicamente; moltiplicando un obiettivo di massimizzazione per \(-1\) si ottiene un obiettivo di minimizzazione.
+</p>
+<p align="justify">
+In alcuni contesti, come l'apprendimento per rinforzo (RL) , si potrebbe anche sentire il termine "funzione di ricompensa" . Questo è appropriato perché gli algoritmi RL mirano a massimizzare la ricompensa eseguendo un comportamento desiderabile.
+</p>
+<p align="justify">
+Indipendentemente dalla terminologia, le funzioni obiettivo, le funzioni di ricompensa e le funzioni di perdita rispondono tutte allo stesso requisito fondamentale: forniscono un modo per valutare gli output prodotti da un modello di apprendimento automatico.
+</p>
+  </td>
+</table>
+
+<b>Calcolabilità della funzione di perdita</b>
+
+<p align="justify">
+Anche la funzione di perdita deve essere qualcosa che possiamo calcolare rapidamente con un computer. L'esempio del debito non è adatto a questo aspetto perché tutti gli input e gli output necessari non sono prontamente disponibili per un computer. Lavorare di più aumenterà il reddito e quindi ridurrà il debito? Forse, ma come codificheremo il tuo duro lavoro nel computer? Qui, abbiamo il problema che i fattori più critici per ridurre al minimo il debito sono difficili da quantificare, come la disponibilità di un lavoro, l'idoneità a tali lavori, la probabilità di promozione, ecc. Quindi la perdita è specifica, ma gli input che si collegano a tale perdita non sono calcolabili.
+</p>
+
+<p align="justify">
+Un obiettivo migliore e più calcolabile sarebbe prevedere la perdita di un investimento. Le ragioni per cui questo obiettivo è migliore sono sottili. L'obiettivo è comunque oggettivo perché i nostri algoritmi apprendono dai dati storici. Ad esempio, un investimento storico in obbligazioni X e azioni Y ha prodotto rendimenti specifici. Anche gli input sono ora oggettivi: è possibile quantificare la quantità di denaro investita in ciascun investimento. Si investe o si preleva denaro. Non ci sono problemi difficili da codificare come il "duro lavoro" da affrontare. Con una copia dei dati storici, un computer può calcolare rapidamente la perdita/rendimento di un investimento.
+</p>
 
 
+<b>Levigatezza della funzione di perdita</b>
+
+<p align="justify">
+La terza cosa di cui abbiamo bisogno è la fluidità. Molte persone hanno un buon intuito sul significato di fluidità, pensando a una consistenza liscia rispetto a una irregolare. Invece di consistenza, stiamo parlando della fluidità di una funzione, che può essere rappresentata disegnando la funzione stessa come un grafico. Ad esempio, quando si cerca di prevedere una perdita su un investimento, ci si imbatte nel problema che i rendimenti degli investimenti non sono solitamente fluidi. Possono seguire un modello di volatilità in cui i grafici dei prezzi sono frastagliati con variazioni brusche e improvvise. Questo rende difficile l'apprendimento. Un grafico che mostra i valori instabili dei rendimenti degli investimenti nel mondo reale è mostrato nella figura 4.1 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 4.1 I rendimenti degli investimenti non sono facili da prevedere, in parte perché non sono uniformi. (Immagine modificata da [2] sotto licenza Creative Commons
+      </p>
+    </figcaption>
+    
+![CH04_F01_Boozallen](https://github.com/user-attachments/assets/44cb01a9-a789-48e7-89a6-45e497e4510e)
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Il ritorno sull'investimento è un ottimo esempio di perdita negativa (non uniforme), poiché un comportamento irregolare è problematico per qualsiasi approccio predittivo. Sarebbe opportuno essere sempre cauti nei confronti di chiunque o di qualsiasi approccio che affermi di funzionare bene nel prevedere dati non uniformi come questo. Tuttavia, esiste una definizione tecnica precisa di "scorrevole" che, se non soddisfatta da una funzione di perdita, è un duro colpo. Le funzioni che dipendono da discontinuità, o interruzioni nella coerenza dei loro valori, sono le funzioni più comuni che non sono tecnicamente uniformi, ma vorremmo essere in grado di utilizzarle nella pratica. Alcuni esempi di funzioni non uniformi sono mostrati nella figura 4.2 per aiutarvi a comprendere. La scorrevolezza è solitamente inibita da discontinuità, come quella mostrata nel grafico centrale, o da nette variazioni nel valore di una funzione, come mostrato nel grafico a destra.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+      Figura 4.2 Esempi di una funzione regolare a sinistra e di due funzioni non regolari a destra. L'esempio al centro è per lo più regolare, ma una regione non è regolare perché la funzione non ha alcun valore. A destra, la funzione non è regolare in nessun punto a causa della brusca variazione di valore.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="359" alt="CH04_F02_Boozallen" src="https://github.com/user-attachments/assets/c0d8d142-e592-40b5-8fb3-28d353b2e0fd" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Non approfondiremo le definizioni matematiche formali che descrivono cosa rende qualcosa "scorrevole" e quali variazioni di valore sono accettabili o inaccettabili nelle funzioni "scorrevoli". Tuttavia, vi abbiamo fornito sufficienti informazioni di base per comprendere ciò che dovete sapere. La cosa importante da capire è che la vostra intuizione su cosa significhi "scorrevole", ovvero che il valore cambia continuamente, è un buon barometro della fattibilità di una funzione di perdita. Questo può sembrare arbitrario, ma è un problema onnipresente. Supponiamo di voler costruire un modello per prevedere con precisione il cancro. L'accuratezza non è una funzione "scorrevole" perché si conta il numero di previsioni riuscite sul totale delle previsioni. Ad esempio, se avete 50 pazienti e ne avete previsti correttamente 48, una funzione "scorrevole" avrebbe un'opzione per 48,2 casi, 47,921351 casi o qualsiasi numero vi venga in mente. Tuttavia, il conteggio effettivo dei casi di cancro è limitato ai numeri interi 1, 2, 3, \(\ldots\) , 48, 49, 50 perché non esiste un caso parziale di cancro.
+</p>
+
+<table>
+  <td>
+    <h3>Come si gestiscono le perdite non uniformi?</h3>
+    <p align="justify">
+    Può sembrare assurdo che l'accuratezza sia uno degli obiettivi predittivi più comuni, ma non possiamo usarla quando addestriamo un algoritmo. Eppure è così! Quindi, come gestiamo questo strano fenomeno? La risposta è creare un problema proxy . Un problema proxy è un modo alternativo di rappresentare un problema che è correlato a ciò che vogliamo risolvere, ma che si comporta meglio. In questo caso, utilizziamo una funzione di perdita di entropia incrociata invece dell'accuratezza. Anche se non entreremo nei dettagli della perdita di entropia incrociata in questa sede, il suo utilizzo dimostra che i problemi proxy sono trucchi fondamentali utilizzati nell'apprendimento automatico e nell'intelligenza artificiale.
+    </p>
+  </td>
+</table>
+
+<p align="justify">
+Questa discussione ci porta a un altro aspetto fondamentale da considerare riguardo al modo in cui gli LLM apprendono, come accade per la maggior parte degli algoritmi: la tecnica che utilizziamo per addestrarli non è sempre focalizzata su ciò che vogliamo che facciano, ma su ciò che possiamo fargli imparare. Questa focalizzazione può portare a un disallineamento degli incentivi, con conseguenti risultati inaspettati o prestazioni scadenti. Discuteremo di come la natura della funzione di perdita di un LLM crei questo disallineamento degli incentivi dopo aver esaminato la seconda componente principale dell'addestramento: la discesa del gradiente.
+</p>
+
+<h3>4.1.2 Che cosa è la discesa del gradiente?</h3>
+
+<p align="justify">
+Disporre di una funzione di perdita è un prerequisito per eseguire una discesa del gradiente. La funzione di perdita indica oggettivamente quanto male si sta eseguendo il compito. La discesa del gradiente è il processo che utilizziamo per capire come modificare i parametri della rete neurale per ridurre la perdita subita. Questo viene fatto confrontando i dati di addestramento in ingresso e gli output effettivi rispetto a quelli attesi della rete neurale utilizzando la funzione di perdita. In questo caso, il gradiente è la direzione e l'entità di cui è necessario modificare i parametri di una rete neurale per ridurre l'entità dell'errore misurato dalla funzione di perdita. La discesa del gradiente ci mostra come modificare "solo un po'" tutti i parametri di una rete neurale per migliorarne le prestazioni e ridurre la differenza tra gli output attesi e quelli effettivi. Un diagramma di questo processo è mostrato nella figura 4.3 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+      Figura 4.3 Input ed etichette (le risposte corrette note per ciascun input) vengono utilizzati per modificare la rete neurale durante la discesa del gradiente. Una rete è composta da parametri che vengono modificati di poco ogni volta che viene applicata la discesa del gradiente. Alla fine trasformiamo la rete in qualcosa di utile applicando la discesa del gradiente milioni o miliardi di volte.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="728" alt="CH04_F03_Boozallen" src="https://github.com/user-attachments/assets/d72c5bd1-c96f-4a45-9a8d-5c4ef3ae9639" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Come mostra la figura 4.3 , creiamo una nuova rete leggermente diversa ogni volta che applichiamo la discesa del gradiente. Poiché le modifiche sono piccole, questo processo deve essere eseguito miliardi di volte. In questo modo, tutte le piccole modifiche si sommano per creare una modifica più significativa e significativa nella rete complessiva.
+</p>
+
+<p align="justify">
+Nota: i moderni LLM eseguono miliardi di aggiornamenti dei parametri perché sono addestrati su miliardi di token. Più dati si hanno, più volte si esegue la discesa del gradiente. Meno dati si hanno, meno spesso è necessario eseguirla. I dati utilizzati per addestrare un LLM sono più di quanti se ne possano leggere in una vita.
+</p>
+
+<p align="justify">
+La discesa del gradiente è un processo matematico che viene applicato ripetutamente senza deviazioni. Non vi è alcuna garanzia che funzioni o che trovi la soluzione migliore o addirittura valida. Ciononostante, molti ricercatori sono rimasti sorpresi dalla praticità di questo approccio relativamente semplice.
+</p>
+
+<p align="justify">
+Per aiutarvi a comprendere il funzionamento della discesa del gradiente, useremo un semplice esempio: far rotolare una palla lungo una collina. La posizione della palla rappresenta un valore parametrico per un nodo della rete neurale che l'algoritmo di addestramento può modificare. L'altezza della collina rappresenta l'entità della perdita e descrive le scarse prestazioni del modello per l'input di addestramento. Vogliamo far rotolare la palla lungo la collina fino alla valle più profonda perché è l'area con la perdita più bassa, il che indica che il modello sta funzionando al meglio. Un esempio è mostrato nella figura 4.4.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+      Figura 4.4 Questa figura mostra il quadro generale della discesa del gradiente applicata a un problema a parametro singolo. La curva illustra il valore della funzione di perdita per un dato valore del parametro. La posizione della pallina mostra la perdita per il valore corrente del parametro. L'obiettivo è trovare i valori dei parametri corrispondenti a un minimo globale che rappresenti la soluzione ideale con la perdita minima.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="503" alt="CH04_F04_Boozallen" src="https://github.com/user-attachments/assets/83c41fe1-c075-4cec-8b72-cc12af5a167a" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Come potete vedere, la palla potrebbe cadere in molte valli. Nel gergo del settore, questo problema verrebbe definito "non convesso" , perché più percorsi portano a una perdita ridotta, ma ogni percorso non necessariamente progredisce verso la migliore soluzione possibile. È anche importante notare che questa non è un'analogia. La discesa del gradiente guarda letteralmente il mondo in questo modo. Questi esempi mostrano come funziona la discesa del gradiente per un modello con un solo parametro da ottimizzare. La stessa procedura viene applicata a miliardi di parametri durante l'addestramento di un LLM.
+</p>
+
+<p align="justify">
+Da questa posizione, cerchiamo avidamente in quale direzione muovere la palla verso il basso. Applichiamo la discesa del gradiente due volte nella figura 4.5 . Questo mostra che l'opzione avida è a sinistra. Quando ci spostiamo a sinistra modificando il nostro parametro, spostiamo leggermente la palla lungo il pendio. Dal grafico, si può vedere che esiste una soluzione migliore cercando verso destra, ma a causa della semplicità dell'algoritmo, è improbabile che la discesa del gradiente la trovi. Trovare il risultato ottimale in questo caso richiederebbe una strategia più intelligente che coinvolga la ricerca e l'esplorazione, il che è troppo costoso per essere applicato bene nella pratica.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+      Figura 4.5 L'algoritmo di discesa del gradiente adotta misure per regolare i parametri al fine di trovare il risultato ottimale con la perdita minima. Sfortunatamente, l'algoritmo si blocca in un minimo locale, un'area del grafico che non è ottimale perché altri valori dei parametri corrispondono ad aree con una perdita inferiore.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="550" alt="CH04_F05_Boozallen" src="https://github.com/user-attachments/assets/7e55c764-348b-4b60-bdf0-a25d09ef8180" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Si noti inoltre che nel secondo passaggio della figura 4.5 , la pallina si blocca. Sebbene sia evidente che continuando a muoversi verso sinistra si otterrà una perdita ancora inferiore, questo risultato è ovvio solo perché possiamo vedere l'immagine completa. La discesa del gradiente non può vedere l'immagine completa o persino ciò che si trova nelle vicinanze. Conosce solo la posizione esatta grazie ai parametri correnti e alla funzione di perdita. Quindi, è una procedura greedy . Le procedure greedy come la discesa del gradiente sono approcci semplificati con la proprietà desiderata della computabilità, in quanto non sono eccessivamente costose da eseguire più volte per ottenere un risultato. Le procedure greedy sono miopi perché scelgono il passo ottimale successivo basandosi solo sullo stato attuale, sebbene possano esistere soluzioni più ampie e ottimali. Lo fanno perché valutare lo stato attuale e tutti i possibili stati futuri sarebbe impossibile a causa del numero di potenziali risultati da considerare. Sarebbe semplicemente troppo da calcolare. La speranza è che prendere molte semplici decisioni ottimali utilizzando informazioni limitate porti generalmente al risultato più positivo, in questo caso, minimizzando il valore della funzione di perdita.
+</p>
+
+<b>Importanti sfumature nella discesa del gradiente</b>
+
+<p align="justify">
+In questa discussione sulla discesa del gradiente, abbiamo tralasciato alcune sfumature importanti che devono essere considerate per l'uso nel mondo reale. Innanzitutto, come descritto qui, la discesa del gradiente dovrebbe utilizzare tutti i dati di training simultaneamente, il che è computazionalmente irrealizzabile. Utilizziamo invece una procedura chiamata discesa del gradiente stocastica (SGD). La SGD è esattamente la stessa che abbiamo descritto, tranne per il fatto che utilizza un piccolo sottoinsieme casuale dei dati di training invece dell'intero set di dati. Questo riduce drasticamente la memoria necessaria per addestrare il modello, con conseguenti soluzioni più rapide e migliori. Questo metodo funziona perché la discesa del gradiente apporta solo piccole modifiche alla direzione greedy corrente. Si scopre che una piccola quantità di dati è quasi altrettanto efficace che utilizzarli tutti quando si decide quale passo intraprendere. Se si dispone di un miliardo di token, è possibile eseguire un miliardo di passaggi SGD all'incirca nello stesso tempo necessario per eseguire un passaggio standard di discesa del gradiente utilizzando tutti i dati.
+</p>
+
+<p align="justify">
+Molti approcci di training utilizzano una particolare forma di SGD chiamata Adaptive MomentEstimation (Adam). Adam include alcuni trucchi aggiuntivi per aiutare a minimizzare più velocemente la funzione di perdita ed evitare di rimanere bloccati. Il trucco principale di Adam è che fornisce alla palla un certo slancio, che aumenta man mano che gli aggiornamenti si muovono continuamente in una direzione. Questo slancio fa sì che la palla rotoli giù per la collina più velocemente e significa che, se viene raggiunto un piccolo minimo locale, potrebbe esserci abbastanza slancio per superare quel punto e continuare ad avanzare, raggiungendo così l'area del grafico della funzione di perdita con la minore quantità di perdita.
+</p>
+
+<p align="justify">
+Lo svantaggio di Adam è che memorizzare queste informazioni sulla quantità di moto per ciascun parametro aumenta la memoria richiesta per l'addestramento di un fattore tre rispetto al semplice SGD. La memoria è il fattore più critico quando si costruiscono LLM perché spesso determina il numero di GPU necessarie, il che si traduce in denaro speso. Sebbene Adam non renda il modello finale più grande perché si rischia di buttare via i dati relativi ai calcoli aggiuntivi sulla quantità di moto di Adam una volta completato l'addestramento, è comunque necessario un sistema sufficientemente grande per eseguire l'addestramento in primo luogo. La maggiore precisione che deriva dalla capacità di Adam di ridurre al minimo le perdite in modo più efficace ha un prezzo da pagare.
+</p>
+
+<h3>4.2 Gli LLM imparano a imitare il testo umano</h3>
+
+<p align="justify">
+Ora che abbiamo capito come gli algoritmi di deep learning vengono addestrati specificando una funzione di perdita utilizzata con la discesa del gradiente, possiamo discutere come questa viene applicata agli LLM. Nello specifico, ci concentreremo sui dati e sulle funzioni di perdita o ricompensa utilizzate per addestrare gli LLM.
+</p>
+
+<p align="justify">
+Gli LLM sono generalmente addestrati su testi scritti da esseri umani. Nello specifico, sono addestrati esplicitamente a imitare testi prodotti da esseri umani. Sebbene questo possa sembrare un po' ovvio (a cosa altro dovrebbero essere addestrati?), questo dettaglio viene spesso trascurato o confuso con altri aspetti, persino dagli esperti del settore. In particolare, i modelli linguistici non sono addestrati per svolgere nessuna delle seguenti attività:
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+    Memorizzare il testo
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+    Generare nuove idee
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+    Costruisci rappresentazioni del mondo
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+    Produrre un testo fattualmente accurato
+    </p>
+  </li>
+</ul>
+
+<p align="justify">
+È essenziale spiegare ulteriormente questo concetto prima di approfondire. Quando si addestra un modello a giocare a scacchi, il modello impara a giocare bene perché viene ricompensato per la vittoria. Un modello linguistico, al contrario, viene ricompensato solo per la produzione di testo che assomiglia esattamente ai dati di addestramento. Di conseguenza, tutto il testo generato dall'LLM che assomiglia al testo del corpus di addestramento produce ricompense elevate (o perdite basse), anche quando tali generazioni non sono veritiere o fattuali. Questo è un esempio di disallineamento tra la funzione di perdita e l'obiettivo di livello superiore del progettista, come discusso nella sezione 4.1.
+</p>
+
+<p align="justify">
+Gli LLM vengono addestrati su dataset di centinaia di gigabyte di testo estratti da Internet. Internet è noto per contenere una grande quantità di informazioni errate (e strane). Gli LLM che sono più bravi nella maggior parte dei compiti spesso finiscono per essere peggiori in compiti che sono comunemente travisati nei loro dati di addestramento (vedi l'Inverse Scaling Prize su https://github.com/inverse-scaling/prize ). Ad esempio, i ricercatori hanno costantemente scoperto che i modelli linguistici migliori sono anche più bravi a riprodurre conoscenze comuni false [3], imitando stereotipi e pregiudizi sociali [4]. Tendono a cadere in una spirale discendente che rafforza gli errori. Ad esempio, dopo aver generato codice contenente bug, è più probabile che generino codice contenente bug aggiuntivi [5]. Questi elementi sono comunemente rappresentati nel testo di addestramento, quindi gli LLM vengono premiati positivamente per averli previsti, anche se errati. Pertanto, migliorare in base alla sua funzione di perdita per un LLM significa anche peggiorare in questi compiti che richiedono verità e correttezza.
+</p>
+
+<h3>4.2.1 Funzioni di ricompensa LLM</h3>
+
+<p align="justify">
+In precedenza, abbiamo detto che gli LLM vengono premiati per la produzione di dati che "sembrano simili ai propri dati di addestramento". In questa sottosezione, esploreremo più concretamente cosa questo significhi.
+</p>
+
+<p align="justify">
+Gli LLM vengono addestrati mostrando i primi due token di una frase e chiedendo loro di predire il token successivo. La perdita si basa sull'accuratezza di tale previsione rispetto ai dati di addestramento. Ad esempio, potrebbe essere mostrato "Questo è un" e ci si aspetta che produca "test". Se il modello produce "test", ottiene un punto, altrimenti ne perde uno. Questo processo viene eseguito per tutti i segmenti iniziali del testo, come mostrato nella figura 4.6 . Qui, il modello viene addestrato a predire ciascuna delle parole evidenziate in modo indipendente. Questa configurazione non è esclusiva degli LLM. È stata utilizzata per addestrare reti neurali ricorrenti (RNN) per molti anni. Tuttavia, uno dei motivi essenziali per cui gli LLM sono diventati così popolari è che possono essere addestrati in modo molto più efficiente di una RNN. Una RNN deve essere addestrata su ogni generazione in modo sequenziale, poiché ogni nuova parola generata dipende dalle parole scelte in precedenza. Un LLM può essere addestrato su tutte le generazioni in parallelo grazie all'architettura del trasformatore discussa nel capitolo 3. La possibilità di addestrare un modello su generazioni correlate in parallelo rappresenta un'accelerazione enorme, consentendo l'addestramento su larga scala ed è un prerequisito per la creazione degli LLM all'avanguardia di oggi utilizzando terabyte di dati.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+      Figura 4.6 Un LLM vede questa frase nove volte, ogni volta imparando dalla previsione di una singola parola alla fine di ciascuna delle nove sequenze.
+      </p>
+    </figcaption>
+    
+![CH04_F06_Boozallen](https://github.com/user-attachments/assets/bfd9adfd-1971-4630-8a08-2990d7be4ca9)
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Abbiamo discusso di come la previsione del token successivo possa essere problematica perché l'algoritmo potrebbe essere incentivato a produrre output errati o fattualmente errati. Dobbiamo anche discutere l'intuizione alla base del perché, nonostante ciò, questo approccio possa produrre output così convincenti. È ragionevole chiedersi: come può un algoritmo addestrato per creare il token più probabile successivo eseguire apparentemente qualcosa che potremmo scambiare per ragionamento?
+</p>
+
+<p align="justify">
+Per sviluppare questa intuizione, immagina come potresti provare a predire il token successivo per una data frase. Un computer non ha alcuna pressione per rispondere rapidamente, quindi prenditi il tuo tempo. Considera la frase "Adoro mangiare <spazio vuoto>" e prova a indovinare quale parola potrebbe essere inserita nello "spazio vuoto". Le parti iniziali della frase ti forniscono un contesto prezioso. Dato che stiamo parlando di mangiare, puoi quasi immediatamente restringere l'ambito a un alimento. Tenere un elenco di tutti i possibili alimenti non è difficile per un computer.
+</p>
+  
+<p align="justify">
+Ora, se consideriamo il background degli autori di questo libro, avremo ancora più contesto. Siamo americani e viviamo in un'area geografica comune, il che rende più probabile la presenza di cucine specifiche rispetto ad altre. Un LLM non avrà questo background, ma se la frase fosse più lunga e avesse più contesto, potremmo iniziare a restringere le scelte come mostrato nella figura 4.7 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+      Figura 4.7 Il contesto può aiutarti a fare previsioni attendibili sulla parola successiva. Spostandoti da sinistra a destra, viene aggiunto testo aggiuntivo che potrebbe comparire in una frase. Le immagini nel fumetto di ogni frase mostrano come il contesto aggiunto elimini le previsioni.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="171" alt="CH04_F07_Boozallen" src="https://github.com/user-attachments/assets/66f3ffb3-ffc4-4b6f-9360-53a9306e4202" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Identificando parole chiave o frasi nel testo precedente, è possibile ottenere informazioni sulla parola migliore da predire in seguito. Un computer che esegue questi calcoli esegue molte più elaborazioni di quanto un essere umano richieda. Questo tipo di associazione basata sulla forza bruta limita sostanzialmente l'ambito a qualcosa di molto ragionevole. Ancora una volta, il modello verrà aggiornato miliardi di volte per perfezionare queste associazioni e acquisire così una capacità utile correlata ai nostri obiettivi di un algoritmo in grado di comprendere e reagire al testo umano.
+</p>
+
+<p align="justify">
+Tuttavia, correlazione non è causalità e la strategia di predizione della parola successiva può portare a errori umoristici. Gli LLM sono suscettibili all'errore di "petizione di principio", in cui la premessa della domanda implica qualcosa di falso. Poiché l'LLM non è addestrato per l'accuratezza o la contraddizione, tenta di produrre una sequenza di previsioni testuali di tipo umano che potrebbero seguire la tua domanda fuorviante. Un esempio di ChatGPT alle prese con questo tipo di problema è mostrato nella figura 4.8 , dove ci interroghiamo sull'eccezionale resistenza degli spaghetti secchi.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+      Figura 4.8 Sebbene la previsione del token successivo sia potente, non fornisce alla rete capacità di ragionamento o logica. Se chiediamo a ChatGPT qualcosa di assurdo e falso, spiega volentieri come accade.
+      </p>
+    </figcaption>
+    
+![CH04_F08_Boozallen](https://github.com/user-attachments/assets/a52715af-4e7f-4a4c-b7ad-87d6dd8dff1c)
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Il motivo per cui gli spaghetti possono sostenere un peso centinaia di volte superiore al loro è assurdo e falso. Tuttavia, l'algoritmo è stato predisposto per fornire una risposta sulla resistenza alla trazione del materiale formattando la domanda: "Perché X è così resistente?". Il modello può estrarre questo contesto chiave. I dati di training precedenti probabilmente spiegano tali proprietà del materiale sulla base di una domanda fattuale, che informa il modello prevedendo che una risposta simile sia appropriata. Il soggetto della frase (spaghetti) e l'oggetto (peso di 10 libbre) vengono utilizzati per fornire dettagli minori della risposta, che altrimenti è generica.
+</p>
+
+<h3>4.3 LLM e nuovi compiti</h3>
+
+<p align="justify">
+La natura della strategia autoregressiva di previsione della parola successiva e il suo utilizzo come perdita o ricompensa durante il processo di formazione ci fornisce preziose informazioni sulla natura delle risposte generate da un LLM e su come possano essere potenzialmente inaccurate dal punto di vista fattuale. Tuttavia, ci mostra anche perché gli LLM possono essere efficaci per la ricerca di informazioni, in quanto ricerca per parole chiave molto più potente di un motore di ricerca standard. Esistono modi per aggirare i limiti delle risposte non fattuali. Ad esempio, molti approcci LLM aggiungono citazioni all'output generato in modo che sia possibile verificare rapidamente che il contenuto utilizzato per produrre il testo generato sia stato accurato dal punto di vista fattuale. Un LLM può anche essere una preziosa cassa di risonanza, uno pseudo-partner con cui scambiare idee come fonte di ispirazione e creatività. Fondamentalmente, questo aiuta anche a comprendere un caso chiave in cui è meglio evitare gli LLM perché saranno più propensi a generare errori: problemi e compiti nuovi.
+</p>
+
+<p align="justify">
+Gli LLM generalmente non sono bravi a svolgere compiti nuovi. Capire se il tuo compito è nuovo può essere piuttosto impegnativo, dato che Internet è strano. Esistono tonnellate di cose casuali su Internet, inclusi concorsi su come disegnare anatre e unicorni in modo programmatico [6]. Se il compito è sufficientemente simile a uno già visto in precedenza o strutturalmente simile ad altri elementi nei dati di addestramento, potresti ottenere qualcosa di apparentemente ragionevole. Questo risultato può essere estremamente utile, ma può peggiorare man mano che il tuo compito diventa più unico rispetto a ciò che esiste nei dati di addestramento.
+</p>
+
+<p align="justify">
+Ad esempio, abbiamo chiesto a ChatGPT di scrivere codice che calcolasse la costante matematica \(\pi\) (pi greco) in Python. Questo compito non è nuovo; online esistono tonnellate di codice simile e ChatGPT ci restituisce fedelmente il codice corretto.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    
+<img width="492" height="183" alt="image" src="https://github.com/user-attachments/assets/705f0021-e930-4b3b-b52f-3c67f67f341a" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Ora forziamo ChatGPT a fare un'estrapolazione non particolarmente impegnativa. Abbiamo chiesto a ChatGPT di tradurre questa funzione nel linguaggio di programmazione Modula-3. Questo compito non è un'estrapolazione troppo impegnativa; Modula-3 è un linguaggio di programmazione con uno stile simile e un linguaggio di programmazione storicamente significativo che ha influenzato la progettazione finale di quasi tutti i linguaggi di programmazione più popolari oggi! Tuttavia, è eccessivamente esoterico. Oggi si possono trovare pochissimi esempi di questo linguaggio di programmazione, principalmente nel contesto delle classi dei compilatori universitari. Il seguente elenco mostra il ragionevole tentativo di ChatGPT. Come avrete potuto prevedere dal contesto di questo capitolo finora, ChatGPT ha commesso alcuni errori, evidenziati nell'elenco.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    
+<img width="490" height="292" alt="image" src="https://github.com/user-attachments/assets/147221a8-e316-45f2-839f-0a8464c12ad3" />
+
+  </figure>
+</div>
+  </td>
+</table>
 
 
+<p align="justify">
+Questo breve programma presenta tre errori che ne impedirebbero il funzionamento. È ancora più interessante che ChatGPT li sbagli perché estrapola con sicurezza le pratiche di programmazione standard di altri linguaggi. (In questo caso, con sicurezza significa che ChatGPT non ci avvisa dei suoi potenziali errori. Uno degli autori ama dire che ChatGPT sembra il loro amico più presuntuoso e spesso inesatto.) In questo caso, **è una funzione di elevamento a potenza comunemente usata, quindi ChatGPT decide che Modula-3 supporta questa operazione. Per quanto possiamo dedurre dalle ricerche su Internet, Modula-3 non ha esempi documentati di come elevare a potenza una variabile. Poiché la maggior parte dei linguaggi di programmazione supporta questa azione con un'opzione ^, **, o pow(), ChatGPT ne estrapola semplicemente una. La risposta corretta sarebbe che deve prima implementare una powfunzione e poi usarla per calcolare pi greco.
+</p>
+
+<p align="justify">
+Un altro mistero sono gli argomenti forniti alla PutRealfunzione. La nostra ipotesi migliore è che 15corrisponda a un'estrapolazione della stampa di 15 cifre di un valore in virgola mobile, un'impostazione predefinita tipica per il calcolo di pi greco. In ogni caso, non è così che funziona quella funzione.
+</p>
+
+<p align="justify">
+Il punto più significativo è che ChatGPT coglie correttamente alcuni dettagli, ma solo per le parti che si trovano su Internet e sono già spiegate (ad esempio, FLOAT(i)è richiesto, come sta facendo 4.0 * piinvece di 4 * pi). Le attività senza esempi su Internet sono quelle in cui ChatGPT commette errori.
+</p>
+
+<p align="justify">
+Questo esempio evidenzia anche i limiti del "ragionamento" percepito rispetto a quello effettivo negli attuali LLM. La specifica completa del linguaggio per Modula-3 è disponibile online e ha documentato tutti questi dettagli o la loro assenza. ChatGPT ha quasi sicuramente esaminato molte altre specifiche di linguaggi di programmazione, specifiche di parser e milioni di righe di codice nei linguaggi di programmazione più comuni. Se una persona avesse queste conoscenze di base e risorse, eseguire l'induzione logica necessaria per evitare tutti e tre gli errori non dovrebbe essere troppo impegnativo. Tuttavia, l'LLM non esegue alcun processo di induzione e, quindi, commette errori nonostante l'ampiezza delle informazioni disponibili.
+</p>
+
+<p align="justify">
+Ciò non significa che il risultato non sia di grande impatto, e che possa rivelarsi uno strumento prezioso per accelerare lo sviluppo del proprio codice o l'utilizzo di API e linguaggi non familiari. Tuttavia, dimostra anche che tali strumenti funzioneranno molto meglio con linguaggi e API ampiamente utilizzati e documentati, soprattutto se conformi agli standard previsti. Ad esempio, la maggior parte dei database utilizza il linguaggio SQL, il che rende più probabile un'estrapolazione accurata di come utilizzare un nuovo database che utilizza anch'esso SQL.
+</p>
+
+<h3>4.3.1 Mancata identificazione del compito corretto</h3>
+
+<p align="justify">
+Un altro caso degno di nota in cui gli LLM falliscono è quando non riescono a identificare correttamente il compito che dovrebbero svolgere e invece rispondono a una domanda diversa da quella intesa dall'utente. L'incapacità di identificare correttamente il compito rappresentava un problema sostanziale per modelli come il GPT-3 originale, ma il lavoro successivo volto ad aumentare il numero di esempi strutturati per compito nei dati di addestramento ha notevolmente migliorato la capacità dei modelli ChatGPT successivi di seguire le istruzioni. Tuttavia, in alcuni casi, ChatGPT continua a non riuscire a identificare il compito corretto. Ad esempio, questo comportamento può essere ottenuto in modo affidabile chiedendo informazioni su un compito insolito, leggermente diverso da un compito comune, o modificando un problema che ha già incontrato molte volte in modo non familiare.
+</p>
+
+<p align="justify">
+Un esempio è un famoso enigma logico che riguarda il trasporto di un cavolo, una capra e un lupo attraverso un fiume in barca. L'enigma stabilisce che la capra non può essere lasciata sola con il cavolo (perché la capra lo mangerebbe) o con il lupo (che divorerebbe la capra). ChatGPT può risolvere rapidamente questo enigma, ma se modifichiamo leggermente la struttura logica dell'enigma, il modello continua a utilizzare il vecchio ragionamento, come mostrato nella figura 4.9 .
+</p>
+
+<p align="justify">
+Sebbene sia spesso difficile ricondurre gli errori commessi dagli LLM a cause specifiche, in questo caso il modello ci dice allegramente di "assicurarci che nessuno degli elementi (cavolo, capra, lupo) venga lasciato insieme senza supervisione". Sebbene questa istruzione sia corretta nella versione originale del problema cavolo/capra/lupo (e probabilmente si basasse sulla specifica dei vincoli nel problema logico), il modello non sa che la versione data non presenta problemi con la capra e il lupo che si trovano insieme da soli. Non solo non è necessario scambiare gli animali come suggerito, ma il consiglio di ChatGPT fallirà perché posiziona il lupo e il cavolo insieme, cosa che abbiamo esplicitamente vietato.
+</p>
+
+<p align="justify">
+Un altro curioso esempio di questo fenomeno si verifica quando si elimina la necessità di lasciare qualcosa indietro. Qualsiasi comprensione logica del puzzle chiarisce che è sufficiente caricare tutto sulla barca e attraversare. Ancora una volta, il modello è troppo abituato a rispondere alla versione del problema che ha già visto molte volte e lo fa.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+      Figura 4.9 ChatGPT non riesce a risolvere due versioni modificate di un classico enigma logico a causa del modo in cui vengono addestrati i LLM. Il contenuto che ricorre frequentemente nella stessa forma generale (ad esempio, un famoso enigma logico) induce il modello a riproporre la risposta frequente. Questo può accadere anche quando il contenuto viene modificato in modi importanti e ovvi per una persona.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="644" alt="CH04_F09_Boozallen" src="https://github.com/user-attachments/assets/c3a7ae03-d341-4cdd-ab2f-49069dcc22ab" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Per comprendere perché ciò accada, è importante ricordare la natura autoregressiva della formazione LLM discussa nel capitolo 3. Il modello è esplicitamente incentivato a generare contenuti basati su contenuti precedenti. Il contenuto generato per risolvere il puzzle logico riformulato appare quasi esattamente uguale al contenuto che risolve il puzzle logico originale in termini di parole e ordine. Di conseguenza, è una buona corrispondenza fuzzy nella query e nell'abbinamento delle chiavi del livello di trasformazione a produrre i valori che compongono la soluzione del puzzle originale. La corrispondenza fuzzy viene effettuata e la soluzione precedente viene restituita fedelmente tramite il meccanismo di attenzione utilizzato dai trasformatori. Sebbene questa strategia sia eccellente per il modello per prevedere correttamente i token per il famoso puzzle, non implica il ragionamento attraverso la logica del puzzle.
+</p>
+
+<h3>4.3.2 Gli LLM non possono pianificare</h3>
+
+<p align="justify">
+Un altro sottile limite della natura autoregressiva degli LLM è che possono lavorare solo con le informazioni che vedono nel contesto. Gli LLM sono addestrati a ricevere un input e produrre una continuazione plausibile. Tuttavia, non possono pianificare, prendere impegni o tracciare stati interni. Un ottimo esempio si verifica quando si tenta di giocare al gioco "20 domande" con ChatGPT. Quando un essere umano gioca a 20 domande, si impegna preventivamente a un'informazione nascosta, l'oggetto che ha scelto di identificare tramite le risposte. Quando ChatGPT gioca a questo gioco, risponde alle domande individualmente e poi, a posteriori, trova un output coerente con le risposte fornite. Questo esempio è illustrato nella figura 4.10 , che mostra possibili alberi di dialogo per giocare a 20 domande. Quando qualcuno gioca a un gioco con un LLM, uno di questi alberi di dialogo viene scelto casualmente invece di trovare un oggetto target che rimanga coerente per tutta la partita.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+      Figura 4.10 L'agente di dialogo non si impegna su un oggetto specifico all'inizio del gioco.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="538" alt="CH04_F10_Boozallen" src="https://github.com/user-attachments/assets/74b3a302-debe-407f-af72-7affb9b88363" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<h3>4.4 Se gli LLM non riescono a estrapolare bene, posso utilizzarli?</h3>
+
+<p align="justify">
+La maggior parte del lavoro da svolgere non è né nuovo né innovativo. Almeno, non è così nuovo o innovativo da far fallire un LLM. Tuttavia, comprendere che le capacità di un LLM peggiorano rapidamente man mano che è richiesta maggiore logica o sottigliezza può aiutare a restringere l'ambito di utilizzo.
+</p>
+
+<p align="justify">
+Quando progettiamo sistemi informatici di livello produttivo, un fattore essenziale da considerare è l'ambito di utilizzo dello strumento. Quando si rende disponibile un prodotto LLM come ChatGPT a un pubblico generico senza un ambito specifico, le persone gli chiederanno di fare ogni sorta di cose casuali e folli inaspettate. Sebbene questo possa essere ottimo per la ricerca, spesso non è pratico per le applicazioni di produzione. Sebbene i vostri utenti e clienti cercheranno di fare cose imprevedibili con la vostra applicazione LLM, supponete di limitare l'accesso al sistema e di progettare in modo che i vostri utenti abbiano un obiettivo specifico, casi d'uso limitati o persino limitino il modo in cui i loro input arrivano al vostro LLM. In tal caso, potete creare qualcosa con un'esperienza utente molto più affidabile.
+</p>
+
+<table align="center">
+  <td>
+    <h3>Come posso utilizzare un LLM senza l'input dell'utente?</h3>
+    <p align="justify">
+Gli LLM sono eccellenti nel fornire codifica o elaborazione dati a basso sforzo, soprattutto quando si svolgono attività quotidiane su dati non formattati o curati in modo così pulito. Tuttavia, è possibile ottenere utilità senza troppi rischi offrendo agli utenti un insieme finito di scelte. Avere un insieme limitato di prompt come codice tra cui un utente può scegliere o lasciare che sia l'utente a decidere su quale fonte dati (ad esempio, un database interno) eseguire un prompt consente di evitare che (la maggior parte) delle persone fornisca a un LLM testo arbitrario.
+  </p>
+  </td>
+</table>
+
+<p align="justify">
+Potreste invece chiedervi: "Possiamo rilevare nuove richieste e segnalare all'utente un errore?". Ipoteticamente, sì, potreste provare a farlo. Innanzitutto, lo sconsigliamo perché non è ottimale dal punto di vista dell'esperienza utente. In secondo luogo, diventa un'attività nota come rilevamento di novità o rilevamento di valori anomali . Questo problema è impegnativo ed è probabilmente impossibile da risolvere in modo da garantire l'assenza di errori. Di conseguenza, incoraggiamo la prevenzione rispetto al rilevamento, scegliendo casi d'uso che non richiedono una previsione altamente accurata dei guasti attraverso l'analisi di input o output LLM.
+</p>
+
+<table align="center">
+  <td>
+    <h3>Applicazioni per sollecitare</h3>
+    <p align="justify">
+    Il prompting è l'arte di elaborare un input per un ampio modello linguistico che induca un comportamento desiderabile. I modelli linguistici possono essere molto sensibili all'esatta inquadratura dei loro input, rendendo la capacità di progettare input a cui venga data una risposta appropriata molto preziosa. Un tema ricorrente nell'uso degli LLM è che le persone in genere non pensano a come interagire correttamente con essi. Il modo migliore per sollecitare un LLM è pensare a come apparirebbe il tipo di output a cui si è interessati nei dati di addestramento e poi scriverne il primo quarto. Invece, le persone spesso descrivono il compito che desiderano che un modello linguistico svolga, dando per scontato che questa chiarificazione manterrà l'LLM concentrato sul problema. Sfortunatamente, questo approccio produce risultati incoerenti e ha ispirato la ricerca sull'ottimizzazione degli LLM fornendo loro un gran numero di istruzioni e risposte come dati di addestramento.
+  </p>
+  </td>
+</table>
+
+<h3>4.5 Più grande è meglio?</h3>
+
+<p align="justify">
+Nel 2019, Rich Sutton ha coniato il termine “la lezione amara” per descrivere la sua esperienza con l’apprendimento automatico. “La lezione più importante che si può trarre da 70 anni di ricerca sull’intelligenza artificiale è che i metodi generali che sfruttano il calcolo sono in definitiva i più efficaci, e con un ampio margine” [7].
+</p>
+
+<p align="justify">
+C'è la genuina sensazione che i trasformatori siano l'esempio per eccellenza di questo principio. È possibile continuare a ingrandirli, addestrarli con maggiore parallelismo e aggiungere più GPU. Questo differisce notevolmente dalle reti neurali reticolari (RNN), che non possono essere parallelizzate con la stessa efficienza di un trasformatore. Lo osserviamo anche nel dominio delle immagini con i metodi GAN (Generative Adversarial Network), che faticano a raggiungere la scala del miliardo di parametri. I metodi basati sui trasformatori utilizzati negli LLM scalano facilmente fino a decine di miliardi, consentendo la costruzione di modelli più grandi e migliori.
+</p>
+
+<p align="justify">
+Dal punto di vista della progettazione di soluzioni, il vostro prototipo attuale potrebbe incontrare vincoli significativi dovuti alle dimensioni del modello. Modelli più grandi richiedono più risorse e impiegano più tempo per effettuare previsioni. Qual è il tempo di risposta massimo che i vostri utenti accetteranno? Quanto è costoso l'hardware necessario per eseguire il vostro modello a questa velocità? Il tasso di crescita delle dimensioni del modello supera il tasso di crescita dell'hardware consumer. Di conseguenza, potreste non essere in grado di distribuire il vostro modello su dispositivi embedded o potreste aver bisogno di una connettività Internet per ridurre i costi. Di conseguenza, dovete considerare l'infrastruttura di rete nella vostra progettazione per gestire la necessità di una connessione continua. Questo requisito aumenta il consumo di batteria, un fattore da considerare quando si utilizza continuamente una radio Wi-Fi anziché un'elaborazione locale. Pertanto, sebbene i modelli più grandi siano più accurati, i vincoli di progettazione potrebbero impedirne l'implementazione pratica. Combinando questi vincoli con le nozioni su come gli LLM effettuano le loro previsioni e i casi d'uso di quando e dove gli LLM falliscono, appresi in questo capitolo, sarete in grado di comprendere come utilizzare gli LLM per risolvere i problemi che vi interessano nel modo più efficace.
+</p>
+
+<h3>Riepilogo</h3>
+<ul>
+  <li>
+  <p align="justify">
+  L'apprendimento profondo necessita di una funzione perdita/ricompensa che quantifichi specificamente quanto un algoritmo sia incapace di fare previsioni
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+  Questa funzione perdita/ricompensa dovrebbe essere progettata per essere correlata all'obiettivo generale di ciò che vogliamo che l'algoritmo realizzi nella vita reale.
+  </p>
+  </li>
+    <li>
+  <p align="justify">
+  La discesa del gradiente comporta l'utilizzo incrementale di una funzione perdita/ricompensa per modificare i parametri della rete.
+  </p>
+  </li>
+    <li>
+  <p align="justify">
+  Gli LLM sono addestrati a imitare il testo umano prevedendo il token successivo. Questo compito è sufficientemente specifico da consentire l'addestramento di un modello per eseguirlo, ma non è perfettamente correlato a obiettivi di alto livello come il ragionamento.
+  </p>
+  </li>
+    <li>
+  <p align="justify">
+  Gli LLM daranno il massimo delle loro prestazioni su compiti simili a quelli comuni e ripetitivi osservati nei dati di addestramento, ma falliranno quando il compito è sufficientemente nuovo.
+  </p>
+  </li>
+</ul>
