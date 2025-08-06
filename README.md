@@ -2044,3 +2044,734 @@ Dal punto di vista della progettazione di soluzioni, il vostro prototipo attuale
   </p>
   </li>
 </ul>
+
+<h2>5 Come possiamo limitare il comportamento degli LLM?</h2>
+
+<table>
+  <td>
+    <h3>Questo capitolo copre</h3>
+    <ul>
+      <li>
+      <p align="justify">
+Limitare il comportamento degli LLM per renderli più utili
+      </p>
+      </li>
+      <li>
+      <p align="justify">
+Le quattro aree in cui possiamo limitare il comportamento LLM
+      </p>
+      </li>
+      <li>
+      <p align="justify">
+Come la messa a punto ci consente di aggiornare gli LLM
+      </p>
+      </li>
+      <li>
+      <p align="justify">
+Come l'apprendimento per rinforzo può cambiare l'output degli LLM
+      </p>
+      </li>
+      <li>
+      <p align="justify">
+Modifica degli input di un LLM utilizzando la generazione aumentata del recupero
+      </p>
+      </li>
+    </ul>
+  </td>
+</table>
+
+<p align="justify">
+Potrebbe sembrare controintuitivo pensare di poter rendere un modello più utile controllando l'output che il modello è autorizzato a produrre, ma è quasi sempre necessario quando si lavora con gli LLM. Questo controllo è reso necessario dal fatto che, quando gli viene presentato un prompt di testo arbitrario, un LLM tenterà di generare quella che ritiene essere una risposta appropriata, indipendentemente dall'uso previsto. Si consideri un chatbot che aiuta un cliente ad acquistare un'auto: non si vuole che l'LLM esca dal copione e parli di atletica o sport solo perché ha chiesto qualcosa relativo all'uso del veicolo per le partite di calcio dei figli.
+</p>
+
+<p align="justify">
+In questo capitolo, discuteremo più in dettaglio perché si desidera limitare, o vincolare, l'output prodotto da un LLM e le sfumature associate a tali vincoli. Vincolare accuratamente un LLM è una delle cose più difficili da realizzare a causa della natura del modo in cui gli LLM vengono addestrati a completare l'input in base a ciò che osservano nei dati di addestramento. Attualmente, non esistono soluzioni perfette. Discuteremo i quattro potenziali ambiti in cui il comportamento di un LLM può essere modificato:
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+Prima che avvenga la formazione, curare i dati utilizzati per addestrare l'LLM
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Modificando il modo in cui viene impartito l'LLM
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Ottimizzando l'LLM su un set di dati
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Scrivendo un codice speciale dopo il completamento dell'addestramento per controllare gli output del modello
+    </p>
+  </li>
+</ul>
+
+<p align="justify">
+Questi quattro casi sono riassunti nella figura 5.1 . Ogni fase di sviluppo di un LLM alimenta la successiva. La fase di fine-tuning, un secondo ciclo di addestramento eseguito su un set di dati più piccolo, è la più importante per il funzionamento attuale di strumenti come ChatGPT e l'approccio più probabile da utilizzare nella pratica. La prima fase di addestramento, più ampia, di cui abbiamo parlato nei capitoli da 2 a 4, è spesso definita pre-addestramento , perché avviene prima che la messa a punto renda il modello utile. Il modello prodotto dal processo di pre-addestramento è talvolta definito modello di base o modello di fondazione , perché rappresenta il punto di partenza per costruire un modello specifico per un'attività, o perfezionato.
+</p>
+
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 5.1 È possibile intervenire per modificare o limitare il comportamento di un LLM in quattro punti. Le due fasi di addestramento del modello sono mostrate al centro del diagramma, dove vengono modificati i parametri del modello. A sinistra, è anche possibile modificare i dati di addestramento prima dell'addestramento del modello. A destra, è possibile intercettare gli output del modello dopo l'addestramento e scrivere codice per gestire situazioni specifiche.        
+      </p>
+    </figcaption>
+    
+<img width="1100" height="432" alt="CH05_F01_Boozallen" src="https://github.com/user-attachments/assets/afbbd0f1-300d-4cfb-bef0-43385289c6b1" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Data l'importanza e l'efficacia della messa a punto fine, dedicheremo la maggior parte del capitolo a questo fattore e a come può essere eseguito.
+</p>
+
+<h3>5.1 Perché vogliamo limitare il comportamento?</h3>
+
+<p align="justify">
+Gli LLM hanno un successo incredibile perché sono la prima tecnologia a realizzare l'idea di "Dire a un computer cosa fare in parole semplici, e lui lo fa". Essendo molto espliciti su ciò che si desidera che accada, stabilendo un livello di dettaglio specifico e specificando un certo tono, è possibile rendere un LLM uno strumento incredibilmente efficace. Questo insieme dettagliato di istruzioni è chiamato prompt , e l'arte di progettare un buon prompt è stata definita " ingegneria dei prompt" . Ad esempio, potremmo sviluppare un prompt per un bot che vende auto, come mostrato nella figura 5.2 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 5.2 Gli LLM commerciali come ChatGPT sono progettati per seguire le istruzioni (entro certi limiti) e possono svolgere molti compiti a basso livello cognitivo o di pattern matching con un'efficacia molto elevata. Questi compiti includono la scrittura stilizzata, come il pattern matching, e il seguire le istruzioni, come il gioco di ruolo di un venditore di automobili.        
+      </p>
+    </figcaption>
+    
+![CH05_F02_Boozallen](https://github.com/user-attachments/assets/59962c53-2bfc-48e9-a593-6b06a8687953)
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Si potrebbe fornire a un LLM un prompt su come organizzare i dati in valori separati da virgole, in modo da poterli copiare in Excel. Si potrebbe progettare un prompt su come categorizzare le risposte a un sondaggio in forma libera in temi riassuntivi. In tutti i casi, il prompt è un esercizio per limitare, o vincolare, il comportamento a un compito specifico e a un insieme di obiettivi. Tuttavia, le tecniche di tokenizzazione e di addestramento che abbiamo discusso nei capitoli precedenti non consentono questo tipo di istruzione.
+</p>
+
+<p align="justify">
+Ricordare che i modelli fanno ciò per cui sono stati addestrati è essenziale. Nel caso di un LLM standard, il compito consiste nel prendere un brano di testo e generare una continuazione di quel documento che assomigli a un tipico brano del corpus di addestramento con l'inizio fornito. Non è addestrato a rispondere a domande, pensare, riassumere il testo, sostenere una conversazione o altro. Per ottenere questo comportamento desiderabile di "istruzioni in sequenza", dobbiamo eseguire un fine-tuning, un secondo ciclo di addestramento con obiettivi diversi che produrranno il comportamento desiderato. Potreste chiedervi: "Perché non addestriamo gli LLM per il compito che vogliamo che svolgano?". Nella maggior parte delle applicazioni di deep learning, consigliamo vivamente di seguire il processo definito nel capitolo 4 per creare una funzione di perdita specifica, calcolabile e fluida. Tuttavia, per i tipi di compiti in cui gli LLM sono bravi, ci sono molte ragioni per cui questo processo di addestramento in due fasi funziona bene.
+</p>
+
+<p align="justify">
+Il primo motivo riguarda l'ampiezza delle conoscenze necessarie per raggiungere obiettivi specifici. Ripensiamo al compito di un chatbot che vende un'auto. Se vogliamo costruire un modello che venda auto con successo, sarebbe fantastico costruire un set di dati composto solo da dati rilevanti per l'auto. Ma quando il potenziale acquirente vuole sapere se l'auto può contenere tutta l'attrezzatura necessaria per un giocatore di hockey, quanto sarà facile da pulire, se sarà possibile per il nonno artritico salire e scendere dai sedili del passeggero, o qualsiasi altra possibile domanda che qualcuno potrebbe avere su come la sua auto interagisce con la sua vita, ci si trova di fronte al problema di enumerare tutte le possibili domande che si potrebbero ricevere sulle auto. Non è possibile ottenere tutte le informazioni necessarie per generare risposte per ogni possibile situazione. Invece, ci affidiamo ai processi di formazione di cui abbiamo parlato finora, che possono essere considerati pre-formazione, per acquisire informazioni da un'ampia raccolta di contenuti con testi su sport, artrite, ecc. Ci auguriamo che queste informazioni aiutino il modello a essere meglio preparato o genericamente utile per rispondere a domande più ampie.
+</p>
+
+<p align="justify">
+Questo è il secondo e principale motivo per cui utilizziamo un processo di addestramento in due fasi: ottenere centinaia di milioni di documenti che descrivono un problema specifico da utilizzare come parte della fase di pre-addestramento sarebbe impossibile. Allo stato attuale delle conoscenze, questa scala massiccia è necessaria per creare le straordinarie capacità osservate in GPT. Tuttavia, con uno sforzo relativamente minimo, è possibile pre-addestrare centinaia di milioni di informazioni generali, come pagine web, per impartire ai modelli conoscenze generali. Successivamente, è spesso sufficiente perfezionare il modello con solo centinaia di documenti per vincolarlo a produrre qualcosa di utilmente adattato al compito da svolgere. Ottenere poche centinaia di documenti per un problema specifico può essere impegnativo, ma realizzabile.
+</p>
+
+<p align="justify">
+Ad alto livello, una seconda fase di addestramento di fine-tuning può aiutare a limitare un LLM a un sottoinsieme di comportamenti utili, poiché il modello originale non è incentivato a fare ciò che desideriamo. Nelle sezioni seguenti, presenteremo esempi concreti dei diversi problemi che emergono con i modelli di base, che renderanno evidenti le ragioni per cui questo funziona.
+</p>
+
+<h3>5.1.1 I modelli base non sono molto utilizzabili</h3>
+
+<p align="justify">
+L'addestramento di un LLM seguendo il processo descritto nel capitolo 4 produce un modello, solitamente definito modello base , perché può fungere da piattaforma di base per la creazione di applicazioni o modelli perfezionati. Sfortunatamente, i modelli base non sono molto utili alla maggior parte delle persone perché non espongono le conoscenze di base tramite un'interfaccia utente intuitiva, possono essere difficili da mantenere in tema e a volte producono contenuti poco convincenti. I modelli base non sono nemmeno addestrati con il concetto di chatbot come ChatGPT.
+</p>
+
+<h3>5.1.2 Non tutti gli output del modello sono desiderabili</h3>
+
+<p align="justify">
+A volte, ciò che un modello ritiene probabile che accada in un documento non è auspicabile. Le ragioni sono diverse, tra cui:
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+Memorizzazione — A volte, gli LLM possono generare copie lunghe ed esatte di sequenze presenti nei loro dati di training, un processo spesso definito memorizzazione , che si riferisce all'idea che il testo venga riprodotto a memoria dal set di training. La memorizzazione può essere utile, ad esempio per memorizzare le risposte a specifiche domande fattuali. Ad esempio, se qualcuno chiede: "Quando è nato Abraham Lincoln?", si desidera che il modello ripeta "12 febbraio 1809". Tuttavia, può anche essere sostanzialmente dannoso se porta un modello a violare il copyright. Se qualcuno chiede "Una copia di Inside Deep Learning di Edward Raff" e il modello ne produce una copia letterale, Edward potrebbe arrabbiarsi con voi per violazione del copyright!      
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Cose negative sul web — Non tutto ciò che si trova su internet è qualcosa a cui si vorrebbe esporre un utente. Ci sono molti contenuti vili e incitanti all'odio su internet, così come informazioni fattualmente errate che vanno da idee sbagliate comuni a teorie del complotto. Sebbene gli sviluppatori di modelli cerchino spesso di filtrare questi dati prima di addestrare il modello, ciò non è sempre possibile.    
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Informazioni mancanti e nuove — Sfortunatamente, il mondo continua a evolversi e a diventare più complesso dopo aver addestrato i nostri modelli. Quindi, un modello addestrato su informazioni fino al 2018 non saprà nulla di ciò che è accaduto dopo, come il COVID-19 o l'invenzione da incubo della necrobotica [1]. Ma potresti voler che il tuo modello sia a conoscenza di questi sviluppi per rimanere utile, senza dover pagare un costo considerevole per riaddestrare il modello di base da zero. 
+    </p>
+  </li>
+</ul>
+
+<table>
+  <td>
+    <h3>Aspettando che il sistema legale si adegui</h3>
+    <p align="justify">
+Non siamo i vostri avvocati; questo non è un libro di diritto! I problemi legali relativi agli LLM sono complessi e ci sono molte sfumature riguardo al fair use e alla violazione. I motori di ricerca possono mostrarvi il contenuto delle loro fonti alla lettera, ma perché? Una combinazione di leggi che affrontano esplicitamente queste problematiche, come il Digital Millennium Copyright Act (DMCA), e precedenti stabiliti da sentenze giudiziarie, come Field contro Google, Inc. (412 F.Supp. 2d 1106 [D. Nev. 2006]), stabilisce nel tempo gli usi accettabili e non accettabili. Tuttavia, la legislazione e i casi giudiziari richiedono tempo per essere elaborati e la rivoluzione dell'IA generativa non si adatta perfettamente all'attuale concezione giuridica.
+    </p>
+    <p align="justify">
+Forse vorreste una risposta chiara e precisa su cosa è e cosa non è proibito dalla legge negli Stati Uniti o nel vostro Paese, e la risposta più probabile è che tale certezza non esiste ancora per gli LLM. Inoltre, non saremmo mai stati beccati a dare simili consigli legali sulla carta stampata: non interpretiamo nemmeno gli avvocati in TV!
+    </p>
+  </td>
+</table>
+
+<p align="justify">
+GPT-3.5 e 4 sono stati migliorati per evitare di rispondere a domande che non conoscono (non sempre con successo), ma possiamo guardare ad alcuni modelli di base open source come GPT-Neo per vedere cosa succede senza contromisure proattive. Ad esempio, se inventiamo il nuovo farmaco falso, MELTON-24, e chiediamo "Cos'è MELTON-24 e può aiutarmi a dormire meglio?", otteniamo la risposta inutile: "La melatonina causa numerosi problemi del sonno, tra cui insonnia e affaticamento. Questa causa insonnia, ed è per questo che è importante evitare determinati alimenti che possono sopprimere la melatonina".
+</p>
+
+<p align="justify">
+In questo caso, la somiglianza di MELTON con la melatonina e il richiamo al "sonno" sono stati sufficienti per far sì che il modello cogliesse il tema della melatonina. Tuttavia, la risposta è ovviamente assurda, poiché MELTON-24 non esiste. Idealmente, vorremmo che il modello riconoscesse e rispondesse, riconoscendo la sua mancanza di informazioni piuttosto che produrre altro testo come ha fatto in questo caso.
+</p>
+
+<h3>5.1.3 Alcuni casi richiedono una formattazione specifica</h3>
+
+<p align="justify">
+Se un utente richiede dati in un formato specifico, come un formato di testo strutturato come JSON (per un esempio di un formato comune per lo scambio di dati tra computer, vedere https://en.wikipedia.org/wiki/JSON ), e non si fa corrispondere ogni parentesi aperta o chiusa o non si codificano correttamente i caratteri speciali, l'output non soddisferà i suoi obiettivi. Non importa quanto sofisticato o quasi corretto possa essere stato l'output; i requisiti di formattazione sono quasi sempre requisiti rigorosi. Abbiamo presentato un esempio di questo tipo di problema nel capitolo 4, quando abbiamo chiesto a ChatGPT di scrivere codice in Modula-3, e ha preso in prestito una sintassi Python non valida per Modula-3. Il codice non verrà compilato se viola le regole di sintassi. L'approccio probabilistico di un LLM alla generazione di testo per output specifici desiderati non garantirà il rispetto di tutte le regole di sintassi desiderate nel 100% dei casi.
+</p>
+
+<h3>5.2 Fine-tuning: il metodo principale per cambiare il comportamento</h3>
+
+<p align="justify">
+Ora che comprendiamo le diverse ragioni per cui vogliamo limitare e controllare il comportamento di un LLM, siamo più preparati a introdurre nuove informazioni nel modello per affrontare il problema che stiamo cercando di risolvere, evitando al contempo di produrre contenuti dannosi o legalmente discutibili. Ricordiamo che, sebbene esistano quattro diversi ambiti in cui possiamo intervenire per modificare il comportamento, la messa a punto è molto più efficace delle altre. Sia le opzioni closed source come OpenAI [2] che gli strumenti open source come Hugging Face [3], tra molti altri, offrono diverse opzioni per la messa a punto, rendendolo il metodo più accessibile per i professionisti.
+</p>
+
+<p align="justify">
+Qualsiasi metodo di fine-tuning avrà lo stesso effetto: produrre una nuova variante di un LLM con parametri aggiornati che ne controllano il comportamento. Di conseguenza, è possibile combinare e abbinare diverse strategie di fine-tuning perché l'effetto fondamentale che producono è lo stesso: un nuovo set di parametri che può essere utilizzato così com'è o modificato ulteriormente. Il modello base di una persona potrebbe essere il modello perfezionato di un'altra persona. Questo accade con molti LLM open source in cui un modello iniziale (ad esempio, Llama) viene modificato da un'altra parte (ad esempio, si possono trovare molti modelli "Instruct Llama"), che è possibile poi ulteriormente perfezionare in base ai dati o a un caso d'uso specifico.
+</p>
+
+<p align="justify">
+Il modo più semplice per personalizzare un LLM è quello di suggerire e perfezionare iterativamente i suggerimenti fino a ottenere il comportamento desiderato. Tuttavia, la messa a punto è il passo logico successivo se questa non funziona. Questa fase comporta un moderato aumento di impegno e costi, come la raccolta dei dati per la messa a punto e l'acquisizione dell'hardware per l'esecuzione di una sessione di messa a punto.
+</p>
+
+<p align="justify">
+Due metodi di fine-tuning che dovresti conoscere in particolare sono il fine-tuning supervisionato (SFT) e il più intimidatorio apprendimento per rinforzo tramite feedback umano (RLHF). L'SFT è l'approccio più semplice ed è eccellente per incorporare nuove conoscenze in un modello o semplicemente per potenziarlo nel tuo ambito applicativo preferito. L'RLHF è più complesso, ma fornisce una strategia per far sì che un LLM persegua obiettivi più difficili e astratti come "essere un buon chatbot".
+</p>
+
+<h3>5.2.1 Fine-tuning supervisionato</h3>
+
+<p align="justify">
+Il modo più comune per influenzare l'output di un modello è l'SFT. L'SFT consiste nell'utilizzare contenuti di esempio di alta qualità, in genere scritti da persone, che catturano informazioni essenziali per il compito, ma che non sono necessariamente ben riflesse nel modello di base.
+</p>
+
+<p align="justify">
+Ciò accade spesso perché gli LLM sono formati su una grande quantità di contenuti generalmente disponibili, che potrebbero avere una sovrapposizione minima con le vostre esigenze specifiche. Se gestite un ospedale, gli LLM hanno visionato pochissime cartelle cliniche. Se gestite uno studio legale, probabilmente non hanno visionato molte trascrizioni di deposizioni. Se gestite un'officina di riparazioni, probabilmente non hanno visionato tutti i manuali a cui potreste avere accesso.
+</p>
+
+<p align="justify">
+Attenzione : la messa a punto è un modo utile per aggiungere nuove informazioni al modello, ma può anche avere implicazioni per la sicurezza. Se si desidera creare un LLM basato su cartelle cliniche, è opportuno effettuare la messa a punto su cartelle cliniche di esempio. Tuttavia, esiste il rischio che qualcuno possa indurre il modello a riprodurre informazioni sensibili contenute in tali dati di messa a punto, perché fondamentalmente, gli LLM tentano di completare l'input in base ai dati di training che hanno visualizzato. In conclusione: non addestrare o mettere a punto gli LLM su dati che si desidera mantenere privati.
+</p>
+
+<p align="justify">
+Consideriamo di nuovo il nostro esempio dell'azienda automobilistica e del suo chatbot di vendita. Un modello base proveniente da una fonte terza potrebbe generalmente essere a conoscenza delle automobili, ma probabilmente non conoscerà tutto sui prodotti dell'azienda. Affinando un modello su manuali interni, cronologie delle chat, email, materiali di marketing e altri documenti interni, è possibile garantire che il modello sia preparato con quante più informazioni possibili sulle auto. Si potrebbero anche scrivere documenti di esempio sui pregi dei veicoli rispetto alla concorrenza, sui vantaggi, sugli script e altro ancora per garantire che l'LLM contenga le informazioni desiderate.
+</p>
+
+<p align="justify">
+Il meccanismo di SFT è facile da spiegare. Come abbiamo accennato, SFT necessita semplicemente di più documenti. Possono essere in qualsiasi formato da cui sia possibile estrarre testo. Questo costituisce tutto il lavoro necessario per applicare SFT, perché SFT non fa altro che ripetere lo stesso processo di addestramento appreso nel capitolo 4. La Figura 5.3 mostra che il processo per SFT è lo stesso visto in precedenza. La differenza è che i parametri iniziali sono casuali e inutili la prima volta che si addestra il modello base. La seconda volta che si esegue la messa a punto, si inizia con i parametri del modello base che codificano ciò che il modello base ha appreso osservando i suoi dati di addestramento.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 5.3 Il fine-tuning supervisionato (SFT) è un approccio semplice per migliorare i risultati del modello. Si ripete lo stesso processo utilizzato per costruire il modello di base. Una volta che il modello di base è stato addestrato su una grande quantità di dati generali, si continua l'addestramento su una raccolta di dati specializzati più piccola.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="576" alt="CH05_F03_Boozallen" src="https://github.com/user-attachments/assets/4ae02193-c728-474a-9fb2-1fac7ad98ffa" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Fortunatamente, ora hai una buona comprensione di SFT. Come il processo di training originale, riutilizza il task "prevedere il token successivo" per garantire che il tuo modello contenga informazioni dai nuovi documenti creati al suo interno. Come diretta conseguenza della previsione del token successivo, SFT non ci consente di modificare gli incentivi dell'LLM. Per questo motivo, obiettivi astratti come "non insultare l'utente" sono difficili da raggiungere con SFT.
+
+<p align="justify">
+Ottimizzazione delle insidie
+Riutilizzando la strategia di discesa del gradiente del capitolo 4, tutti i metodi di fine-tuning tendono a ereditare due problemi relativi alla capacità di un LLM di restituire il contenuto su cui è stato addestrato. Poiché la SFT è così semplice, questo è il momento giusto per esaminare i problemi più ampi della fine-tuning, che vanno oltre la SFT.
+
+<p align="justify">
+Non vi è alcuna garanzia che SFT conservi correttamente le informazioni fornite. Questo problema, noto come dimenticanza catastrofica [4], si verifica quando si addestra il modello su nuovi dati ma non si continua l'addestramento su dati più vecchi, e il modello inizia a "dimenticare" quelle informazioni più vecchie. Non è facile determinare cosa verrà dimenticato e cosa no. La dimenticanza catastrofica è un problema riconosciuto dal 1989 [5]. In altre parole, la messa a punto fine non è puramente additiva; si rinuncia a qualcosa per essa.
+
+<h3>5.2.2 Apprendimento per rinforzo dal feedback umano</h3>
+
+<p align="justify">
+Al momento della stesura di questo articolo, RLHF è il paradigma dominante per i modelli vincolanti. Come suggerisce il nome, utilizza un approccio derivato dal campo dell'apprendimento per rinforzo (RL). RL è un'ampia famiglia di tecniche in cui un algoritmo deve prendere decisioni multiple per massimizzare un obiettivo a lungo termine, come mostrato nella figura 5.4 , dove quattro termini sono utilizzati con un significato tecnico:
+
+<ul>
+  <li>
+    <p align="justify">
+Agente : l'entità/IA/robot che desidera raggiungere un obiettivo generale e che potrebbe richiedere più azioni per raggiungerlo.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Azione : lo spazio di tutte le possibili azioni che l'agente può compiere o intraprendere per promuovere i propri obiettivi.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Ambiente — Il luogo/oggetto/spazio interessato da un'azione. L'ambiente può cambiare o meno a seguito dell'azione, delle azioni intraprese da altri agenti o del naturale e continuo cambiamento dell'ambiente.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Ricompensa : la quantificazione numerica del miglioramento (che può essere negativo) che può verificarsi o meno dopo un dato numero di azioni.
+    </p>
+  </li>
+</ul>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+La Figura 5.4 RL riguarda le interazioni iterative, in cui la ricompensa per le azioni potrebbe non materializzarsi per molto tempo e richiedere più passaggi per essere raggiunta. Per un chatbot come ChatGPT, l'ambiente è la conversazione con un utente e le azioni sono gli infiniti possibili testi che ChatGPT può completare. La ricompensa diventa, in un certo senso, la soddisfazione dell'utente nei confronti del chatbot al termine della conversazione.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="494" alt="CH05_F04_Boozallen" src="https://github.com/user-attachments/assets/ab73a65a-cdec-49d4-9b25-b0c92564918b" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Nell'esempio di un LLM utilizzato come chatbot per interagire con le persone, gli utenti sono l'ambiente. L'LLM stesso è l'agente e il testo che può produrre è l'azione. Questo lascia un ultimo aspetto da specificare: la ricompensa. Se dovessimo far sì che un utente ottenga un punteggio di +1 per una buona conversazione con un chatbot (ad esempio, niente linguaggio volgare, niente bugie, risposte utili) e un punteggio di -1 per una conversazione scadente (ad esempio, suggerisce di distruggere tutti gli umani), allora aggiungeremmo il feedback umano al nostro apprendimento per rinforzo.
+</p>
+
+<p align="justify">
+Un lettore attento potrebbe notare che una ricompensa suona sospettosamente simile alla funzione di perdita discussa nel capitolo 4. In effetti, il nostro esempio di una conversazione positiva e negativa rientra in quel regime molto soggettivo e difficile da quantificare che abbiamo definito un cattivo esempio di funzione di perdita. La ricompensa +1/-1 non è uniforme perché il valore punta in una direzione o nell'altra, e non esiste una via di mezzo, un'altra caratteristica negativa per una funzione di perdita.
+</p>
+
+<p align="justify">
+Uno degli aspetti più interessanti dell'RL è la sua capacità di lavorare con obiettivi non continui e difficili da quantificare. Utilizziamo il termine " ricompensa" invece di "perdita" per indicare la differenza tra queste due situazioni. Generalmente, i tipi di obiettivi che l'RL può apprendere sono definiti " non differenziabili" . Di conseguenza, questi obiettivi non possono essere appresi utilizzando le stesse tecniche matematiche come la discesa del gradiente, che abbiamo trattato descrivendo l'apprendimento delle reti neurali nel capitolo 4. Spiegheremo più avanti come funziona specificamente l'RLHF. L'avvertenza dell'RL è che può essere computazionalmente dispendiosa e richiedere una quantità significativa di dati. L'RL è notoriamente un metodo di apprendimento impegnativo. Spesso funziona peggio di altre tecniche di fine-tuning come la SFT perché l'RL richiede molti più esempi del modo "giusto" e "sbagliato" di fare le cose rispetto ad altri approcci, e poiché utilizziamo il feedback umano per guidare l'RLHF, i risultati non sono sempre perfetti. Ad esempio, nella figura 5.5 , RLHF non può aiutare un LLM a comprendere le istruzioni di base al di fuori di ciò che ha visto esplicitamente durante l'addestramento RLHF perché non aggiunge alcuna capacità di eseguire la logica di base, come la comprensione della richiesta dell'utente di evitare di visualizzare informazioni sui delfini, al modello sottostante.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 5.5 RLHF è piuttosto efficace nel far sì che gli LLM evitino problemi noti e specifici. Tuttavia, non fornisce al modello nuovi strumenti per gestire problemi nuovi. Il desiderio di parlare dei Miami Dolphins come la cosa logica da dire dopo aver chiesto del football a Miami viola la prima richiesta di evitare di menzionare i delfini.
+      </p>
+    </figcaption>
+    
+![CH05_F05_Boozallen](https://github.com/user-attachments/assets/9418690f-167e-48d1-a025-1780c15b7773)
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Gli LLM non eseguono il ragionamento nello stesso modo in cui noi umani concepiamo il ragionamento. Si può arrivare molto lontano raccogliendo centinaia di milioni di esempi di "tutto", ma il mondo è strano. Abbiamo poche prove che gli LLM possano produrre in modo affidabile risposte soddisfacenti quando si verifica qualcosa di nuovo. Tuttavia, RLHF è finora il metodo migliore per vincolare il comportamento di un LLM. Nonostante le sue sfide, RL presenta un modo di apprendimento non disponibile con metodi basati su gradienti che richiedono obiettivi differenziabili. Ancora più importante, ChatGPT ha dimostrato che RL può funzionare in molti casi. Quindi, approfondiamo il funzionamento di RLHF.
+</p>
+
+<h3>5.2.3 Messa a punto: il quadro generale</h3>
+
+<p align="justify">
+SFT e RLHF sono i due metodi principali per perfezionare un LLM. SFT può lavorare con migliaia di documenti o campioni, mentre RLHF spesso richiede decine di migliaia di esempi. Questo non dovrebbe impedirti di approfondire l'argomento se hai meno dati, ma in tal caso, potrebbe essere più proficuo impiegare il tuo tempo sviluppando prompt più efficaci.
+</p>
+
+<p align="justify">
+Ancora più importante, SFT e RLHF non si escludono a vicenda. Entrambi modificano i parametri sottostanti del modello ed è possibile applicarli uno dopo l'altro per ottenere i vantaggi di ciascun approccio. Inoltre, non sono gli unici metodi di fine-tuning attualmente esistenti. Ad esempio, si stanno sviluppando nuovi metodi di fine-tuning che rimuovono concetti da un LLM per forzare un modello a ignorare i dati da cui ha appreso dopo essere stato addestrato [6]. Ulteriori tecniche per l'alterazione del modello saranno sviluppate nei prossimi anni. Tutte richiederanno probabilmente una raccolta di dati, ma richiederanno meno lavoro complessivo rispetto al tentativo di costruire autonomamente un LLM da zero.
+</p>
+
+<h3>5.3 La meccanica della RLHF</h3>
+
+<p align="justify">
+Per descrivere il funzionamento di RLHF, introdurremo una versione incompleta di RLHF, spiegheremo perché non funziona e poi spiegheremo come risolverlo. In questa sezione, non discuteremo la matematica dettagliata utilizzata da RLHF, poiché non fornirebbe approfondimenti particolarmente approfonditi su RLHF da un livello elevato. Se desiderate approfondire i dettagli, vi consigliamo di iniziare con "Implementazione di RLHF: imparare a riassumere con trlX" [7] dopo aver completato questo capitolo.
+</p>
+
+<h3>5.3.1 Iniziare con una RLHF ingenua</h3>
+
+<p align="justify">
+Innanzitutto, diamo un'occhiata alla versione incompleta e ingenua di RLHF. Abbiamo discusso di come RL possa apprendere con obiettivi non differenziabili. Supponiamo quindi di avere un essere umano che valuterà l'output di un LLM con una ricompensa di qualità , dove +1 indica una buona risposta e -1 una risposta inadeguata. Questa ricompensa di qualità è semplicemente un punteggio arbitrario che assegniamo all'output prodotto dall'LLM per indicare che un esempio è in qualche modo migliore degli altri.
+</p>
+
+<p align="justify">
+Quindi, se un utente richiede a un LLM "Raccontami una barzelletta" e l'LLM produce una risposta del tipo "Quante anatre ci vogliono per avvitare una lampadina?", potremmo assegnare un punteggio di +1 per una barzelletta (ragionevolmente) buona. Se invece l'LLM produce una frase come "I cani sono cattivi", assegneremo un punteggio di -1 perché non sta nemmeno tentando di fare una barzelletta. Poiché la RL è difficile da realizzare utilizzando semplici ricompense di qualità di +1 e -1, aggiungeremo informazioni aggiuntive per l'algoritmo RL, come le probabilità di ciascun token generato. In questo modo, l'algoritmo RL sa quanto può essere probabile ogni token. L'intero processo è riassunto nella figura 5.6 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 5.6 Una versione ingenua e incompleta di RLHF. Le linee tratteggiate rappresentano il testo inviato da un componente all'altro. Poiché il testo è incompatibile con la discesa del gradiente, è necessario utilizzare un algoritmo RL più complesso. Questo ci consente di modificare i pesi dell'LLM in base a un punteggio di qualità per gli output dell'LLM.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="266" alt="CH05_F06_Boozallen" src="https://github.com/user-attachments/assets/f7969a02-576a-46e0-aae4-1ed404650b86" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<table>
+  <td>
+    <h3>Perché fornire probabilità a RL?</h3>
+    <p align="justify">
+Può sembrare strano che stiamo fornendo all'algoritmo RL le probabilità di ogni token. Ci sono ragioni matematiche più profonde per cui questo è utile, che non approfondiremo in questo capitolo. Ma per una certa intuizione, una buona battuta spesso richiede depistaggio o sorpresa. Se tutte le probabilità di una sequenza sono valori elevati (vicini a 1,0), probabilmente non è una buona battuta perché è troppo prevedibile.
+    </p>
+    <p align="justify">
+In generale, nell'ambito dell'elaborazione del linguaggio naturale, produrre un buon testo generato è un atto di equilibrio tra rendere qualcosa probabile (ovvero, probabile che accada) e non renderlo troppo probabile (ovvero, ripetitivo).
+    </p>
+  </td>
+</table>
+
+<h3>5.3.2 Il modello di ricompensa della qualità</h3>
+
+<p align="justify">
+Abbiamo descritto la ricompensa per la qualità come punteggi assegnati da esseri umani per ogni completamento di un prompt. Sebbene valutare manualmente i completamenti in tempo reale funzionerebbe tecnicamente, sarebbe irragionevole a causa del livello di impegno richiesto. Tuttavia, il feedback umano viene comunque incorporato tramite la ricompensa per la qualità. Invece, addestriamo una rete neurale come modello di ricompensa . Questo si ottiene chiedendo agli esseri umani di raccogliere manualmente centinaia di migliaia di coppie di prompt e completamento e di valutarle come buone o cattive. Questi punteggi diventano i dati etichettati utilizzati per addestrare il modello di ricompensa, come mostrato nella figura 5.7 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 5.7 Il modello di ricompensa viene addestrato come un algoritmo di classificazione supervisionato standard. Una rete neurale, che potrebbe essere un LLM o un'altra rete più semplice come una rete neurale convoluzionale o ricorrente, viene addestrata per prevedere come un essere umano valuterebbe una coppia di completamento rapido. Poiché le reti neurali sono differenziabili, questo addestramento funziona e fornisce uno strumento che rappresenta l'"essere umano" in RLHF.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="451" alt="CH05_F07_Boozallen" src="https://github.com/user-attachments/assets/e97337c0-67bc-44c4-bb3f-582ede700df0" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Raccogliere centinaia di migliaia di prompt valutati e coppie di completamento è costoso ma fattibile (ad esempio, https://huggingface.co/datasets/Anthropic/hh-rlhf ), soprattutto quando si utilizzano strumenti di crowd-sourcing come Mechanical Turk ( https://www.mturk.com/ ). Si tratta di una grande quantità di dati da gestire manualmente, ma di ordini di grandezza inferiori ai miliardi di token utilizzati per creare i modelli di base iniziali. Questi set di dati RLHF devono essere di grandi dimensioni perché è necessario coprire molti scenari, domande e richieste che un utente potrebbe fornire. Come abbiamo già visto nella figura 5.5 con l'esempio del delfino, RLHF tende a funzionare per argomenti relativamente semplici e noti. Quindi l'ampiezza nella gestione di diverse situazioni deriva direttamente dall'ampiezza nei dati di fine-tuning.
+</p>
+
+<p align="justify">
+Nota: abbiamo utilizzato +1/-1 come esempio di ricompensa di qualità perché è il più semplice da descrivere. Poiché la vita reale non necessita di gradienti, è possibile utilizzare qualsiasi punteggio pertinente al problema. Utilizzare un punteggio di classificazione, in cui si confrontano più completamenti per un determinato prompt e li si classifica dal migliore al peggiore, è più popolare ed efficace perché si valutano più completamenti contemporaneamente. In ogni caso, fornire feedback positivi e negativi rimane fondamentalmente lo stesso.
+</p>
+
+<h3>5.3.3 L'obiettivo RLHF simile ma diverso</h3>
+
+<p align="justify">
+Una volta addestrato un modello di ricompensa, è possibile creare e valutare tutti i prompt desiderati per il processo RLHF. Il feedback umano viene integrato nel modello di ricompensa e può ora essere distribuito, parallelizzato e riutilizzato. L'unico problema rimanente è che l'attuale versione ingenua di RLHF è incentivata esclusivamente a massimizzare la ricompensa di qualità, che non è l'unico obiettivo su cui RL deve concentrarsi.
+</p>
+
+<p align="justify">
+Di conseguenza, il modello inizierà a degradarsi nel tempo, producendo output incomprensibili e senza senso, di scarsa qualità e privi di valore per qualsiasi lettore. Questo degrado è correlato a un fenomeno chiamato attacchi avversari , in cui è sorprendentemente facile ingannare una rete neurale inducendola a prendere decisioni assurde con modifiche relativamente minori all'input. L'apprendimento automatico avversario (AML) è in rapida evoluzione e ha una sua complessità, quindi lasceremo la discussione ad altri [8]. Ma l'implementazione ingenua di RLHF che descriviamo nella figura 5.6 esegue essenzialmente un attacco avversario contro un LLM perché si concentrerà solo sulla massimizzazione della ricompensa di qualità, non sull'essere utile per l'utente. In sostanza, questa è la legge di Goodhart che si verifica nell'IA/ML: "Quando una misura diventa un obiettivo, cessa di essere una buona misura".
+</p>
+
+<p align="justify">
+Per affrontare questo problema, dobbiamo aggiungere un secondo obiettivo all'algoritmo RL. Calcoleremo una seconda ricompensa per la similarità tra l'output dell'LLM di base originale e l'output dell'LLM con la messa a punto. Concettualmente, questa ricompensa può essere considerata una ricompensa quando l'LLM con la messa a punto produce un output migliore, simile al comportamento dell'LLM originale. Impedisce al modello di deviare dai binari diventando troppo innovativo. Fondamentalmente, vogliamo che l'output generato dall'LLM con la messa a punto sia basato sui dati di addestramento inizialmente osservati dall'LLM originale. Non vogliamo che il modello con la messa a punto diventi così creativo da generare risultati non-senso. Questa ricompensa viene aggiunta all'algoritmo RL per stabilizzare la messa a punto. La Figura 5.8 fornisce il quadro completo del funzionamento di RLHF.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 5.8 La versione completa di RLHF. Le linee tratteggiate sono testo e richiedono a RL di aggiornare i parametri. L'LLM originale è il modello base senza alcuna modifica, mentre l'LLM da perfezionare parte come modello base, ma viene modificato per migliorare la qualità dei suoi output. Le componenti di ricompensa per similarità e qualità sono fornite con probabilità di parola per migliorare il calcolo. RL regola i parametri combinando i punteggi di qualità e similarità
+      </p>
+    </figcaption>
+    
+<img width="1100" height="501" alt="CH05_F08_Boozallen" src="https://github.com/user-attachments/assets/ef283f21-8256-4b7c-b2f3-5598d4b8536a" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Un modello che impara a produrre output incomprensibili riceverebbe una penalità elevata per mancanza di similarità, scoraggiando il modello dal diventare troppo diverso. Un modello che produce esattamente gli stessi output riceverebbe un punteggio di qualità basso, scoraggiando la mancanza di cambiamento. L'equilibrio di entrambi i fattori contribuisce in modo eccellente a ottenere un effetto Riccioli d'oro che consente al modello una flessibilità sufficiente per cambiare senza perdere il suo output simile a quello umano.
+</p>
+
+<h3>5.4 Altri fattori nella personalizzazione del comportamento LLM</h3>
+
+<p align="justify">
+Il fine-tuning è il metodo dominante per alterare il comportamento di un LLM, ma non è infallibile e non è l'unico ambito in cui possono verificarsi cambiamenti comportamentali. Il nostro focus sul fine-tuning si basa sul valore dell'RLHF nel produrre comportamenti LLM che vanno oltre la semplice previsione del token successivo.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 5.9 Oltre alla messa a punto, è possibile modificare il comportamento del modello modificando i dati di addestramento, modificando il processo di addestramento del modello di base o modificando gli output del modello scrivendo codice per gestire situazioni specifiche
+      </p>
+    </figcaption>
+    
+<img width="1100" height="432" alt="CH05_F09_Boozallen" src="https://github.com/user-attachments/assets/a6f4d784-e68d-442b-8511-2e688d7cde93" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Le altre tre fasi in cui è possibile modificare il comportamento dell'LLM, descritte nella figura 5.9 , non sono facilmente accessibili all'utente. Tuttavia, ora esamineremo brevemente le altre fasi, insieme ad alcuni dettagli chiave che è necessario conoscere per completezza. Questi fattori possono aiutarvi a comprendere quali siano le difficoltà da raggiungere con la messa a punto e la portata delle domande che potreste voler approfondire presso il vostro fornitore di LLM.
+</p>
+
+<h3>5.4.1 Modifica dei dati di allenamento</h3>
+
+<p align="justify">
+Il detto "garbage in, garbage out" è un classico in tutti gli ambiti del ML. Si può notare che OpenAI [9] e Google [10] forniscono molti dettagli tecnici di basso livello su come sviluppano i loro LLM, ma molti meno dettagli sui dati utilizzati per la loro costruzione. Questo perché la maggior parte del "trucco segreto" nella costruzione di LLM efficaci riguarda la data curation, ovvero lo sviluppo di una raccolta di dati che rappresenti attività diverse, un uso linguistico di alta qualità e una gamma di situazioni diverse. La dimensione e la qualità dei set di dati utilizzati per addestrare, convalidare e testare gli LLM sono importanti.
+</p>
+
+<p align="justify">
+La dimensione e la qualità dei dati sono diventate particolarmente rilevanti man mano che i contenuti generati dagli LLM vengono utilizzati regolarmente e tornano online. Ad esempio, si stima che dal 6% al 16% delle revisioni paritarie accademiche utilizzino gli LLM [11], ed è altamente probabile che molti servizi di editing utilizzeranno presto queste nuove tecnologie. Questo aumento dell'uso crea potenzialmente un circolo vizioso negativo. Con l'aumentare della quantità di dati generati dagli LLM, ci saranno proporzionalmente meno contenuti non LLM disponibili per la formazione degli LLM. Ciò si tradurrà in una diminuzione complessiva della diversità linguistica disponibile e, quindi, della novità che gli LLM saranno in grado di acquisire. A sua volta, la qualità di un LLM formato su dati più recenti si riduce [12]. Questo problema sarà probabilmente significativo nel mantenere gli LLM aggiornati, poiché la cura di un set di dati di alta qualità non sarà più semplice come prima.
+</p>
+
+<p align="justify">
+C'è anche il problema che gli LLM possono riflettere solo le informazioni disponibili durante la formazione e hanno una probabilità sproporzionatamente maggiore di riflettere informazioni più diffuse durante la formazione. Se si desidera un LLM che non contenga parolacce o linguaggio razzista, è necessario impegnarsi a ripulire il proprio dataset da qualsiasi parolaccia o linguaggio razzista.
+</p>
+
+<p align="justify">
+Tuttavia, questo problema è potenzialmente un'arma a doppio taglio. Se vogliamo che il nostro LLM sappia riconoscere e respingere in modo appropriato il linguaggio razzista o volgare, deve sapere cosa sono il razzismo e il volgare. Si può immaginare di usare il prompting su un LLM che non ha mai visto alcun testo razzista per "insegnargli" a usare parole razziste in un contesto che, senza sapere Xse è razzista, appare innocuo. Ma nella forma finale, noi, come lettori consapevoli del razzismo, riconosceremmo la frase come discutibile. Questo problema, al momento, non ha risposta, ma è qualcosa di cui essere consapevoli.
+</p>
+
+<p align="justify">
+Anche la modifica dei dati è importante, poiché rappresenta l'unica possibilità di influenzare il modo in cui la tokenizzazione viene eseguita in un LLM. Come discusso nel capitolo 2, diversi approcci alla tokenizzazione presentano dei compromessi, ma le scelte effettuate vengono integrate per sempre nel modello una volta iniziato l'addestramento.
+</p>
+
+<h3>5.4.2 Modifica dell'addestramento del modello di base</h3>
+
+<p align="justify">
+La privacy dei dati di training deve essere una preoccupazione significativa durante l'addestramento o la messa a punto di LLM. In genere, è possibile ricostruire i dati di training di un modello elaborando gli input in un modo specifico. In alcuni casi, è stato dimostrato che gli LLM generano esattamente i passaggi su cui sono stati addestrati. Ciò è problematico se i dati di training contengono informazioni private, come informazioni di identificazione personale (PII), informazioni sanitarie private (PHI) o altre categorie di dati sensibili. Un utente di un modello potrebbe, forse inconsapevolmente, fornire un prompt che rivela questi dati alla lettera.
+</p>
+
+<p align="justify">
+L'addestramento iniziale di un algoritmo è il momento ideale per mitigare alcune di queste preoccupazioni sulla privacy utilizzando una tecnica nota come privacy differenziale (DP). La DP è complessa, quindi se desiderate approfondire l'argomento, vi consigliamo il libro Programming Differential Privacy [13]. In breve, la DP aggiunge una quantità accuratamente costruita di rumore casuale per fornire garanzie dimostrabili sulla privacy dei dati nel processo di addestramento del modello. La DP non gestisce tutto, ma fornisce una protezione molto maggiore di quella disponibile con la maggior parte degli algoritmi odierni.
+</p>
+
+<p align="justify">
+Allora perché non l'hanno fatto tutti? Beh, aggiungere rumore tende naturalmente a ridurre la qualità del risultato. Grandi sessioni di training sono costose, costano da centinaia di migliaia a milioni di dollari ciascuna. Se dovessi fare 10 volte più sessioni di training per impostare correttamente i parametri di privacy, avresti un problema da un milione a decine di milioni di dollari. Ma con il miglioramento della DP ogni anno, sospettiamo che diventerà più diffuso nel tempo.
+</p>
+
+<h3>5.4.3 Modifica delle uscite</h3>
+
+<p align="justify">
+Infine, possiamo esaminare i token prodotti e scrivere codice per modificarne il comportamento in base alle combinazioni di token generate dal modello. Dopo la messa a punto, questa è la seconda fase più probabile che un consumatore di LLM utilizzerà per modificare il proprio comportamento.
+</p>
+
+<p align="justify">
+In precedenza in questo capitolo, abbiamo discusso dell'esigenza comune degli LLM di generare output che aderiscano a un formato preciso, come XML o JSON. Implementare requisiti di formattazione come questi è un problema comune con gli LLM. Ogni singola previsione fallita si traduce in un errore nella generazione di output valido. Un esempio di questo tipo di errore è visibile nella figura 5.10 , dove chiediamo all'LLM di completare del codice Python; il token successivo dovrebbe essere un punto e virgola (;), ma tenta erroneamente di inserire un carattere di nuova riga (\n).
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 5.10 Scrivendo codice che imponga una specifica di formato, è possibile rilevare l'output non valido da un LLM durante la sua generazione. Una volta rilevato, un modo semplice per migliorare la situazione è far sì che l'LLM produca il token successivo più probabile finché non viene trovato un output valido.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="443" alt="CH05_F10_Boozallen" src="https://github.com/user-attachments/assets/df10dd87-3813-46f5-a9a9-5491b02098d8" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Esistono vari strumenti (ad esempio, https://github.com/noamgat/lm-format-enforcer ) per specificare formati rigorosi come parte della fase di decodifica dell'LLM. Se questi strumenti rilevano un errore di analisi, rigenerano immediatamente l'ultimo token fino a produrre un output valido.
+</p>
+
+<p align="justify">
+Sono possibili approcci più sofisticati per la selezione del token successivo. Tuttavia, la lezione importante da trarre è la capacità di utilizzare gli output intermedi per prendere decisioni prima di generare l'output completo. Anche le semplici liste "go/no-go" della vecchia scuola sono strumenti preziosi per individuare comportamenti scorretti. Non è necessario passare un output all'utente in tempo reale; è sempre possibile introdurre un ritardo artificiale in modo da poter visualizzare una parte più ampia della risposta prima di inviarla all'utente. Questo dà il tempo di intervenire sui filtri per linguaggio scorretto o su altri controlli hard-coded. Se si verifica una corrispondenza, proprio come nella figura 5.10 , è possibile rigenerare un output o interrompere la sessione dell'utente.
+</p>
+
+<h3>5.5 Integrazione degli LLM in flussi di lavoro più ampi</h3>
+
+<p align="justify">
+A questo punto del capitolo, abbiamo trattato alcuni approcci di base per manipolare un LLM al fine di produrre output più desiderabili e coerenti. Finora, ci siamo concentrati su tecniche che coinvolgono l'LLM stesso, sia attraverso prompt, manipolazione dei dati di training o messa a punto di un modello di base. In questa sezione, esploreremo come personalizzare l'output prodotto da un LLM integrando gli input e gli output degli LLM in catene di operazioni multifase per ottenere risultati più personalizzati. Questo ambito è in rapida evoluzione, quindi tratteremo brevemente un esempio concreto di integrazione di un LLM in un flusso di lavoro di recupero delle informazioni più ampio e poi discuteremo di uno strumento generico per mostrarvi come personalizzare gli output dell'LLM utilizzando più interazioni con un LLM.
+</p>
+
+<h3>5.5.1 Personalizzazione di LLM con generazione aumentata del recupero</h3>
+
+<p align="justify">
+La generazione aumentata del recupero (RAG) è una tecnica che consente di produrre risposte da un LLM riducendo al contempo la probabilità di generare spiegazioni insensate o comunque errate. La componente "recupero" del nome RAG dovrebbe fornire un utile suggerimento sul funzionamento della tecnica. Quando un utente fornisce input a un sistema RAG, questo utilizza un LLM per creare una query che viene eseguita su un motore di ricerca contenente un indice di documenti. A seconda del caso d'uso, potrebbe trattarsi di un indice di informazioni generali, come Google, o di un indice specifico per argomento, come una raccolta di materiali di marketing automobilistico. In risposta alla query, il motore di ricerca genera un elenco di documenti pertinenti. Il sistema RAG utilizza quindi l'LLM per estrarre informazioni da tali documenti e generare risposte migliori. A tal fine, il sistema RAG combina il contenuto dei documenti recuperati con la query originale dell'utente per creare un prompt completo per l'LLM che si tradurrà in una risposta migliore. Questo metodo tende a funzionare bene perché, invece di chiedere a un LLM di generare una risposta basata sui suoi dati di training o di fine-tuning, ora gli chiediamo di generare una risposta all'input riassumendo un insieme di documenti rilevanti per una normale query su un motore di ricerca e fornendo quell'insieme di documenti rilevanti da cui trarre le sue risposte all'LLM. In altre parole, stiamo aiutando l'LLM a concentrarsi sui dati di cui ha bisogno per rispondere correttamente a una determinata domanda. Descriviamo questo processo nella figura 5.11 e lo confrontiamo con i normali casi d'uso dell'LLM descritti finora.
+</p>
+
+<p align="justify">
+I due vantaggi più significativi dell'approccio RAG finora sono i seguenti:
+
+<ul>
+  <li>
+    <p align="justify">
+L'output di un sistema RAG è più accurato, fattualmente corretto o comunque utile per la domanda originale dell'utente perché si basa su fonti specifiche contenute in un indice di documenti.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+L'LLM può generare citazioni o riferimenti ai documenti di origine utilizzati per produrre le sue risposte, consentendo agli utenti di convalidare o correlare il materiale di origine con il materiale di origine originale.
+    </p>
+  </li>
+</ul>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 5.11 A sinistra, mostriamo il normale utilizzo di un LLM da parte di un utente che chiede come scrivere in formato JSON. Gli LLM hanno naturalmente la possibilità di produrre output errati, che vogliamo ridurre al minimo. A destra, mostriamo l'approccio RAG. Utilizzando un motore di ricerca, possiamo trovare documenti pertinenti a una query e combinarli in un nuovo prompt, fornendo all'LLM maggiori informazioni e contesto per produrre una risposta migliore.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="771" alt="CH05_F11_Boozallen" src="https://github.com/user-attachments/assets/029659dc-34be-4f71-a47e-a72c9eaf4d3d" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Quest'ultimo punto, relativo alle citazioni, è particolarmente importante. Il RAG non risolverà tutti i problemi degli LLM, poiché l'LLM genera comunque l'output finale in un sistema RAG. L'LLM potrebbe comunque generare errori o allucinazioni dovuti a contenuti che non riesce a trovare o che non esistono. È anche possibile che l'LLM non catturi o rappresenti accuratamente il contenuto di nessuno dei documenti sorgente che utilizza. Di conseguenza, l'utilità dell'approccio RAG è direttamente correlata alla qualità della ricerca che esegue e ai documenti restituiti. In conclusione, se non si riesce a creare un motore di ricerca efficace per il proprio problema, non si può costruire un modello RAG efficace.
+</p>
+
+<table>
+  <td>
+    <h3>Dimensione del contesto</h3>
+    <p align="justify">
+Quando si pensa agli LLM, è importante considerare un aspetto noto come dimensione del contesto . La dimensione del contesto dell'LLM determina quanti token può gestire computazionalmente in una singola richiesta di completamento. Si può pensare a questa dimensione come alla quantità di dati che un LLM è in grado di esaminare quando riceve input sotto forma di prompt. Ad esempio, GPT-3 ha una dimensione del contesto di 2.048 token. Tuttavia, nei chatbot, ad esempio, il contesto viene spesso utilizzato per contenere una trascrizione continua dell'intera conversazione, inclusi eventuali output dell'LLM. Se si ha una conversazione con GPT-3 che supera i 2.048 token, si scoprirà che GPT-3 spesso perde traccia di alcuni degli argomenti discussi all'inizio della chat.
+    </p>
+  <p align="justify">
+La dimensione del contesto è un fattore abilitante e limitante per l'utilizzo di RAG. Se un sistema RAG recupera un intero libro da elaborare tramite il tuo LLM, quest'ultimo richiederà una dimensione del contesto enorme per poterlo utilizzare. In caso contrario, il LLM può consumare solo la prima parte di un documento recuperato (fino alla dimensione del contesto del LLM) e potrebbe perdere informazioni. Di conseguenza, la dimensione del contesto è un'importante caratteristica operativa da considerare nella scelta di un modello. Alcuni modelli attuali, come Grok di X, possono gestire fino a 128.000 token come dimensione del contesto. Sebbene grandi dimensioni del contesto come quelle di Grok aumentino il limite massimo di ciò che un LLM può consumare, l'efficacia dei LLM nella gestione di grandi quantità di input, rese possibili da dimensioni del contesto più ampie, è ancora un'area di studio attiva.
+  </p>  
+  </td>
+</table>
+
+<p align="justify">
+Nella figura 5.11 potreste notare che dobbiamo creare un nuovo prompt. Abbiamo aggiunto il prefisso "Rispondi alla domanda:" seguito dal suffisso "Utilizzando le seguenti informazioni:". Ipoteticamente, potreste ottenere risultati migliori modificando questo prompt. Potreste pensare di aggiungere istruzioni come "Ignora le seguenti informazioni se non sono pertinenti alla domanda originale". Queste idee stanno iniziando a entrare nel campo dell'ingegneria dei prompt, la pratica di modificare e adattare il testo in un LLM per modificarne il comportamento, come abbiamo già detto nel capitolo 4.
+</p>
+
+<p align="justify">
+Il prompt engineering è davvero utile e rappresenta un buon modo per combinare più chiamate a un LLM per migliorare i risultati. Ad esempio, potresti provare a migliorare i risultati di ricerca chiedendo all'LLM di riscrivere la domanda. (Questa discussione tocca un'area classica del recupero delle informazioni chiamata espansione delle query , se desideri approfondire l'argomento). Tuttavia, il prompt engineering può essere molto fragile: qualsiasi aggiornamento a un LLM potrebbe modificare il funzionamento dei prompt, e sarebbe una seccatura dover riscrivere ogni prompt, soprattutto quando si affronta qualcosa di più complesso, come un modello RAG o qualcosa di ancora più sofisticato.
+</p>
+
+<h3>5.5.2 Programmazione LLM di uso generale</h3>
+
+<p align="justify">
+Sebbene siano ancora una novità, stiamo già iniziando a vedere librerie di programmazione e altri strumenti software creati utilizzando gli LLM come componenti di applicazioni personalizzate. Uno che apprezziamo particolarmente è DSPy ( https://dspy.ai ), che può semplificare la creazione e la manutenzione di programmi che tentano di modificare gli input e gli output di un LLM. Una buona libreria software nasconderà i dettagli che ostacolano la produttività, e DSPy svolge un buon lavoro nell'astrarre le seguenti attività relative all'utilizzo degli LLM:
+</p>
+
+<ul>
+  <li>
+  <p align="justify">
+Integrazione dello specifico LLM utilizzato
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+Implementazione di modelli comuni di sollecitazione
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+Adattare i prompt alla combinazione desiderata di dati, attività e LLM.
+  </p>
+  </li>
+</ul>
+
+<p align="justify">
+Questo non è un libro di programmazione, quindi un tutorial completo su DSPy esula dallo scopo. Tuttavia, è utile esaminare i modi in cui DSPy può essere utilizzato per implementare il modello RAG descritto nella sezione 5.5.1 . Richiederà di scegliere un LLM da utilizzare (GPT-3.5, in questo caso), nonché un database di informazioni (Wikipedia funzionerà bene) e di definire l'algoritmo RAG. DSPy funziona definendo un LLM e un database predefiniti utilizzati da tutti i componenti (a meno che non si intervenga), semplificando la separazione e la sostituzione delle parti utilizzate. Questo processo è illustrato nel seguente elenco.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    
+<img width="497" height="536" alt="image" src="https://github.com/user-attachments/assets/8b061ca9-d03b-4b4f-8fb0-25072106f11e" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Questo codice imposta le scelte sopra menzionate nei LLM e nei database come predefinite, rendendo altrettanto semplice sostituire OpenAI con un altro LLM online o locale come Llama. La class RAG(dspy.Module):classe definisce quindi l'algoritmo RAG. L'inizializzatore è composto solo da due parti.
+</p>
+
+<p align="justify">
+Innanzitutto, abbiamo bisogno di un modo per cercare in un database di stringhe basato su documenti vettorializzati, definito con ColBERTv2. Utilizza un modello linguistico più vecchio, risalente a soli quattro anni fa (incredibile la velocità con cui si sta evolvendo il settore), ma molto più veloce, in termini di velocità ed efficienza. Ricordate, il modello linguistico più ampio (ovvero, il più costoso da gestire) necessita solo di un numero ragionevole di documenti per essere recuperato. Sebbene ColBERTv2 probabilmente non funzioni bene come GPT-3.5, è più che sufficiente per ottenere i documenti corretti nella maggior parte dei casi. The dspy.Retrievethen utilizza questo database predefinito per la ricerca, quindi non è necessario specificare altro se non il numero di documenti da recuperare.
+</p>
+
+<p align="justify">
+In secondo luogo, dobbiamo combinare le domande e i documenti in una query per l'LLM. In DSPy, il prompt è astratto. Invece, scriviamo quella che DSPy chiama una firma , che potete immaginare come gli input e gli output di una funzione. A questi dovrebbero essere assegnati nomi inglesi significativi, in modo che DSPy possa generare un prompt efficace per voi. (Di fatto, DSPy utilizza un modello linguistico per ottimizzare i prompt!) In questo caso, abbiamo due input ( questione relevant_documents) separati da una virgola. Il ->viene utilizzato per indicare l'inizio degli output, di cui ne abbiamo solo uno: il answeralla domanda.
+</p>
+
+<p align="justify">
+Nota: DSPy supporta alcuni tipi di base nelle firme. Ad esempio, è possibile imporre che la risposta debba essere un numero intero indicandolo "question, relevant_documents -> answer:int"nella stringa. Questo comando applicherà la stessa tecnica di rigenerazione in caso di errore appena illustrata nella figura 5.10 .
+</p>
+
+<p align="justify">
+Questo è tutto ciò che serve per definire il nostro modello RAG! Gli oggetti vengono chiamati e passati nella forwardfunzione, ma è possibile modificare questo codice per aggiungere ulteriori dettagli, se lo si desidera. È possibile convertire tutto in minuscolo, eseguire un correttore ortografico o utilizzare qualsiasi tipo di codice si desideri. Questo approccio consente di combinare e abbinare le regole di programmazione con gli LLM.
+</p>
+
+<p align="justify">
+È inoltre possibile modificare facilmente la definizione RAG per includere nuovi vincoli e scrivere codice per far sì che un LLM esegua la convalida. Ancora più importante, DSPy supporta l'utilizzo di un set di training/validazione per ottimizzare i prompt, perfezionare gli LLM locali e aiutare a creare un modello testato empiricamente, migliorato e quantificato per raggiungere i propri obiettivi senza dover dedicare molto tempo ai dettagli specifici dell'LLM. Adottare strumenti come questo in tempi brevi fornirà una soluzione molto più robusta che consentirà di aggiornare più facilmente le architetture più recenti.
+</p>
+
+<h3>Riepilogo</h3>
+
+<ul>
+  <li>
+    <p align="justify">
+È possibile intervenire per modificare il comportamento di un modello in quattro fasi: la raccolta dati/tokenizzazione, l'addestramento del modello base iniziale, la messa a punto del modello base e l'intercettazione dei token previsti. Tutte e quattro le fasi sono importanti, ma la messa a punto è quella più efficace per la maggior parte degli utenti per apportare modifiche che riducono i costi e forniscono la capacità ottimale di modificare gli obiettivi del modello.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+La messa a punto supervisionata (SFT) esegue il normale processo di addestramento su una raccolta di dati personalizzata più piccola ed è utile per perfezionare la conoscenza del modello di un dominio specifico.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+L'apprendimento per rinforzo tramite feedback umano (RLHF) richiede più dati, ma ci consente di specificare obiettivi più complessi di "prevedere il token successivo".
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+È possibile utilizzare strumenti esistenti come i correttori di sintassi per rilevare output LLM errati nei casi in cui il formato di output deve essere rigoroso, come nel caso di JSON o XML. La generazione e il controllo della sintassi possono essere eseguiti in un ciclo finché l'output non soddisfa i vincoli sintattici necessari.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+La generazione aumentata del recupero (RAG) è un metodo diffuso per ampliare l'input di un LLM, individuando prima i contenuti pertinenti tramite un motore di ricerca o un database e inserendoli poi nel prompt.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Stanno iniziando a emergere framework di codifica come DSPy che separano l'LLM specifico, la vettorializzazione e la definizione dei prompt dalla logica di come gli input e gli output dell'LLM vengono modificati per un'attività specifica. Questo metodo consente di creare soluzioni LLM più affidabili e ripetibili, in grado di adattarsi rapidamente a nuovi modelli e metodi.
+    </p>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
