@@ -1209,3 +1209,233 @@ Figura 3.8 Un esempio di come funzionano query, chiavi e valori all'interno di u
 </div>
   </td>
 </table>
+
+<p align="justify">
+Far sì che ogni chiave contribuisca a una query potrebbe creare confusione, soprattutto se esiste una sola corrispondenza esatta tra una query e una chiave specifica. Questo problema è gestito da un dettaglio chiamato attenzione o meccanismo di attenzione .
+</p>
+
+<p align="justify">
+L'attenzione all'interno di un trasformatore può essere considerata simile alla capacità di prestare attenzione a ciò che è importante. È possibile ignorare le informazioni irrilevanti e distraenti (ad esempio, tasti sbagliati) e concentrarsi principalmente su ciò che è importante (i tasti più adatti). L'analogia si estende ulteriormente, in quanto l'attenzione è adattiva; ciò che è importante è funzione delle altre opzioni disponibili. Il tuo capo che ti dà le istruzioni per la settimana cattura la tua attenzione, ma l'allarme antincendio che scatta sposta la tua attenzione dal capo all'allarme (e a un potenziale incendio).
+</p>
+
+<p align="justify">
+Durante la generazione del token successivo, un trasformatore prende la query per il token corrente e la confronta con la chiave di tutti i token precedenti. Il confronto tra query e chiave genera una serie di valori che il meccanismo di attenzione utilizza per calcolare il peso da assegnare a ciascun potenziale token successivo quando decide quale token generare successivamente. Il valore di ciascun token indica al modello quale dovrebbe essere il contributo di ogni token precedente alla probabilità. La funzione di attenzione calcola quindi il token successivo, come mostrato nella figura 3.9 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.9 Il token successivo in una frase viene previsto utilizzando il token corrente come query e calcolando corrispondenze con le parole precedenti come chiavi. I singoli valori non devono necessariamente esistere nello spazio semantico; l'output del meccanismo di attenzione produce qualcosa di simile a uno dei token nel vocabolario.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="772" alt="CH03_F09_Boozallen" src="https://github.com/user-attachments/assets/47c76287-6523-4ecf-802d-cdd5a14cc5a9" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<table align="center">
+  <td>
+    <h4>Qual è la matematica dell'attenzione?</h4>
+    <p align="justify">
+    Non entreremo nei dettagli della matematica alla base dell'attenzione perché richiederebbe molto spazio per essere descritta, e l'argomento è già stato trattato altrove. Lo abbiamo fatto in un libro precedente: il capitolo 11 di Inside Deep Learning [2] spiega i trasformatori e l'attenzione in modo molto più tecnico.
+    </p>
+    
+<p align="justify">
+Per i curiosi, l'equazione primaria è
+</p>
+
+
+<div align="center">
+<img width="511" height="126" alt="image" src="https://github.com/user-attachments/assets/4caa3a80-60f2-45cc-9559-5a6d9eec455d" />
+</div>
+
+<div align="center">
+<img width="511" height="126" alt="image" src="https://github.com/user-attachments/assets/962922c7-e96a-433f-8228-740464a88914" />
+</div>
+
+<p align="justify">
+Le query, le chiavi e i valori sono rappresentati rispettivamente dalle singole matrici (Q) , (K) e (V) . La moltiplicazione di matrici rende l'attenzione efficiente quando implementata su GPU, poiché queste possono eseguire numerose operazioni di moltiplicazione in parallelo. La funzione softmax implementa il componente principale dell'analogia dell'attenzione assegnando molti valori prossimi a zero, il che fa sì che il trasformatore ignori gli elementi non importanti.
+</p>
+
+<p align="justify">
+Il passaggio finale di norma e feedforward è l'applicazione della normalizzazione di livello e di un livello lineare tramite una connessione di salto . Se questi termini non ti sono familiari, non preoccuparti: non è necessario conoscere questa matematica per comprendere il resto del libro. Se desideri apprendere il significato di questi termini, ti rimandiamo a Inside Deep Learning [2] per una comprensione tecnicamente dettagliata.
+</p>
+
+</td>
+</table>
+
+<p align="justify">
+Un modello di trasformatore è composto da decine di strati di trasformatore. Gli strati intermedi del trasformatore svolgono lo stesso compito meccanico descritto nella figura 3.9 , pur non dovendo prevedere un token, poiché l'ultimo strato del trasformatore è l'unico che deve predire un token effettivo. Lo strato del trasformatore è sufficientemente generale da consentire al modello di apprendere compiti complessi come l'ordinamento, l'impilamento e altre sofisticate trasformazioni di input.
+</p>
+
+<h3>3.2.3 Separazione degli strati</h3>
+
+<p align="justify">
+L'ultima fase di un LLM è lo strato di unembedding, che trasforma la rappresentazione vettoriale numerica utilizzata dai trasformatori in uno specifico token di output, in modo da poter restituire il testo corrispondente a tale token. Questo processo di generazione dell'output è anche chiamato decodifica , perché decodifica la rappresentazione vettoriale del trasformatore in un testo di output. È un componente cruciale per l'utilizzo di un LLM per generare testo. Non solo la decodifica del token corrente è essenziale per la produzione dell'output, ma il token successivo dipenderà da ogni token precedente selezionato per l'output. Questo processo è mostrato nella figura 3.10 , dove generiamo ricorsivamente i token uno alla volta. In termini statistici, questo è noto come processo autoregressivo , il che significa che ogni elemento dell'output si basa sull'output precedente.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.10 La produzione di output da LLM prevede la conversione dei documenti in token e il successivo utilizzo del modello per produrre output. Eseguiamo questo processo in modo ciclico sia per elaborare il testo sia per generare output leggibile.      </p>
+    </figcaption>
+    
+<img width="834" height="840" alt="CH03_F10_Boozallen" src="https://github.com/user-attachments/assets/cd7dd87f-b216-42ad-bd7b-76fc1af4d762" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Forse ti starai chiedendo come si interrompe questo processo. Quando costruiamo il vocabolario dei token, includiamo alcuni token speciali che non compaiono nel testo. Uno di questi token speciali è un token di fine sequenza (EoS). Il modello si addestra su testi con endpoint naturali che terminano con il marcatore EoS e, quando il modello genera un nuovo token, il token EoS è una delle opzioni che può generare. Se l'EoS viene generato, sappiamo che è il momento di interrompere il ciclo e restituire il testo completo all'utente. È inoltre consigliabile mantenere un limite massimo di generazione se il modello entra in uno stato non valido e non riesce a generare il token EoS.
+</p>
+
+<b>Campionamento di token per produrre output</b>
+
+<p align="justify">
+Ciò che manca in questo processo è il modo in cui convertiamo un vettore, un array di numeri in virgola mobile prodotto dagli strati del trasformatore, in un singolo token. Questo processo è chiamato campionamento perché utilizza un metodo statistico per selezionare i token campione dal vocabolario in base all'input e all'output dell'LLM fino a quel momento. L'algoritmo di campionamento dell'LLM valuta tali campioni per selezionare il token da produrre. Esistono diverse tecniche per eseguire questo campionamento, ma tutte seguono la stessa strategia di base in due fasi:
+</p>
+
+<ol>
+  <li>
+    <p align="justify">
+Per ogni token nel vocabolario, calcola la probabilità che ciascun token sia il token selezionato successivo.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Scegli casualmente un gettone in base alle probabilità calcolate.
+    </p>
+  </li>
+</ol>
+
+<p align="justify">
+Se hai utilizzato ChatGPT o altri LLM, potresti aver notato che non sempre forniscono lo stesso output per lo stesso input. La fase di decodifica è il motivo per cui potresti ottenere risposte diverse ogni volta che poni la stessa domanda.
+</p>
+
+<p align="justify">
+Può sembrare controintuitivo che i token vengano selezionati casualmente. Tuttavia, è una componente fondamentale per generare testo di buona qualità. Si consideri l'esempio di generazione di testo nella figura 3.11 , in cui stiamo cercando di completare la frase "Amo mangiare". Sarebbe irrealistico se il modello scegliesse sempre "sushi" come token successivo perché ha la probabilità più alta. Se qualcuno ti dicesse sempre "sushi" in questo contesto, penseresti che qualcosa non va. Abbiamo bisogno della casualità per gestire il fatto che ci sono più scelte valide e che non è probabile che tutte le opzioni si verifichino.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 3.11 Dimostriamo la generazione di testo iniziando con la frase "Amo mangiare" e poi mostrando che alcuni possibili completamenti che sono cibi, come barbecue e sushi, hanno alte probabilità, mentre un'auto e il numero 42 hanno basse probabilità. La selezione casuale ponderata sceglie la parola tacos . Il ciclo di generazione si interrompe quando appare il token EoS.    </figcaption>
+    
+<img width="1100" height="793" alt="CH03_F11_Boozallen" src="https://github.com/user-attachments/assets/324a0efe-3507-45f9-816a-41df8fdee666" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Si noti inoltre che nell'esempio della figura 3.11 altri token, come 42, sarebbero privi di senso, se le probabilità fossero minime. Ancora una volta, dobbiamo assegnare a ogni token una probabilità per sapere quali token sono probabili o improbabili.
+</p>
+
+<table>
+  <td>
+    <h4>Come si ottengono le probabilità per i token?</h4>
+    <p align="justify">
+    Ogni possibile token successivo ha una probabilità diversa di essere selezionato. La maggior parte dei token ha una probabilità quasi nulla di essere selezionata. Un lettore attento potrebbe chiedersi: come possiamo assegnare una probabilità a un token prima di conoscere gli altri token? Lo facciamo assegnando a ogni token un punteggio, che indica quanto è buona la corrispondenza tra l'embedding di quel token e il vettore corrente (ovvero, l'uscita del trasformatore). Il punteggio è arbitrario da -infty a infty e calcolato indipendentemente per ciascun token. La differenza relativa nei punteggi viene quindi utilizzata per creare le probabilità. Ad esempio, se un token avesse un punteggio di 65,2 e un secondo token avesse un punteggio di -5,0, le probabilità sarebbero rispettivamente vicine al 100% e allo 0% per il singolo token. Se i punteggi fossero 65,2 e 65,1, le probabilità sarebbero rispettivamente vicine al 50,5% e al 49,5%. Allo stesso modo, punteggi pari a 0,2 e 0,1 darebbero le stesse probabilità dei punteggi 65,2 e 65,1 perché stiamo considerando le differenze relative nei punteggi per assegnare le probabilità, non i singoli punteggi stessi.
+    </p>
+  </td>
+</table>
+
+<p align="justify">
+A volte un trasformatore genera generazioni insolite o senza senso. Non è comune, ma gli altri token hanno una probabilità prossima allo zero e, alla fine, verrà estratto un token strano che non ti aspetteresti. Una volta estratto un token inaspettato, tutti i token generati in futuro verranno prodotti in un modo che tenterà di dare un senso alla generazione insolita.
+</p>
+
+<p align="justify">
+Ad esempio, se l'LLM producesse "Adoro mangiare il gesso ", rimarreste piuttosto sorpresi. Ma non è eccessivamente irragionevole, perché mangiare gesso è un sintomo di una condizione medica chiamata pica. Una volta selezionata la parola gesso , l'LLM potrebbe divagare sulla pica o su qualche altra diatriba medica, ovviamente se siete così fortunati che la vostra insolita generazione rientri nella sfera del "raro ma ragionevole" e non in una previsione del tutto errata.
+</p>
+
+<p align="justify">
+Nota: molti algoritmi possono calcolare le probabilità finali utilizzate per selezionare le parole da generare. Uno di questi è il campionamento a nucleo, noto anche come campionamento Top-p, che prevede la determinazione dei token con la più alta probabilità di output potenziali e la scelta dei token da generare da tale elenco. Questo metodo può aiutarci a evitare previsioni irragionevoli. Se possibile, è opportuno verificare quale algoritmo di campionamento utilizza il tuo LLM in modo da comprenderne i rischi di produrre output più rari o irragionevoli.
+</p>
+
+<h3>3.3 Il compromesso tra creatività e risposte di attualità</h3>
+
+<p align="justify">
+A seconda di come i tuoi utenti intendono interagire con un LLM, potresti desiderare di generare output sorprendenti o creativi. Supponiamo che tu stia utilizzando un LLM per favorire il brainstorming di idee per nuovi prodotti e che tu stia utilizzando un chatbot come cassa di risonanza digitale per stimolare le idee. In questo caso, probabilmente vorrai generare output insoliti perché l'obiettivo è essere creativi e pensare a qualcosa di nuovo.
+</p>
+
+<p align="justify">
+Al contrario, a volte la creatività è del tutto indesiderata. Un potenziale utilizzo degli LLM è la ricerca offline, che consente di installare un LLM su un telefono cellulare (relativamente potente) e di chiedere/cercare informazioni anche in assenza di connessione a Internet. In questo caso, è necessario che i risultati dell'LLM siano affidabili, pertinenti e fattuali. Non è necessaria una reinterpretazione creativa.
+</p>
+
+<p align="justify">
+Una caratteristica dei LLM chiamata temperatura bilancia questo compromesso. La variabile temperatura (che è un numero compreso tra 0 e 1 e spesso ha un valore predefinito di 0,7 o 0,8) viene utilizzata per esagerare la probabilità di token a bassa verosimiglianza (alta temperatura) o per ridurla a quella di token a bassa verosimiglianza (bassa temperatura).
+</p>
+
+<p align="justify">
+Consideriamo le molecole in un bicchiere d'acqua come analogia. Supponiamo di voler sapere quale molecola si troverà in cima al bicchiere (non chiedeteci perché; lasciate perdere). Se il bicchiere venisse abbassato a una temperatura pari allo zero assoluto, tutte le molecole rimarrebbero immobili e la molecola in cima al bicchiere sarebbe sempre la stessa (ovvero, genereremmo sempre lo stesso token). Se aumentassimo la temperatura del bicchiere a tal punto da farla bollire, le molecole rimbalzerebbero, rendendo la molecola in cima al bicchiere essenzialmente casuale (ovvero, otterremmo un token completamente casuale). Aumentando o diminuendo la temperatura, si modifica l'equilibrio tra una scelta più casuale (e, quindi, spesso creativa) e una più mirata al token successivo più probabile (mantenendo così la generazione più attuale).
+</p>
+
+<p align="justify">
+In senso pratico, considerando il nostro esempio di "Mi piace mangiare", una temperatura più alta porterebbe alla generazione di diversi tipi di cibo, non solo pizza o sushi, ma anche cibi meno tipici o più specifici come il manzo Wellington o il chili vegetariano.
+</p>
+
+<h3>3.4 Trasformatori nel contesto</h3>
+
+<p align="justify">
+Abbiamo trattato molti argomenti in questo capitolo. I livelli di incorporamento, i livelli di trasformazione e i livelli di disincorporamento sono gli elementi fondamentali che fanno funzionare gli LLM. I concetti su come gli LLM codificano il significato e la posizione e poi utilizzano pile di livelli di trasformazione per scoprire la struttura del testo sono tutti fondamentali per comprendere come gli LLM catturano le informazioni e producono la qualità di output di cui sono capaci. Ma abbiamo ancora molto da approfondire! Come creiamo questi livelli per generare incorporamenti e probabilità analizzando innanzitutto pile e pile di dati? Nel capitolo 4, continueremo a esplorare come immettere i dati in questa architettura e incentivare l'LLM ad "apprendere" relazioni significative nel testo attraverso il processo di addestramento.
+</p>
+
+<h3>Riepilogo</h3>
+
+<ul>
+  <li>
+    <p align="justify">
+Sebbene gli LLM utilizzino i token come unità di base del significato semantico, questi sono rappresentati matematicamente all'interno del modello come vettori di inclusione anziché come stringhe. Questi vettori di inclusione possono catturare relazioni di prossimità, dissimilarità, antonimi e altre proprietà linguistico-descrittive.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Posizione e ordine delle parole non sono naturali per i trasformatori e vengono ottenuti tramite un altro vettore che rappresenta la posizione relativa. Il modello può rappresentare l'ordine delle parole aggiungendo i vettori di posizione e di word embedding.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+I livelli di trasformazione agiscono come una sorta di dizionario fuzzy, restituendo risposte approssimative a corrispondenze approssimative. Questo processo fuzzy è chiamato attenzione e utilizza i termini query , key e value come analoghi a key e value in un dizionario Python.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+ChatGPT è un esempio di trasformatore solo decodificatore, ma esistono anche trasformatori solo codificatore e trasformatori codificatore-decodificatore. I trasformatori solo decodificatore sono più adatti alla generazione di testo, ma altri tipi di trasformatori possono essere più adatti ad altri compiti.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+I modelli LLM sono autoregressivi, ovvero funzionano in modo ricorsivo. Tutti i token generati in precedenza vengono immessi nel modello a ogni passaggio per ottenere il token successivo. In parole povere, i modelli autoregressivi prevedono l'evento successivo utilizzando gli eventi precedenti.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+L'output di qualsiasi trasformatore non è un numero di token; piuttosto, l'output è una probabilità di quanto è probabile ogni token. La selezione di un token specifico è chiamata unembedding o campionamento e include una certa casualità.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+L'intensità della casualità può essere controllata, ottenendo risultati più o meno realistici, più creativi o unici, o più coerenti. La maggior parte degli LLM ha una soglia predefinita per la casualità che sembra ragionevole, ma potrebbe essere necessario modificarla per usi diversi.
+    </p>
+  </li>
+</ul>
+
+
+
+
+
