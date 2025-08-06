@@ -2768,10 +2768,367 @@ Stanno iniziando a emergere framework di codifica come DSPy che separano l'LLM s
   </li>
 </ul>
 
+<h2>6 Oltre l'elaborazione del linguaggio naturale</h2>
 
+<table>
+  <td>
+    <ul>
+      <li>
+      <p align="justify">
+Come funzionano i livelli di trasformazione su dati diversi dal testo
+      </p>
+      </li>
+      <li>
+      <p align="justify">
+Aiutare gli LLM a scrivere software funzionante
+      </p>
+      </li>
+      <li>
+      <p align="justify">
+Adattare gli LLM in modo che comprendano la notazione matematica
+      </p>
+      </li>
+      <li>
+      <p align="justify">
+Come i trasformatori sostituiscono i passaggi di input e output per lavorare con le immagini
+      </p>
+      </li>
+    </ul>
+  </td>
+</table>
 
+<p align="justify">
+Sebbene la modellazione del linguaggio naturale fosse lo scopo principale dei trasformatori, i ricercatori di machine learning hanno rapidamente scoperto che potevano prevedere qualsiasi cosa che coinvolgesse sequenze di dati. I trasformatori visualizzano una frase come una sequenza di token e producono una sequenza correlata di token, come una traduzione da una lingua all'altra, oppure prevedono i token successivi in una sequenza, ad esempio quando rispondono a domande o si comportano come un chatbot. Sebbene la modellazione e la previsione di sequenze siano strumenti potenti per interpretare e generare il linguaggio naturale, il linguaggio naturale è l'unico dominio in cui gli LLM possono essere utili.
+</p>
 
+<p align="justify">
+Molti tipi di dati, diversi dal linguaggio umano, possono essere rappresentati come una sequenza di token. Il codice sorgente utilizzato per implementare il software ne è un esempio. Invece delle parole e della sintassi che ci si aspetterebbe di vedere in inglese, il codice sorgente è scritto in un linguaggio di programmazione come Python. Il codice sorgente ha una propria struttura che descrive le operazioni che uno sviluppatore di software vuole che un computer esegua. Come nel linguaggio umano, i token nel codice sorgente hanno un significato che varia a seconda del linguaggio utilizzato e del contesto in cui compaiono. Anzi, il codice sorgente è più strutturato e specifico del linguaggio umano. Un linguaggio di programmazione con sfumature di ambiguità e significato sarebbe difficile da interpretare per un computer e più difficile da modificare e mantenere per altri.
+</p>
 
+<p align="justify">
+Il codice sorgente, o semplicemente "codice" (come lo chiameremo d'ora in poi), è solo un esempio di come LLM e trasformatori funzionano con dati che non sono linguaggio naturale. Quasi tutti i dati che possono essere riformulati come una sequenza di token possono utilizzare i trasformatori e le numerose lezioni che abbiamo imparato sul funzionamento degli LLM. Questo capitolo esaminerà tre esempi che diventano progressivamente meno simili al linguaggio naturale: codice, matematica e visione artificiale.
+</p>
 
+<p align="justify">
+Ciascuno di questi tre diversi tipi di dati, noti come modalità dati , richiederà un nuovo modo di considerare gli input o gli output di un trasformatore. Tuttavia, in tutti i casi, il trasformatore stesso rimarrà invariato. Continueremo a sovrapporre più livelli di trasformatore per costruire un modello e continueremo ad addestrare i livelli del trasformatore utilizzando la discesa del gradiente. Il codice, essendo il più simile al linguaggio naturale, non richiede troppe modifiche. Per far funzionare bene un LLM in codice, tuttavia, cambieremo il modo in cui gli output dell'LLM generano token successivi. Successivamente, esamineremo la matematica, dove è necessario modificare la tokenizzazione per far sì che un LLM esegua correttamente operazioni di base come l'addizione. Infine, per la visione artificiale, che riguarda l'elaborazione di immagini e l'esecuzione di attività come il rilevamento e l'identificazione di oggetti, modificheremo sia gli input che gli output, mostrando come è possibile convertire un tipo di dati molto diverso in una sequenza sostituendo completamente il concetto di token. Nella figura 6.1 mostriamo le parti degli LLM che è necessario modificare per funzionare con ciascuna modalità dati .
+</p>
 
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.1 Se scomponiamo un LLM in tre componenti principali: input (tokenizzazione), trasformazione (trasformatori) e generazione di output (unedding), possiamo utilizzare nuove modalità di dati modificando almeno uno dei componenti di input o di output. Nel frattempo, il trasformatore non richiede modifiche nella maggior parte dei casi d'uso perché è di uso generale.
+      </p>
+    </figcaption>
+    
+<img width="1062" height="646" alt="CH06_F01_Boozallen" src="https://github.com/user-attachments/assets/3613e797-43a3-4b0d-9156-610871b11474" />
 
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Lavorando con tutti e tre i nuovi tipi di dati, dobbiamo risolvere un problema comune. Come possiamo fornire all'LLM o al trasformatore la capacità di utilizzare le conoscenze relative a quella specifica area disciplinare? Solitamente, questo problema viene risolto integrando software esterno nell'LLM. Si può pensare a questi componenti software esterni come a strumenti. Analogamente a come si ha bisogno di un martello per piantare un chiodo in un pezzo di legno, gli LLM possono trarre vantaggio dall'utilizzo di strumenti per raggiungere gli obiettivi finali. Strumenti sviluppati per la programmazione ci aiuteranno a migliorare gli LLM di programmazione. Sapere come gli esseri umani elaborano i calcoli e gli strumenti che utilizziamo per automatizzarli ci aiuterà a creare LLM di matematica migliori. Capire come rappresentiamo le immagini come pixel (che alla fine trasformiamo in sequenze di numeri che rappresentano la quantità di rosso, verde e blu in una parte di un'immagine) ci permetterà di convertirli in sequenze per l'LLM. Riflettendo sulle conoscenze specifiche relative al tuo lavoro in cui gli LLM non sono ancora stati applicati, sarai in grado di identificare le caratteristiche uniche dei dati con cui lavori per modificare un LLM in modo che funzioni meglio con i dati di quel dominio di conoscenza.
+</p>
+
+<h3>6.1 LLM per lo sviluppo del software</h3>
+
+<p align="justify">
+Abbiamo già brevemente discusso del fatto che gli LLM possono scrivere codice sorgente per il software. Nel capitolo 4 , abbiamo chiesto a ChatGPT di scrivere del codice Python per calcolare la costante matematica \(\pi\) . Successivamente, gli abbiamo chiesto di convertire quel codice in un linguaggio poco noto chiamato Modula-3. Il software è stata una delle prime cose in cui si è scoperto che gli LLM potevano essere d'aiuto, come conseguenza relativamente naturale del funzionamento della programmazione. I linguaggi di programmazione sono progettati per essere letti e scritti dagli esseri umani, proprio come il testo! Di conseguenza, possiamo generare codice senza modificare il processo di tokenizzazione. Tutto ciò che abbiamo discusso sulla costruzione di LLM si applica allo stesso modo al codice e ai linguaggi umani.
+</p>
+
+<p align="justify">
+Possiamo vederlo osservando la tokenizzazione di ChatGPT di due segmenti di codice simili per Python e Java nella figura 6.2 . Qui, utilizziamo sfumature di grigio per mostrare il tokenizzatore di OpenAI ( https://platform.openai.com/tokenizer ), che suddivide il codice in token diversi. Sebbene lo stesso token possa avere un colore diverso in ogni esempio, possiamo concentrarci su come il tokenizzatore suddivide il codice in token e sulle somiglianze tra i due esempi. Queste includono elementi come
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+L'indentazione per ogni riga di codice
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Le variabili x e i(nella maggior parte dei casi)
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Il nome della funzione e l'istruzione di ritorno
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Gli operatori, come +=
+    </p>
+  </li>
+</ul>
+
+<p align="justify">
+Queste somiglianze rendono molto più semplice per un LLM correlare le somiglianze tra ogni porzione di codice. Le somiglianze implicano anche che l'LLM condivida informazioni tra linguaggi di programmazione con pratiche di denominazione, sintassi e codifica comuni durante la formazione.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.2 Due esempi simili di codice scritto nei linguaggi di programmazione Python (a sinistra) e Java (a destra). Questi mostrano come la codifica a coppie di byte possa identificare token simili in linguaggi diversi. I riquadri mostrano i singoli token. I metodi di tokenizzazione standard per i linguaggi umani svolgono un lavoro ragionevole sul codice, poiché presenta molte somiglianze con il linguaggio naturale.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="319" alt="CH06_F02_Boozallen" src="https://github.com/user-attachments/assets/df3e1770-ef59-439b-9e0b-fff2bc66e218" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Gli sviluppatori software sono incoraggiati a utilizzare nomi di variabile significativi che riflettano il ruolo o lo scopo di una variabile nei programmi che scrivono. Le variabili con nomi simili initValuevengono suddivise in due token per inite Value, utilizzando gli stessi token per rappresentare il testo in linguaggio naturale in cui compare il prefisso "init" della parola "Value". Quindi non solo condividiamo informazioni tra linguaggi di programmazione con sintassi simile, ma condividiamo anche informazioni sul contesto e l'intenzione del codice tramite i nomi delle variabili. Gli LLM traggono vantaggio anche dai commenti al codice che i programmatori aggiungono per descrivere parti complesse del codice per sé stessi o per altri programmatori. Nella figura 6.3 , abbiamo la versione Java ripetuta con una modifica nel nome della variabile e un commento descrittivo (ma non necessario nella vita reale) all'inizio della funzione.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.3 Codice scritto in Java, incluso un commento che descrive le funzioni del codice. Poiché (si spera) un codice (buono) contiene molti commenti, esiste una naturale combinazione di linguaggio naturale e codice che l'LLM può utilizzare per ottenere informazioni. Quando le variabili hanno nomi descrittivi, diventa più facile per il modello correlare le informazioni tra il codice e l'intento descritto nei commenti e nei nomi delle variabili.        
+      </p>
+    </figcaption>
+    
+<img width="1100" height="419" alt="CH06_F03_Boozallen" src="https://github.com/user-attachments/assets/c2656dce-8d26-41af-bbd0-25455215af12" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Nella maggior parte dei casi, otteniamo gli stessi token tra codice e commenti, collegando linguaggi umani e di programmazione poiché utilizzano la stessa rappresentazione. Che lavoriamo con un linguaggio di programmazione o con un linguaggio naturale, otteniamo gli stessi token e incorporamenti. Il bello è che un LLM riutilizzerà le informazioni sui linguaggi naturali per catturare il significato del codice sorgente, proprio come fanno i programmatori umani.
+</p>
+
+<p align="justify">
+In ogni caso, vediamo che la tokenizzazione non è perfetta per il codice. Ci sono casi limite in cui il tokenizzatore dell'LLM non converte i tipi di dati nel codice nello stesso token. Ad esempio, si può notare che il token for (doublenell'argomento della funzione viene gestito in modo diverso dal token for doublenel corpo della funzione. Tuttavia, queste differenze sono simili ai problemi che già riscontriamo negli LLM per il linguaggio naturale, dove diversi casi di punteggiatura attorno a una parola come "hello", "hello." e "hello!" vengono interpretati come token diversi. Poiché gli LLM possono gestire queste piccole differenze, è logico che possano gestire lo stesso problema anche per il codice. Il problema è, per molti versi, più facile da gestire per un LLM nel codice perché il codice è sensibile alle maiuscole e alle minuscole, quindi non dobbiamo preoccuparci che situazioni testuali come "hello" e "Hello" vengano mappate in modo inappropriato a token diversi. Nel codice, "hello" e "Hello" sarebbero nomi di variabili o funzioni separati e distinti. Trattarli come token separati è corretto perché il linguaggio di programmazione li tratta come elementi diversi.
+</p>
+
+<p align="justify">
+La generazione di codice è particolarmente interessante dal punto di vista applicativo, grazie alle diverse opportunità di autovalidazione. Possiamo applicare tutte le lezioni sul fine tuning supervisionato (SFT) e sull'apprendimento per rinforzo con feedback umano (RLHF) del capitolo 5 per rendere un LLM un agente di codifica efficace.
+</p>
+
+<h3>6.1.1 Migliorare gli LLM per lavorare con il codice</h3>
+
+<p align="justify">
+Il primo passo per migliorare un LLM per il codice è garantire che gli esempi di codice siano presenti nei dati di training iniziali. Data la natura di Internet, la maggior parte degli sviluppatori LLM lo ha già fatto: gli esempi di codice sono frequenti online e finiscono naturalmente nei set di dati di training di tutti.
+</p>
+
+<p align="justify">
+Migliorare i risultati diventa quindi un'opportunità per applicare la SFT, dove raccogliamo esempi di codice aggiuntivi e perfezioniamo il nostro LLM sugli esempi di codice forniti. Repository open source come GitHub, che contengono volumi significativi di codice, rendono particolarmente semplice ottenere grandi quantità di codice. Il codice raccolto da fonti come GitHub costituisce la base di un set di dati di ottimizzazione per gli LLM che interpretano e producono codice.
+</p>
+
+<p align="justify">
+Il caso più interessante è l'utilizzo di RLHF per migliorare l'utilità di un modello per la scrittura di codice. Anche in questo caso, sono disponibili molti strumenti e set di dati che consentono di creare un set di dati RLHF decente per un assistente di programmazione. Fonti come Stack Overflow consentono agli utenti di inserire domande, offrono la possibilità ad altri di fornire risposte a queste domande e includono un sistema in cui gli altri utenti votano le risposte migliori. Le fonti di dati includono competizioni di programmazione come CodeJam, che forniscono molti esempi di soluzioni a uno specifico problema di programmazione. L'integrazione di informazioni da fonti di dati come queste è mostrata nella figura 6.4 .
+</p>
+
+<p align="justify">
+Come tutte le buone soluzioni di apprendimento automatico, si ottengono i risultati migliori se si creano ed etichettano i dati specifici per il proprio compito. Si dice che OpenAI abbia fatto questo per generare codice, assumendo appaltatori per completare le attività di codifica come parte della creazione dei dati per il loro sistema [1]. Indipendentemente da come vengono raccolti i dati di addestramento e di fine-tuning, la strategia generale rimane la stessa: utilizzare tokenizzatori standard e SFT con RLHF per creare un LLM su misura per generare codice. Questa ricetta è stata utilizzata con successo per produrre LLM come Code Llama [2] e StarCoder [3].
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.4 Lo sviluppo di un LLM per il codice richiede più fasi di perfezionamento. Le procedure di addestramento standard, come quelle descritte nel capitolo 4 , producono un LLM di base iniziale. Utilizzando una grande quantità di codice, SFT crea un LLM che funziona bene con il codice. L'inclusione di RLHF come seconda fase di perfezionamento migliora la capacità dell'LLM di produrre codice.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="401" alt="CH06_F04_Boozallen" src="https://github.com/user-attachments/assets/ea640806-4a84-4b45-bc95-ec6cf9de385f" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<h3>6.1.2 Validazione del codice generato dagli LLM</h3>
+
+<p align="justify">
+Gli LLM sono particolarmente utili per la generazione di codice perché prevedono una fase di verifica oggettiva e di facile esecuzione: il tentativo di compilare il codice in un programma eseguibile [4]. Quando si genera un linguaggio naturale, è difficile verificare la correttezza dell'output generato da un LLM perché il linguaggio naturale può essere soggettivo. Non esiste un modo automatico per verificare la veridicità o la veridicità dell'output generato da un LLM. Tuttavia, quando si genera codice, il semplice controllo della corretta compilazione del codice in un eseguibile è un buon primo passo e consente di individuare gran parte del codice errato. Alcuni prodotti commerciali vanno oltre e integrano strumenti come compilatori (software che trasformano il codice sorgente in eseguibili) e strumenti di visualizzazione nel loro backend. Ad esempio, ChatGPT può verificare se il codice che scrive viene compilato prima di restituirlo all'utente. Se il codice non supera questa fase di verifica, ChatGPT tenterà di generare codice diverso per il prompt ricevuto. Se il modello non riesce a creare codice valido da compilare, avviserà l'utente di questo fatto.
+</p>
+
+<p align="justify">
+Oltre a verificare la compilabilità del codice, gli LLM sono sempre più in grado di creare metodi per convalidare la correttezza funzionale. Molti strumenti di generazione di codice utilizzano gli LLM per generare test unitari, ovvero piccoli programmi che forniscono input di esempio al codice generato e ne convalidano la correttezza. In alcuni casi, queste funzionalità richiedono allo sviluppatore di descrivere i casi di test che desidera che l'LLM generi, e l'LLM crea un'implementazione iniziale come punto di partenza per ulteriori test.
+</p>
+
+<p align="justify">
+Il codice è particolarmente speciale perché esistono diversi modi per convalidarne l'output, oltre alla semplice compilazione. Ad esempio, la compilazione del codice non può avvenire finché l'LLM non ha completato la generazione della risposta.
+</p>
+
+<p align="justify">
+Considerando che gli LLM sono costosi da gestire e non vogliamo che l'utente attenda troppo a lungo l'output, sarebbe ideale se l'LLM potesse correggere gli errori prima di completare una generazione estesa. Applicando ancora una volta le lezioni del capitolo 5, possiamo utilizzare un parser sintattico per verificare se il codice è errato prima di completare l'intero processo di generazione. Se parti del codice di output non superano un controllo sintattico di base, possiamo istruire l'LLM a rigenerare solo quella porzione di codice difettosa. Mostriamo il processo di base alla base di questo nella figura 6.5 , dove l'LLM esegue un controllo per token invece di attendere il completamento della generazione prima di controllare il codice tramite compilazione. Il controllo sintattico è meno costoso e può essere più rapido della compilazione, ma non convalida che un compilatore possa trasformare il codice in un programma eseguibile funzionante.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.5 Un esempio di codice Python in cui if(A > B)sono stati generati i token correnti. Se il token successivo prodotto dall'LLM è una nuova riga, si verificherà un errore di sintassi perché ifun'istruzione deve terminare con due punti per essere valida. L'esecuzione di un controllo sintattico su ogni nuovo token ci consente di rilevare questo errore e forzare l'LLM a scegliere un token alternativo che non causi un errore di sintassi.
+      </p>
+    </figcaption>
+    
+<img width="620" height="578" alt="CH06_F05_Boozallen" src="https://github.com/user-attachments/assets/e18f7124-5f76-4fce-8839-30aec098cf44" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<h3>6.1.3 Miglioramento del codice tramite formattazione</h3>
+
+<p align="justify">
+L'utilizzo di parser per il controllo della sintassi e di compilatori per produrre eseguibili funzionanti semplifica notevolmente l'adattamento dei LLM al nuovo dominio problematico della generazione di codice. Tuttavia, un ulteriore trucco è utile. Possiamo utilizzare strumenti noti come formattatori di codice (noti anche dai programmatori come linter ) per modificare la tokenizzazione e migliorare le prestazioni.
+</p>
+
+<p align="justify">
+Il problema è che possono esserci molti modi per scrivere codice che esegue le stesse funzioni ma è tokenizzato in modo diverso. Applicare un linter per regolare la formattazione del codice sorgente aiuta a rimuovere le differenze tra due porzioni di codice funzionalmente equivalenti, ma diverse. Sebbene la riformattazione del codice non sia un requisito per il corretto funzionamento dei LLM, aiuta a evitare inutili ridondanze che possono verificarsi. Ad esempio, si consideri il linguaggio di programmazione Java che utilizza le parentesi per iniziare e terminare un nuovo ambito in un programma. Varie forme di spazio vuoto ora non sono importanti, ma verrebbero tokenizzate in modo diverso, soprattutto perché le parentesi sono facoltative per un ambito che utilizza una sola riga di codice! La Figura 6.6 mostra come questi diversi formati legali esistano per il codice che esegue le stesse funzioni e come potremmo, idealmente, convertire il codice in un'unica rappresentazione canonica.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.6 Un esempio di codice Java che mostra come diversi modi di formattare lo stesso codice portino a diverse tokenizzazioni, sebbene ciascuna sia semanticamente identica. I linter sono uno strumento comune per forzare il codice a seguire una specifica regola di formattazione. Invece, un linter può essere utilizzato per creare una forma "base" identica, evitando così di rappresentare informazioni non necessarie (come spazi anziché tabulazioni).
+      </p>
+    </figcaption>
+    
+<img width="1100" height="494" alt="CH06_F06_Boozallen" src="https://github.com/user-attachments/assets/12824a93-bd26-4e52-bf4b-3f260bfb45e6" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+La rimozione degli aspetti non funzionali del codice è chiamata canonicalizzazione , ovvero convertiamo il codice con variazioni di formattazione in una forma standard o "canonica". Qui, abbiamo dimostrato un metodo robusto di canonicalizzazione aggiungendo token speciali come <code>NEW SCOPE</code> quelli che catturano il fatto che esista un nuovo contesto per l' ifistruzione, indipendentemente dal fatto che si tratti di un'istruzione a riga singola o multiriga. Invece di aggiungere token speciali, possiamo utilizzare una formattazione coerente in tutto il codice (ad esempio, usare sempre spazi anziché tabulazioni, una nuova riga prima {o senza). Sia l'analisi sintattica che la formattazione speciali miglioreranno le prestazioni di un LLM del codice. Il metodo robusto, in cui aggiungiamo token speciali, offrirà prestazioni migliori rispetto alla formattazione, ma ha il costo aggiuntivo di scrivere e mantenere un parser personalizzato per il codice che aggiunge tali token speciali. Il problema di modificare il tokenizzatore sarà più critico nella prossima sezione, quando discuteremo dell'utilizzo degli LLM per la matematica.
+</p>
+
+<h3>6.2 LLM per matematica formale</h3>
+
+<p align="justify">
+Gli LLM possono anche svolgere compiti matematici solitamente piuttosto impegnativi per gli esseri umani. Questi compiti vanno oltre la semplice esecuzione di operazioni come addizione e sottrazione per calcolare numeri; includono matematica formale e simbolica. Forniamo un esempio dei tipi di matematica formale di cui stiamo parlando nella figura 6.7 . Si può chiedere a questi LLM di calcolare derivate, limiti e integrali e di scrivere dimostrazioni. Possono produrre risultati sorprendentemente ragionevoli.
+</p>
+
+<p align="justify">
+Gli LLM per il codice sono pratici perché possiamo usare parser e compilatori per validare parzialmente i loro output. Una corretta tokenizzazione è fondamentale per creare un LLM utile per la matematica. L'uso degli LLM per la matematica è ancora un'area di ricerca particolarmente attiva [6], quindi i modi migliori per far sì che un LLM esegua calcoli matematici non sono ancora noti. Tuttavia, i ricercatori hanno identificato alcuni problemi che si concentrano nella fase di tokenizzazione della creazione e dell'esecuzione di un LLM.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.7 Un problema di matematica simbolica che il Minerva LLM può risolvere correttamente. Sebbene questo esempio mescoli il linguaggio naturale con contenuti matematici, la tokenizzazione standard utilizzata da molti LLM non consentirebbe questo tipo di output matematico e può causare alcuni problemi sorprendenti. (Immagine concessa in licenza Creative Commons da [5])
+      </p>
+    </figcaption>
+    
+<img width="1100" height="405" alt="CH06_F07_Boozallen" src="https://github.com/user-attachments/assets/f755757a-6e02-4646-994b-dbb285b2de6e" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Nota : nel capitolo 5 abbiamo accennato al fatto che il fine-tuning può essere applicato più volte, e gli LLM in matematica ne sono un ottimo esempio. I ricercatori spesso creano LLM in matematica perfezionando gli LLM in codice, che a loro volta vengono creati perfezionando gli LLM in testo generico. Tra SFT e RLHF in ogni fase, vengono applicati da tre a sei cicli di perfezionamento all'LLM originale a valle per gli LLM in matematica.
+</p>
+
+<h3>6.2.1 Input sanificato</h3>
+
+<p align="justify">
+Gli LLM in matematica spesso soffrono di una preparazione dell'input che può funzionare bene per il testo in linguaggio naturale, ma degrada la rappresentazione dei concetti matematici. Nel testo, le rappresentazioni matematiche formattate spesso includono simboli come {}<>;^. Simboli speciali come questi vengono comunemente rimossi dai dati di training quando si lavora con testo normale. Per preservare queste informazioni è necessario riscrivere i parser di input per la tokenizzazione, in modo da garantire di non rimuovere i dati da cui si sta cercando di far apprendere il modello.
+</p>
+  
+<p align="justify">
+Rappresentazioni multiple per equazioni matematiche equivalenti complicano ulteriormente la formazione degli LLM alla comprensione della matematica, proprio come la formattazione multipla può causare problemi durante l'elaborazione dei linguaggi di programmazione. Diversi formati come TeX, asciimath e MathML consentono di esprimere la notazione matematica utilizzando testo normale, ma forniscono istruzioni a un tipografo per la corretta rappresentazione delle equazioni. Questi formati offrono molti modi diversi per rappresentare la stessa equazione. Mostriamo un esempio di questo problema nella figura 6.8 . Ci sono problemi con il metodo di impaginazione della matematica (ovvero, come disegnare l'equazione scegliendo TeX rispetto a MathML) e con la rappresentazione della matematica (ovvero, due modi matematicamente equivalenti di esprimere la stessa cosa).
+</p>
+
+<p align="justify">
+Si tratta di due forme di un problema che è emerso più volte nella nostra discussione sugli LLM: modi diversi di rappresentare la stessa cosa. Nel caso della matematica, la preferenza attuale è quella di mantenere la matematica formattata usando TeX e alternative molto simili ma meno frequenti come asciimath, e di scartare contenuti prolissi come MathML. Basiamo questa motivazione su tre fattori:
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.8 Un'equazione matematica in alto a sinistra illustra due diversi problemi di rappresentazione che si verificano in matematica. La matematica ben formattata richiede un linguaggio di composizione. TeX e MathML sono due linguaggi di composizione diversi che hanno testo e, quindi, tokenizzazione molto diversi. Separatamente dal linguaggio di composizione, esistono molti modi per rappresentare la stessa affermazione matematica.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="507" alt="CH06_F08_Boozallen" src="https://github.com/user-attachments/assets/a9252b0e-98a0-4198-9e1f-db883fffc8db" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<ul>
+  <li>
+  <p align="justify">
+La matematica formattata basata su TeX è la forma di matematica più comune e disponibile grazie a fonti accessibili al pubblico come arXiv, che utilizza costantemente la formattazione TeX.
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+Mantenere tutte le rappresentazioni simili a TeX attenua la sfida di apprendere formati multipli e, di conseguenza, set di token molto diversi.
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+Il MathML più dettagliato utilizza una varietà più ampia di token; pertanto, sono necessarie più risorse di elaborazione per memorizzare i dati associati a ciascun token univoco.
+  </p>
+  </li>
+</ul>
+
+<p align="justify">
+Scegliere TeX come unica rappresentazione preferita per la matematica negli LLM non risolve il problema dell'esistenza di molteplici modi per scrivere equazioni equivalenti. Determinare quali equazioni siano uguali è così difficile che i ricercatori hanno dimostrato che nessun singolo algoritmo può determinare l'equivalenza di due espressioni matematiche. (Siamo un po' vaghi con le parole, dato che questa sezione riguarda la matematica formale , quindi vi indicheremo la fonte [7]). Finora, la risposta migliore per gli LLM sembra essere "lasciare che sia il modello a provare a capirlo", che finora ha avuto un discreto successo. Ma non saremmo sorpresi se gli sviluppatori dei futuri LLM di matematica investissero molto nel miglioramento della pre-elaborazione creando rappresentazioni canoniche più coerenti per le equazioni matematiche che riducano la varietà di possibili espressioni per le espressioni equivalenti.
+</p>
+
+<h3>6.2.2 Aiutare gli LLM a comprendere i numeri</h3>
+
+<p align="justify">
+Per la maggior parte delle persone, i numeri sono la parte più accessibile della matematica. È possibile inserirli in una calcolatrice e ottenere il risultato. Sebbene possa essere noioso, è possibile eseguire calcoli a mano se non si dispone di una calcolatrice. Si seguono regole fisse per ottenere il risultato. Sorprendentemente, gli LLM hanno molte difficoltà a eseguire questo tipo di calcoli meccanici, ma gli sviluppatori hanno lavorato per migliorare la capacità dei tokenizzatori di lavorare meglio con i numeri.
+</p>
+
+<p align="justify">
+Il primo problema è che l'algoritmo standard di codifica a coppie di byte (BPE) produce tokenizzatori che creano token incoerenti per i numeri. Ad esempio, "1812" verrà probabilmente tokenizzato come un singolo token perché ci sono riferimenti alla Guerra del 1812 in migliaia di documenti; i tokenizzatori probabilmente scomporranno 1811 e 1813 in numeri più piccoli. Per approfondire il motivo per cui ciò accade, si consideri la stringa iniziale 3252+3253e il modo in cui GPT-3 e GPT-4 tokenizzano questa stringa. GPT-4 farà un lavoro migliore perché sembra tokenizzare i numeri iniziando ogni volta con le prime tre cifre, ottenendo un numero di tre cifre seguito da un numero di una sola cifra. GPT-3 appare incoerente perché cambia l'ordine in cui tokenizza i numeri, come mostrato nella figura 6.9 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.9 Gli studenti di LLM non possono imparare a fare calcoli aritmetici di base se non tokenizzano le cifre in modo coerente. In questa figura, le sottolineature indicano token diversi. Le cifre tokenizzate potrebbero rappresentare le decine, le centinaia o le migliaia di un dato numero. GPT-3 (a sinistra) è incoerente nel modo in cui i numeri vengono tokenizzati, rendendo l'addizione di due numeri inutilmente complessa. GPT-4 è migliore (ma non perfetto) nel tokenizzare i numeri in modo coerente.
+      </p>
+    </figcaption>
+    
+<img width="882" height="701" alt="CH06_F09_Boozallen" src="https://github.com/user-attachments/assets/37e77a97-e90d-4a55-88c1-bc25f8173235" />
+
+  </figure>
+</div>
+  </td>
+</table>
