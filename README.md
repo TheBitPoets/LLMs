@@ -3132,3 +3132,261 @@ Figura 6.9 Gli studenti di LLM non possono imparare a fare calcoli aritmetici di
 </div>
   </td>
 </table>
+
+<p align="justify">
+Ora si è verificato un problema significativo. Il token "3" per GPT-3 si verifica due volte in due contesti diversi, una volta nella posizione delle migliaia ( tremiladuecento ...) e una volta nella posizione delle decine (tremiladuecentocinquantatré ). Affinché GPT-3 addizioni correttamente questi numeri, il tokenizzatore deve acquisire correttamente quattro posizioni diverse delle cifre. Al contrario, GPT-4 utilizza l'ordine delle rappresentazioni delle cifre per ciascun numero, rendendo più facile ottenere il risultato corretto.
+</p>
+
+<p align="justify">
+Si stanno ancora sperimentando diversi modi per modificare il tokenizzatore per migliorare la capacità degli LLM di lavorare con i numeri. Se vogliamo tokenizzare le cifre in sottocomponenti, l'approccio migliore al momento è separare ogni numero, come 3252, in singole cifre, come "3, 2, 5, 2" [8]. Tuttavia, esistono anche altre alternative.
+</p>
+
+<p align="justify">
+Un altro approccio interessante per rappresentare i numeri è chiamato xVal [9], con l'idea di sostituire ogni numero con lo stesso token che rappresenta "un numero". Potremmo chiamare questo token speciale NUM, che verrà mappato su un vettore di numeri dal livello di incorporamento di cui abbiamo parlato nel capitolo 3 .
+</p>
+
+<p align="justify">
+Il trucco intelligente è includere un moltiplicatore con ogni token, un secondo numero moltiplicato per il valore del vettore incorporato. Per impostazione predefinita, l'LLM utilizza un moltiplicatore di 1 per ogni token. Moltiplicare qualsiasi cosa per 1 non produce alcun effetto. Ma per qualsiasi NUMtoken che incontriamo, verrà invece moltiplicato per il numero originale del testo! In questo modo, possiamo rappresentare ogni possibile numero che potrebbe apparire, anche valori frazionari, inclusi quelli che non sono apparsi nei dati di addestramento. I numeri acquisiti in questo modo sono correlati in modo semplice e intuitivo. Lo mostriamo più in dettaglio nella figura 6.10 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.10 xVal utilizza un trucco per ridurre il numero di token e renderli meno ambigui. Modificando il modo in cui l'LLM converte i numeri in vettori, un singolo vettore rappresenta ogni numero, come il numero 1. Utilizzando sempre il token 1 e moltiplicandolo per il numero osservato, evitiamo molti casi limite nella rappresentazione dei token numerici, come numeri che non sono mai apparsi nei dati di addestramento. Questo metodo di conversione semplifica anche il supporto di numeri frazionari come 3,14.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="408" alt="CH06_F10_Boozallen" src="https://github.com/user-attachments/assets/161ef36b-a030-4239-80d3-5ef6776a9030" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Sia le cifre coerenti che la strategia xVal condividono un'importante consapevolezza. Sappiamo come rappresentare la matematica e algoritmi semplici come l'addizione e la moltiplicazione delle elementari. Se progettiamo l'LLM per tokenizzare la matematica in un modo più coerente con il modo in cui noi, come esseri umani, svolgiamo compiti matematici, i nostri LLM acquisiranno capacità matematiche migliori e più coerenti.
+</p>
+
+<h3>6.2.3 Anche gli LLM di matematica utilizzano strumenti</h3>
+
+<p align="justify">
+Il lettore attento potrebbe aver notato che la maggior parte dei problemi di tokenizzazione relativi alla matematica riguarda la gestione di cifre e non di matematica simbolica. Gli LLM non possono eseguire addizioni o sottrazioni essenziali senza modificare il tokenizzatore e mantenendo simboli tipicamente "cattivi" come {}<>;^. Abilitare il calcolo modificando il modo in cui il tokenizzatore gestisce i numeri può sembrare un problema di poco conto. Tuttavia, è un fattore significativo per buone prestazioni simboliche e spesso insufficiente per gestire altre forme di matematica simbolica. Ottenere le migliori prestazioni possibili nella matematica simbolica si basa su strumenti esterni e su trucchi intelligenti con l'output degli LLM.
+</p>
+  
+<p align="justify">
+Se avete mai avuto la calcolatrice TI-89 che risolveva le derivate, sapete che i computer possono automatizzare i calcoli senza LLM. Funzionalmente, i sistemi di computer algebra (CAS) possono fornire questa funzionalità. Un CAS implementa algoritmi per eseguire alcuni (ma non tutti) i passaggi matematici. Il calcolo delle derivate è uno di questi, quindi avere un LLM che utilizza un CAS, come Sympy, aiuta a garantire che l'LLM esegua sempre correttamente determinati passaggi. Tuttavia, la possibilità di integrare un CAS come Sympy in un LLM non garantisce che l'intera sequenza di passaggi venga eseguita correttamente.
+</p>
+
+<p align="justify">
+Per convalidare la correttezza, gli LLM in matematica hanno iniziato a utilizzare un linguaggio di programmazione chiamato Lean . In Lean, il programma è una sorta di dimostrazione matematica e non verrà compilato se contiene un errore nella dimostrazione. Di fatto, i passaggi di dimostrazione errati vengono considerati un tipo di errore di sintassi che può essere rilevato. Una volta rilevato, come abbiamo mostrato in altri esempi, l'output può essere rigenerato dall'LLM finché la dimostrazione, generata come programma Lean, non viene compilata correttamente, proprio come mostrato nella sezione 6.1.2 .
+</p>
+
+<p align="justify">
+L'utilizzo di Lean può garantire che una dimostrazione restituita da un LLM sia corretta al 100%, ma non vi è alcuna garanzia che l'LLM riesca a trovare la dimostrazione. In particolare, potrebbero esserci casi in cui l'LLM potrebbe essere in grado di risolvere correttamente il problema, ma potrebbe non essere in grado di esprimerlo utilizzando Lean. La logica alla base di questo problema è rappresentata nella figura 6.11 , e si riduce al fatto che l'efficacia dell'uso degli strumenti negli LLM dipende dalla varietà di esempi di utilizzo dello strumento nei dati di training. Poiché Lean è relativamente nuovo e di nicchia, ci sono pochi esempi di messa a punto di un LLM per utilizzarlo in modo efficace. Persone come te e me dovranno generare quegli esempi per produrre dati di training adeguati per insegnare a un LLM come utilizzare Lean.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.11 Dato un obiettivo matematico, far sì che un LLM utilizzi il metodo Lean (percorso corretto) potrebbe non portare a una dimostrazione verificabilmente corretta, perché potrebbe non essere efficace nell'utilizzare il metodo Lean come strumento. Far sì che l'LLM produca una dimostrazione normale (percorso sinistro) potrebbe produrre una dimostrazione corretta, ma non un modo per verificare che sia (o non sia) corretta.
+      </p>
+    </figcaption>
+    
+<img width="766" height="883" alt="CH06_F11_Boozallen" src="https://github.com/user-attachments/assets/5629677e-f684-46fc-bf48-86c036738d92" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Cosa si può fare se l'LLM non fornisce una prova verificabile della correttezza dei calcoli? Un trucco utilizzato oggi è quello di eseguire l'LLM più volte. Poiché il token successivo viene selezionato in modo casuale, si può potenzialmente ottenere un risultato diverso con una risposta diversa ogni volta che si esegue l'LLM. La risposta che appare più frequentemente è con ogni probabilità corretta. Questo processo non garantisce la correttezza della dimostrazione, ma è utile.
+</p>
+
+<h3>6.3 Trasformatori e visione artificiale</h3>
+
+<p align="justify">
+Il processo di traduzione di codice e matematica in token è piuttosto intuitivo. Il codice è fondamentalmente testo utilizzato per dire ai computer cosa fare in modo estremamente pedante. La matematica è difficile da convertire in token, ma abbiamo discusso di come sia possibile. La visione artificiale è un'altra storia, in cui i dati coinvolti sono immagini o video rappresentati tramite pixel. L'idea di token per le immagini sembra confusa. Come diavolo potremmo convertire un'immagine in token? Le immagini in genere contengono molti dettagli e non è possibile combinare semplicemente un gruppo di piccole immagini in un'unica immagine coerente come si fa quando si mettono insieme delle parole per formare una frase. Ciononostante, possiamo applicare i trasformatori alle immagini se pensiamo alla tokenizzazione come a un processo per convertire qualsiasi input in una sequenza di numeri.
+</p>
+
+<p align="justify">
+Nota: esisteva un approccio alla rappresentazione delle immagini come una combinazione di piccole immagini chiamate "codici" . I codici possono essere utili, ma non sono la stessa cosa nello spirito della nostra discussione. Considerate questo come un spunto di riflessione da esplorare se volete conoscere alcune vecchie tecniche di visione artificiale.
+</p>
+
+<p align="justify">
+Sebbene algoritmi di riconoscimento di immagini e generatori di immagini di alta qualità esistessero già da molti anni prima dei trasformatori, questi ultimi sono rapidamente diventati uno dei metodi principali per lavorare con le immagini nell'apprendimento automatico. Sia le architetture di trasformatori visivi (ViT) che utilizzano esclusivamente trasformatori, sia i modelli di architettura mista come VQGAN e U-Net Transformer che combinano trasformatori con altri tipi di strutture dati, hanno ottenuto un grande successo sia nell'interpretazione di dati basati su immagini sia nella produzione di straordinarie immagini generate al computer a partire da descrizioni testuali. Può sembrare controintuitivo che i trasformatori funzionino così bene nelle immagini, perché queste non hanno l'aspetto di sequenze discrete di simboli come il linguaggio naturale, il codice o le sequenze di amminoacidi. Tuttavia, i trasformatori svolgono un ruolo fondamentale nella visione artificiale, apportando coesione globale ai modelli.
+</p>
+
+<h3>6.3.1 Conversione di immagini in patch e viceversa</h3>
+
+<p align="justify">
+Concettualmente, sostituiremo il processo di tokenizzazione e di embedding con un nuovo processo che restituisce una sequenza di vettori simile ai livelli di embedding discussi nella sezione 3.1.1 . L'approccio prevalente per creare una sequenza che rappresenta un'immagine consiste nel dividere l'immagine in un insieme di patch . Di conseguenza, sostituiremo il nostro tokenizzatore con un estrattore di patch che restituisce una sequenza di vettori. L'output di un LLM utilizza un livello di unembedding per riconvertire i vettori in token. Poiché non abbiamo token, abbiamo bisogno di un combinatore di patch per prendere gli output di un trasformatore e unirli in un'unica immagine coerente. Mostriamo questo processo nella figura 6.12 . Si prega di prestare particolare attenzione al fatto che la parte centrale del diagramma rimane la stessa di quella dei LLM basati su testo. Riutilizziamo gli stessi livelli di trasformazione e l'algoritmo di apprendimento (discesa del gradiente) tra testo e immagini.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.12 A sinistra, questo diagramma semplificato mostra come l'input di testo viene tokenizzato e incorporato prima di essere inviato al trasformatore. Un livello di unembedding converte quindi l'output del trasformatore nella rappresentazione testuale desiderata. L'input e l'output saranno immagini durante l'esecuzione di un'attività di visione artificiale. Il trasformatore rimane lo stesso, ma poi modifichiamo il metodo per suddividere l'immagine in una sequenza di vettori per eseguire l'estrazione di patch anziché la tokenizzazione. L'LLM produce l'output dell'immagine utilizzando un combinatore di patch, analogo al livello di unembedding per gli LLM di testo
+      </p>
+    </figcaption>
+    
+<img width="1100" height="598" alt="CH06_F12_Boozallen" src="https://github.com/user-attachments/assets/fcbec0a7-ad74-48c3-ae36-6554b1362851" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Poiché tutto, tranne la generazione della sequenza vettoriale in input e le fasi di output, rimane invariato, possiamo concentrarci sul funzionamento della conversione delle immagini da e verso vettori. Sarà utile concentrarsi prima sul lato input.
+</p>
+
+<p align="justify">
+Come suggerisce il nome patch , l'estrattore di patch suddivide ogni immagine in una sequenza di immagini più piccole. È comune scegliere una dimensione fissa per la patch, come un quadrato di \(16 \x 16\) pixel. Vogliamo una dimensione fissa in modo che sia facile da inserire in una rete neurale, che elabora sempre dati di dimensione fissa, e piccoli in modo che rappresentino solo una parte dell'intera immagine. Suddividere un'immagine in patch è simile a suddividere il testo in una raccolta di token. Ogni singolo token non è informativo, ma se combinato con altri token, forma una frase coerente.
+</p>
+
+<p align="justify">
+Una volta suddivisa un'immagine in patch, ogni pixel di quella patch viene convertito in tre numeri che rappresentano la quantità di rosso, verde e blu (RGB) presente in ciascun pixel. Un vettore iniziale viene creato combinando i valori RGB di ciascun pixel in un unico vettore lungo. Quindi, per il nostro quadrato di \(16 \x 16\) pixel con tre valori di colore per ogni pixel, avremo un vettore con 768 valori di lunghezza (16 di altezza, 16 di larghezza e un valore RGB per ogni pixel). Quindi, una piccola rete neurale che potrebbe avere solo uno o due livelli elabora ogni vettore separatamente per ottenere gli output finali. Questa rete neurale implementa un processo di estrazione delle caratteristiche molto leggero che non richiede significative risorse di memoria o di calcolo. Questo schema è comune nella visione artificiale perché il primo livello di solito apprende schemi semplici come "buio dentro, luce fuori" e non necessita della maggiore spesa o potenza di un livello trasformatore per apprendere le caratteristiche di base di una patch di immagine. L'intero processo è riassunto nella figura  6.13 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.13 L'estrazione di patch è un processo semplice. L'estrattore di patch scompone un'immagine in riquadri quadrati chiamati patch. Le immagini sono costituite da valori di pixel che sono già numeri, quindi convertiamo ogni patch in un vettore di numeri. Quindi, utilizziamo una piccola rete neurale come preprocessore prima di passare i vettori alla rete neurale completa basata sul trasformatore.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="471" alt="CH06_F13_Boozallen" src="https://github.com/user-attachments/assets/4f8361ca-5d4f-465d-886b-51d40b413f67" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Esistono molti modi possibili per progettare la piccola rete neurale utilizzata nell'estrattore di patch, ma generalmente tutti funzionano ugualmente bene. Un'opzione è quella di utilizzare quella che viene chiamata rete neurale convoluzionale (CNN), un tipo di rete neurale che comprende che i pixel vicini sono correlati tra loro. Altri hanno utilizzato lo stesso tipo di strato lineare che è un componente di uno strato trasformatore. In questo caso, il modello complessivo che include la piccola rete neurale e una serie di trasformatori è spesso chiamato trasformatore visivo .
+</p>
+
+<p align="justify">
+La progettazione della piccola rete è un dettaglio minore, ma vale la pena menzionarlo perché la sua esistenza è rilevante per il combinatore di patch che produce l'output finale. Non importa se si sceglie una CNN o un livello lineare per l'architettura della piccola rete neurale, ma è essenziale garantire che la forma dell'output corrisponda alla forma dell'input. Ad esempio, se si hanno \(16 \x 16\) patch, è possibile utilizzare la piccola rete per forzare l'output ad avere \(16 \x 16 \x 3 = 768\) valori, indipendentemente dalle dimensioni del livello del trasformatore stesso. Per produrre l'output dell'immagine, si inverte il processo di estrazione delle patch per convertire i vettori in patch e quindi combinare le patch in un'immagine, come mostrato in figura 6.14 .
+</p>
+
+<p align="justify">
+Abbiamo quindi sostituito con successo la tokenizzazione dell'input e l'incorporamento dell'output con nuovi livelli incentrati sulle immagini. Per molti versi, questo è molto più funzionale della tokenizzazione. Non c'è bisogno di creare/tenere traccia di un vocabolario, nessun processo di campionamento, ecc. Questa è una visione cruciale dell'applicabilità generale dei trasformatori come nucleo generale di un LLM. Se si riescono a trovare molti dati e un metodo ragionevole per convertirli in una sequenza di vettori, è possibile utilizzare i trasformatori per risolvere determinate classi di problemi di input e output.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.14 Rispetto alla figura 6.13 , le frecce qui vanno nella direzione opposta. Lo scopo è sottolineare che il combinatore e l'estrattore di patch fanno la stessa cosa, ma operano in direzioni diverse. La rete neurale è più importante in questa fase in quanto consente di forzare l'uscita del trasformatore ad avere la stessa forma delle patch originali, perché possiamo controllare la dimensione dell'uscita di qualsiasi rete neurale.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="452" alt="CH06_F14_Boozallen" src="https://github.com/user-attachments/assets/ddd8b336-8c5d-4f13-9c52-063c64dc69d8" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<h3>6.3.2 Modelli multimodali che utilizzano immagini e testo</h3>
+
+<p align="justify">
+La capacità di modificare l'input e l'output di un LLM per arrivare a un trasformatore visivo significa che possiamo prendere un'immagine come input e produrre un'immagine come output. Ciò dimostra come un trasformatore possa produrre input di diverse modalità, ma abbiamo discusso solo casi in cui input e output sono la stessa modalità. Possiamo avere testo come input e testo come output oppure immagini come input e immagini come output. Tuttavia, il deep learning è flessibile! Non c'è nulla che ci obblighi a utilizzare la stessa modalità sia come input che come output o addirittura a limitare input e output a un'unica modalità. È possibile combinare testo come input con immagine come output, immagini come input e testo come output, testo e immagini come input e audio come output, o qualsiasi altra combinazione di modalità dati che si possa immaginare. La Figura 6.15 mostra come immagine e testo ci offrano quattro modi totali in cui potremmo combinarli per gestire diversi tipi di dati.
+</p>
+
+<p align="justify">
+Creando un modello che utilizza le immagini come input e il testo come output, creiamo un modello di didascalia delle immagini . Possiamo addestrare questo modello a generare un testo che descriva il contenuto dell'immagine di input. Modelli come questi contribuiscono a rendere le immagini più facilmente individuabili e ad aiutare gli utenti ipovedenti.
+</p>
+
+<p align="justify">
+Creando un modello che utilizza il testo come input e un'immagine come output, creiamo un modello di generazione di immagini . È possibile descrivere l'immagine desiderata utilizzando le parole e il modello può creare un'immagine realistica basata sull'input. Prodotti famosi come MidJourney sono modelli di questo tipo. Sebbene la loro implementazione implichi più di un semplice trasformatore di visione, l'idea di base è la stessa: abbinando un input basato su testo con un output basato su immagini e una grande quantità di dati, possiamo creare nuove funzionalità multimodali che abbracciano diverse tipologie di dati.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.15 Quattro combinazioni che mostrano diversi tipi di input e output del modello. L'esempio più a destra rappresenta un normale LLM basato su testo di cui abbiamo già parlato. A sinistra, mostriamo possibilità come un modello di generazione di immagini che accetta testo come input ("Disegnami un'immagine di un segnale di stop in una zona alluvionale") o un modello di didascalia di immagini che genera testo che descrive un'immagine in input ("Questa immagine mostra un segnale di stop circondato da acqua torbida").
+      </p>
+    </figcaption>
+    
+<img width="1100" height="920" alt="CH06_F15_Boozallen" src="https://github.com/user-attachments/assets/57f5e56d-2375-4d97-bf4f-139893c4dbe8" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<h3>6.3.3 Applicabilità delle lezioni precedenti</h3>
+
+<p align="justify">
+Altre lezioni apprese in questo libro rimangono rilevanti per questi modelli di trasformazione della visione e multimodali. In definitiva, imparano a fare ciò per cui sono stati addestrati e, quando si cerca di modificarli in modi che vanno oltre quanto trovato nei dati di addestramento, si potrebbe ottenere un risultato insolito. Ad esempio, potremmo dire a un modello di generazione di immagini "Disegna qualsiasi cosa tranne un adorabile gatto", e probabilmente otterremo un gatto come mostrato nella figura 6.16.
+</p>
+
+<p align="justify">
+Questi modelli sono (attualmente) addestrati con coppie di immagini e frammenti di testo che descrivono l'immagine. In questo modo, apprendono una forte correlazione per produrre visualizzazioni di qualsiasi elemento nella frase di input. Ad esempio, il modello vuole produrre un gatto poiché la parola " gatto " è presente nella frase di input. Richieste di disegno astratto più sofisticate come "Disegna qualsiasi cosa tranne..." non compaiono in tali set di dati, quindi il modello non è addestrato a gestire tali richieste.
+</p>
+
+<p align="justify">
+Allo stesso modo, mentre LLM come ChatGPT hanno sviluppato il prompting come strategia per ideare input che producano gli output desiderati, il prompting è stato sviluppato anche per i modelli di didascalia delle immagini. Non è raro includere informazioni insolite come "Unreal3D", il nome del software utilizzato per generare immagini 3D per videogiochi, al fine di produrre output con uno stile e una qualità particolari. Parole come " alta risoluzione" e persino i nomi di artisti, vivi e morti, vengono utilizzati per cercare di influenzare i modelli affinché producano stili particolari.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 6.16 Generato con una vecchia versione di Stable Diffusion, un popolare modello di generazione di immagini. Nonostante il comando "Non disegnare un gatto", il modello è stato addestrato a generare contenuti. La richiesta è al di fuori di ciò che il modello era incentivato ad apprendere, quindi non può gestirla. Questo è simile ai problemi con gli LLM che ripropongono output simili ma errati perché il modello ha visto dati simili durante l'addestramento.
+      </p>
+    </figcaption>
+    
+![CH06_F16_Boozallen](https://github.com/user-attachments/assets/d689cf53-6ee2-47ec-9cfd-a3daddb8021c)
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<h3>Riepilogo</h3>
+
+<ul>
+  <li>
+  <p align="justify">
+Gli LLM traggono vantaggio dalla possibilità di utilizzare strumenti esterni. Ad esempio, un LLM di codice può utilizzare correttori di sintassi e compilatori per rilevare errori nella generazione di codice. Quando l'LLM rileva un errore, l'output viene rigenerato, riducendo al minimo il rischio di fornire all'utente codice inutile o non funzionante.
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+I tokenizzatori devono essere modificati per supportare la matematica, mantenendo i simboli insoliti utilizzati per esprimere calcoli matematici formattati e modificando la rappresentazione delle cifre. Possiamo migliorare ulteriormente i corsi di laurea magistrale in matematica fornendo loro strumenti come sistemi di algebra computazionale per rilevare ed evitare errori.
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+I trasformatori possono essere applicati alle immagini suddividendo l'immagine in patch, dove ogni patch diventa un vettore e genera una sequenza di input che il trasformatore deve elaborare. Le patch sono concettualmente simili ai token per i LLM testuali.
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+I trasformatori possono utilizzare diverse modalità di dati per l'input e l'output, consentendo la creazione di modelli multimodali come quelli utilizzati nella didascalia delle immagini e nella generazione delle immagini.
+  </p>
+  </li>
+</ul>
