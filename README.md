@@ -3888,6 +3888,201 @@ Gli LLM non possono auto-migliorarsi e sono inefficienti nel risolvere problemi 
   </li>
 </ul>
 
+<h3>8 Progettazione di soluzioni con modelli linguistici di grandi dimensioni</h3>
 
+<table>
+  <td>
+    <h3>Questo capitolo copre</h3>
+    <ul>
+      <li>
+      <p align="justify">
+Utilizzo della generazione aumentata del recupero per ridurre gli errori
+      </p>
+      </li>
+      <li>
+      <p align="justify">
+Come gli LLM possono supervisionare gli esseri umani per mitigare il pregiudizio dell'automazione
+      </p>
+      </li>
+      <li>
+      <p align="justify">
+Abilitazione di strumenti di apprendimento automatico classici con incorporamenti
+      </p>
+      </li>
+      <li>
+      <p align="justify">
+Modalità di presentazione degli LLM reciprocamente vantaggiose per aziende e utenti
+      </p>
+      </li>
+    </ul>
+  </td>
+</table>
 
+<p align="justify">
+A questo punto dovresti avere una solida conoscenza degli LLM e delle loro capacità. Producono testo molto simile al testo umano perché sono stati formati su centinaia di milioni di documenti di testo umano. Il contenuto che producono è prezioso, ma anche soggetto a errori. E, come sai, puoi mitigare questi errori incorporando conoscenze di settore o strumenti come i parser per il codice sorgente del computer.
+</p>
 
+<p align="justify">
+Ora siete pronti a progettare una soluzione utilizzando un LLM. Come si fa a considerare tutto ciò di cui abbiamo parlato finora e a trasformarlo in un piano di implementazione efficace? Questo capitolo vi guiderà attraverso il processo, i compromessi e le considerazioni nella progettazione di tale piano. Per farlo, useremo un esempio concreto che tutti possiamo comprendere: contattare il supporto tecnico quando è necessario aiuto.
+</p>
+
+<p align="justify">
+Innanzitutto, considereremo la strada più ovvia: costruire un chatbot. I chatbot sono il veicolo che ha introdotto molte persone agli LLM perché, in generale, possono svolgere un ottimo lavoro nel generare output in modo interattivo. Valuteremo i rischi dell'implementazione di un chatbot basato su LLM in uno scenario di assistenza clienti. Attraverso questa discussione, scoprirete che l'utilizzo di un LLM può aumentare il rischio rispetto ad altre opzioni. Tuttavia, un semplice chatbot può essere un'opzione valida se i rischi sono sufficientemente minimi.
+</p>
+
+<p align="justify">
+Successivamente, esploreremo i modi per gestire i rischi utilizzando progetti applicativi che migliorino il modo in cui i clienti interagiscono con l'LLM. Discuteremo di come affidare a una persona il controllo di ogni output prodotto da un LLM sia irto di problemi a causa di un fenomeno noto come bias di automazione. Discuteremo di come il bias di automazione possa essere evitato, in modo un po' controintuitivo, affidando la supervisione dell'LLM alla persona. Esploreremo come gli embedding di un LLM, la rappresentazione semantica del testo codificato come numeri, possano essere combinati con algoritmi di apprendimento automatico classici per affrontare questo rischio e gestire attività che un LLM non può svolgere in modo indipendente.
+</p>
+
+<p align="justify">
+Infine, analizzeremo il modo in cui la tecnologia viene presentata agli utenti e il suo ruolo fondamentale nel creare fiducia e trasmettere una comprensione del suo funzionamento interno. Discuteremo l'ambito dell'"intelligenza artificiale spiegabile", in cui un algoritmo di apprendimento automatico produce un output che descrive o spiega come è arrivato a un output specifico. L'intelligenza artificiale spiegabile è spesso l'approccio adottato per gestire situazioni in cui le persone hanno bisogno di capire come funziona un LLM, ma gli studi dimostrano che, sebbene la spiegabilità possa far luce sul funzionamento interno degli LLM descrivendo il comportamento di questi modelli in termini umani, non tende a essere di per sé utile. Descriveremo invece i vantaggi di concentrarsi sulla trasparenza, sull'allineamento degli incentivi con i clienti e sulla creazione di cicli di feedback per progettare soluzioni che soddisfino meglio le esigenze sia delle aziende che le utilizzano sia dei clienti che interagiscono con esse, fornendo output accurati e creando efficienze nei processi aziendali.
+</p>
+
+<h3>8.1 Creare semplicemente un chatbot?</h3>
+
+<p align="justify">
+Non sorprende che molte persone stiano sviluppando chatbot utilizzando LLM basati su architetture di tipo transformer, la stessa tecnologia alla base di ChatGPT. È un primo passo ovvio e apparentemente ragionevole. La straordinaria capacità di ChatGPT di interagire con le persone, adattarsi alle conversazioni e recuperare e presentare informazioni dimostra quanto bene la tecnologia LLM supporti le applicazioni di interazione con i clienti. Con l'avvento e la disponibilità degli LLM, sarebbe probabilmente poco lungimirante tentare di implementare un agente del servizio clienti utilizzando qualsiasi altro approccio, come l'utilizzo di un sistema esperto addestrato a utilizzare un albero decisionale di risposte predefinite. Quando un cliente insoddisfatto ha un problema tecnico, invece di cercare un documento di Domande Frequenti (FAQ) online, inviare un'e-mail nel buco nero di un sistema di ticketing o chiamare un numero di telefono con un sistema di risposta vocale interattiva automatizzato, può iniziare a interagire direttamente con uno strumento basato sull'intelligenza artificiale e fare progressi nella risoluzione dei problemi. Sembra fantastico sulla carta, e se si disegna un piccolo diagramma come quello della figura 8.1 , sembra proprio che stiamo semplificando la vita.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 8.1 Osservando il diagramma di processo, sembrerebbe che la sostituzione di FAQ, ticket via email e numeri di supporto possa essere semplificata e snella con un chatbot basato su LLM. Tuttavia, l'assurdità di questa visione è che il processo è incompleto. I potenziali errori e i processi di correzione necessari per garantire il corretto funzionamento di un LLM sono nascosti e creano ulteriore complessità.
+
+      </p>
+    </figcaption>
+
+<img width="1100" height="612" alt="CH08_F01_Boozallen" src="https://github.com/user-attachments/assets/aaf97296-013a-4d53-b0f5-cfa01c2b97f1" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Ci sono certamente casi in cui un chatbot è una buona idea. Ma sorprendentemente, un chatbot online basato su LLM che gestisce il supporto probabilmente non è in cima alla lista degli strumenti di supporto clienti per la maggior parte delle aziende, a causa dello sforzo richiesto per costruire un sistema che sia accurato e affidabile in molti casi e che non crei output inaspettati quando confrontato con input inaspettati. In definitiva, la decisione di utilizzare un LLM per implementare un chatbot di supporto clienti si riduce alla nostra continua discussione sugli errori che un LLM potrebbe commettere nel generare risposte ai clienti. Sappiamo che gli LLM non sono esenti da errori e, sebbene l'apprendimento automatico sia talvolta pratico, il costo di questi potenziali errori è il criterio decisionale principale quando si considera l'implementazione di questa tecnologia. Fondamentalmente, l'utilizzo di un LLM aumenta potenzialmente il costo di questi errori. Il punto è che, nella loro forma attuale, gli LLM possono fornire risposte errate e la responsabilità di queste ricade sulle spalle delle aziende o degli individui che li implementano e li gestiscono.
+</p>
+
+<p align="justify">
+I dirigenti o i product manager potrebbero considerare il costo degli errori nel contesto di alcuni classici indicatori chiave di performance aziendali. Ad esempio, i tassi di fidelizzazione dei clienti potrebbero diminuire se affidassero il supporto ai chatbot. Forse il tasso di fidelizzazione sarebbe più elevato rispetto a quello che si otterrebbe esternalizzando le funzioni di relazione con i clienti a un call center in un altro paese. In effetti, queste considerazioni sono importanti da valutare e probabilmente si dovrebbe effettuare un'implementazione di prova per vedere cosa ne pensano i clienti prima di sostituire la funzione di assistenza clienti con un LLM all'ingrosso.
+</p>
+
+<p align="justify">
+Nota: consigliamo quasi sempre di effettuare implementazioni di prova di qualsiasi sistema di apprendimento automatico. Il detto degli investitori "Le performance passate non sono garanzia di rendimenti futuri" è valido per qualsiasi intelligenza artificiale. Un modo per farlo è attraverso implementazioni fantasma , in cui si esegue il nuovo sistema di intelligenza artificiale insieme al processo esistente per alcune settimane o mesi. Si può scegliere di ignorarne i risultati mentre i processi aziendali esistenti sono in atto. Questo dà il tempo di osservare le discrepanze tra i processi attuali e quelli nuovi, identificare e risolvere i problemi e determinare se le prestazioni del sistema di apprendimento automatico peggiorano nel tempo.
+</p>
+
+<p align="justify">
+Ancora più grave, il tuo LLM può fornire consigli che possono danneggiare i tuoi utenti. Poiché un LLM non è una persona che può essere ritenuta legalmente responsabile delle proprie azioni, tu e la tua azienda sarete ritenuti responsabili. Questo è già accaduto con una compagnia aerea che ha implementato un chatbot che forniva dichiarazioni di policy errate. Un tribunale ha stabilito che l'azienda doveva attenersi alla policy generata e condivisa in modo errato dal suo chatbot [1].
+</p>
+
+<p align="justify">
+Consigliamo di considerare sempre un atteggiamento conflittuale quando si implementa un LLM. Chiedersi "Cosa potrebbe fare un malintenzionato motivato se sapesse come funziona?" aiuterà a identificare e mitigare i rischi significativi ed è spesso il modo migliore per determinare se l'applicazione LLM che si intende applicare è una buona o una cattiva idea. Ad esempio, un'azienda automobilistica ha integrato un LLM nel proprio sito web per aiutare a vendere auto e rispondere alle domande. Dopo averlo capito, gli utenti hanno impiegato meno di un giorno per convincere il sito web a vendere loro un'auto per solo 1 dollaro [2].
+</p>
+
+<p align="justify">
+Se il costo potenziale o il rischio di errori è basso, puoi tranquillamente implementare un chatbot LLM, se lo desideri. Ma, ai fini di questo capitolo, supponiamo che questo agente di supporto tecnico che stiamo ipotizzando sia molto importante e che gli errori che commette potrebbero costare molto all'azienda. La domanda ora diventa: come possiamo progettare una soluzione che ci offra vantaggi in termini di produttività ed efficienza, limitando al contempo l'accesso diretto degli utenti a un LLM? Se sei alle prime armi con l'intelligenza artificiale e il machine learning e un chatbot è la tua principale esposizione al settore, questo potrebbe sembrare una contraddizione, ma esistono alcuni modelli di progettazione semplici e ripetibili che puoi applicare a questo scopo.
+</p>
+
+<h3>8.2 Bias di automazione</h3>
+
+<p align="justify">
+Un approccio comune per affrontare il rischio di utilizzare gli LLM per le interazioni dirette con i clienti è quello di farli interagire con il personale di supporto o con i tecnici. Questo approccio viene spesso definito "human in the loop" perché c'è una persona che esamina il feedback tra l'LLM e il cliente, fornendo una valutazione critica dell'output del sistema automatizzato e intervenendo e modificando l'output quando rileva un errore. Il tecnico continuerà a essere impiegato, ma ne aumenteremo l'efficienza facendo in modo che l'LLM generi una risposta iniziale a ogni domanda dell'utente e che un tecnico si occupi di tali risposte per garantirne l'accuratezza e la pertinenza. Se l'LLM genera una risposta potenzialmente costosa o errata, i nostri fidati tecnici interverranno e risponderanno con qualcosa di più appropriato. In questo contesto, spetta in ultima analisi al tecnico scegliere la risposta autorevole più appropriata.
+</p>
+
+<p align="justify">
+Il lettore più attento che ricorda la nostra discussione sulla generazione aumentata del recupero (RAG) del capitolo 5 potrebbe persino individuare dei modi per migliorare questa idea. Direte: "Ah, possiamo inserire tutti i nostri manuali di formazione e la documentazione in un database, e poi possiamo usare RAG in modo che l'LLM possa recuperare le informazioni più rilevanti per la domanda di un utente". Questo approccio è delineato nella figura 8.2 , che mostra un processo in cui le domande di un utente vengono prima inviate all'LLM per focalizzare la generazione di output utilizzando una raccolta di risposte note.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 8.2 Un approccio ingenuo all'implementazione di un sistema "human in the loop" che utilizza un LLM abbinato a un database di informazioni rilevanti per produrre un output che viene infine rivisto e possibilmente corretto da un lavoratore umano
+      </p>
+    </figcaption>
+
+<img width="1100" height="666" alt="CH08_F02_Boozallen" src="https://github.com/user-attachments/assets/7ab9db70-2dc1-47a5-8406-66707df1d1dd" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+L'approccio RAG probabilmente mitigherà molti rischi, ma potrebbe anche incorrere nella trappola del bias di automazione . Il bias di automazione si riferisce al fatto che le persone, in generale, tendono a scegliere scelte automatiche o predefinite presentate da un sistema perché è più facile che applicare il pensiero critico per determinare quale scelta sia più appropriata alla situazione specifica. Se un sistema funziona bene e non richiede interventi frequenti, diventa incredibilmente difficile rimanere ipervigili e rilevare errori occasionali. Il paradosso è che se il sistema è così impreciso nei suoi suggerimenti che è possibile mantenere la vigilanza, è probabile che il sistema rallenti rispetto a rispondere direttamente alle domande senza automazione.
+</p>
+
+<p align="justify">
+È qui che le implementazioni di prova o fantasma diventano incredibilmente importanti. Se il sistema è così accurato che la vera fonte di rischio è il bias dell'automazione, si hanno due opzioni che non richiedono di discostarsi dalla progettazione "human in the loop":
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+    Aggiungere un percorso di "fuga verso un essere umano" alla pipeline
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Mitigare il rischio di errori esterni tramite modifiche ai processi
+    </p>
+  </li>
+</ul>
+
+<p align="justify">
+Il primo punto è piuttosto semplice. Prima o poi, si verificherà una situazione nuova a cui l'LLM non sarà in grado di rispondere. In questo caso, sarebbe opportuno fornire al cliente un modo per "uscire" da un ciclo infinito con un computer e accedere a un livello di supporto superiore. Potrebbe trattarsi di una durata massima della conversazione misurata in base al numero di messaggi scambiati o al tempo trascorso in chat, di un'opzione per contattare un operatore umano che compare in base a più tentativi falliti di comunicazione, o di altre possibili soluzioni.
+</p>
+
+<p align="justify">
+Nota : supponiamo che tu voglia creare un dataset RLHF o SFT per adattare il tuo LLM alla tua situazione, come discusso nel capitolo 5. In tal caso, puoi anche aggiungere esempi di training in cui la risposta prevista dell'LLM è "Mi dispiace, questa situazione sembra più complessa di quanto io possa risolvere; permettimi di chiedere aiuto a un essere umano".
+</p>
+
+<h3>8.2.1 Modifica del processo</h3>
+
+<p align="justify">
+Il secondo suggerimento, cambiare il processo, non è così difficile come potrebbe sembrare. Se uno dei vostri superiori ha un MBA, è (a quanto pare) addestrato a pensare in questi termini. (Uno degli autori ha un MBA, quindi possiamo dirlo tranquillamente.) Ad esempio, le interazioni con il chatbot potrebbero includere un avvertimento su qualsiasi risultato che richieda "l'approvazione finale di un essere umano". In questo caso, far revisionare l'intera conversazione da una persona è molto meno rischioso per l'automazione rispetto al richiedere a qualcuno di mantenere una vigilanza costante durante una conversazione continua. In definitiva, gli utenti avversari sanno che un essere umano controllerà e quindi sono demotivati dal cercare di aggirare il sistema.
+</p>
+
+<p align="justify">
+A seconda del contesto, è possibile impedire l'uso conflittuale di un LLM richiedendo all'utente di fornire garanzie per garantire la propria buona fede. Ad esempio, si potrebbero adottare misure equivalenti al blocco della carta di credito dell'utente, come una sorta di assicurazione contro interazioni in malafede. Tale blocco verrebbe annullato al completamento della transazione. Si potrebbe anche limitare la parte di processo automatizzata, richiedere l'autenticazione o randomizzare la frequenza con cui le persone vengono indirizzate a un essere umano anziché a un'intelligenza artificiale, in modo da rendere imprevedibile il verificarsi di una situazione che potrebbe essere sfruttata.
+</p>
+
+<p align="justify">
+Tutte queste azioni dipenderanno dalla tua applicazione specifica, dai rischi, dalla tolleranza a tali rischi e dalla natura dei tuoi utenti. Alcuni clienti potrebbero essere scoraggiati da un blocco del credito e rimanerne irritati. Oppure potresti presentarlo come un metodo opzionale in cui l'utente ottiene uno sconto di 2 dollari sulla bolletta se un sistema di intelligenza artificiale lo ha aiutato con successo a risolvere il suo problema, presumendo che sia inferiore a quanto sarebbe costato per chiamata il vecchio sistema. In ogni caso, la decisione dipenderà dal caso specifico e dalla tua creatività nel gestire il rischio.
+</p>
+
+<h3>8.2.2 Quando le cose sono troppo rischiose per gli LLM autonomi</h3>
+
+<p align="justify">
+Quindi, dopo aver effettuato una distribuzione di prova, valutato i rischi e le propensioni avverse dei vostri utenti, avete concluso che è troppo rischioso per gli LLM fornire le risposte iniziali. Come potrebbe un LLM garantire comunque un certo livello di efficienza?
+</p>
+
+<p align="justify">
+Un approccio poco intuitivo consiste nel far sì che sia l'LLM a controllare la persona, anziché la persona a controllare l'LLM. Questo può sembrare strano. Perché dovremmo lasciare che l'LLM supervisioni se non possiamo fidarci che agisca da solo? Per approfondire questo aspetto, immaginiamo di avere un sistema LLM che svolga questo ruolo di supervisione, controllando ogni risposta, come mostrato nella figura 8.3 .
+</p>
+
+<p align="justify">
+Se l'LLM e la persona hanno ragione, verrà intrapresa un'azione e il messaggio verrà inoltrato al cliente. Sarà come se l'utente stesse chattando con il tecnico. Tuttavia, se il tecnico e l'LLM non sono d'accordo sulla risposta, possiamo chiedere al tecnico di ricontrollare la propria risposta prima di inviarla all'utente.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 8.3 Si noti che la direzione delle frecce in questo diagramma è cambiata rispetto alla figura 8.2 . Tutto passa prima all'uomo e utilizziamo gli LLM per individuare gli errori prima che si verifichino.
+      </p>
+    </figcaption>
+
+<img width="1100" height="1095" alt="CH08_F03_Boozallen" src="https://github.com/user-attachments/assets/fcec303e-d1c1-4c8c-b694-b73bc31241cd" />
+
+  </figure>
+</div>
+  </td>
+</table>
