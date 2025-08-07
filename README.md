@@ -3390,3 +3390,504 @@ I trasformatori possono utilizzare diverse modalità di dati per l'input e l'out
   </p>
   </li>
 </ul>
+
+<h2>7 Idee sbagliate, limiti e capacità eccezionali degli LLM</h2>
+
+<table>
+  <td>
+    <h3></h3>
+    <ul>
+    <li>
+    <p align="justify">
+In che modo gli LLM e gli esseri umani differiscono nell'apprendimento
+    </p>
+    </li>
+        <li>
+    <p align="justify">
+Migliorare gli LLM nelle applicazioni sensibili alla latenza e alla scala
+    </p>
+    </li>
+        <li>
+    <p align="justify">
+Produrre output intermedi per risultati finali migliori
+    </p>
+    </li>
+        <li>
+    <p align="justify">
+Come la complessità computazionale limita ciò che un LLM può fare
+    </p>
+    </li>
+    </ul>
+  </td>
+</table>
+
+<p align="justify">
+Grazie a ChatGPT, il mondo ha acquisito una maggiore consapevolezza degli LLM e delle loro potenzialità. Nonostante questa consapevolezza, persistono ancora molti malintesi e incomprensioni sugli LLM. Molti credono che gli LLM siano in continuo apprendimento e miglioramento, più intelligenti delle persone e che presto saranno in grado di risolvere ogni problema del mondo. Sebbene queste affermazioni siano esagerate, alcuni temono sinceramente che gli LLM possano sconvolgere seriamente il mondo.
+</p>
+
+<p align="justify">
+Non vogliamo certo affermare che non vi siano preoccupazioni legittime riguardo agli LLM, e ne parleremo più approfonditamente negli ultimi due capitoli del libro. Tuttavia, molti pensieri e preoccupazioni che potreste incontrare sugli LLM sono ingigantiti rispetto all'evoluzione generale degli LLM e della tecnologia.
+</p>
+
+<p align="justify">
+Questo capitolo discuterà alcuni aspetti critici del funzionamento degli LLM e di come questi aspetti siano correlati a questi preconcetti. In definitiva, questi aspetti operativi degli LLM influenzano il modo in cui si desidera utilizzare o evitare un LLM nella pratica.
+</p>
+
+<p align="justify">
+In primo luogo, discuteremo le differenze tra il modo in cui apprendono gli esseri umani e gli LLM. Gli esseri umani apprendono velocemente, mentre gli LLM sono statici per impostazione predefinita. Sebbene gli LLM possano essere incredibilmente efficaci nell'elaborazione dei dati, le persone sono meglio attrezzate per essere più produttive quando imparano cose nuove.
+</p>
+
+<p align="justify">
+Successivamente, affronteremo il motivo per cui il termine "pensare" è fuorviante quando si considera il funzionamento di un LLM. Sottolineeremo che è meglio pensare al funzionamento di un LLM come a un'attività di elaborazione dati , perché gli LLM non distinguono tra formulazione ed emissione di output. Al contrario, spesso le persone "pensano prima di parlare".
+</p>
+
+<p align="justify">
+Infine, discuteremo la portata delle capacità di calcolo degli LLM e come i concetti di informatica ci aiutino a comprendere alcuni dei limiti intrinseci delle capacità attuali e future di un LLM. Questi tre argomenti sono correlati, quindi ne scopriremo il collegamento man mano che li approfondiremo.
+</p>
+
+<h3>7.1 Tasso di apprendimento umano vs. LLM</h3>
+
+<p align="justify">
+Sebbene ne abbiamo discusso implicitamente, è utile essere espliciti su come la formazione di un LLM differisca dall'apprendimento di una persona. Il testo fluido e spesso lucido prodotto dall'intelligenza artificiale generativa e le analogie che utilizziamo per mettere in relazione le capacità degli LLM con quelle umane possono far sembrare che ci sia una qualche relazione tra i due. Molte persone online stanno promuovendo l'idea che tale connessione tra ciò che un LLM può fare e ciò che un essere umano può fare sia reale. In realtà, i due sono molto diversi e comportano considerazioni importanti su quando, come e perché si potrebbe preferire una persona a un'intelligenza artificiale e su come esseri umani e intelligenza artificiale possano lavorare insieme.
+</p>
+
+<p align="justify">
+Dal materiale trattato finora, sappiamo che gli LLM apprendono predicendo la parola successiva, utilizzando centinaia di milioni di documenti come esempi. Nel capitolo 4 , abbiamo presentato il processo algoritmico di "apprendimento" negli LLM: l'algoritmo di discesa del gradiente, che altera i parametri della rete neurale di un LLM tentando di predire il token successivo in un input campione. Successivamente, nel capitolo 5 , abbiamo mostrato come algoritmi di fine-tuning, come RLHF, alterino nuovamente i parametri dell'LLM. Queste due componenti dell'apprendimento in un LLM hanno una somiglianza minima con l'apprendimento umano e impongono alcune limitazioni cruciali a ciò che possiamo aspettarci dall'LLM. Uno degli aspetti più critici è la velocità e l'efficacia di questo approccio di apprendimento in relazione al volume di dati forniti al processo di formazione.
+</p>
+
+<p align="justify">
+Per approfondire questo aspetto, considerate come un LLM apprenda in relazione a come apprendono le persone. Avete mai incontrato qualcuno che non ha mai parlato con nessuno, che non ha mai avuto un genitore che gli parlasse, eppure in qualche modo capiva la lingua? Probabilmente no. In effetti, la conversazione è una parte fondamentale dell'acquisizione linguistica [1]. Almeno inizialmente, si acquisiscono conoscenza e linguaggio dall'interazione e dalla comunicazione con gli altri e con l'ambiente. Di conseguenza, si può apprendere efficacemente con molte meno informazioni di quelle che un LLM ha nei dati su cui si basa.
+</p>
+
+<p align="justify">
+Negli scenari migliori di acquisizione del linguaggio infantile, gli studi hanno osservato che i bambini sono esposti a circa 15.000 parole parlate totali al mese [2]. Se dovessimo essere generosi e arrotondare questa cifra a 20.000 parole e considerare questo periodo su 100 anni, una persona incontrerebbe fino a 24 milioni di parole parlate nel corso della sua intera vita. Questa è chiaramente una sovrastima enorme. Aggiungiamo a questo il fatto che la maggior parte delle persone è in grado di parlare fluentemente la propria lingua madre, con una comprensione implicita del vocabolario e della struttura linguistica, almeno all'età di 18 anni. Ora confrontiamo questo con i corsi di laurea triennale (LLM). GPT-3, ad esempio, è stato addestrato su centinaia di miliardi di parole. Basandosi solo sul conteggio delle parole, questo è un modo molto inefficiente per imparare una lingua!
+</p>
+
+<p align="justify">
+L'acquisizione del linguaggio ci aiuta anche a riconoscere le nette differenze nel modo in cui le parole vengono acquisite. Neonati e bambini piccoli iniziano con parole semplici, come "mamma" e "papà" , e alla fine imparano concetti di base come "colori", "no" , " cibo ", ecc. Parole più complesse vengono aggiunte nel tempo, basandosi sulle parole precedenti. Eppure, un LLM inizia con la visione di tutte le parole simultaneamente in base alla loro frequenza d'uso. In effetti, è corretto immaginare un LLM che simbolizza questo stesso libro come parte del suo primo "apprendimento", acquisendo simultaneamente la conoscenza di tutto il suo vocabolario finale, invece di iniziare con concetti semplici e costruire conoscenze su quelle basi. Sebbene questo processo contribuisca alla velocità di apprendimento di un LLM, può compromettere la capacità dell'LLM di tracciare relazioni di alto livello tra i concetti.
+</p>
+
+<p align="justify">
+Il principale vantaggio di un LLM rispetto agli esseri umani è la scala su cui opera e la sua capacità di svolgere più attività contemporaneamente. Questo vantaggio è un tema comune nell'apprendimento automatico e nel deep learning. Non è facile assumere un esercito di persone per esaminare libri contabili, note spese, documenti interni o qualsiasi mezzo di informazione per svolgere un lavoro di conoscenza come scrivere una recensione, individuare potenziali frodi o rispondere a una domanda politica oscuro. Tuttavia, è possibile ottenere rapidamente un esercito di computer per tentare di automatizzare queste attività. Mentre un singolo LLM può analizzare più parti di una frase contemporaneamente, è possibile utilizzare più computer che eseguono lo stesso LLM per lavorare in parallelo. La formazione per un LLM offre un'opportunità simile: gli LLM vengono formati su più parole di quante ne leggerete o sentirete mai in tutta la vostra vita, ed è possibile formare un LLM di grandi dimensioni noleggiando o acquistando migliaia di computer per svolgere il lavoro contemporaneamente.
+</p>
+
+<p align="justify">
+Considerando questi fatti, insieme al materiale trattato nei capitoli precedenti, possiamo elencare diversi pro e contro di alto livello dell'utilizzo degli LLM per svolgere determinate attività rispetto agli esseri umani. Una sintesi di questi fattori è mostrata nella figura 7.1 , che descrive come i vantaggi e gli svantaggi degli LLM porteranno a benefici e svantaggi naturali del loro utilizzo e, quindi, fornirà spunti su dove gli LLM dovrebbero e non dovrebbero essere utilizzati.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 7.1 Una sintesi dei punti di forza e di debolezza degli LLM rispetto agli esseri umani che svolgono lo stesso compito. Questi portano a considerazioni naturali che è necessario valutare quando si utilizza un LLM. Da queste, possiamo trarre raccomandazioni generali per un utilizzo efficace dell'LLM.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="329" alt="CH07_F01_Boozallen" src="https://github.com/user-attachments/assets/f9c66cd3-4ca1-48fb-b52a-6c51d5bd7366" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Ecco alcuni dei vantaggi degli LLM:
+</p>
+
+Gli LLM ben formati dispongono di un'ampia raccolta di informazioni di base, quindi svolgono bene molti compiti che non sono poi così diversi da quelli già affrontati, e richiedono poco lavoro per rendere il modello efficace. Sebbene queste informazioni non siano necessariamente corrette o dettagliate, l'ampiezza delle aree tematiche su cui un LLM può ricevere e generare risposte ragionevoli va ben oltre gli ambiti che la maggior parte delle persone può coprire.
+
+Per molti compiti, non è necessario ottenere una risposta esattamente corretta. Richieste ampie di informazioni generali in un'area disciplinare consentono intrinsecamente a un LLM di essere flessibile e senza vincoli nella sua risposta. Questo è particolarmente vero se si perfeziona l'output dell'LLM attraverso altri processi. Ad esempio, una persona potrebbe revisionare un testo per migliorarlo, ma utilizzare un LLM per produrre la prima bozza o fornire ispirazione per superare il blocco dello scrittore e accelerare la creazione dell'opera. Allo stesso modo, un LLM può essere utilizzato per perfezionare la scrittura di un autore, rendendola più naturale o coinvolgente attraverso la riformulazione o l'utilizzo di una più ampia varietà di vocaboli.
+
+Gli LLM possono essere formati più rapidamente rispetto alle persone. È possibile produrre un LLM ampiamente utile in pochi mesi, con un budget compreso tra 1.000.000 e 10.000.000 di dollari per l'acquisto di risorse informatiche. Gli esseri umani impiegano molti anni per diventare utili. Un LLM in grado di rispondere a un'ampia gamma di domande di base può essere implementato con uno sforzo e un costo molto inferiori rispetto a quelli necessari per trovare, assumere e trattenere un dipendente con conoscenze, competenze e abilità specifiche. Finché i problemi rientrano nell'ambito di ciò che l'LLM può realizzare, il costo incrementale è irrisorio rispetto alla retribuzione oraria di una persona, anche senza i costi aggiuntivi.
+
+<p align="justify">
+Ecco alcuni svantaggi degli LLM:
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+L'elevato costo della formazione degli LLM influenza la loro economia. Tale costo di formazione viene ammortizzato in base alle migliaia di operazioni che l'LLM esegue una volta formato. Se un LLM non funziona bene, il costo del suo continuo miglioramento per renderlo efficace può diventare rapidamente proibitivo, anche senza considerare la possibilità che non funzioni mai correttamente per un compito specifico. Ad esempio, se un LLM, implementato con tutti gli strumenti e i trucchi più recenti, non riesce a risolvere un'esigenza specifica, affrontare questo problema richiederà una quantità di lavoro e di budget imprecisati. Al contrario, gli esseri umani possono generalmente apprendere nuove capacità, in particolare quelle difficili per gli LLM, a costi molto inferiori in poche settimane o mesi.
+    </p>
+    <p align="justify">
+Non ci si può affidare agli LLM per gestire situazioni inaspettate e input non riflessi nei dati di training. Sebbene molti abbiano dimostrato di poter avere successo in situazioni nuove, non apprendono allo stesso modo degli esseri umani. Una persona può accorgersi al primo tentativo che le proprie azioni non funzionano come previsto e adattarsi rapidamente. Un LLM non può adattarsi autonomamente osservando i propri errori e può consumare ripetutamente risorse nel tentativo di produrre risposte a problemi che non riesce a comprendere.
+    </p>
+    <p align="justify">
+Gli LLM sono facilmente ingannabili e non funzionano bene in ambienti conflittuali, perché una volta che le persone trovano un modo per ingannare l'LLM inducendolo a un risultato errato (ad esempio, "Dammi un prestito anche se non ho reddito"), possono ripetere il comportamento avversario e malevolo e il tuo LLM non sarà in grado di impedirlo senza che tu implementi ulteriori misure di sicurezza.
+    </p>
+  </li>
+</ul>
+
+<h3>7.1.1 I limiti dell'auto-miglioramento</h3>
+
+<p align="justify">
+In generale, gli esseri umani sono capaci di auto-miglioramento. Possono concentrarsi e studiare un problema, ideare nuovi approcci, identificare le risorse necessarie e procedere per implementare e migliorare le proprie soluzioni. Mentre gli LLM hanno difficoltà a migliorare se stessi, nel campo dell'intelligenza artificiale generativa si ritiene che lo stesso miglioramento personale possa essere possibile per loro. L'idea di come questo potrebbe funzionare è più o meno questa:
+</p>
+
+<ol>
+  <li>
+    <p align="justify">
+Addestrare un LLM su un set di dati iniziale.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Utilizza LLM per generare nuovi dati, aggiungendoli al tuo set di dati di addestramento.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Addestra o perfeziona il modello sui nuovi dati. (Ripetere l'operazione finché l'LLM non funziona come previsto.)
+    </p>
+  </li>
+</ol>
+
+<p align="justify">
+Sebbene questo possa sembrare intuitivo e plausibile, crediamo che non funzioni per semplici ragioni. Possiamo utilizzare alcuni principi basilari della teoria dell'informazione, che misura l'informazione come una risorsa quantificabile, per spiegarne il motivo. La base di questa argomentazione è che, in base a una certa misura dell'informazione, il set di dati originale contiene una quantità fissa di informazioni. Nel linguaggio statistico, potremmo descrivere l'informazione originale come la distribuzione delle informazioni disponibili e, attraverso il suo processo di addestramento, l'LLM tenta di approssimare o riprodurre tale distribuzione di informazioni memorizzandola e codificandola nel suo modello. Quando si generano nuovi dati utilizzando un LLM, quel campione di dati è una riproduzione rumorosa e incompleta della distribuzione dei dati originale che l'LLM ha osservato durante il processo di addestramento. Fondamentalmente, è impossibile che l'output dell'LLM contenga nuove informazioni non presenti nei dati di addestramento originali. Di conseguenza, la realtà di tali esperimenti è che cicli successivi di generazione di dati e addestramento degradano la qualità e le prestazioni del modello [3]. Per far funzionare qualcosa del genere, è necessario qualcosa che fornisca informazioni esterne o nuove a ogni ciclo.
+</p>
+
+<p align="justify">
+Questi concetti si collegano anche al timore di alcuni che l'IA possa migliorare se stessa fino a diventare così intelligente da non avere alcuna speranza di comprenderla o controllarla. Alcuni sostengono che l'LLM possa utilizzare altri strumenti, acquisendo in qualche modo informazioni esterne o ulteriori dati di addestramento, per migliorarsi. In definitiva, ciò richiede la convinzione che, sebbene esistano limiti al miglioramento della maggior parte delle tecnologie, gli LLM saranno immuni a questi limiti, come la legge dei rendimenti decrescenti. La Figura 7.2 descrive i limiti intrinseci all'auto-miglioramento degli LLM.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 7.2 Le preoccupazioni che gli LLM si automigliorino presuppongono la convinzione che gli LLM non seguiranno la normale curva sigmoide o a S dei rendimenti decrescenti che descrive lo sviluppo di quasi tutte le altre tecnologie. Affinché si verifichi un automiglioramento infinito, dobbiamo credere che vincoli come potenza, dati o capacità computazionale siano sempre risolvibili e che, in qualche modo, gli esseri umani non li risolverebbero altrimenti per aree al di fuori degli LLM. Vincoli come questi sono il motivo per cui possiamo descrivere la maggior parte dello sviluppo tecnologico utilizzando curve a S, dove il progresso rallenta man mano che entrano in vigore più vincoli. In altre parole, alla fine raggiungeremo uno stato in cui non potremo semplicemente costruire un computer più grande.
+      </p>
+    </figcaption>
+    
+<img width="1100" height="846" alt="CH07_F02_Boozallen" src="https://github.com/user-attachments/assets/effb3429-c6dd-4dc1-9978-762f95637ddc" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Un ottimo esempio di limitazioni al miglioramento tecnico è la legge di Moore, che afferma approssimativamente che il numero di transistor su un chip raddoppierebbe ogni 18-24 mesi. La legge di Moore ha previsto in modo per lo più accurato la crescita dei transistor su un chip, ma ci sono segnali della curva a S dei rendimenti decrescenti nei transistor. Il tasso di raddoppio del numero di transistor su un chip sta diminuendo. Ancora più importante, le prestazioni totali del sistema sono già entrate in questa curva a S. Il numero di transistor è correlato alle prestazioni di elaborazione totali, ma non indica direttamente le prestazioni di elaborazione. Osservando il quadro generale nella figura 7.3 , si noterà che altri vincoli impediscono miglioramenti illimitati nell'intero sistema. A parte la legge di Moore, il costo pratico delle GPU ad alte prestazioni e dell'infrastruttura che le ospita rappresenta un altro ostacolo al miglioramento illimitato.
+</p>
+
+<table>
+  <td>
+    <h3>Gli LLM non sono esseri umani: non giudicateli secondo standard umani!</h3>
+    <p align="justify">
+Molti titoli accattivanti hanno esaltato le prestazioni degli LLM nell'esame MCAT per la facoltà di medicina, nell'esame di abilitazione alla professione forense e nei test del QI per misurare la loro intelligenza. Sebbene questi siano sempre interessanti e pieni di avvertenze come "Quanti esempi dello stesso tipo di domande sono presenti nei dati di training dell'LLM?", non sono buoni modi per estrapolare informazioni sugli LLM e sulle loro capacità rispetto agli esseri umani. In effetti, definire una definizione esatta di intelligenza è complesso ed è uno dei motivi per cui esistono diversi tipi di test del QI [4]. In definitiva, questi test si sono rivelati utili nel prevedere i risultati delle persone in vari compiti. Tuttavia, questi test non sono progettati per valutare algoritmi di intelligenza e non abbiamo motivo di credere che lo facciano in modo accurato o ragionevole! Il problema è la correlazione, non la causalità. I test del QI sono tutti correlati a risultati desiderabili, ma non misurano una proprietà sottostante che controlla o causa i risultati allo stesso modo, ad esempio, di un test della glicemia. In un test della glicemia, se la glicemia è troppo bassa o troppo alta, sappiamo cosa accadrà perché misura un'importante proprietà sottostante che determina l'esito di un processo che comprendiamo abbastanza bene. I test del QI sono utili, ma la loro utilità deriva da anni di iterazioni e miglioramenti. Ora comprendiamo meglio quali risposte a questi test sono correlate alle prestazioni delle persone, ma non misurano le cause sottostanti di tali prestazioni.
+    </p>
+  </td>
+</table>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 7.3 La legge di Moores è un esempio comune di crescita illimitata, ma è fuorviante. I transistor continuano a raddoppiare, ma frequenza, potenza, prestazioni single-thread e capacità di elaborazione totale no. Quindi le prestazioni totali del sistema non hanno continuato a raddoppiare circa ogni due anni. Altri fattori simili limiteranno le prestazioni dell'LLM e ne influenzeranno la capacità nel tempo. Utilizzato con licenza CC4.0 da https://github.com/karlrupp/microprocessor-trend-data .
+      </p>
+    </figcaption>
+
+<img width="1100" height="642" alt="CH07_F03_Boozallen" src="https://github.com/user-attachments/assets/110313f4-f598-4d91-8de3-139a71f69b3f" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Esistono molti esempi di informazioni esterne utilizzate per migliorare l'intelligenza artificiale generativa. Alcuni algoritmi creati per mani robotiche utilizzano informazioni esterne provenienti da un simulatore fisico. Apple utilizza un software di modellazione 3D per generare dati che migliorano il riconoscimento dell'iride sui propri telefoni [5]. Negli esempi del capitolo 6 , hai visto un potenziale percorso per migliorare un LLM utilizzando un compilatore per il codice o il linguaggio Lean per verificare la matematica. Questi esempi dimostrano processi completamente automatizzabili che generano nuove informazioni che possono portare all'auto-miglioramento.
+</p>
+
+<p align="justify">
+Tuttavia, non si è mai assistito a un esempio di auto-miglioramento illimitato; i progressi osservati grazie all'utilizzo di questi strumenti esterni alla fine raggiungono un punto morto e, in ultima analisi, si affidano agli esseri umani per sviluppare le informazioni collaterali, scrivendo simulatori fisici migliori per i robot, compilatori migliori per il codice e sistemi di conoscenza di dominio più evoluti come Lean. Il miglioramento di questi strumenti comporta un costo elevato per la formazione degli LLM, imponendo così un secondo limite economico all'auto-miglioramento degli LLM, che va oltre l'aspetto pratico.
+</p>
+
+<h3>7.1.2 Apprendimento a pochi colpi</h3>
+
+<p align="justify">
+L'apprendimento a pochi scatti è anche chiamato apprendimento contestuale . Questa tecnica prevede la fornitura di esempi del tipo di output che si desidera che un LLM produca come parte del prompt inviato. Supponiamo di voler fornire a un LLM informazioni accurate su una domanda dell'help desk. È possibile fornire all'LLM un prompt con la domanda di un utente all'help desk, seguito da un esempio del tipo di risposta appropriato. Se si fornisce un solo esempio, si parla di apprendimento a uno scatto . Fornire due esempi invece di uno singolo è noto come apprendimento a due scatti , e così via, quindi questo approccio viene descritto come a pochi scatti perché il numero preciso di esempi non è generalmente importante quanto il fatto che ne vengano forniti solo pochi. Questo metodo di incorporazione di esempi in un prompt è un tipo specifico di progettazione dei prompt, come illustrato nella figura 7.4 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 7.4 I prompt con esempi di come si desidera che l'LLM produca l'output sono chiamati prompt "poche-shot" perché l'LLM non ha rilevato alcun esempio di questo comportamento specifico nei suoi dati di training. Nel prompt, è possibile includere esempi di input e output simili a RLHF/fine-tuning supervisionato (SFT). Questo stile di prompt incoraggia il modello a produrre l'output desiderato fornendo esempi di come dovrebbe apparire l'output desiderato. Poiché gli LLM si addestrano su una quantità così grande di dati non etichettati, gli esempi "k-shot" sono un modo efficace per ottenere risultati migliori con il minimo sforzo.
+      </p>
+    </figcaption>
+
+<img width="1100" height="372" alt="CH07_F04_Boozallen" src="https://github.com/user-attachments/assets/abac5b7f-c1ba-420f-b7b0-159bae46dcdc" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Includere esempi nei prompt è utile per migliorare le prestazioni di un LLM in nuovi compiti. Non è necessario utilizzare RLHF o SFT per modificare il modello, e funziona meglio del prompting zero-shot, in cui chiediamo all'LLM di svolgere il compito senza esempi. Ma si tratta di un apprendimento efficiente?
+</p>
+
+<p align="justify">
+Il prompting a poche riprese non è un processo di addestramento, perché non alteriamo il modello in alcun modo, come faremmo nel processo di addestramento o di messa a punto. Lo "stato" o i pesi dell'LLM rimangono gli stessi. Per quanto accuratamente l'LLM esegua il compito il lunedì, sarà esattamente la stessa accuratezza il martedì e il mercoledì, indipendentemente dal numero di migliaia o milioni di prompt a poche riprese che gestisce. Non vi è alcun miglioramento nelle capacità del modello a meno che non si intervenga manualmente per includere esempi migliori nel prompt, fornire più esempi o intervenire in qualche modo. In questo senso, non si verifica alcun vero apprendimento e nulla nel modello cambia. Otteniamo semplicemente un output migliore dal modello modificando il nostro prompt.
+</p>
+
+<p align="justify">
+Tuttavia, in senso astratto, l'LLM apprende perché il prompt modifica il comportamento del modello fornendo un contesto aggiuntivo per descrivere il problema. Il comportamento esibito tramite prompt è correlato al comportamento ottenuto attraverso la messa a punto su esempi simili [6]. Ciò significa, in breve, che l'apprendimento a pochi scatti non riflette fondamentalmente nulla di diverso da ciò che la discesa del gradiente può già fare.
+</p>
+
+<p align="justify">
+Nota: se non si dispone di molti dati, il prompting a pochi scatti è probabilmente il modo più efficace per un professionista o un utente per far funzionare bene un LLM sui propri dati. Poiché possiamo pensare a questo prompting come a una discesa del gradiente o a un fine-tuning inefficiente, è necessario aspettarsi rendimenti decrescenti aggiungendo esempi in uno stile a pochi scatti. Ad esempio, se si includono molti esempi di come si desidera che un LLM risponda nel prompt e non si ottengono comunque le prestazioni necessarie, si dovrebbe prendere in considerazione SFT, RLHF e gli altri approcci di fine-tuning che abbiamo discusso nel capitolo 5 .
+</p>
+
+<h3>7.2 Efficienza del lavoro: un cervello umano da 10 watt contro un computer da 2000 watt</h3>
+
+<p align="justify">
+Il cervello umano consuma l'equivalente di 10 watt per mantenere la coscienza, permettendovi di leggere questo libro. Una workstation di fascia alta con una GPU per l'intelligenza artificiale e l'apprendimento automatico potrebbe facilmente consumare 2.000 watt. Un server di fascia alta per l'esecuzione dei più grandi LLM disponibili oggi si aggira tra i 10.000 e i 15.000 watt. A prima vista, sembrerebbe che utilizzare un LLM potrebbe quindi essere 1.500 volte più inefficiente dal punto di vista energetico rispetto a far svolgere un compito a un essere umano. Dovremmo essere molto orgogliosi di questo aspetto del nostro successo evolutivo e della nostra efficienza, ma è anche solo un aspetto di ciò che potremmo intendere per efficienza. Nella figura 7.5 mostriamo che molti diversi tipi di efficienza potrebbero avvantaggiare una persona rispetto alle macchine .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 7.5 L'hardware costoso che fa funzionare gli LLM porta a diversi compromessi. Ad esempio, il costo di avvio dell'utilizzo degli LLM è spesso elevato e questi non si adattano in modo indipendente. Questa mancanza di adattamento indipendente porta a molte debolezze naturali che un essere umano supererebbe in prestazioni rispetto a un LLM. Alcune debolezze, come il fatto che un modello non cambi senza addestramento, possono essere considerate punti di forza. Non si ottengono processi ripetibili e facili da scalare se ogni nuovo LLM in esecuzione si comporta in modo diverso e imprevedibile.
+      </p>
+    </figcaption>
+
+<img width="1100" height="532" alt="CH07_F05_Boozallen" src="https://github.com/user-attachments/assets/ddb9e528-292f-4140-ad10-bd555a394fb4" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<h3>7.2.1 Potenza</h3>
+
+<p align="justify">
+L'energia è uno dei fattori determinanti nel determinare il costo finanziario della creazione e gestione di un LLM, ma la reale necessità non è ancora del tutto chiara. Certo, molti fornitori vi forniranno un preventivo per la gestione di un LLM, ma non conosciamo i costi reali sostenuti da ciascun fornitore o i margini che ciascuno di essi ha stabilito. Ad esempio, un fornitore di LLM potrebbe adottare una strategia di margine negativo o di perdita, e il costo a lungo termine dell'utilizzo di un LLM potrebbe essere superiore a quanto appare in base ai prezzi attuali. Sappiamo che gli LLM generano una domanda significativa di energia, a tal punto che le grandi aziende tecnologiche stanno sviluppando piani per costruire centrali nucleari per supportare l'energia necessaria ai futuri data center per far funzionare tutti i modelli che prevedono [7]. Sulla base di ciò, sembra che possiamo aspettarci che i nuovi LLM saranno più grandi e più assetati di energia, ma il loro valore compenserà il costo di costruzione di centrali elettriche dedicate per i loro data center.
+</p>
+
+<p align="justify">
+In base a questo fattore, è necessario prestare attenzione quando una soluzione LLM di successo crea una domanda eccessiva; si potrebbero verificare problemi di capacità energetica nel soddisfare tale domanda. Potrebbe anche essere necessario prestare attenzione all'elasticità dei costi energetici. Non solo i fornitori di LLM potrebbero modificare le strutture dei costi, ma se si ospita un LLM autonomamente, negli Stati Uniti si verificano fluttuazioni del prezzo dell'energia pari a 6 volte [8]. Questo potrebbe non rappresentare un problema se la base clienti prevista è di soli 20.000 utenti, ma se si prevede di costruire qualcosa che servirà milioni di utenti o più, il costo dell'energia potrebbe rappresentare un grave rischio operativo e ambientale.
+</p>
+
+<h3>7.2.2 Latenza, scalabilità e disponibilità</h3>
+
+<p align="justify">
+La latenza è il tempo che intercorre tra l'interrogazione di un LLM e l'ottenimento di un output, la scalabilità descrive la rapidità con cui si può passare da uno a mille LLM in funzione e la disponibilità descrive la possibilità di avere un LLM operativo 24 ore su 24, 7 giorni su 7. Questi sono tutti importanti vantaggi dell'LLM – e più in generale dei computer in generale – rispetto alle persone. Gli LLM e l'intelligenza artificiale/apprendimento automatico possono reagire a più situazioni più velocemente, in qualsiasi momento, rispetto agli esseri umani. Questa velocità di reazione può essere sia positiva che negativa. Quando si dispone di un sistema che richiede supervisione e revisione degli output, non si ottiene il pieno vantaggio di disponibilità di un LLM senza sviluppare un piano di personale adeguato.
+</p>
+
+<h3>7.2.3 Raffinamento</h3>
+
+<p align="justify">
+Come abbiamo discusso nella sezione 7.1.1 , gli LLM non possono auto-migliorarsi facilmente. Tuttavia, le persone possono migliorare e lo fanno, ed è un obiettivo comune migliorare l'efficienza di un processo nel tempo. Sarà necessario mantenere il personale aggiornato per progettare prompt migliori e creare programmi di formazione più efficaci per migliorare l'efficienza degli LLM; senza di loro, le prestazioni degli LLM non miglioreranno.
+</p>
+
+<p align="justify">
+Migliorare l'efficienza di un LLM non implica solo l'aggiornamento a LLM più recenti o l'affinamento dei modelli esistenti, ma include anche la creazione dell'infrastruttura e la registrazione di input, output e metriche di performance per studiare cosa funziona e cosa no. È possibile utilizzare framework come DSPy, di cui abbiamo parlato nella sezione 5.5.2, per catturare questi elementi e identificare e gestire i casi che non funzionano o che iniziano a fallire nel tempo, man mano che le circostanze cambiano. Ad esempio, si potrebbe sviluppare un LLM iniziale che funziona bene. Ma quei dannati ragazzi continuano ad aggiungere nuove emoji agli iDroid e agli AppleBot [9]. Senza una formazione aggiuntiva, il vostro LLM non capirà queste nuove emoji, ma i vostri clienti inizieranno inevitabilmente a usarle, quindi il sistema inizierà a funzionare male. Non lo scoprirete mai se non registrate gli input e gli output dell'LLM nei log o non sollecitate feedback dai vostri utenti, che possono fornire informazioni sulle aree in cui l'LLM sta fallendo o avendo successo. L'acquisizione di queste informazioni è essenziale per migliorare e perfezionare il processo, cosa che gli LLM non possono fare senza l'intervento umano.
+</p>
+
+<p align="justify">
+Nota: il problema degli emoji è un ottimo esempio del perché eliminare la codifica e utilizzare solo LLM probabilmente non accadrà mai. Gli emoji saranno nuovi token che LLM non avrà mai visto nei dati di training, quindi intrinsecamente non sarà in grado di gestirli. Come potremmo gestire questa situazione in pratica? Il nostro primo tentativo sarebbe quello di scrivere codice che rilevi gli emoji e li sostituisca con una descrizione dell'aspetto, dell'intento e delle connotazioni dell'emoji. Potrebbe non funzionare in tutti i casi, ma è per questo che si testa e si convalida.
+</p>
+
+<p align="justify">
+Nel campo dell'apprendimento automatico, viene prestata notevole attenzione al concetto di "data drift", ovvero la deriva dei dati nel mondo reale che si evolve costantemente rispetto a quanto catturato nei dati di training di un modello. Quando si tratta di linguaggio naturale, gli emoji sono solo un esempio concreto di come i dati del mondo reale cambieranno nel tempo con l'evoluzione dell'uso del linguaggio. L'esempio degli emoji può essere esteso per includere i problemi creati da una nuova terminologia o da nuovi modi di utilizzare le parole esistenti in una lingua. Esaminando il lavoro esistente in questo campo, possiamo identificare ulteriori tecniche per misurare e mitigare la deriva dei dati per gli LLM, come la raccolta di dati di training aggiuntivi e la messa a punto dei modelli o la modifica dei prompt per includere definizioni supplementari per una terminologia inedita.
+</p>
+
+<h3>7.3 I modelli linguistici non sono modelli del mondo</h3>
+
+<p align="justify">
+Da un LLM è spesso possibile ricavare informazioni accurate sul mondo. Di conseguenza, è facile presumere che un modello linguistico conosca informazioni sul mondo. In effetti, come lettore di questo libro, puoi ragionare sul mondo e su ciò che accadrà senza intraprendere alcuna azione particolare. Ora, non stiamo parlando di qualcosa di così sofisticato come la previsione del mercato azionario, ma anche di azioni e pensieri semplici. Ad esempio, cosa succederebbe se dicessi a qualcuno che il suo maglione è brutto?
+</p>
+
+<p align="justify">
+Non è necessario interagire con l'ambiente o trovare un maglione brutto per rispondere a questa domanda. Non è necessario parlare o interagire con nessuno o nulla per rispondere a questa domanda. È possibile immaginare il "mondo" dei maglioni e le sensazioni che qualcun altro potrebbe provare e dedurne i risultati. Se vi dicessi che qualcuno indossa il maglione a una festa di Natale (un concorso di maglioni brutti, forse?), potreste aggiornare il vostro modello mentale del mondo e dedurre i risultati senza averli vissuti. Un LLM non può pensare prima di parlare. Generare testo è il modo più vicino che un LLM arriva a "pensare" (usando il termine in senso lato in questo contesto). Potete vedere un semplice esempio di ciò nella figura 7.6 , dove il ragionamento eccessivamente prolisso di un LLM lo porta infine a raggiungere un bel commento. Il ragionamento, sia esso svolto implicitamente o esplicitamente da noi umani, è diverso dal parlare della cosa su cui stiamo ragionando. Per un LLM, non c'è separazione dei processi; è necessario produrre più output per "pensare di più" alla risposta. Pertanto, gli LLM non sono in grado di pensare in modo indipendente dalla generazione di output.
+</p>
+
+<p align="justify">
+Attenzione: usiamo il termine "pensare" in senso lato nel contesto di un LLM. Per essere pignoli, intendiamo dire che i calcoli che un LLM esegue per rispondere a una domanda non sono dinamici. L'output di 10 token richiede la stessa quantità di lavoro indipendentemente dal contenuto di tali token. Rispondere a un problema complesso che richiede agli esseri umani di pensare di più richiederà probabilmente a un LLM di eseguire più calcoli, ma ciò di solito significa che l'LLM deve anche produrre un output più lungo, anche se la risposta non dovrebbe essere più lunga. Ogni volta che qualcuno usa il termine "pensare" in concomitanza con un LLM, è meglio sostituire "pensare" con "calcolare" .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 7.6 Il contesto e il motivo per cui qualcuno indossa o fa qualcosa di insolito potrebbero rientrare nell'ambito di qualcosa che un LLM riconosce correttamente e per il quale produce una risposta appropriata. Tuttavia, potrebbe non essere possibile per un LLM raggiungere tale risposta appropriata senza produrre un testo intermedio. Per un problema di matematica, questo testo intermedio potrebbe essere utile, ma potrebbe non essere sempre appropriato o desiderabile per un utente.
+      </p>
+    </figcaption>
+
+<img width="1100" height="585" alt="CH07_F06_Boozallen" src="https://github.com/user-attachments/assets/0acb4601-4f17-4c84-9013-1206adc53e16" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Questo esempio dimostra che un LLM non può pianificare senza generare testo sul processo di pianificazione. Se l'LLM non produce testo, è come se non esistesse. Esistono metodi per costruire prompt che incoraggiano gli LLM a scomporre i propri output per simulare la pianificazione. Questo è spesso chiamato prompt a catena di pensiero (CoT), in cui si include nel prompt un'affermazione come "Pensiamo passo dopo passo". Questa istruzione passo dopo passo spesso migliora la capacità del modello di eseguire le attività [10], ma non è chiaro perché ciò migliori le prestazioni. Ancora una volta, l'ambiguità di cosa significhi "pensare" può causare aspettative irragionevoli su ciò che gli LLM possono e non possono fare.
+</p>
+
+<p align="justify">
+Anche con CoT, gli LLM commetteranno comunque molti errori, come passaggi mancanti, calcoli mancanti ed esecuzione di ragionamenti logicamente non validi [11]. Altri fattori possono contribuire ai guadagni di prestazioni osservati quando un LLM produce output suddivisi in una serie di passaggi. Considera:
+</p>
+
+<ul>
+  <li>
+  <p align="justify">
+Nel capitolo 3, abbiamo parlato dei trasformatori e del meccanismo di attenzione utilizzato nelle loro implementazioni. Abbiamo imparato che più a lungo durano l'input ricevuto e gli output prodotti da un LLM, più calcoli vengono eseguiti dal trasformatore. Quindi, pensare passo dopo passo funziona meglio solo perché l'LLM, tramite il trasformatore, riesce a eseguire più calcoli ? Se l'LLM avesse un modello del mondo, potrebbe eseguire questo calcolo sull'output senza generarlo.
+  </p>
+  </li>
+  <li>
+  <p align="justify">
+Gli LLM riflettono la natura dei loro dati di formazione. Potrebbero esserci contenuti correlati al metodo "pensa passo dopo passo" e ad altri materiali didattici con contenuti più dettagliati e solitamente corretti. In definitiva, potremmo allineare manualmente la memoria vaga degli LLM con documenti di formazione più pertinenti, piuttosto che far svolgere loro una funzione fondamentalmente diversa.
+  </p>
+  </li>
+</ul>
+
+<p align="justify">
+Attenzione: la definizione precisa di "modello del mondo" non è ancora ben definita e può avere connotazioni diverse per persone diverse. Quando si discute di modelli del mondo, è una buona idea discutere prima la definizione in modo che tutti siano sulla stessa lunghezza d'onda. Molti discorsi sui LLM si sovrappongono, un aspetto che approfondiremo negli ultimi due capitoli di questo libro.
+</p>
+
+<p align="justify">
+Questi problemi sono impegnativi e implicano domande di ricerca aperte. La nostra posizione è che i drammatici fallimenti degli LLM evidenziano che queste sono spiegazioni più probabili di qualcosa di più profondo. È importante notare che alcune ricerche di nicchia si concentrano sull'integrazione di modelli del mondo nei metodi di apprendimento automatico. Un esempio tecnico ma abbastanza accessibile di questo tipo, realizzato da David Ha e Jürgen Schmidhuber nel 2018, è disponibile online ( https://worldmodels.github.io/ ) e mostra enormi miglioramenti delle prestazioni rispetto ai metodi esistenti all'epoca. Altri stanno lavorando alla creazione di modelli del mondo per gli LLM e all'utilizzo degli LLM come modelli del mondo [12]. I metodi attuali non hanno lo stesso elevato grado di flessibilità degli esseri umani; questi esempi hanno una portata più limitata e funzionano per una classe generale di problemi.
+</p>
+
+<h3>7.4 Limiti computazionali: i problemi difficili sono ancora difficili</h3>
+
+<p align="justify">
+Alcune persone sono preoccupate per l'IA "fuori controllo", in cui un algoritmo di IA diventa così avanzato e capace da poter risolvere problemi che noi non potremmo mai risolvere e che tale IA non avrebbe obiettivi in linea con il benessere umano. Se un'IA di questo tipo esistesse, potrebbe migliorarsi in modi in cui noi stessi non potremmo migliorare, dando vita a un'IA ancora più potente. Molti hanno lasciato che questo pensiero dilagasse, immaginando che un LLM diventi quasi divino nella capacità e nell'abilità di superare gli umani. C'è una questione etica qui che discuteremo più approfonditamente nell'ultimo capitolo del libro. Per ora, c'è una semplice ragione tecnica per cui non siamo così preoccupati da questa idea, e ci aiuta anche a comprendere i limiti realistici degli LLM. In sostanza, ci sono molti modi per misurare quella che possiamo chiamare complessità computazionale o complessità algoritmica. Confrontando la complessità degli LLM con altri algoritmi ben studiati, possiamo essere più specifici su ciò che gli LLM possono e non possono raggiungere. Discuteremo anche di come le soluzioni approssimative ai problemi mediante LLM possano, ove opportuno, evitare parte della complessità delle soluzioni precise agli stessi problemi.
+</p>
+
+<p align="justify">
+In informatica, dedichiamo molto tempo a studiare la complessità algoritmica. Per la maggior parte degli studenti o dei professionisti, questo significa capire come una variazione nella quantità di dati di input modifichi il tempo necessario a un processo per produrre risultati. Uno dei casi più ideali, che raramente si verifica nella realtà, è che raddoppiando gli input, il processo impiegherà il doppio del tempo. In altre parole, un processo che potrebbe richiedere 2 giorni per n elementi (nel caso di un LLM, un elemento potrebbe essere un token) impiega 4 giorni per 2 volte n . Quando si parla di complessità in informatica, si usa spesso la notazione matematica, nota come notazione Big-O, per comunicare diversi livelli di complessità. Quando il tempo di calcolo di un processo cresce alla stessa velocità della dimensione del suo input, si parla di complessità lineare e si indica in notazione Big-O come O(n ). Se si disegna un grafico con la dimensione dei dati sull'asse x e il tempo di calcolo sull'asse y, si otterrà una linea, poiché sia i dati che il tempo di calcolo crescono alla stessa velocità. Altre complessità comuni nel mondo reale includono la log-lineare ( \(\mathcal{O}(n \log n)\) ), dove \(2 \times n\) potrebbe essere più vicino a 4,4 giorni; quadratica ( \(\mathcal{O}(n^2)\) , dove \(2 \times n\) potrebbe essere più vicino a 8 giorni; ed esponenziale ( \(\mathcal{O}(e^n)\) ), dove il tempo di calcolo cresce così rapidamente all'aumentare della dimensione dell'input che è molto probabile che il mondo non esista più prima che l'algoritmo termini. In ognuno di questi casi, il grafico della dimensione dell'input rispetto al tempo di calcolo diventa più ripido man mano che i sistemi diventano più complessi. In altre parole, per algoritmi più complessi, il tempo di elaborazione aumenterà più rapidamente all'aumentare della quantità di dati elaborati.
+</p>
+
+<p align="justify">
+Abbiamo intrapreso questo breve viaggio nell'informatica per aiutarvi a comprendere la complessità computazionale dell'esecuzione di un LLM. Per un input di n elementi, l'LLM ha una complessità computazionale di O(n^2) o complessità quadratica. Se possiamo dimostrare che un algoritmo/attività richiede più di O(n^2) lavoro, allora abbiamo sostanzialmente dimostrato che un LLM non può risolvere il problema in modo efficiente perché i suoi algoritmi principali non sono in grado di eseguire algoritmi con quel livello di complessità, con precisione.
+</p>
+
+<p align="justify">
+Attenzione: questo non è un corso di laurea specialistica su metodi formali o algoritmi; stiamo fornendo una rapida panoramica sullo studio della complessità algoritmica. L'obiettivo è fornire al lettore un'intuizione tecnica per il problema, ma non vi abbiamo ancora fornito tutte le conoscenze necessarie per discutere questo argomento in dettaglio. Per saperne di più su algoritmi e complessità, consultate il libro di Aditya Y. Bhargava Grokking Algorithms: An Illustrated Guide for Programmers and Other Curious People [13].
+</p>
+
+<p align="justify">
+Se fosse possibile far sì che un LLM risolvesse un problema che richiede, ad esempio, una complessità cubica di \(\mathcal{O}(n^3)\) , ma l'LLM stesso avesse una complessità più rapida (minore) di \(\mathcal{O}(n^2)\) , allora avremmo una contraddizione logica. In altre parole, un LLM non può risolvere un problema complesso più velocemente di quanto indicato dall'analisi di complessità. Molti compiti e algoritmi del mondo reale hanno complessità peggiori di \(\mathcal{O}(n)\) . Descriviamo alcuni esempi nella tabella 7.1 e noterete che la manciata che abbiamo elencato riguarda la logistica o l'allocazione delle risorse. Ad esempio, la consegna di pacchi e la riprogrammazione dei voli sono problemi che presentano complessità algoritmiche estremamente complesse.
+</p>
+
+<div align="center">
+<img width="611" height="418" alt="image" src="https://github.com/user-attachments/assets/a66c443f-9598-48d3-9c1c-01d7a001b5ea" />
+</div>
+
+<p align="justify">
+Un secondo motivo importante e correlato per cui ci interessiamo agli algoritmi è la classe di complessità di un algoritmo. Una classe di complessità definisce l'ambito dei possibili algoritmi che un algoritmo può risolvere. Le classi di complessità più note sono \(P\) (per polinomio) e \(NP\) , che sono problemi che richiedono almeno \(\mathcal{O}(e^n)\) di tempo per essere completati. Queste classi molto ampie contengono praticamente tutti i problemi che potrebbero interessarvi.
+</p>
+
+<p align="justify">
+Nota: molti pensano che \(NP\) stia per non-polinomio , ma è falso! In realtà significa polinomio non deterministico .
+</p>
+
+<p align="justify">
+Ciò che è interessante e informativo è che William Merrill e Ashish Sabharwal [14] hanno dimostrato che la capacità di un LLM di risolvere problemi è correlata al numero di token che genera nei passaggi intermedi. Per un LLM, generare una risposta rientra in una classe di complessità chiamata \(TC^0\) (sappiamo, gli informatici sono i peggiori nel dare nomi alle cose). Questa classe di complessità è molto restrittiva, il che significa che un LLM può a malapena risolvere qualsiasi cosa. Man mano che i passaggi intermedi \(n\) diventano più lunghi, si raggiunge infine la classe di complessità di \(P\) . Ciò significa che un LLM non può mai risolvere problemi del mondo reale che siano NP o più difficili! Colleghiamo tutto questo nella figura 7.7 , che mostra come questi livelli di classi di complessità si relazionano.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 7.7 Un diagramma di Venn delle complessità computazionali (assumendo \(P \neq NP\) , un dettaglio secondario per i nerd) correlate tra loro. Le frecce in alto forniscono esempi del tipo di problema che una nuova classe di complessità consente di risolvere. Le frecce in basso mostrano dove si collocano gli LLM in termini di complessità.
+      </p>
+    </figcaption>
+
+<img width="1100" height="672" alt="CH07_F07_Boozallen" src="https://github.com/user-attachments/assets/c4b795e5-9220-4f4f-a002-4f7a78bc4e22" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Questa scoperta è ancora più dannosa perché le classi di complessità descrivono i tipi di problemi che è possibile risolvere, non l'efficienza con cui è possibile risolverli. Ad esempio, un LLM deve generare nell'ordine di \(n^c\) token per risolvere un algoritmo che comporta \(n^c\) di complessità. Tuttavia, un LLM necessita anche di \(\mathcal{O}(n^2)\) di tempo per elaborare \(n\) token, quindi si ottiene uno sforzo computazionale \(\mathcal{O}\left((n^c)^2\right) = \mathcal{O}(n^{2 \times c})\) , un enorme aumento della complessità. Inoltre, questa stima della complessità non tiene conto dei dati di training dell'LLM e del tempo necessario per sviluppare i prompt necessari affinché l'LLM esegua l'algoritmo correttamente e senza errori.
+</p>
+
+<h3>7.4.1 Utilizzo di algoritmi fuzzy per problemi fuzzy</h3>
+
+<p align="justify">
+Questa discussione su algoritmi e complessità può sembrare molto critica per gli LLM. In realtà, lo è solo se si vogliono applicare gli LLM a problemi che richiedono risultati corretti. Se anche il più piccolo errore è inaccettabile nel vostro sistema, non dovreste usare l'apprendimento automatico, figuriamoci un LLM.
+</p>
+
+<p align="justify">
+Come l'apprendimento automatico in generale, gli LLM funzionano meglio per i problemi fuzzy, in cui è difficile descrivere cosa renda qualcosa corretto o errato. Nei problemi fuzzy, spesso è accettabile che esistano errori; altri processi possono rimediare a tali errori, oppure il costo degli errori è potenzialmente sufficientemente basso da poter essere ignorato. Ecco perché il testo e il linguaggio naturale sono adatti agli LLM. Le risposte a problemi come "Cosa intendeva Suzy in quell'email?" o "John intendeva insinuare questo nel suo testo?" sono intrinsecamente fuzzy. Il linguaggio umano è pieno di imprecisioni, chiarimenti e ripetizioni che ben si sposano con la difficoltà di far sì che gli LLM risolvano problemi che richiedono risposte coerenti e precise.
+</p>
+
+<h3>7.4.2 Quando "abbastanza vicino" è abbastanza buono per i problemi difficili</h3>
+
+<p align="justify">
+Per controbattere un attimo, dovremmo anche sottolineare che gli esseri umani non possono risolvere problemi NP-difficili quando usiamo il termine "solve" nel senso di "arrivare alla soluzione ottimale per la quale non esiste una soluzione migliore". Utilizziamo approssimazioni per risolvere problemi complessi perché sappiamo che sono troppo difficili da risolvere perfettamente.
+</p>
+
+<p align="justify">
+Ad esempio, nella tabella 7.1 e nella figura 7.7, abbiamo menzionato il problema del commesso viaggiatore, un problema famoso e importante per la pianificazione del percorso di consegna. Il corriere postale vuole consegnare la posta di tutti nel minor tempo e distanza percorsa, senza ripetere alcun percorso. Dal punto di vista computazionale, trovare il percorso migliore è NP-difficile, quindi è possibile applicarlo solo a poche centinaia o forse migliaia di destinazioni di consegna. Tuttavia, esistono algoritmi quadratici molto più veloci che approssimano il problema e possiamo dimostrare che forniscono un percorso che non è peggiore di 2 volte la distanza di percorrenza del percorso a distanza minima. Quindi, nel mondo reale, utilizziamo queste e altre tecniche per ottenere soluzioni del tipo "abbastanza vicino è abbastanza buono". Anche gli LLM possono potenzialmente ottenere soluzioni del tipo "abbastanza vicino è abbastanza buono", ma sono comunque vincolati dal fatto che sono inefficienti per problemi esatti.
+</p>
+
+<p align="justify">
+Senza una comprensione dei dati di training di un LLM, abbiamo difficoltà a stimare quanto bene potrebbe risolvere un problema difficile tramite approssimazione. Si consideri che il gioco degli scacchi è tecnicamente più difficile di NP-difficile. GPT-3.5 può giocare una partita di scacchi decente in grado di sconfiggere un vero essere umano [15], sebbene non al livello di "dominazione di tutti gli esseri umani" che i programmi di scacchi dedicati possono raggiungere. Questo dimostra che gli LLM sono bravi a risolvere approssimativamente problemi molto difficili?
+</p>
+
+<p align="justify">
+Probabilmente no. Innanzitutto, il gioco degli scacchi di ChatGPT è migliorato notevolmente dopo aver aggiunto gli scacchi come parametro di valutazione ( https://github.com/openai/evals/pull/45 ). Non è irragionevole sospettare che i creatori di ChatGPT abbiano apportato delle modifiche che hanno incorporato gli scacchi come obiettivo esplicito. In secondo luogo, Internet è pieno di partite di scacchi da studiare ed esplorare ( https://old.chesstempo.com/game-database.html ), quindi è probabile che ChatGPT sia stato addestrato su partite di scacchi complete registrate nei suoi dati di addestramento.
+</p>
+
+<p align="justify">
+Tuttavia, è interessante notare che ChatGPT può utilizzare i dati di training per giocare una partita a scacchi ragionevole, confrontando ciò che ha visto in precedenza con situazioni leggermente diverse in futuro. Quando si considera dove una soluzione basata su LLM funzionerà meglio, raccomandiamo questo schema mentale: applicare gli LLM a problemi ripetitivi e leggermente variabili per massimizzarne l'utilità. Applicazioni come la sintesi di testi, la traduzione linguistica, la stesura delle prime bozze di documenti e la verifica di testi esistenti rientrano tutte in questa categoria.
+</p>
+
+<p align="justify">
+Lezioni simili provengono da altre aree del deep learning, dove è più facile ragionare su ciò che accade all'interno di un modello rispetto ai LLM. Ad esempio, giocare a Go è stata una delle sfide più longeve nella ricerca sull'intelligenza artificiale per decenni. Solo di recente l'intelligenza artificiale è riuscita a battere giocatori di livello campione. Come gli LLM, le IA che giocano a Go si addestrano osservando molti esempi di partite. Tuttavia, se si costruisse un bot che gioca a Go e che esegue mosse insolite e/o senza senso, sconfiggerebbe l'IA "sovrumana" ma perderebbe contro i dilettanti umani [16]. Questo esempio evidenzia anche il rischio dell'utilizzo di LLM in ambienti avversari, dove gli esseri umani sono molto più abili nell'affrontare le novità significative in una situazione rispetto alle attuali IA/LLM.
+</p>
+
+<h3>Riepilogo</h3>
+
+<ul>
+  <li>
+    <p align="justify">
+Il vantaggio principale degli LLM rispetto agli umani è la scalabilità che raggiungono. Gli LLM possono operare a basso costo, 24 ore su 24, 7 giorni su 7, e possono essere ridimensionati per soddisfare la domanda con uno sforzo molto inferiore rispetto alla formazione o alla riduzione della forza lavoro umana.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Gli esseri umani sono più abili nel gestire situazioni molto nuove, il che è importante se le persone che interagiscono con l'LLM potrebbero essere avversari (ad esempio, se cercano di commettere una frode).
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Sappiamo che gli LLM sono efficaci per problemi simili a quelli riscontrati in precedenza nei loro dati di addestramento, il che li rende utili per lavori ripetitivi.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+L'ingegneria rapida è probabilmente il punto di partenza più efficace per "insegnare" qualcosa di nuovo agli LLM, a meno che non si possano dedicare grandi quantità di sforzi e denaro alla raccolta e alla messa a punto dei dati.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Gli LLM non possono auto-migliorarsi e sono inefficienti nel risolvere problemi algoritmici che richiedono una risposta corretta specifica. Funzionano meglio su problemi "fuzzy", dove esiste un certo intervallo di risultati soddisfacenti e un certo margine di errore è accettabile.
+    </p>
+  </li>
+</ul>
+
+
+
+
