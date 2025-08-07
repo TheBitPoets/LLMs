@@ -4086,3 +4086,293 @@ Figura 8.3 Si noti che la direzione delle frecce in questo diagramma è cambiata
 </div>
   </td>
 </table>
+
+<p align="justify">
+Questo doppio controllo potrebbe essere semplice come dire al tecnico: "Ehi, sembra che questa soluzione non sia adatta; per favore conferma prima di inviare". Potresti provare a far sì che l'LLM produca la propria alternativa suggerita. Oppure potresti escludere l'LLM dal processo e utilizzarlo per avvisare un tecnico più esperto di unirsi al processo e fornire assistenza. Indipendentemente da come sia strutturato, lo scopo è segnalare il rischio di un'interazione negativa con il cliente, ad esempio una risposta errata. Sebbene questo rischio esistesse in precedenza, ora abbiamo la possibilità di mitigarlo.
+
+<p align="justify">
+Inoltre, poiché stiamo prendendo in considerazione errori di supporto clienti causati da un essere umano, in genere non ci assumiamo alcun nuovo rischio, perché un rappresentante del supporto che agisce da solo potrebbe facilmente commettere un errore. Quindi, se l'LLM e l'essere umano sbagliano entrambi contemporaneamente, eri già destinato a commettere quell'errore di processo in ogni caso. Così è la vita. Tecnicamente, potremmo sostenere che i tecnici potrebbero mettere in discussione eccessivamente le proprie risposte in base alla valutazione delle interazioni da parte di un LLM, riducendo così l'efficienza. Inoltre, un LLM eccessivamente sensibile potrebbe chiedere ai tecnici di ricontrollare il proprio lavoro troppo spesso, il che causerebbe un affaticamento da avvisi che potrebbe portare i tecnici a ignorare completamente i suggerimenti dell'LLM. Se il tuo caso d'uso è soggetto a questo tipo di problemi, questo fatto verrà scoperto durante le implementazioni di prova che forniranno feedback specifici sul contesto su come un LLM dovrebbe essere ottimizzato per affrontare questo problema. L'avvertenza generale che si applica a tutto il machine learning è particolarmente importante in questo caso: testare sempre; non dare per scontato.
+
+<p align="justify">
+Utilizzare un LLM per verificare le prestazioni umane può ridurre gli errori nel processo nel suo complesso. Potrebbe sembrare che questo approccio non acceleri i tempi, perché la risposta iniziale è ancora generata dagli esseri umani. Tuttavia, questo approccio crea comunque opportunità per una maggiore efficienza:
+
+<ul>
+  <li>
+    <p align="justify">
+Può ridurre la durata della conversazione aiutando a individuare gli errori e a raggiungere una soluzione più rapidamente.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Può identificare il personale che necessita di maggiore formazione o informazioni per rispondere alle domande dei clienti o riconoscere quando si verificano specifiche situazioni di errore.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Può aiutare a evitare l'escalation verso livelli di supporto o di gestione più costosi, riducendo la frequenza e i costi dei clienti problematici.
+    </p>
+  </li>
+</ul>
+
+<h3>8.3 Utilizzare più di un LLM per ridurre il rischio</h3>
+
+<p align="justify">
+Tutto ciò che abbiamo discusso ha implicato un approccio "combattere il fuoco con il fuoco" in cui, sebbene vi siano rischi nell'utilizzo degli LLM, abbiamo valutato diversi modi per mitigarli. Sebbene abbiamo modificato il modo in cui utilizziamo gli LLM, questi rimangono la componente principale. In alternativa, possiamo valutare l'utilizzo di strumenti diversi dagli LLM per affrontare le nostre sfide progettuali. Altri approcci nell'ambito dell'IA generativa, come la sintesi vocale e la sintesi vocale, possono essere utilizzati per creare esperienze utente più accessibili o semplicemente più pratiche. Ad esempio, gli utenti con artrite o ipovedenti potrebbero preferire di gran lunga una telefonata piuttosto che digitare le risposte in una finestra di prompt di un chatbot.
+</p>
+
+<p align="justify">
+Se pensiamo al nostro problema di assistenza clienti e a quando gli LLM funzionano bene, scopriremo che sono disponibili anche gli ingredienti per una classe più ampia di strumenti. Gli LLM funzionano meglio quando ci sono ripetizioni in scenari in cui i problemi si ripresentano e possono essere fornite soluzioni e risposte formulate. Gli LLM sono molto flessibili nel riconoscere schemi generali nella natura confusa del linguaggio. Se l'LLM riesce a interpretare correttamente il problema di un utente e esiste una soluzione nota, può potenzialmente guidare l'utente attraverso tale soluzione. Questo potrebbe sembrare molto simile a un chatbot non supervisionato, ma la differenza fondamentale è che nei casi in cui l'LLM assume un ruolo subordinato nella soluzione, l'output è stato in ultima analisi generato dai tecnici dell'assistenza clienti, come descritto nella figura 8.3 .
+</p>
+
+<p align="justify">
+Questa sezione discuterà anche di come possiamo utilizzare tecniche classiche di apprendimento automatico, come la classificazione, per affrontare problemi esistenti. Possiamo farlo sfruttando le conoscenze acquisite negli LLM per abilitare le tecniche di apprendimento automatico producendo incorporamenti del testo dell'utente.
+</p>
+
+<h3>8.3.1 Combinazione di incorporamenti LLM con altri strumenti</h3>
+
+<p align="justify">
+Nel capitolo 3 , abbiamo descritto come un LLM trasforma i token in embedding, ovvero vettori che codificano una rappresentazione semantica del significato di ciascun token come una serie di numeri. Questi embedding vettoriali sono utili anche in altri modi, al di fuori del contesto dell'architettura del trasformatore dell'LLM. Sebbene gli embedding vettoriali siano essenziali per il funzionamento dell'LLM, sono di per sé uno strumento straordinariamente utile.
+</p>
+
+<p align="justify">
+La natura semantica dei vettori prodotti dagli LLM è importante perché centinaia di altri algoritmi di apprendimento automatico pratici operano su rappresentazioni vettoriali. Gli LLM sono essenzialmente un modo molto potente per convertire testi complessi in linguaggio umano in una forma compatibile con il resto del campo dell'apprendimento automatico. L'utilizzo degli output vettoriali degli LLM con altri algoritmi si è rivelata una strategia così straordinariamente utile che i professionisti la descrivono come "creazione di incorporamenti". La descrizione deriva dall'idea che l'LLM prenda una rappresentazione (testo umano) e la incorpori in un'altra rappresentazione (un vettore matematico). Poiché questi numeri codificano informazioni sul testo originale, è possibile rappresentarli graficamente come numeri e vedere che testi simili finiscono in posizioni simili sul grafico, come mostrato nella figura 8.4 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 8.4 Gli LLM producono vettori numerici noti come embedding come parte intrinseca del loro funzionamento. L'utilità di questi embedding dipende dal fatto che questi numeri cambiano solo di poco quando viene fornito un testo simile. I due test di esempio qui presenti avranno embedding simili e, pertanto, i loro grafici appaiono simili, anche se non condividono nessuna delle stesse parole. Questa è una potente funzionalità presente nelle vecchie tecniche di apprendimento automatico.
+      </p>
+    </figcaption>
+
+<img width="1100" height="633" alt="CH08_F04_Boozallen" src="https://github.com/user-attachments/assets/54383d6a-2d2b-4463-acf3-6c84cf227cd4" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Diamo un'occhiata a una rapida descrizione di quattro tipi di algoritmi di apprendimento automatico che puoi utilizzare una volta che hai gli embedding. Consideriamo ogni tipo di apprendimento automatico particolarmente utile per la maggior parte degli utilizzi reali con gli LLM; menzioneremo anche alcuni algoritmi popolari che puoi trovare, relativamente affidabili e facili da usare. La conclusione fondamentale è che se si abbandona la mentalità che solo un LLM può risolvere un problema, si ha a disposizione un set di strumenti più ampio. Questo elenco è la mappa di partenza per alcuni di questi strumenti:
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+Algoritmi di clustering : raggruppano i testi in base alla loro somiglianza, distinguendoli dalla maggior parte del testo disponibile (ad esempio, utilizzati per l'analisi dei segmenti di mercato). Tra gli algoritmi più diffusi figurano k-means e HDBSCAN.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Rilevamento di valori anomali : individuazione di testi diversi da praticamente tutti gli altri testi disponibili (ad esempio, individuazione di clienti contrari o problemi nuovi). Tra gli algoritmi più diffusi figurano le foreste di isolamento e il fattore di valori anomali locali (Local Outlier Factor, LoF).
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Visualizzazione delle informazioni : creazione di un grafico 2D dei dati per consentirne l'ispezione/esplorazione visiva, soprattutto se combinato con strumenti interattivi (ad esempio, esplorazione dei dati). Tra gli algoritmi più diffusi figurano UMAP e PCA.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Classificazione e regressione : se si etichettano i vecchi testi con risultati noti (ad esempio, punteggio del promotore netto), è possibile utilizzare la classificazione (ad esempio, scegliere uno tra A, B o C) o la regressione (ad esempio, prevedere un numero continuo come 3,14 o 42) per prevedere quale sarebbe il punteggio di un nuovo testo (ad esempio, categorizzazione dei dati e previsione del valore). L'utilizzo di embedding come input per algoritmi semplici come la regressione logistica e la regressione lineare funziona bene, rispettivamente, per la classificazione o la regressione.
+    </p>
+  </li>
+</ul>
+
+<p align="justify">
+Nota : gli embedding non sono una novità, essendo stati inventati come parte degli LLM. Un algoritmo noto come Word2Vec, in grado di incorporare singole parole, ha reso popolari gli embedding come strategia di riferimento per rappresentare il significato di un testo già nel 2013. Ciononostante, gli LLM tendono a produrre embedding con maggiore utilità rispetto ad altri algoritmi più vecchi. Tuttavia, un LLM è molto più impegnativo dal punto di vista computazionale rispetto ad algoritmi più vecchi come Word2Vec. Per questo motivo, potrebbe essere opportuno utilizzare un algoritmo più vecchio o più veloce per questo compito. L'esistenza di metodi di intelligenza artificiale generativa in immagini, video e parlato significa che è possibile utilizzare gli embedding anche per domini come immagini, video e parlato, oltre che per il testo.
+</p>
+
+<h3>8.3.2 Progettazione di una soluzione che utilizza gli embedding</h3>
+
+<p align="justify">
+Ora che abbiamo descritto il concetto di embedding e come ci offrono più strumenti, creiamo una soluzione avanzata per il call center di supporto tecnico. Continueremo a utilizzare gli LLM per la loro capacità di generare testo e i loro embedding, e integreremo altre tecniche di apprendimento automatico per abilitare l'interazione vocale a cui le persone sono abituate, ridurre i tempi di attesa e aumentare l'efficienza.
+</p>
+
+<p align="justify">
+Innanzitutto, per supportare l'interazione vocale, utilizzeremo la conversione da voce a testo per convertire le parole pronunciate da un utente in testo che viene utilizzato come input in un LLM. Sarebbe ragionevole pensare: "Ho già usato sistemi a controllo vocale davvero pessimi", e sì, probabilmente è così. Ecco perché è essenziale aggiungere un meccanismo di "salvataggio" per sfuggire al sistema automatizzato (ad esempio, numero massimo di tentativi, tempi o opt-out) nei casi in cui il sistema non riesca a comprendere il parlato di un utente. Oltre alla conversione da voce a testo, utilizzeremo anche la conversione da testo a voce per fornire al LLM un modo per convertire il testo in uscita in qualcosa che un utente dovrebbe essere in grado di sentire e comprendere.
+</p>
+
+<p align="justify">
+In secondo luogo, per ridurre i tempi di attesa, possiamo implementare un sistema in cui, se si è formata una coda di chiamate a causa del numero di richieste di supporto in arrivo, chiederemo al cliente di descrivere il suo problema in modo che possa essere indirizzato all'analista più appropriato. Partendo dal presupposto che i clienti possano avere nuovi problemi, non tentiamo di utilizzare l'LLM per risolverli direttamente. Invece, utilizzeremo la descrizione del problema del cliente per chiamare l'API di incorporamento dell'LLM e produrre una rappresentazione del problema. Una volta incorporata la descrizione del problema, possiamo utilizzare il clustering per raggruppare gli utenti nella coda. Gli utenti con problemi simili possono essere assegnati allo stesso team di analisti per aiutare gli analisti a risolvere i problemi più velocemente. Questo di per sé è un vantaggio.
+</p>
+
+<p align="justify">
+Possiamo utilizzare questo raggruppamento dei problemi per aumentare ulteriormente l'efficienza. Supponiamo che un analista abbia identificato un problema comune per il quale esiste una soluzione coerente e predefinita. Invece di affidarsi all'LLM per generare dinamicamente una soluzione ipotetica, l'analista umano può condividere la soluzione predefinita che è già stata verificata da utenti reali. Inoltre, è possibile inviare tale soluzione agli utenti in attesa in coda tramite l'LLM. Sarà possibile informare gli utenti: "È stata sviluppata una soluzione automatizzata che riteniamo possa risolvere il problema. Mentre aspettate, proviamo a risolverlo con la nostra IA automatizzata". Questo approccio è riassunto nella figura 8.5 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 8.5 Questo diagramma descrive la nostra "soluzione migliore" per le richieste di assistenza clienti, in cui i clienti descrivono il loro problema mentre aspettano di parlare con qualcuno. L'LLM utilizza una rappresentazione incorporata del problema per confrontare problemi simili con soluzioni note. Mentre l'utente attende, un sistema automatizzato può fornire informazioni che potrebbero aiutarlo a risolvere il problema senza l'intervento del personale di supporto. Se questo non funziona, c'è sempre la possibilità di "tirarsi indietro" e parlare con una persona reale. Il modello utilizzato per generare gli incorporamenti non deve necessariamente essere lo stesso dell'LLM che guida l'utente attraverso la soluzione.
+      </p>
+    </figcaption>
+
+<img width="1100" height="488" alt="CH08_F05_Boozallen" src="https://github.com/user-attachments/assets/df94a3dc-1d8d-4be8-9bd4-8951f4f3d242" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+È possibile combinare le soluzioni descritte finora. Ad esempio, il ciclo di interazione analista-cliente in alto a destra nella figura 8.5 potrebbe prevedere due persone che discutono del problema, oppure potrebbe essere la soluzione di convalida supervisionata da LLM che abbiamo progettato nella figura 8.3 . A seconda dei problemi da risolvere, ci sono molte opportunità per estendere queste soluzioni ora che disponiamo degli embedding. Ad esempio, se gli analisti salvassero informazioni su quanto sia arrabbiato o turbato un cliente, si potrebbe addestrare un modello di regressione per prevedere quanto arrabbiato un cliente potrebbe essere in base al loro embedding. Quindi, si potrebbero distribuire equamente i clienti arrabbiati tra gli analisti per evitare che qualcuno si senta sopraffatto o cercare di indirizzare i clienti arrabbiati lontano dai nuovi analisti che stanno ancora imparando come aiutare i clienti a risolvere i loro problemi.
+</p>
+
+<p align="justify">
+Per essere chiari, non stiamo dicendo che tutti i sistemi di supporto tecnico al cliente saranno migliori se adottassero questo approccio. L'obiettivo è mostrarvi che esistono modi per costruire soluzioni con gli LLM che ne aggirino i limiti, come la tendenza ad avere allucinazioni e l'incapacità di incorporare nuove conoscenze in modo dinamico. In sintesi, presentiamo due strategie di base:
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+Utilizzate gli LLM come un secondo sguardo su ciò che sta accadendo. Se l'LLM concorda, tutto va bene. In caso contrario, eseguite un doppio controllo che può essere semplice o complesso, a seconda della natura del problema.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Utilizzare gli embedding per applicare il machine learning classico al problema. Il clustering (raggruppamento di elementi simili) e l'individuazione di outlier (individuazione di elementi unici o insoliti) saranno particolarmente utili per molte applicazioni del mondo reale.
+    </p>
+  </li>
+</ul>
+
+<p align="justify">
+Non ci affidiamo esclusivamente all'LLM per generare output in qualsiasi fase di queste soluzioni, perché gli LLM possono generare output errati o inappropriati. Tuttavia, possiamo comunque utilizzare gli LLM per ridurre il carico di lavoro, gli errori e i tempi di risoluzione prestando attenzione a come progettiamo il sistema nel suo complesso.
+</p>
+
+<h3>8.4 La presentazione della tecnologia è importante</h3>
+
+<p align="justify">
+Alcuni di voi potrebbero rimanere increduli dopo aver letto questo esempio di come progetteremmo un sistema di supporto tecnico che utilizza gli LLM. Spesso sentiamo persone che credono fermamente nella tecnologia LLM dire: "Se si fa spiegare il ragionamento all'LLM, l'utente o l'analista possono capire se ha senso e tutti i problemi relativi ad allucinazioni ed errori saranno risolti". Riceviamo spesso richieste simili di creare una "IA spiegabile" da parte di coloro che si trovano all'estremità più scettica dello spettro, preoccupati per gli errori prodotti dagli LLM e che non capiscono cosa stia succedendo. Pertanto, c'è la percezione da entrambe le parti che le spiegazioni forniranno i mezzi per creare fiducia nella tecnologia e credere che l'LLM (o qualsiasi algoritmo di apprendimento automatico) funzioni correttamente ed efficacemente.
+</p>
+
+<p align="justify">
+In questa sezione, vogliamo discutere alcuni punti che supportano l'idea che la spiegabilità non sia la soluzione a questi problemi. La spiegabilità non è l'unica soluzione che aiuterà a individuare gli errori o a rendere un sistema più trasparente e affidabile. La triste verità è che le nostre ipotesi su come un LLM funzionerà con le persone sono spesso errate e devono essere attentamente valutate. Infatti, recenti ricerche hanno dimostrato che quando un sistema impiega tecniche di intelligenza artificiale spiegabili, le persone si fidano erroneamente della correttezza dell'intelligenza artificiale basandosi esclusivamente sul fatto che sia presente una spiegazione, indipendentemente dalla sua accuratezza. Questo è vero anche quando l'utente potrebbe svolgere il compito in modo indipendente senza il supporto di un'intelligenza artificiale e gli è stato spiegato come funzionano effettivamente i sistemi di intelligenza artificiale [3]. In conclusione, le spiegazioni possono essere dannose per gli stessi obiettivi che cercano di raggiungere.
+</p>
+
+<table>
+<td>
+<h3>Perché utilizzare l'intelligenza artificiale spiegabile?</h3>
+<p align="justify">
+Nella nostra esperienza professionale, molte richieste di IA spiegabile provengono da paura o ansia. Idealmente, l'IA spiegabile non sarebbe la soluzione per placare tali timori, perché sarebbe controproducente per il raggiungimento degli obiettivi reali. Quindi, perché mai qualcuno dovrebbe sviluppare un'IA spiegabile di qualsiasi tipo?
+</p>
+
+<p align="justify">
+Due aspetti fondamentali rendono l'intelligenza artificiale spiegabile utile da un punto di vista pratico:
+</p>
+
+<ul>
+<li>
+  <p align="justify">
+Rispondendo alla domanda, spiegabile a chi ?
+
+  </p>
+</li>
+<li>
+  <p align="justify">
+Raggiungere un'intelligenza artificiale spiegabile partendo dalla definizione del problema
+
+  </p>
+</li>
+</ul>
+
+<p align="justify">
+Ad esempio, un problema reale potrebbe descrivere la necessità di sviluppare una comprensione scientifica di un processo fisico o chimico. Con questo obiettivo, una spiegazione utile dell'algoritmo potrebbe essere quella di generare un'equazione che produca le risposte, anziché produrle direttamente. Con l'equazione, un fisico o un chimico può verificarne la coerenza logica e utilizzarla come punto di partenza per ulteriori esplorazioni scientifiche.
+</p>
+
+<p align="justify">
+In questo caso, la soluzione è spiegabile solo a qualcuno con una competenza significativa, ma è l'unica persona che ha bisogno della spiegazione. La spiegazione sotto forma di equazione affronta anche direttamente il problema della comprensione scientifica, piuttosto che limitarsi a comprendere il funzionamento interno dell'algoritmo dell'IA. Non abbiamo alcuna spiegazione su come l'IA abbia elaborato l'equazione stessa, e l'equazione è (si spera) una forma logicamente coerente che spiega il processo fisico o chimico.
+</p>
+
+<p align="justify">
+Questo esempio riflette la situazione generale in cui troviamo l'intelligenza artificiale spiegabile più utile: quando viene utilizzata per aiutare un pubblico ristretto e specifico di utenti potenzialmente esperti a raggiungere un obiettivo molto specifico. Ad esempio, è comune per i data scientist utilizzare l'intelligenza artificiale spiegabile per capire perché un particolare modello commette un particolare insieme di errori, anche se gli strumenti utilizzati non sono comprensibili a un pubblico di non data scientist.
+</p>
+</td>
+</table>
+
+<p align="justify">
+Quindi, se l'intelligenza artificiale spiegabile non è una soluzione per costruire la fiducia in un sistema o in una soluzione di intelligenza artificiale, qual è? Sfortunatamente, non esiste un metodo generico e rigorosamente valutato per costruire la fiducia nell'intelligenza artificiale. Il nostro suggerimento, non originale, è di concentrarsi sulla trasparenza, sulla valutazione dell'utente e sulle specificità dei casi d'uso coinvolti.
+</p>
+
+<h3>8.4.1 Come puoi essere trasparente?</h3>
+
+<p align="justify">
+La trasparenza può essere semplice come informare gli utenti sul sistema di intelligenza artificiale utilizzato: con quale modello è stato progettato e, in generale, come è stato modificato? Se il sistema è concepito per imitare una persona specifica ("Fatti istruire da Albert Einstein, l'intelligenza artificiale") o un tipo di persona qualificata ("Chiedi al Dott. GPT di quel neo sulla tua schiena"), quella persona o una persona con credenziali simili ha acconsentito o ne ha approvato l'efficacia? Come può il consumatore verificare queste informazioni?
+</p>
+
+<p align="justify">
+In sostanza, elencare questo tipo di domande ragionevoli e le relative risposte che un revisore o un utente scettico potrebbero voler conoscere vi metterà molto più avanti rispetto alla media nel rendere il vostro sistema più trasparente. Non è necessario che queste informazioni siano presentate in dettaglio a ogni utente, ma avere un modo per consentirgli di accedervi è utile. Non solo aiuta gli utenti più esperti a comprendere cosa sta succedendo, ma aiuta anche a definire le aspettative degli utenti in generale su ciò che è e non è possibile con un determinato sistema. Inoltre, è essenziale informare gli utenti quando interagiscono con un sistema che genera risposte automatiche. C'è una grande differenza tra cercare di fingere che un essere umano abbia il controllo e quindi sia in grado di risolvere qualsiasi sfida ragionevole e un'IA automatizzata che si informa il cliente di avere capacità limitate.
+</p>
+
+<h3>8.4.2 Allineare gli incentivi agli utenti</h3>
+
+<p align="justify">
+Parte della trasparenza e della presentazione del sistema implica l'allineamento degli incentivi coinvolti. Questa non è solo una frase rassicurante sulle pratiche di gestione, ma un consiglio pratico. Ricordate dal capitolo 4 che gli algoritmi di intelligenza artificiale sono macchine avide che ottimizzano per ciò che chiedete, non per ciò che intendete. Se iniziate a costruire un sistema LLM in cui gli incentivi del sistema non sono ben allineati con i vostri obiettivi più ampi, rischiate di sovra-adattarvi a ciò che avete chiesto, non a ciò di cui avete bisogno sia voi che i vostri utenti.
+</p>
+
+<p align="justify">
+Con incentivi allineati (ad esempio, il nostro esempio "prova l'LLM e ottieni uno sconto di 2 dollari sulla tua fattura se ha funzionato"), hai molte più probabilità di ottenere un risultato positivo. Ti offrono anche più modi per pubblicizzare l'utilizzo di un LLM come meccanismo per offrire valore ai tuoi clienti, invece di apparire come persone malvagie che cercano di esternalizzare tutti i lavori. Presentare e discutere gli incentivi allineati tra un'azienda e i suoi clienti e come stai utilizzando gli LLM per raggiungere tali obiettivi descrive ciò che deve essere detto senza bisogno di nascondere le informazioni.
+</p>
+
+<h3>8.4.3 Incorporazione di cicli di feedback</h3>
+
+<p align="justify">
+Il mondo non è un luogo statico. Le cose cambiano e ciò che funziona oggi potrebbe non funzionare domani. Questo è uno dei motivi per cui è necessario sottoporre qualsiasi sistema di intelligenza artificiale/apprendimento automatico a un audit regolare e continuo: perché non migliorano né si adattano in modo indipendente con l'esperienza.
+</p>
+
+<p align="justify">
+Ma ti aiuterà anche a individuare potenziali cicli di feedback negativi, un aspetto a cui dovresti cercare di pensare in anticipo. I cicli di feedback negativi non sono sempre prevedibili. Per aiutarti a individuarli, prova a pensare a quali utenti trarranno o meno i maggiori benefici da un nuovo sistema e cosa succede quando questo si ripete più e più volte.
+</p>
+
+<p align="justify">
+Ad esempio, abbiamo accennato al fatto che la sintesi vocale e la conversione da testo a voce possono essere utili per i clienti più anziani o con problemi di udito o di movimento. Se non includessimo tale opzione, col tempo rischieremmo di alienare questi clienti, perché ogni volta che hanno un problema, devono utilizzare un sistema fisicamente difficile.
+</p>
+
+<p align="justify">
+Immagina di essere un'azienda di telefonia mobile che fa affidamento sui piani famiglia per una parte del suo fatturato. I tuoi clienti di mezza età che hanno acquistato i tuoi piani famiglia per primi sono frustrati dal tuo sistema di supporto, quindi trasferiscono l'intero piano famiglia a un nuovo fornitore che si impegna ulteriormente per garantire un processo di assistenza clienti accurato ed efficiente. Ora stai perdendo contemporaneamente sia i tuoi clienti più anziani che quelli più giovani!
+</p>
+
+<p align="justify">
+Il punto è riflettere attentamente e allenarsi a fare questi esperimenti mentali. Non si riuscirà a individuare ogni caso, ma si migliorerà. Audit e test regolari aiutano quindi a individuare i casi di fallimento, a documentarli e a migliorare il modo di pensare alle situazioni future e ai problemi ricorrenti.
+</p>
+
+<h3>Riepilogo</h3>
+
+<ul>
+  <li>
+    <p align="justify">
+Gli LLM possono presentare errori, e per prima cosa è necessario determinarne il rischio e il costo potenziale per progettare una soluzione appropriata. Se il rischio e il costo degli errori sono bassi, è possibile utilizzare un normale LLM in stile chatbot.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+È possibile controllare il rischio derivante dall'utilizzo di un LLM modificando il modo in cui gli utenti interagiscono con il sistema o spostando l'automazione su una parte diversa del processo aziendale.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Includere un “essere umano nel ciclo” per supervisionare un LLM crea un rischio di distorsione nell’automazione, anche quando si utilizzano tecniche come RAG per ridurre il rischio di errori.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Gli LLM possono convertire il testo in incorporamenti, rappresentazioni numeriche in cui frasi simili ricevono valori simili. Ciò consente di utilizzare ulteriori approcci di apprendimento automatico, tra cui tecniche classiche come il clustering e il rilevamento di valori anomali.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Sebbene gli LLM possano spiegare le proprie decisioni, le loro spiegazioni sono spesso inefficaci perché le persone ne diventano dipendenti. Concentratevi invece sulla produzione di spiegazioni che soddisfino un bisogno o un caso d'uso specifico, piuttosto che sul generico "bisogno di spiegare".
+    </p>
+  </li>
+    <li>
+    <p align="justify">
+Progetta gli incentivi del tuo sistema in modo che siano in linea con quelli dei tuoi utenti. Questo è un buon modo per evitare errori, come ad esempio ottimizzare un LLM in base a ciò che hai richiesto anziché a ciò che intendevi, e un buon modo per comunicare e presentare il tuo LLM agli utenti.
+    </p>
+  </li>
+</ul>
