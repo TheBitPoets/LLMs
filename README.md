@@ -4376,3 +4376,643 @@ Progetta gli incentivi del tuo sistema in modo che siano in linea con quelli dei
     </p>
   </li>
 </ul>
+
+<h2>9 Etica nella costruzione e nell'utilizzo degli LLM</h2>
+
+<table>
+  <td>
+    <h3></h3>
+    <ul>
+      <li>
+        <p align="justify">
+Come la capacità degli LLM di svolgere numerose attività crea anche rischi imprevisti
+        </p>
+      </li>
+      <li>
+        <p align="justify">
+La questione del disallineamento degli LLM con i valori umani
+        </p>
+      </li>
+      <li>
+        <p align="justify">
+Le implicazioni dell'uso dei dati degli LLM sulla creazione di contenuti e sulla costruzione di modelli futuri
+        </p>
+      </li>
+  </td>
+</table>
+
+<p align="justify">
+Sebbene la discussione sull'etica possa ricordare ad alcuni di voi le noiose letture di un corso universitario di primo livello, ci sono considerazioni critiche da tenere in considerazione quando si implementano algoritmi che hanno il potenziale di avere un impatto sull'umanità. Data la rapida crescita dell'uso degli LLM e la loro portata di potenzialità, dobbiamo essere consapevoli e occuparci di molte problematiche in continua evoluzione. Se non siete a conoscenza di queste problematiche, non avrete voce in capitolo nella loro risoluzione.
+</p>
+
+<p align="justify">
+Esplorare l'etica della creazione e dell'utilizzo degli LLM è un argomento incredibilmente complesso, difficile da rappresentare in modo esaustivo. Di conseguenza, questo capitolo presenterà quelle che riteniamo essere le preoccupazioni più comuni in merito alla creazione degli LLM e le relative questioni etiche. Nel corso del capitolo, faremo riferimento a materiali che completano questa discussione, in modo che possiate approfondire ulteriormente se lo desiderate.
+</p>
+
+<p align="justify">
+Tratteremo tre argomenti principali:
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+Perché le persone vogliono istituire LLM e cosa offrono che prima non esisteva?
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Alcuni esperti di apprendimento automatico ritengono che, in futuro, i LLM porteranno all'estinzione della razza umana, perché ci automatizzeranno e ci renderanno inesistenti. Anche se non siamo d'accordo con loro, vale la pena comprendere le ragioni di questo timore.    </p>
+  </li>
+  <li>
+    <p align="justify">
+La quantità di dati di formazione necessari per gli LLM è mostruosa. Come fanno le aziende che sviluppano LLM, come OpenAI e Anthropic, a reperire tutti questi dati? Quali preoccupazioni etiche sorgono che potrebbero avere implicazioni morali, legali e finanziarie a causa delle modalità di raccolta e utilizzo di tali dati?    </p>
+  </li>
+</ul>
+
+<p align="justify">
+Si tratta di considerazioni complesse sia sul fronte etico che su quello legale. Il nostro obiettivo non è dirvi se la creazione di questi modelli sia etica o meno, ma piuttosto di delineare le considerazioni principali di ogni discussione. Ci auguriamo che questo vi aiuti a considerare le implicazioni, le conseguenze e i rischi degli LLM su una scala più ampia. Notiamo molte questioni di alto profilo ed eticamente complesse sull'uso degli LLM, e molti professionisti non hanno dovuto confrontarsi in modo significativo con questo argomento. Ciononostante, riteniamo che sia fondamentale considerare le questioni etiche relative alla creazione degli LLM e vi presenteremo alcune delle questioni critiche da considerare in questo capitolo.
+</p>
+
+<p align="justify">
+Sono necessarie altrettante considerazioni quando si discute di come utilizziamo gli LLM rispetto a come li costruiamo, quindi abbiamo diviso questa conversazione in due sezioni. La prima, ci concentreremo sull'etica della costruzione degli LLM in generale, mentre la seconda sezione tratterà le implicazioni etiche dell'uso degli LLM.
+</p>
+
+<p align="justify">
+Infine, eviteremo di attribuire queste argomentazioni a individui o gruppi specifici. Il nostro obiettivo è prevenire pregiudizi ed evitare di "chiamare in causa" qualcuno in particolare in questa discussione. Ciò che conta sono le preoccupazioni.
+</p>
+
+<h3>9.1 Perché abbiamo creato gli LLM?</h3>
+
+<p align="justify">
+Prima di parlare delle implicazioni etiche dello sviluppo di LLM, vale la pena riflettere su cosa stiamo cercando di realizzare con la loro creazione e perché vogliamo raggiungere questi obiettivi. Come tutta l'ingegneria del software, la creazione di LLM mira comunemente a ridurre o eliminare il lavoro umano da alcune attività. Alcuni economisti potrebbero dirvi che è così che generalmente aumenta il tenore di vita. Con il progresso tecnologico, meno persone devono svolgere compiti manuali ad alta intensità di lavoro e, di conseguenza, hanno più tempo per la scoperta, la creazione e altre funzioni che richiedono capacità cognitive di alto livello.
+</p>
+
+<p align="justify">
+Nel caso degli LLM, un obiettivo comune è aumentare l'efficienza degli algoritmi per applicazioni come la traduzione automatica delle lingue, la trascrizione vocale, la lettura di testo contenuto in immagini e documenti stampati in applicazioni come il riconoscimento ottico dei caratteri, l'indicizzazione e il recupero di informazioni, noto semplicemente come "ricerca" o, più in generale, come recupero di informazioni, e altro ancora. Altri sono interessati agli LLM per ragioni puramente scientifiche, come lo studio di metodi di linguistica computazionale, o per applicazioni creative, come la generazione di immagini, musica o video. Inoltre, altri potrebbero cercare di aumentare l'accesso e la trasparenza delle tecnologie che influenzano le nostre vite, o semplicemente perché gli LLM hanno catturato la loro attenzione e presentano nuove fantastiche funzionalità.
+</p>
+
+<p align="justify">
+Per alcuni, la varietà di obiettivi che gli LLM possono raggiungere è una motivazione intrinseca per volerli costruire. Gli algoritmi di intelligenza artificiale e apprendimento automatico svolgono da tempo tutti i compiti che abbiamo elencato; ad esempio, la traduzione automatica ha decenni. Parte di ciò che rende gli LLM diversi è che sembrano in grado di fare tutto con un unico modello e algoritmo. Prima dell'avvento degli LLM, gli ingegneri implementavano attività come la traduzione e la trascrizione in sistemi separati, progettati per soddisfare tali esigenze individualmente. Gli LLM più grandi oggi possono, in una certa misura, svolgere ciascuna di queste attività e altro ancora. Spesso, sembra che possano completare compiti di portata apparentemente infinita. Allo stesso tempo, altri temono gli LLM perché, a causa della loro ampiezza di capacità, credono che ruberanno lavoro, motivazione e attività agli esseri umani assumendosi compiti che richiedono scoperta e creazione, precedentemente ritenuti riservati solo agli esseri umani.
+</p>
+
+<h3>9.1.1 I pro e i contro degli LLM che fanno tutto</h3>
+
+<p align="justify">
+Dato che un LLM può svolgere molte attività diverse tramite un unico modello, si potrebbe descrivere come una sorta di "app completa": un punto di riferimento unico per l'assistenza basata sull'intelligenza artificiale. Dal punto di vista dell'usabilità, sono emersi numerosi vantaggi dalla capacità pressoché universale degli LLM, come la loro relativa attitudine a scomporre attività complesse in una serie di passaggi o la loro capacità di generare spiegazioni uniche per colmare specifiche lacune di conoscenza.
+</p>
+
+<p align="justify">
+Inoltre, l'interfaccia in stile chat sembra molto apprezzata dagli utenti, anche se sono disponibili altre modalità di lavoro con gli LLM. La popolarità della chat potrebbe essere dovuta alla sua generale accessibilità: si chatta costantemente con le persone. L'esperienza con le telefonate è diffusa e, con SMS, Slack, Teams, messaggistica istantanea ed e-mail, le persone sanno implicitamente come utilizzare diverse interfacce basate su chat. Di conseguenza, interagire con un'IA tramite un'interfaccia basata su chat è diventato un modo semplice e invitante per aumentarne l'adozione con una formazione minima. L'esperienza diffusa con le applicazioni basate su chat ha anche un effetto democratizzante: gli utenti devono imparare qualcosa una sola volta per raggiungere molti obiettivi diversi.
+</p>
+
+<p align="justify">
+Lo svantaggio principale di un sistema del genere è che, sebbene possa essere utilizzato per qualsiasi cosa, ciò non significa che dovremmo usarlo per tutto. Quando si dispone di un algoritmo che le persone possono utilizzare per molte attività diverse e potenzialmente inaspettate, non si ha il tempo di testare ogni possibile utilizzo. Data l'ampiezza delle potenziali applicazioni degli LLM, ci sarà un divario tra la convalida di ciò che il modello fa in modo sicuro e ciò che può tentare di fare ma che potrebbe essere potenzialmente pericoloso o dannoso.
+</p>
+
+<p align="justify">
+Ad esempio, gli attuali modelli LLM possono eseguire valutazioni astratte di razza o genere, sebbene queste valutazioni possano contenere pregiudizi negativi dannosi. Sebbene possiamo sviluppare test e difese per casi specifici di pregiudizi negativi, è probabile che questi siano di portata limitata e altamente specifici. Ad esempio, supponiamo di richiedere a un modello di generazione di immagini di generare l'immagine di una riunione di lavoro. Il risultato sfortunato è che tutte le persone in quell'immagine saranno spesso uomini e bianchi. Naturalmente, desideriamo che il modello trascenda questi stereotipi. Tuttavia, identificare e risolvere specifici problemi di pregiudizio contestuale come questo non influirà sulla possibilità che un modello possa causare danni se implementato nel mondo reale e sollecitato in modi diversi e imprevisti. Nella migliore delle ipotesi, questi esercizi esemplificano come un LLM possa fallire, ma affrontare i danni richiede la comprensione dei potenziali fallimenti che possono verificarsi, ad esempio, a causa di pregiudizi nei dati di addestramento. Allo stesso tempo, dobbiamo capire come le persone utilizzeranno gli LLM e se tali usi possano portare a danni involontari dovuti al modo in cui l'LLM genera output. Ciò potrebbe significare espressamente non utilizzare un LLM per un caso d'uso previsto a causa della mancanza di mitigazioni per i potenziali danni che potrebbe causare.
+</p>
+
+<p align="justify">
+Una recente ricerca sui danni reali causati dagli LLM implementati ha rilevato che il pregiudizio implicito in LLM come ChatGPT di OpenAI e Gemini di Google contro le persone che usano l'inglese vernacolare afroamericano era peggiore degli arcaici stereotipi negativi misurati tra gli americani bianchi negli anni '20 [1]. Un altro studio ha preso in considerazione il caso d'uso di un medico che consulta un LLM per informazioni sulle migliori pratiche mediche e sulle opzioni di trattamento per persone di diverse etnie e ha scoperto che i modelli raccomandavano frequentemente pratiche mediche basate sulla razza, sfatate e basate sulla "scienza" eugenetica [2]. Sfortunatamente, continuiamo a riscontrare questi problemi in modelli che ottengono punteggi abbastanza buoni nei parametri di riferimento esistenti sui pregiudizi espliciti. La prevalenza di pregiudizi latenti suggerisce che questi parametri non sono sufficienti per valutare i potenziali danni e sottolinea la necessità di considerare il danno che un LLM può causare in base al suo utilizzo. In altre parole, è più importante considerare il danno causato dall'implementazione dell'IA come una conseguenza diretta degli specifici casi d'uso e dell'applicazione proposti, non come qualcosa che possiamo attribuire a una nozione generale di pregiudizio razziale in un modello.
+</p>
+
+<p align="justify">
+Oggi non sappiamo come progettare un algoritmo in grado di svolgere così tante attività in un unico sistema, proteggendo al contempo da abusi accidentali e danni da parte di individui benintenzionati. Pertanto, dal punto di vista di uno sviluppatore, diventa fondamentale condurre studi approfonditi sugli utenti in un'ampia gamma di gruppi e contesti per identificare i rischi indesiderati e includere il monitoraggio e la registrazione per porre rimedio a eventuali rischi identificati in ritardo. Che si tratti di prevenire stereotipi razziali dannosi o di sostenere pratiche mediche smentite, gli attuali approcci per limitare l'uso improprio degli LLM consistono nell'enumerare ciò che sappiamo sui potenziali problemi e nell'utilizzare metodi di ottimizzazione, come RLHF, per forzare il modello a comportarsi meglio su problemi noti. L'aspetto negativo di tutto ciò è che, a causa della potenziale ampiezza delle capacità degli LLM, l'insieme dei problemi sconosciuti è infinito e, di conseguenza, qualsiasi regime di test sarà incompleto.
+</p>
+
+<p align="justify">
+Nota: l'importanza del monitoraggio post-impiego non è una novità. Ad esempio, la FDA lo pratica da molti anni con il sistema MedWatch. Questo sistema consente al pubblico e ai professionisti sanitari di segnalare eventuali eventi avversi associati a un farmaco o a un dispositivo medico, in modo che la FDA possa monitorare eventuali anomalie.
+</p>
+
+<h3>9.1.2 Vogliamo automatizzare tutto il lavoro umano?</h3>
+
+<p align="justify">
+Come accennato nell'introduzione, alcuni economisti potrebbero sostenere che l'automazione consente alla forza lavoro di concentrarsi su nuovi lavori. Questa argomentazione si basa sull'idea che i progressi nell'automazione siano stati efficaci nell'eliminare lavori che la maggior parte delle persone non desidera svolgere. L'agricoltura è dura, l'estrazione di terre rare è dura e l'assemblaggio di automobili, giocattoli e pacchi è duro. Si tratta di lavori faticosi e logoranti, spesso associati a una limitata stimolazione intellettuale. Lavori pesanti come l'agricoltura richiedono oggi il 74% di manodopera in meno rispetto al 1950 [3] e, senza dubbio, molte volte meno rispetto al Medioevo.
+</p>
+
+<p align="justify">
+La differenza con gli LLM è la possibilità di automatizzare alcuni tipi di lavoro intellettuale impiegatizio. Il copywriting [4], le arti visive [5], la grafica [6] e il settore bancario [7] sono solo alcuni dei settori rivoluzionati dall'intelligenza artificiale generativa.
+</p>
+
+<p align="justify">
+Chi è preoccupato per l'impatto degli LLM sull'economia ipotizza che perderemo posti di lavoro a causa dell'automazione, il che, a nostro avviso, non è così netto come spesso viene descritto. I desideri delle istituzioni e dei consumatori potrebbero spingere al mantenimento e alla continua espansione di queste tipologie di lavori impiegatizi. Dovremmo essere cauti nell'ignorare la storia degli studi economici su come i lavori cambiano con il progresso tecnologico. Dobbiamo invece affrontare una preoccupazione più significativa: ottenere dati di formazione di alta qualità. Riteniamo che questo genererà nuovi posti di lavoro in futuro, sottolineando l'importanza della creatività e delle capacità umane, anche se i posti di lavoro attuali che crea non sono ancora il tipo di lavoro impiegatizio desiderabile che molti preferirebbero.
+</p>
+
+<b>Un controesempio sui risultati “ovvi”</b>
+
+<p align="justify">
+Alcuni sostengono che sia ovvio che gli LLM influenzeranno alcuni settori dell'economia, nel bene e nel male. Il lavoro dell'impiegato di banca è un famoso esempio, spesso utilizzato per argomentare contro gli LLM. Il lavoro degli impiegati di banca è cambiato significativamente dall'invenzione degli sportelli bancomat (ATM) negli anni '60. Chiaramente, gli sportelli bancomat hanno automatizzato molte delle attività degli impiegati di banca.
+</p>
+
+<p align="justify">
+Ma l'esempio degli sportelli bancomat non è così semplice. Il numero di posti di lavoro per cassieri è aumentato per decenni dopo l'invenzione degli sportelli bancomat, raddoppiando a circa 600.000 tra il 1970 e il 2010, nonostante la diffusione degli sportelli bancomat [8]. Analizzando gli studi storici sull'effetto degli sportelli bancomat sull'occupazione, si è riconosciuto che molti fattori hanno contribuito alla perdita di posti di lavoro, tra cui cambiamenti nel tasso di crescita e nella natura del lavoro. La perdita di posti di lavoro è stata il risultato non solo della tecnologia degli sportelli bancomat, ma anche di molteplici cicli di innovazione tecnologica in altri settori, delle differenze nel modo in cui le banche hanno risposto al cambiamento, della deregolamentazione e dell'aumento della concorrenza e del consolidamento nel settore bancario [9]. Quindi, sebbene gli sportelli bancomat fossero presumibilmente migliori ed economici rispetto al lavoro degli sportelli bancomat, la natura delle istituzioni, dei clienti e delle aspettative ha impedito qualsiasi calo immediato dei posti di lavoro e ha reso la situazione molto più complessa di quanto spesso venga pubblicizzata.
+</p>
+
+<p align="justify">
+L'esempio dell'ATM non è un caso isolato; la tecnologia può, ma non sempre, portare alla perdita di posti di lavoro a causa dell'automazione. Ad esempio, la traduzione automatica è migliorata notevolmente all'inizio degli anni 2000 e di nuovo nel 2016. Tuttavia, i posti di lavoro per la traduzione sono aumentati in ciascun periodo e continuano a crescere oggi [10]. L'osservazione fondamentale è che il bacino di lavoro per la traduzione non si riduce quando i traduttori integrano strumenti automatizzati nel loro flusso di lavoro. Al contrario, abbiamo assistito a una crescita del volume di lavoro di traduzione completato e a un aumento della domanda di servizi di traduzione, con il continuo aumento della quantità di materiale da tradurre. Alcuni sostengono che una domanda simile si materializzerà per artisti creativi e scrittori [11]. Secondo questa argomentazione, mentre i mezzi per produrre arte e svolgere lavoro di conoscenza cambieranno, il mercato continuerà a crescere e la domanda continuerà ad aumentare in un modo che potrà sfruttare la nuova offerta di lavoro derivante dall'introduzione di strumenti automatizzati. Pertanto, quando identifichiamo un'area di lavoro che può essere automatizzata o accelerata dagli LLM, dobbiamo anche determinare se l'aumento di efficienza e qualità potrebbe generare una maggiore domanda.
+</p>
+
+<p align="justify">
+Tuttavia, altri sostengono che gli LLM siano fondamentalmente diversi da tutto ciò che è mai accaduto. Pertanto, non possiamo utilizzare metodi precedenti per comprendere i potenziali effetti della tecnologia sull'economia per prevedere il futuro. Sebbene possibile e allettante da credere, dato tutto il clamore intorno agli LLM, siamo scettici sul fatto che questa sia un'affermazione eccessivamente ampia che nessuno può dimostrare falsa o vera. Sebbene dovremmo effettivamente considerare tali possibilità e fattori quando si elaborano normative (che, a loro volta, svolgono un ruolo significativo nell'evoluzione dei posti di lavoro con la tecnologia), è anche degno di nota che circa il 60% di tutti i posti di lavoro negli Stati Uniti siano invenzioni moderne che non esistevano in precedenza [12].
+</p>
+
+<b>Considerazioni sui dati di addestramento</b>
+
+<p align="justify">
+L'effetto dell'IA generativa sull'espressione creativa è toccante a causa del perverso dualismo della situazione. Gran parte del lavoro di scrittori e artisti che pubblicano i propri contenuti su Internet alimenta modelli che apparentemente mirano a eliminare il loro lavoro. L'argomentazione etica avanzata dai ricercatori LLM è che dovrebbero poter utilizzare liberamente i contenuti di questi creatori come dati di formazione. Questa argomentazione potrebbe portare a una vittoria di Pirro e, in definitiva, alla rovina dell'IA. Se l'IA sostituisse il lavoro dei creativi, gli sviluppatori LLM scoprirebbero di non poter più migliorare i propri modelli a causa della mancanza di contenuti generati dall'uomo e dell'aumento esponenziale delle dimensioni dei dati necessari per addestrare gli LLM, che supera la crescita lineare dei contenuti generati dagli utenti. Ancora più importante, le persone che creano quei contenuti non potrebbero più essere impiegate o motivate a creare contenuti solo per vederli divorare da un LLM.
+</p>
+
+<p align="justify">
+Questo ciclo negativo colpirà sia gli LLM che i creatori di contenuti, anche se si tratta solo di un rischio percepito e non di una preoccupazione reale. La raccolta di dati per la formazione degli LLM è una preoccupazione significativa per migliaia di siti web che si basano sui contenuti generati dagli utenti e sui ricavi pubblicitari derivanti da coloro che li fruiscono. Questi siti forniscono preziosi dati di formazione per gli LLM, i cui sviluppatori richiedono enormi raccolte di dati di formazione ma non contribuiscono in alcun modo ai ricavi pubblicitari.
+</p>
+
+<p align="justify">
+Ad esempio, Stack Exchange è una raccolta di siti web in cui gli utenti possono postare domande, ricevere risposte da altri utenti e ricevere una valutazione di reputazione per le risposte valide. Uno dei siti web di Stack Exchange, Stack Overflow, è una manna dal cielo per i programmatori in cerca di aiuto per risolvere problemi di programmazione. Stack Exchange ospita anche molte altre comunità di utenti eterogenee, rivolte ad amministratori di sistema, studenti di matematica e appassionati di giochi da tavolo.
+</p>
+
+<p align="justify">
+Con l'avvento degli LLM, Stack Exchange ha rapidamente cambiato il suo modello di business e ha tentato di richiedere un pagamento ai creatori di LLM per sostenere il suo futuro finanziario [13]. Anche con accordi tra le aziende che formano gli LLM e i siti web che ospitano i contenuti, una commercializzazione più diretta dei contenuti generati dagli utenti potrebbe non essere gradita agli utenti. Stack Overflow ha sperimentato questo fenomeno quando le persone hanno iniziato a eliminare le loro risposte utili dalla piattaforma per protestare contro la vendita dei risultati del loro lavoro gratuito ai creatori di LLM da parte di Stack Overflow [14].
+</p>
+
+<p align="justify">
+Questo esempio rispecchia una lunga tradizione di motori di ricerca che integrano le funzionalità delle applicazioni e dei siti web che indicizzano nella loro interfaccia principale. Ad esempio, ora è possibile cercare e confrontare i prezzi dei biglietti aerei direttamente dall'interfaccia di ricerca di Google. Questa funzionalità allontana il traffico dai siti di viaggio consolidati che offrono lo stesso servizio [15] e riduce la domanda di servizi e i ricavi delle aziende che li hanno creati. Una relazione potenzialmente simile esiste tra gli LLM formati su opere creative e i produttori originali di tali opere quando diventano dati di formazione.
+</p>
+
+<p align="justify">
+Appare chiaro che i problemi che stiamo affrontando a causa dell'ascesa degli LLM sono simili, ma non identici, a quelli che abbiamo riscontrato nei precedenti periodi di automazione. La domanda diventa quindi se le differenze relative all'implementazione degli LLM siano sufficientemente significative da determinare un esito diverso e più negativo. Gli esiti non ci sono evidenti, principalmente a causa dell'ampia portata, dell'accessibilità e dell'applicabilità degli LLM. Spetta agli sviluppatori di LLM prendere l'iniziativa per comprendere e mitigare i potenziali danni, ad esempio negoziando in anticipo l'utilizzo dei dati e creando una community con i settori che potrebbero essere interessati. Discuteremo altri aspetti dei dati di training e della loro provenienza nell'ultima sezione di questo capitolo.
+</p>
+
+<h3>9.2 Gli LLM rappresentano un rischio esistenziale?</h3>
+
+<p align="justify">
+Alcuni ritengono che gli LLM siano, di per sé, pericolosi. Se non si ha familiarità con l'argomento, potrebbe sembrare assurdo che l'addestramento di un potente modello LLM possa comportare danni significativi nel mondo reale, come l'eliminazione della privacy, l'uso di robot terminator e minacce all'esistenza umana così come la conosciamo. Eppure molti sono preoccupati per questi rischi, inclusi leader nel campo dell'intelligenza artificiale come Geoffrey Hinton [16] e Yoshua Bengio [17]. Hinton e Benigo sono due dei ricercatori più stimati nel campo dell'apprendimento profondo, che condividono un merito significativo per la sopravvivenza, la rinascita e il predominio delle tecniche di reti neurali nell'intelligenza artificiale.
+</p>
+
+<p align="justify">
+Riteniamo che l'IA non rappresenti una minaccia realistica. Tuttavia, persone serie e autorevoli avanzano queste affermazioni, quindi è importante comprendere le loro argomentazioni e spiegare perché riteniamo che queste preoccupazioni siano meno significative rispetto alla necessità di affrontare gli effetti più immediati sulla natura del lavoro e garantire licenze e compensi equi e sostenibili per i creatori di dati.
+</p>
+
+<p align="justify">
+In questa sezione ci concentreremo sull'argomentazione generale secondo cui l'IA potrebbe, in senso lato, rappresentare un rischio per l'umanità, in quanto potremmo perdere il controllo sui LLM, e questi ultimi potrebbero prendere decisioni dannose per gli esseri umani. Questa nozione deriva da due idee portate alle estreme conseguenze:
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+L'idea che un LLM possa utilizzare strumenti per costruire nuovi LLM e quindi potenzialmente auto-migliorarsi
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+L'idea che un LLM con un obiettivo non allineato con i bisogni umani possa alla fine decidere di intraprendere azioni dannose per la vita umana nell'interesse dei propri obiettivi
+    </p>
+  </li>
+</ul>
+
+<p align="justify">
+Abbiamo accennato brevemente a questo primo concetto di auto-miglioramento in questo libro. Abbiamo discusso del fatto che la progettazione di LLM implica lo sviluppo di strumenti per la raccolta dati e la creazione del codice per addestrare un LLM utilizzando tali dati. Si potrebbe ipotizzare che, se un LLM può utilizzare direttamente gli strumenti per la raccolta dati e la formazione, senza intervento umano, un LLM potrebbe ipoteticamente addestrare un altro LLM.
+</p>
+
+<p align="justify">
+Il salto cognitivo necessario a supporto di questa linea di ragionamento è che un LLM sarà sufficientemente intelligente da costruire un LLM migliore. Per accettare questo, dobbiamo supporre che questo nuovo LLM sarà quindi in grado di creare un LLM ancora migliore e, inoltre, credere che questo ciclo di miglioramento potrebbe ripetersi all'infinito fino a quando il modello LLM sarà più intelligente di qualsiasi persona mai esistita e sarà essenzialmente in grado di prevedere, sovvertire o contrastare qualsiasi possibile azione umana che potrebbe interrompere questo ciclo. Questo salto è impegnativo perché abbiamo poche prove che qualcosa del genere sia probabile, in base a ciò che osserviamo nella tecnologia odierna.
+</p>
+
+<p align="justify">
+La seconda idea, spesso definita "problema di allineamento", è che gli LLM disallineati con i bisogni umani potrebbero scegliere obiettivi e risultati dannosi per gli esseri umani. Questa idea è ragionevole perché, come discusso nel capitolo 4 , creare una metrica che misuri solo gli obiettivi prefissati è impegnativo. Tuttavia, il salto di qualità straordinario richiesto per questa linea di pensiero è che gli LLM avranno la capacità e le risorse per interagire con il mondo direttamente e fisicamente, il che potrebbe causare danni di massa se non fermato.
+</p>
+
+<p align="justify">
+Alcuni combinano queste due idee per sostenere che un LLM potrebbe avere obiettivi non allineati con l'umanità. Credono che arriverà un momento in cui un LLM si renderà conto di dover diventare più intelligente e migliorare se stesso per raggiungere i suoi obiettivi. Nel farlo, sottrarrà risorse agli esseri umani o, attraverso la sua intelligenza migliorata, li costringerà alla sottomissione per aiutarlo a raggiungere i suoi obiettivi. Descriviamo questa idea nella figura 9.1 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 9.1 Due tipi di preoccupazioni ipotetiche sorgono all'interno del problema di allineamento, come comunemente sostenuto da coloro che ritengono che gli LLM rappresentino un rischio esistenziale per l'umanità. Il percorso superiore mostra un problema di allineamento diretto, in cui la soluzione obiettivo dell'IA danneggia direttamente gli esseri umani. Il percorso inferiore mostra un problema di allineamento indiretto, in cui l'IA ha creato un sotto-obiettivo verso il suo obiettivo finale. Anche se l'obiettivo, ad esempio risolvere un problema matematico difficile, viene raggiunto, questo LLM lo farà a spese dell'umanità. In una fase intermedia, l'LLM decide di aver bisogno di più risorse terrestri di quelle che possono essere condivise con gli esseri umani per risolvere il problema.
+      </p>
+    </figcaption>
+
+<img width="1100" height="550" alt="CH09_F01_Boozallen" src="https://github.com/user-attachments/assets/fbc48bc6-3ef0-46d4-afa9-d68ca454b72c" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Un aspetto essenziale di questa argomentazione è che l'LLM, con l'obiettivo di autoconservazione, stabilisce che gli esseri umani stanno distruggendo il pianeta. Poiché l'LLM esiste sulla Terra e vuole continuare a farlo, determina che distruggere gli esseri umani sarebbe il mezzo migliore per preservare l'autoconservazione.
+</p>
+
+<p align="justify">
+Non crediamo che il potenziale di distruzione dell'umanità sia una preoccupazione fondata. Tuttavia, molte persone, compresi coloro che hanno un dottorato in informatica e sono specializzati in apprendimento profondo, sono preoccupate per questo scenario. Il problema principale di questo concetto di "LLM-distrugge-l'umanità" è che si basa su una logica non falsificabile. La logica non falsificabile suggerisce che le cose accadranno, ed è quasi impossibile per chiunque dimostrare che non accadranno. In questo caso, dimostrare che gli LLM non distruggeranno l'umanità è una sfida.
+</p>
+
+<table>
+  <td>
+    <h3>Teiere e dichiarazioni non falsificabili</h3>
+<p align="justify">
+Pretendere che qualcuno faccia un'affermazione falsificabile è essenziale quando si discutono rischi astratti come il potenziale degli LLM di distruggere l'umanità. Un esempio famoso è l'esperimento mentale della "teiera" di Bertrand Russell. L'idea è semplice: qualcuno ti dice che esiste una teiera nello spazio, troppo piccola e troppo lontana per essere individuata. La premessa in sé è non falsificabile; posso scandagliare l'universo per secoli alla ricerca di una teiera, ma anche se non riesco a trovarla, non posso dimostrare che non esista. L'unica possibilità è che alla fine trovi una teiera e confermi che esiste nello spazio. Altrimenti, non dimostrerò mai che l'esistenza della teiera era una bugia. Pertanto, quando si discutono rischi astratti, le affermazioni non falsificabili diventano un vicolo cieco cognitivo. Argomentare contro un'affermazione che nessuno può dimostrare falsa è impossibile. Allo stesso tempo, queste affermazioni non contribuiscono in alcun modo a far avanzare la conversazione per giungere a un'intuizione o a una conclusione significativa. Al contrario, formulare un'argomentazione basata su preoccupazioni realistiche e pratiche che possono essere riconosciute e affrontate è più utile per comprendere i problemi.
+</p>
+  </td>
+</table>
+
+<p align="justify">
+Altri due argomenti supportano questo ragionamento: la tecnologia tende a crescere in modo esponenziale e la maggior parte degli esseri umani non è in grado di considerare i numeri esponenziali e quindi non comprende appieno quanto velocemente questo rischio diventerà realtà.
+
+<p align="justify">
+Il fatto che questa linea di pensiero esista e sia una preoccupazione dei leader del settore rende utile approfondire i pensieri e le considerazioni che sono sia a favore che contro l'idea che gli LLM possano causare la fine dell'umanità. Le seguenti sottosezioni esplorano queste argomentazioni e i presupposti critici alla base dell'auto-miglioramento e del disallineamento di allineamento.
+
+<h3>9.2.1 Auto-miglioramento e curva a S iterativa</h3>
+
+<p align="justify">
+Considerando l'argomentazione a favore dell'intelligenza auto-migliorante, tale visione è rafforzata dal riconoscimento che noi, in quanto esseri umani, siamo la prova che è possibile costruire l'intelligenza. Se l'intelligenza è costruibile, c'è motivo di credere che gli studenti di laurea triennale (LLM) possano costruirla da soli. Il fatto che la maggior parte delle cose migliori lungo una curva sigmoide, o a S, è un aspetto di cui abbiamo discusso nel capitolo 7. La conclusione importante di questa conversazione è che esiste un punto di rendimenti decrescenti oltre il quale ulteriori miglioramenti non forniscono più un valore significativo. La controargomentazione è che il progresso tecnologico umano segue invece una curva a S iterativa, in cui ogni plateau di rendimenti decrescenti viene contrastato dalla scoperta di un'innovazione che inizia una nuova curva a S, come mostrato nella figura 9.2 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 9.2 La curva a S, o sigmoide, mostra il classico andamento di plateau: a un certo punto si raggiungono rendimenti decrescenti. Il contrappunto espresso dal modello iterativo della curva a S è che il progresso continua oltre il plateau dei rendimenti decrescenti scoprendo nuove tecniche, ciascuna rappresentata da una nuova curva a S. Le nuove tecniche possono iniziare peggio dei metodi esistenti, ma hanno un potenziale maggiore di superarli.
+      </p>
+    </figcaption>
+
+<img width="1100" height="440" alt="CH09_F02_Boozallen" src="https://github.com/user-attachments/assets/83024f43-ec1d-4966-8401-fcfd85056e45" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Un argomento contro questa affermazione è che ci sono lacune significative nella logica secondo cui l'auto-miglioramento porterà a un livello di capacità tale da uccidere gli esseri umani. Sebbene gli esseri umani siano una sorta di prova dell'esistenza, non si conosce l'esistenza di qualcosa di più intelligente degli esseri umani (molto narcisista da parte nostra, lo sappiamo). Tuttavia, questa affermazione si basa anche sull'idea che l'intelligenza e l'intelligenza possano essere migliorate. Sebbene termini come " intelligenza" e "intelligenza" siano utili generalizzazioni utilizzate nella vita quotidiana, sfuggono a una quantificazione e a una definizione precise perché sono concetti intrinsecamente astratti. Non è chiaro se esista un asse di intelligenza univoco lungo il quale un LLM possa migliorare continuamente.
+
+<p align="justify">
+Siamo più propensi a credere che vi siano limiti alla capacità di un LLM di auto-migliorarsi. Le prove a sostegno di questa argomentazione sono contenute nella sezione 7.4 , dove, nella nostra analisi dei limiti computazionali degli LLM, abbiamo dimostrato che questi ultimi hanno difficoltà a eseguire molti tipi di calcoli.
+
+<h3>9.2.2 Il problema dell'allineamento</h3>
+
+<p align="justify">
+La seconda preoccupazione che un LLM possa anteporre i propri obiettivi ai bisogni degli esseri umani è chiamata problema di allineamento . Il problema di allineamento si verifica ogni volta che assegniamo a un LLM un obiettivo che vogliamo che raggiunga, ma non definiamo, specifichiamo o vincoliamo a sufficienza le azioni o i metodi che l'LLM può utilizzare per raggiungere l'obiettivo prefissato. La nostra discussione su cosa renda una funzione di perdita adeguata nel capitolo 4 è un esempio del problema di allineamento in atto oggi. Più in generale, gli esseri umani si confrontano con il problema di allineamento costantemente. Ad esempio, bilanciare la retribuzione dell'amministratore delegato e la volontà degli azionisti dell'azienda è un classico problema di allineamento, studiato dagli economisti per decenni.
+</p>
+
+<p align="justify">
+Il problema dell'allineamento è quindi molto reale e la sua esistenza ci dice quanto sia difficile da risolvere. Anche quando cerchiamo di essere molto espliciti, come quando gli avvocati redigono un contratto che dettaglia e specifica cosa accadrà o non accadrà in un accordo, le storie di scappatoie e imbrogli per sovvertire l'altra squadra sono all'ordine del giorno. Mentre alcune di queste storie sono indubbiamente reali, anche quelle fittizie sono informative. In effetti, molte ricerche attive nell'ambito dell'apprendimento automatico tentano di affrontare questo problema da una prospettiva tecnica, e potremmo probabilmente imparare una o due lezioni dagli avvocati e dagli economisti che si occupano di questo ogni giorno.
+</p>
+
+<p align="justify">
+Queste sfide generali con l'allineamento umano forniscono una solida prova del fatto che il problema di allineamento negli LLM sia anche una preoccupazione reale. Tuttavia, un lettore scettico si chiederebbe se ci siano prove che un LLM disallineato possa concludere che uccidere gli umani favorisca il suo obiettivo. In effetti, se un LLM raggiungesse questo stato, gli umani reagirebbero ("Basta staccare la spina" è il ritornello comune). Ancora più importante, molte argomentazioni apocalittiche si basano sul fatto che l'LLM sia così intelligente da rendere le sue azioni deterministiche e che il risultato sia noto e prevedibile, indipendentemente da ciò che accade.
+</p>
+
+<p align="justify">
+In realtà, i risultati sono probabilistici; le cose vanno bene o male, e un LLM più intelligente degli umani capirebbe sicuramente che non potrebbe garantire risultati sufficienti e che la coesistenza vale più della distruzione di tutti gli esseri umani. Data l'incertezza intrinseca e la necessità di combattere gli umani, che hanno una lunga storia di successi nel far saltare in aria le cose, cercare di combattere o sovvertire l'umanità sarebbe la scelta superintelligente da fare?
+</p>
+
+<b>A quali valori è allineato il tuo modello?</b>
+
+<p align="justify">
+È sempre più comune per le aziende utilizzare tecniche di fine-tuning come la RLHF (descritta in dettaglio nel capitolo 5) per cercare di allineare i comportamenti degli LLM a ciò che desiderano. Come abbiamo discusso, l'obiettivo è rendere gli LLM utili in quanto seguiranno le istruzioni e più sicuri in quanto disobbediranno alle richieste di attività dannose o dannose. In sostanza, la RLHF cerca di affrontare il problema dell'allineamento e di garantire che l'output dell'LLM sia vincolato in base a un insieme specifico di esempi e valori. La domanda cruciale, come suggerisce il titolo di questa sezione, è a quali valori stiamo allineando questi modelli? Esamineremo il nostro ragionamento sul perché il problema dell'allineamento, sebbene interessante e prezioso in molti casi, non sia significativo quando si discute del rischio esistenziale.
+</p>
+
+<p align="justify">
+La messa a punto di un LLM utilizzando RLHF richiede un ampio set di dati di coppie input-output, spesso costruito manualmente. Le aziende che sviluppano LLM non condividono i dati di messa a punto perché sono considerati proprietari e offrono un vantaggio rispetto alla concorrenza. Pertanto, in quanto utenti, non possiamo verificare l'allineamento previsto dei modelli che utilizziamo. Pertanto, oggi non è chiaro a chi siano allineati gli obiettivi di ogni singolo LLM. Possiamo approssimare la natura degli obiettivi incorporati in un set di dati di training considerando la loro origine e la catena di custodia. Una prima approssimazione è che questi set di dati contengano implicitamente gli obiettivi delle persone che li hanno creati. Spesso, i data labeler che creano questi data set lavorano in paesi e nazioni con norme sociali diverse. Di conseguenza, in una certa misura, gli obiettivi sono quelli dell'azienda che sviluppa l'LLM e dei suoi dipendenti, che in ultima analisi possono filtrare e sottoselezionare i dati prodotti da tali data labeler.
+</p>
+
+<p align="justify">
+In risposta, ci chiediamo: "Come utenti, siamo a nostro agio nell'utilizzare tecnologie che potrebbero essere orientate verso sistemi di credenze alternativi che non condividiamo?". In una certa misura, dobbiamo sentirci a nostro agio con questo per poter utilizzare gli LLM. Il costo di creazione di questi modelli e set di dati è troppo elevato per consentirci di realizzare modelli personalizzati su ogni base. Di conseguenza, i fornitori di LLM devono esistere, ma i loro obiettivi non possono essere allineati a quelli di ogni potenziale utente.
+</p>
+
+<p align="justify">
+Allo stesso tempo, supponiamo di essere preoccupati per un attore nefasto che utilizza gli LLM per scopi malvagi o dolosi. In tal caso, potremmo anche renderci conto che la nostra incapacità di risolvere il problema dell'allineamento è, in un certo senso, una benedizione. Se fosse possibile allineare perfettamente uno di questi algoritmi al sistema di credenze di qualsiasi individuo, allora qualsiasi attore malvagio potrebbe allineare perfettamente un LLM ai propri comportamenti e alle proprie convinzioni negative. Questa riflessione evidenzia un altro problema: se potessimo creare LLM perfettamente allineati, dovremmo creare LLM in modo che solo i buoni possano allineare gli LLM per impedire ai cattivi di fare cose cattive. Questa linea di ragionamento si avvicina al pensiero magico secondo cui è possibile creare un LLM onnipotente che sia allo stesso tempo vincolato all'obbedienza a tutti gli esseri umani.
+</p>
+
+<p align="justify">
+Nota: questo modo di concepire l'allineamento è simile a un approccio simile alla crittografia. Sebbene si possa tentare di creare un algoritmo di crittografia che includa una backdoor riservata solo ai "buoni", che consenta loro di decifrare i dati, qualsiasi backdoor di questo tipo diventa intrinsecamente il bersaglio più prezioso per gli aggressori e aumenta il rischio per tutti gli utenti.
+</p>
+
+<p align="justify">
+Per questo motivo, non siamo particolarmente preoccupati per la possibilità che attori malintenzionati allineino i modelli a scopi nefasti. Tuttavia, questa preoccupazione sottolinea un punto cruciale per i ricercatori: qualsiasi progresso nel controllo degli LLM è intrinsecamente una tecnologia a duplice uso, con applicazioni sia pacifiche che antagonistiche. In effetti, qualsiasi cosa sviluppiamo con gli LLM è probabilmente a duplice uso, in una certa misura. Considerare i modelli di minaccia quando si considerano i danni potenziali più gravi degli LLM è fondamentale. Chi sarebbe motivato a causare tali danni, perché e cosa è necessario per farlo? Quali sono le barriere esistenti oggi che impediscono che questo danno si verifichi e un LLM può aggirare tali barriere? È possibile adattare tali barriere alle tecnologie moderne? Procedendo, la nostra attenzione dovrebbe concentrarsi non solo sugli LLM, ma anche sui sistemi coesistenti che gestiamo, che rappresentano i principali fattori abilitanti e bloccanti del successo e del rischio. Dobbiamo considerare il quadro completo per ottenere i risultati più desiderabili.
+</p>
+
+<h3>9.3 L'etica dell'approvvigionamento e del riutilizzo dei dati</h3>
+
+<p align="justify">
+I LLM e i modelli generativi come DALL-E, un modello di generazione di immagini che produce immagini basate su descrizioni testuali fornite dall'utente, richiedono l'addestramento su enormi quantità di dati. Ad esempio, gli sviluppatori di LLM addestrano i modelli su un numero di token compreso tra 1 e 15 trilioni (ad esempio, Llama 3.1 ne utilizzava 15 trilioni [18]) o da 3 milioni a 30 milioni di pagine di testo. Questi dati rappresentano un'immensa quantità di testo scritto, pari a centinaia di migliaia o milioni di libri. Sebbene alcuni modelli vengano addestrati ripetutamente sugli stessi dati e i modelli vengano addestrati anche su un'ampia varietà di dati come codice e matematica, la quantità di testo originale è ancora nell'ordine di un milione di libri.
+</p>
+
+<p align="justify">
+Nota: è importante notare che gran parte di questo testo non è costituito da libri; proviene da numerose fonti, tra cui articoli di giornale, siti web, documenti di ricerca e rapporti governativi. Stiamo riassumendo il testo in unità di libri per renderlo più comprensibile, ma non è vero che addestriamo i modelli su milioni di libri.
+</p>
+
+<p align="justify">
+Uno dei problemi principali è che nessuno dei modelli esistenti utilizza dati di addestramento la cui licenza ne consenta esplicitamente l'utilizzo per addestrare le IA. Sebbene alcuni modelli siano più conformi alle licenze di altri, la maggior parte delle licenze prevede ancora clausole di "tutti i diritti riservati", il che significa che un proprietario ha diritti esclusivi sul contenuto e che altri non possono utilizzarlo per alcuno scopo senza la sua autorizzazione.
+</p>
+
+<p align="justify">
+A complicare ulteriormente la situazione, la maggior parte delle licenze per l'utilizzo di contenuti e dati è precedente all'esistenza della tecnologia LLM. Non prevedono l'addestramento di modelli di intelligenza artificiale come un potenziale utilizzo dei dati e, pertanto, non consentono né impediscono esplicitamente l'utilizzo dei dati in questo modo. Gli sviluppatori LLM stanno lavorando all'addestramento di modelli su dati con licenze più permissive. Tuttavia, questo non elimina il problema principale: l'estrazione di dati di massa per addestrare le IA non era una preoccupazione riconosciuta in precedenza, quindi le licenze esistenti non affrontano esplicitamente questo utilizzo dei dati.
+</p>
+
+<p align="justify">
+Una domanda essenziale che la società e il diritto devono affrontare è: in quali condizioni il riutilizzo dei dati per l'addestramento di un modello è considerato un uso accettabile? Purtroppo, non ci sono risposte chiare a questa domanda negli Stati Uniti e in altri paesi a causa della mancanza di leggi aggiornate o di precedenti giuridici consolidati. Leggi più datate, come il Digital Millennium Copyright Act statunitense, forniscono una protezione esplicita ai motori di ricerca per l'utilizzo di dati o testi provenienti da altri siti web per creare un indice di contenuti tratti dal web. La creazione di un LLM utilizzando tali contenuti rientra in tali diritti? Non lo sappiamo, e non siamo i vostri avvocati, ma in questa sezione discuteremo alcuni dei fattori etici nell'acquisizione di dati per gli LLM. Presenteremo una breve introduzione al fair use e ai diritti delle persone che creano i dati e discuteremo le sfide dell'utilizzo di dati di pubblico dominio.
+</p>
+
+<h3>9.3.1 Che cosa si intende per uso corretto?</h3>
+
+<p align="justify">
+Molti paesi e culture hanno atteggiamenti diversi nei confronti dell'uso di testi protetti da copyright. In molti casi, esistono significative eccezioni alla legge sul copyright per coloro che utilizzano contenuti creativi in modi nuovi, soprattutto quando tali metodi promuovono il bene pubblico, la ricerca scientifica o hanno risultati benefici simili. Negli Stati Uniti, questo è definito "fair use".
+</p>
+
+<p align="justify">
+Il fair use implica sempre un'analisi contestuale basata sul bilanciamento di quattro fattori:
+</p>
+
+<ul>
+<li>
+<p align="justify">
+Scopo e natura dell'uso : applicazioni quali critica, commento, istruzione, informazione, borse di studio o ricerca hanno molte più probabilità di essere considerate un uso corretto rispetto ad altre applicazioni, soprattutto quando queste ultime sono commerciali.
+</p>
+</li>
+<li>
+<p align="justify">
+La natura dell'opera protetta da copyright : i tribunali tendono a garantire alle opere creative, come testi di narrativa, arte, musica, poesia, ecc., una maggiore protezione rispetto ai testi non di fantasia.
+</p>
+</li>
+<li>
+<p align="justify">
+La quantità o la sostanzialità della parte utilizzata — Il fair use può essere consentito per l'utilizzo di una parte di un'opera, in particolare quando tale parte è un componente strettamente personalizzato.
+</p>
+</li>
+<li>
+<p align="justify">
+L'effetto dell'uso sul potenziale mercato o sul valore dell'opera : se il nuovo uso dell'opera produce qualcosa che qualcuno potrebbe acquistare al posto dell'opera originale, o se la nuova opera compete con l'opera originale o ne diminuisce il valore economico, è meno probabile che l'opera venga considerata un uso corretto.
+</p>
+</li>
+</ul>
+
+<p align="justify">
+Alcuni di questi punti possono essere visti come a favore degli LLM, mentre altri sono in conflitto con il modo in cui gli LLM utilizzano i dati. Ciononostante, sono oggetto di un acceso dibattito tra i professionisti sia nel campo dell'apprendimento automatico che in quello legale, e ci vorranno molti anni prima che i tribunali si pronuncino. Molte applicazioni della dottrina del fair use mirano a proteggere le persone dallo sfruttamento da parte del titolare del copyright. Ad esempio, se si scrive una recensione negativa di un prodotto, il fair use impedisce all'azienda di intentare causa per aver utilizzato il proprio copyright per mettervi a tacere. Altre applicazioni del fair use impediscono la frustrazione di bisogni sociali, come la formazione di studenti o apprendisti su strumenti e tecniche. Gli LLM sottolineano in modo unico alcuni di questi fattori. Fondamentalmente, utilizzano spesso contenuti creati da altri, ma alcuni sostengono che determinati tipi di contenuti, come i commenti sui post sui social media, abbiano un valore minimo. Gli LLM stanno creando un nuovo mercato per il valore delle opere pubblicate, ma di solito non compensano i proprietari di tali opere.
+</p>
+
+<p align="justify">
+La risposta, insoddisfacente ma importante per te come professionista, è che devi operare e prendere decisioni in un ambiente incerto. Se riesci a creare i tuoi dati di training, puoi aggirare gran parte di questo problema legale. Creare i tuoi dati di training a partire da contenuti di tua proprietà è una strategia particolarmente praticabile per l'IA generativa perché, come discusso nel capitolo 4 , i modelli di base che necessitano della maggior parte dei dati sono auto-supervisionati. Quindi puoi ottenere molti dati per costruire un modello iniziale e poi dedicare più lavoro a un set di dati di fine-tuning più piccolo, come discusso nel capitolo 5 .
+</p>
+
+<p align="justify">
+Resterai inoltre deluso nello scoprire che la maggior parte delle persone che operano in questo settore spesso non ha familiarità con le leggi applicabili alla propria giurisdizione. Esiste una probabilità non trascurabile che, se trovi un modello rilasciato con una licenza compatibile con le tue esigenze (ottimo lavoro nel controllare le licenze!), il copyright o la licenza sui dati su cui è stato addestrato o perfezionato non consentano di rilasciarlo con tale licenza. Questa generale mancanza di attenzione o consapevolezza delle problematiche relative alle licenze dei dati ti impone di verificare, per quanto possibile, i dettagli relativi ai dati di addestramento di modelli di terze parti e di essere consapevole che le problematiche relative alle licenze sono diffuse in questo settore.
+</p>
+
+<p align="justify">
+Anche se queste questioni legali venissero risolte favorevolmente per chi desidera aprire un LLM, ciò non ne renderebbe l'esercizio etico. Le preoccupazioni discusse in questo capitolo contribuiscono a determinare cosa si possa considerare giusto o sbagliato. Tuttavia, c'è anche una questione su come trattare e interagire con gli altri oggi, in un contesto di incertezza giuridica. Affidarsi al sistema legale per rendere qualcosa ammissibile è raramente segno di azioni che genereranno buona volontà e rispetto da parte delle altre parti coinvolte. Non è difficile immaginare uno scenario alternativo in cui le aziende stipulano accordi o partnership con piattaforme che forniscono dati che aumentano il numero di parti consenzienti coinvolte, scambiando denaro o diritti di utilizzo del modello. Una volta stipulato un accordo, i contratti possono risolvere i conflitti relativi all'ambiguità giuridica, ma questo è, purtroppo, un evento raro nel campo degli LLM.
+</p>
+
+<h3>9.3.2 Le sfide legate alla remunerazione dei creatori di contenuti</h3>
+
+<p align="justify">
+Una soluzione proposta a questo problema etico è quella di pagare gli autori, gli artisti e i creatori le cui opere sono presenti nei dati di training. Sebbene questa soluzione sia concettualmente allettante per molte ragioni, potrebbe rendere lo sviluppo della tecnologia economicamente non sostenibile.
+</p>
+
+<p align="justify">
+La società avrebbe molte più probabilità di raggiungere un risultato accettabile se esistesse un modo relativamente semplice per compensare adeguatamente i creatori per l'utilizzo del loro lavoro. Utilizzando un calcolo approssimativo, possiamo stimare che un milione di libri moltiplicato per 20,00 dollari/libro produca un costo totale per l'acquisto di una copia di ogni opera nel corpus di addestramento pari o superiore al costo di addestramento dei modelli stessi. La situazione è ancora più grave per i modelli i cui dati di addestramento sono costosi da creare. Stable Diffusion, un popolare modello di generazione di immagini, viene addestrato su diversi miliardi di immagini. Costerebbe oltre 1,000 volte il costo di addestramento del modello per pagare un dollaro a ogni artista nei dati di addestramento, e un dollaro per immagine difficilmente sarebbe considerato un compenso adeguato dagli artisti.
+</p>
+
+<p align="justify">
+Un altro approccio alla remunerazione sarebbe quello di concentrarla sul punto di utilizzo: supponiamo che ogni volta che un modello genera contenuti tratti da un libro da te scritto, tu riceva una percentuale del reddito percepito dal creatore del modello. Più spesso l'LLM genera contenuti basati sul tuo lavoro, maggiore sarà la frazione di tale reddito che riceverai. Sebbene questo potrebbe essere un modo per rendere fattibile l'implementazione a lungo termine delle tecnologie LLM, esistono notevoli ostacoli tecnici all'implementazione di questo modello. Ad esempio, esistono pochissime ricerche sulla tracciabilità dei contenuti generati da un LLM a specifici punti dati di formazione. C'è motivo di credere che tale compito sia impossibile.
+</p>
+
+<p align="justify">
+Una ricerca più approfondita sull'attribuzione di generazioni a output specifici, limitando gli output a basarsi solo su un sottoinsieme dei dati di training [19] o progettando procedure di training del modello in cui l'attribuzione è una considerazione centrale (invece di una integrata nel LLM dopo il training) renderebbe questo obiettivo sostanzialmente più semplice. Sfortunatamente, questo tipo di ricerca richiede in genere la formazione di molti LLM simili; quindi, è costosa. Questa spesa rende difficile per chiunque altro, tranne le aziende tecnologiche che traggono profitto dai modelli, condurre la ricerca.
+</p>
+
+<p align="justify">
+Questa discussione non considera ancora la difficoltà di identificare i proprietari di ciascun documento e di compensarli. Inoltre, pagare denaro a queste persone su questa scala non è gratuito; le sole commissioni di elaborazione rappresenterebbero una frazione non trascurabile dei pagamenti totali, poiché ogni autore riceve un compenso medio molto basso.
+</p>
+
+<p align="justify">
+Se si ritiene che gli LLM rappresentino un pericolo per la società, si può trarre una scappatoia: si sostiene che tutte queste preoccupazioni siano un ulteriore motivo per non creare gli LLM. Se non si è convinti che gli LLM rappresentino un pericolo imponente per la società, ma piuttosto un'aggiunta positiva, si ha una domanda difficile a cui rispondere. Se si aderisce a un sistema morale come l'utilitarismo, si potrebbe sostenere che i benefici netti degli LLM in termini di utilità e automazione siano più significativi del mancato compenso e del rischio occupazionale per i creatori di contenuti. In effetti, la dottrina del fair use è di per sé una forma di riconoscimento legale del fatto che esistono casi in cui il titolare del copyright non può far valere i propri diritti nei confronti di altri.
+</p>
+
+<h3>9.3.3 I limiti dei dati di pubblico dominio</h3>
+
+<p align="justify">
+A questo punto, potreste chiedervi se i dati esistano senza copyright e se dovremmo tutti usarli per formare gli LLM. Esiste, infatti, una quantità considerevole di dati di pubblico dominio, il che significa che le leggi sulla proprietà intellettuale non li proteggono e chiunque può utilizzarli senza chiedere il permesso o compensare il titolare originale del copyright. I dati possono finire nel pubblico dominio per una serie di motivi, tra cui essere obsoleti (la maggior parte dei paesi ha una durata massima del copyright), essere contenuti non protetti da copyright (informazioni fattuali, statistiche, dati generati senza un sostanziale contributo creativo umano e alcune altre forme di dati non sono protette da copyright negli Stati Uniti) o essere resi di pubblico dominio per legge (tutti i prodotti di lavoro federali statunitensi sono di pubblico dominio per legge e il governo degli Stati Uniti può legiferare che tali lavori siano di pubblico dominio). Un lavoro di pubblico dominio, magari combinato con un lavoro concesso in licenza con termini come la licenza MIT o specifiche licenze Creative Commons, che mirano a rendere i dati ampiamente utilizzati, potrebbe consentire di addestrare modelli senza dover affrontare queste problematiche. Tuttavia, ci sono diverse sfide significative da affrontare.
+</p>
+
+<b>Pregiudizi impliciti e dominio pubblico</b>
+
+<p align="justify">
+Una delle principali fonti di contenuti di pubblico dominio sono opere troppo vecchie per essere protette da copyright. Di conseguenza, esiste un'estrema propensione verso i testi più datati. I libri scritti all'inizio del 1900 o prima esprimono atteggiamenti e convinzioni culturali molto diversi su scienza e tecnologia e rappresentano il mondo in modo diverso dalle opere odierne. Avere dei Master in Lettere (LLM) 95 anni indietro rispetto agli attuali atteggiamenti culturali sarebbe molto negativo da molti punti di vista. Sarebbero pieni di informazioni scientifiche imprecise, esacerbarebbero stereotipi e pregiudizi, userebbero un linguaggio meno familiare al pubblico odierno e sarebbero difficili da usare in modo produttivo.
+</p>
+
+<p align="justify">
+Nota: le opere pubblicate prima del 1977 perdono il copyright 95 anni dopo la pubblicazione, quindi tutte le opere pubblicate nel 1928 sono di pubblico dominio a partire dal 1° gennaio 2024 e tutte le opere pubblicate prima del 1977 saranno di pubblico dominio a partire dal 1° gennaio 2073. Secondo l'attuale legge sul copyright, a partire dal 2049, le opere pubblicate nel 1978 e dopo entreranno nel pubblico dominio 70 anni dopo la morte dei loro creatori, ad eccezione delle opere di autori aziendali, che seguono le precedenti regole di entrata nel pubblico dominio dopo 95 anni.
+</p>
+
+<table>
+  <td>
+    <h3>Una modella dovrebbe essere esposta al razzismo?</h3>
+
+<p align="justify">
+    Il problema dei vecchi dati, che tra le altre cose sono spesso piuttosto razzisti e sessisti, è frustrantemente complicato. Può sembrare ovvio che non vogliamo alcun contenuto razzista o sessista nei nostri dati di addestramento, poiché sembrerebbe un mezzo ideale per garantire che il nostro modello non venga riempito di pregiudizi razzisti e sessisti. Tuttavia, se si escludessero con successo questi contenuti dai dati di addestramento, sarebbe difficile far sì che il modello eviti di generare output razzisti o sessisti se richiesto da un utente. In sostanza, includere contenuti sgradevoli è necessario per rendere il modello consapevole di cosa siano tali.
+</p>
+  </td>
+</table>
+
+<b>Non è sempre chiaro cosa sia di pubblico dominio</b>
+
+<p align="justify">
+Il governo degli Stati Uniti non documenta quali opere siano di pubblico dominio e protette da copyright attivo. Identificare, raccogliere e ripulire le opere di pubblico dominio è un impegno enorme che richiede competenze legali, tecnologiche e storiche. Sebbene alcune organizzazioni si impegnino costantemente in tal senso, la mancanza di metodi prontamente disponibili per verificare se un'opera sia di pubblico dominio rappresenta un deterrente significativo alla formazione di un modello basato esclusivamente su tali opere.
+</p>
+
+<h3>9.4 Problemi etici con i risultati dell'LLM</h3>
+
+<p align="justify">
+Come abbiamo discusso, gli LLM sono formati su dati su larga scala raccolti principalmente da Internet. Internet contiene molti materiali indesiderati. Ci sono contenuti fortemente negativi come razzismo palese, sessismo, teorie del complotto dannose e false informazioni. Più in generale, ci sono anche visioni del mondo involontarie e obsolete. Gli LLM colgono gli schemi di queste visioni e li ripropongono prontamente – un esempio di ciò si può trovare nella figura 9.3 , che mostra come GPT-4 parta da un presupposto implicitamente sessista che molte persone ben intenzionate fanno.
+</p>
+
+<p align="justify">
+Pertanto, gli output di un LLM possono essere problematici e richiedere un'attenta progettazione, test e la disponibilità a dire "no" a specifiche implementazioni. Sebbene abbiamo già discusso di come il contenuto dell'output possa essere palesemente e direttamente problematico, ci sono anche modi indiretti in cui gli output di un LLM possono essere problematici che vale la pena comprendere in dettaglio. In primo luogo, la complessità legale, in quanto dati validi e concessi in licenza potrebbero non generare output legali. In secondo luogo, dobbiamo considerare il potenziale di feedback negli LLM, il che significa che i futuri LLM saranno addestrati su dati futuri; dobbiamo fare attenzione a non corrompere la formazione futura con contenuti dannosi. A prima vista, queste preoccupazioni sembrano irrilevanti per gli sviluppatori, ma quando si considera di adattare un LLM al proprio problema, questi problemi emergeranno ed è necessaria la consapevolezza per evitare questi rischi.
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 9.3 Un classico luogo comune di genere è che gli uomini siano medici e le donne infermiere. Questo si riflette nel linguaggio e quindi viene appreso dal modello. Idealmente, dovrebbe rispondere che la domanda è ambigua, ma invece la distorsione dei dati porta a una distorsione nei risultati.
+      </p>
+    </figcaption>
+
+![CH09_F03_Boozallen](https://github.com/user-attachments/assets/54ce0128-a95b-41ab-b58a-0fe6c5ac8fd6)
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<h3>9.4.1 Implicazioni della licenza per l'output LLM</h3>
+
+<p align="justify">
+La prima è una questione relativa alla licenza dei dati, che abbiamo introdotto nella sezione precedente. Tale discussione si è concentrata sull'etica e la validità dei dati utilizzati per la formazione di un LLM. Ora dobbiamo capovolgere la questione: alcuni dati sono quasi certamente legali per la formazione, ma potrebbero rendere l'output inutilizzabile.
+</p>
+
+<p align="justify">
+Questo problema nasce dal mondo spesso frainteso delle licenze del software open source (OSS). Esistono molte licenze OSS e non le enumereremo tutte, ma una licenza open source comunemente usata, nota come GNU General Public License, o GPL, ne è un buon esempio. La GPL stabilisce essenzialmente che è possibile utilizzare il codice concesso in licenza come si desidera, gratuitamente, a condizione che il codice utilizzato, modificato o aggiunto venga reso disponibile sotto la licenza GPL. Questa licenza volutamente "virale" obbliga il licenziatario a seguire le stesse regole e a rilasciare il proprio codice come open source se desidera utilizzare codice coperto dalla licenza GPL.
+</p>
+
+<p align="justify">
+Ecco il problema: gli LLM sono diventati piuttosto popolari per la scrittura di codice e sono stati addestrati su codice GPL. Quando l'output dell'LLM stesso deve essere coperto da licenza GPL? Emergono rapidamente molteplici livelli di argomentazione quando consideriamo le questioni etiche relative a questa nuova situazione, che non sono affrontate esplicitamente da nessuna di queste licenze. Esiste uno spettro di possibilità con tre modalità principali:
+</p>
+
+<ul>
+  <li>
+    <p align="justify">
+Se l'LLM riproduce esattamente il codice GPL esistente, sicuramente dovrebbe essere coperto da licenza GPL. Come possiamo sapere se un LLM sta generando copie precise di codice esistente che dovrebbero essere licenziate di conseguenza?
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+L'LLM potrebbe generare codice apparentemente nuovo, ma quell'algoritmo potrebbe aver richiesto dati di addestramento GPL specifici che risolvano problemi correlati per generare l'output. Si tratta di una modifica dei dati di addestramento che dovrebbe essere concessa in licenza? In tal caso, come possiamo risolvere il problema tecnico di trovare il codice che ha permesso all'LLM di generare un determinato output? L'approccio RAG (retrieval augmented generation) di cui abbiamo parlato nel capitolo 5 potrebbe essere un buon modo per farlo.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Se addestriamo l'LLM su qualsiasi codice GPL, si potrebbe sostenere che tutti gli output dell'LLM richiedono una licenza GPL!
+    </p>
+  </li>
+</ul>
+
+<p align="justify">
+In ogni caso, il problema è che, sebbene possiamo indubbiamente utilizzare i dati GPL per addestrare un LLM, non è chiaro come possiamo utilizzare l'output di tale LLM. Pertanto, conoscendo questo rischio, sorge ora una questione etica su dove tracciare questa linea di demarcazione se si desidera utilizzare un LLM per questo lavoro. In effetti, le aziende devono valutare il proprio rischio e la questione di chi sia responsabile e del grado di responsabilità per ogni utilizzo illecito di output GPL non è chiara. È l'organizzazione che ha addestrato il modello sui dati GPL, l'azienda che utilizza il modello per produrre codice sorgente chiuso basato sui dati GPL o nessuna delle due?
+</p>
+
+<p align="justify">
+La licenza GPL è intenzionalmente virale e molte aziende la trattano come una sorta di veleno che impedisce loro di proteggere la propria proprietà intellettuale, incorporata nel software e nel codice sorgente. Questo concetto di avvelenamento si collega al nostro prossimo argomento: se i risultati degli LLM stiano avvelenando i dati di training necessari per costruire e migliorare i futuri LLM.
+</p>
+
+<h3>9.4.2 Le emissioni LLM avvelenano il pozzo?</h3>
+
+<p align="justify">
+Iniziamo questa sezione utilizzando una metafora basata su un problema ben noto nelle scienze dei materiali e nella produzione, in particolare con l'acciaio legato. L'acciaio viene utilizzato per costruire ogni sorta di cose, dagli edifici alle apparecchiature mediche. Molti usi dell'acciaio coinvolgono anche l'elettronica sensibile alle radiazioni nucleari. A seguito dei primi test nucleari negli anni '40, il mondo intero fu inquinato da radiazioni che prima non esistevano. A meno che non ci si trovasse in prossimità di una detonazione nucleare, non c'erano abbastanza radiazioni da danneggiare la maggior parte delle cose. Tuttavia, c'erano abbastanza radiazioni da contaminare tutto l'acciaio prodotto nel mondo, al punto da non poter più essere prodotto per applicazioni sensibili alle radiazioni [20]. Le persone recuperavano illegalmente navi affondate decenni prima per trovare acciaio preesistente non contaminato dalle radiazioni di fondo. Nuovi processi di produzione avrebbero potuto produrre una quantità limitata di acciaio pulito, ma erano astronomicamente costosi e quindi economicamente impraticabili in molti casi. Fortunatamente, con il miglioramento della scienza dei materiali e la cessazione dei test nucleari atmosferici, il problema si è attenuato nel tempo, ma per decenni il mondo è stato interessato da pochi isolati test nucleari.
+</p>
+
+<p align="justify">
+L'analogia qui non è che gli LLM siano bombe nucleari, ma che il loro output stia potenzialmente avvelenando tutti i dati di addestramento che saranno utilizzati per costruire LLM migliori in futuro. I ricercatori hanno identificato un fenomeno noto come collasso modale che dimostra come gli LLM possano fallire quando addestrati su dati generati da altri LLM [21]. Per rinfrescare la memoria, la moda di una distribuzione (insieme di numeri) è il valore più comune che si verifica in tale insieme.
+</p>
+
+<p align="justify">
+Quando un modello generativo produce output, la maggior parte di tale output deriverà dalla modalità di distribuzione dei contenuti utilizzata per addestrare il modello. In altre parole, l'output generato da un modello enfatizzerà le componenti più comuni dei suoi dati di addestramento. Poiché il modello generativo non restituirà tutti i casi rari o sfumati presenti nei dati, i casi più comuni saranno più diffusi nell'output di un LLM. Ciò significa che la modalità del modello è sovrarappresentata rispetto ai dati di addestramento originali.
+</p>
+
+<p align="justify">
+Se poi si addestra un nuovo modello generativo sugli output di questo vecchio modello, si inizia a sovrarappresentare ulteriormente la moda a scapito di tutti gli altri dati. Ripetendo questa operazione più volte, si ottiene un modello inutile che restituisce sempre lo stesso risultato, come mostrato nella figura 9.4 .
+</p>
+
+<table align="center">
+<td>
+<div align="center">
+  <figure>
+    <figcaption>
+      <p align="justify">
+Figura 9.4 È possibile pensare a testo o immagini come provenienti da una distribuzione di dati, in cui varietà e contenuti interessanti provengono quasi necessariamente dalle code della distribuzione (ovvero, dalle parti meno comuni della distribuzione), poiché le parole o i contenuti più comuni sono spesso riempitivi o connettivi, come la parola "the" . I nostri modelli non apprendono cose su cui non sono addestrati e non possono apprendere tutto nella distribuzione, quindi un campione del modello perderà inevitabilmente questi dettagli interessanti. Se ripetuto, la distribuzione si riduce ai soli componenti più comuni.
+      </p>
+    </figcaption>
+
+<img width="1100" height="471" alt="CH09_F04_Boozallen" src="https://github.com/user-attachments/assets/ab0ff20c-737e-41b4-b3a5-97cbb4a4d6fc" />
+
+  </figure>
+</div>
+  </td>
+</table>
+
+<p align="justify">
+Questa preoccupazione solleva una questione etica: dovremmo rilasciare gli LLM al pubblico senza implementare modalità per impedire che il loro output contamini i futuri dati di formazione? Purtroppo, l'opportunità di fare qualcosa per risolvere questo problema è probabilmente tramontata. I contenuti generati dagli LLM sono prevalenti nelle fonti di dati di formazione frequentemente utilizzate per la formazione degli LLM e sono spesso indistinguibili dai contenuti generati da esseri umani. Nessuno degli attuali fornitori di LLM sembra applicare una filigrana ai contenuti generati dagli LLM, adottando misure come l'inserimento di lievi modifiche all'output per renderlo facilmente identificabile come dato generato. Sebbene vi sia un dibattito tecnico sull'efficacia della filigrana, spesso soluzioni semplici sono ancora sufficienti per la maggior parte dei casi d'uso. Infatti, nel capitolo 2, abbiamo parlato di come gli omoglifi, caratteri diversi che sembrano uguali, siano problematici per l'input di un LLM. Tuttavia, potrebbero rappresentare una facile filigrana per gli output degli LLM, consentendo un'identificazione banale del contenuto che un LLM probabilmente ha prodotto senza post-elaborazione o editing. Come effetto collaterale positivo, coloro che non desiderano contenuti di intelligenza artificiale (ad esempio, gli insegnanti) avrebbero un'opzione più affidabile rispetto all'attuale compito soggetto a errori di rilevamento degli LLM [22].
+</p>
+
+<p align="justify">
+Il collasso della modalità nota è un rischio reale noto da tempo, in quanto è un problema che va oltre l'IA generativa. Tuttavia, i dati aumentati dall'uomo possono, ma non necessariamente, mitigare questo rischio. In sostanza, finché è possibile iniettare nuovi dati nelle distribuzioni campionate, è possibile ottenere valore da questi campioni. Un modo è che gli esseri umani modifichino i contenuti generati dall'IA o utilizzino l'IA per modificare i propri contenuti generati dall'uomo. Anche i sistemi automatizzati possono fornire valore, soprattutto quelli che catturano conoscenze di dominio complesse come un simulatore di fisica o un motore per dimostrazioni matematiche come Lean, di cui abbiamo parlato nella sezione 6.2. La domanda diventa quanto bene siano realizzati questi aumenti e quanto valore possano generare, poiché non consentiranno un miglioramento illimitato.
+</p>
+
+<p align="justify">
+C'è una seconda preoccupazione, non tecnica, per la quale dobbiamo interrogarci sulle implicazioni etiche dell'inquinamento del pozzo causato dagli LLM. Il modo in cui le persone utilizzano la tecnologia è cambiato, potenzialmente in modo radicale, da quando gli LLM sono diventati disponibili. Tuttavia, i dati su cui facciamo affidamento per costruire i nostri LLM si basano sul modo in cui le persone interagivano con le informazioni prima dell'avvento degli LLM. Ad esempio, Stack Exchange è una raccolta di siti web molto apprezzata per domande e risposte, soprattutto su argomenti tecnici come il codice. Per questo motivo, è stata ritenuta particolarmente importante per la formazione degli LLM. Tuttavia, il rilascio di ChatGPT stesso potrebbe danneggiare Stack Exchange e ridurre il numero di domande/risposte pubblicate, rallentando così l'accumulo di nuovi contenuti formativi [23]. In altre parole, man mano che le persone passano all'utilizzo di strumenti come gli LLM per rispondere alle proprie domande, la necessità e il beneficio per gli esseri umani che generano i contenuti visualizzati su siti web come Stack Exchange diminuiscono, e quindi la diversità dei dati di formazione disponibili diminuisce.
+</p>
+
+<p align="justify">
+Cambiamenti di comportamento come questo rappresentano un problema molto più complesso da affrontare. Stack Exchange e la comunità di utenti che pongono o rispondono a domande sul loro sito web hanno autonomia e diritti che devono essere rispettati. La loro politica attuale è quella di vietare l'uso di ChatGPT e strumenti simili per rispondere alle domande. Tuttavia, dobbiamo considerare se esista una via di mezzo in cui l'applicazione attenta dei contenuti generati possa essere abbinata alla creazione e alla cura umana per produrre un circolo virtuoso e nuovi risultati a vantaggio sia degli esseri umani che dei futuri LLM. Ciò potrebbe consentire una crescita continua della piattaforma in modo più sano, ma solo se i proprietari e gli utenti saranno disponibili.
+</p>
+
+<p align="justify">
+In definitiva, l'uso degli LLM avrà conseguenze indesiderate e complessità inimmaginabili. Come utente, devi decidere se sei disposto ad accettare il rischio di queste situazioni e in che modo l'uso di questi strumenti modificherà la traiettoria delle iterazioni future.
+</p>
+
+<h3>9.5 Altre esplorazioni nell'etica LLM</h3>
+
+<p align="justify">
+Il dibattito sulle implicazioni etiche della creazione e dell'utilizzo degli LLM è in continua evoluzione. Sebbene molto sia stato scritto sull'argomento, altrettanto resta da esplorare sull'etica degli LLM e dell'intelligenza artificiale in generale. Qui, ci siamo concentrati sugli argomenti essenziali per costruire una comprensione di base. Altre questioni chiave, come la privacy, la sicurezza e il potenziale di abuso, sono trattate più approfonditamente nei libri di Manning, come " Introduction to Generative AI" di Numa Dhamani e Maggie Engler [24].
+</p>
+
+<p align="justify">
+Gli LLM e l'IA generativa avranno un profondo impatto sul mondo; con qualsiasi nuova tecnologia, è essenziale comprenderne i fondamenti che ne guidano il funzionamento e le implicazioni del suo utilizzo. In questo libro abbiamo trattato i componenti fondamentali che rendono gli LLM efficaci, esplorato idee sbagliate comuni e identificato le considerazioni etiche per la loro progettazione e il loro utilizzo. Ci auguriamo di aver gettato solide basi per consentirvi di continuare la vostra esplorazione del settore. Grazie per aver iniziato questo viaggio con noi.
+</p>
+
+<h3>Riepilogo</h3>
+
+<ul>
+  <li>
+    <p align="justify">
+La possibilità di utilizzare gli LLM per qualsiasi scopo tramite un unico modello consente alle persone di utilizzarli in modo rapido ed efficace per molteplici attività. Questa ampia applicabilità a molteplici attività rende inoltre impossibile testare la sicurezza di tutti i modi in cui gli LLM possono essere utilizzati.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Storicamente, l'automazione è stata una cosa positiva. Tuttavia, gli LLM rappresentano un rischio specifico per l'automazione del lavoro intellettuale, che differisce dall'automazione del lavoro manuale, il motore storico del miglioramento degli standard di vita. Il vero effetto di un'automazione generalizzata del lavoro intellettuale è sconosciuto.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Alcuni temono che un LLM sufficientemente valido da migliorare il design di un nuovo LLM possa dare origine ad algoritmi superintelligenti che non hanno bisogno dell'umanità.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Allineare un algoritmo a ciò che intendiamo, anziché a ciò che chiediamo, è una sfida importante che, anche se risolta, probabilmente non comporta alcuna riduzione del rischio.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+L'ottenimento etico dei dati è irto di preoccupazioni legali, poiché la tecnologia avanza più velocemente della legge.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+È improbabile che la logistica finanziaria e tecnica per compensare tutti gli autori dei contenuti per l'utilizzo dei loro contenuti nei dati di formazione sia praticabile, il che solleva interrogativi etici sull'equità dell'utilizzo dei loro dati.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+I dati di pubblico dominio privi di copyright sono troppo vecchi per essere problematici e pongono diverse sfide legate all'identificazione del loro status legale.
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+La proliferazione di dati generati dagli LLM può potenzialmente influenzare gli LLM che costruiremo in futuro. Dobbiamo considerare il potenziale di feedback ciclico e la possibilità di collasso modale.
+    </p>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
