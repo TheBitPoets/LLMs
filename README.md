@@ -1,5 +1,96 @@
 # LLMs
 
+<table>
+  <td>
+  <h2>Introduzione</h2>
+
+<h3>Su questo libro</h3>
+
+<p align="justify">
+Questolibro è il frutto di innumerevoli ore di ricerca, esplorazione, dialogo, creazione e valutazione di modelli linguistici di grandi dimensioni e dei sistemi che li utilizzano per risolvere i problemi. È un concentrato di anni di lavoro nei campi dell'apprendimento automatico, dell'elaborazione del linguaggio naturale e dell'ingegneria del software che noi, gli autori, mettiamo a disposizione. Per noi è importante condividere ciò che abbiamo imparato e scomporre le complessità del settore in una conversazione diretta che presenti dettagli fondamentali sul funzionamento degli LLM e che, partendo da lì, affronti argomenti poco noti. Cerchiamo di sfatare alcuni miti e di far luce sulle realtà lungo il percorso.
+</p>
+
+<p align="justify">
+Questo libro non descrive come implementare LLM come ChatGPT tramite codice. Piuttosto, affronta i concetti fondamentali che ne permettono il funzionamento, nonché le opportunità e i limiti di questa tecnologia. Vi forniremo una comprensione del funzionamento degli algoritmi sottostanti. Di conseguenza, comprenderete meglio perché gli LLM vengono implementati in un certo modo e come possono essere utilizzati per risolvere una varietà di problemi. Il nostro obiettivo è tradurre anni di ricerca sugli LLM in qualcosa di comprensibile per chi si avvicina per la prima volta al settore.
+</p>
+
+<p align="justify">
+Per raggiungere questo obiettivo, inizieremo dalle basi per acquisire una comprensione di base del funzionamento interno degli LLM, per poi passare ad argomenti più avanzati, includendo considerazioni adiacenti che vanno oltre il funzionamento degli LLM. Lungo il percorso, affronteremo idee sbagliate, limiti e implicazioni etiche legate alla creazione e all'utilizzo degli LLM, nonché i molteplici modi in cui gli LLM possono essere efficacemente impiegati come soluzioni tecniche per problemi complessi.
+</p>
+
+<b>Chi dovrebbe leggere questo libro?</b>
+
+<p align="justify">
+Questo libro è destinato a una vasta gamma di lettori, inclusi coloro che hanno appena iniziato a lavorare con gli LLM, sviluppatori software esperti e data scientist, nonché dirigenti tecnici, decisori e dirigenti di alto livello che si trovano ad affrontare la sfida di sviluppare strategie per integrare gli LLM e l'intelligenza artificiale generativa nelle loro attività. Il nostro obiettivo nello scrivere questo libro era quello di creare un'opera che fosse al tempo stesso accessibile e avvincente per un vasto pubblico, presentando gli LLM in modo non banale.
+</p>
+
+<p align="justify">
+Forse hai già avuto a che fare con il machine learning, sia come studente che come appassionato che ha seguito un corso introduttivo, ma non hai solide basi nel campo. Forse hai utilizzato strumenti come ChatGPT di OpenAI, Gemini di Google, Claude di Anthropic o Copilot di Microsoft per lavoro o per svago e sei curioso di sapere come questi strumenti generano i loro risultati. Indipendentemente dal tuo background o dalla tua esperienza, crediamo che questo libro possa fare al caso tuo.
+</p>
+
+<b>Una volta che hai finito, saprai:</b>
+
+<ul>
+  <li>
+    <p align="justify">
+Come gli LLM elaborano i dati del linguaggio umano e identificano le attività che potrebbero fallire quando si utilizza un LLM
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Come i dati fluiscono attraverso un LLM, il ruolo dei trasformatori e dell'attenzione, come operano ad alto livello, perché sono importanti e come si relazionano ad altri algoritmi di apprendimento automatico
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Come vengono addestrati gli LLM sui dati, inclusi i concetti di parametri, discesa del gradiente, pre-addestramento e perché la dimensione del modello è fondamentale
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Come scegliere una strategia di distribuzione per gli LLM nelle tue applicazioni e nella tua azienda
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+Come identificare compiti e scenari che gli LLM non possono realisticamente risolvere
+    </p>
+  </li>
+  <li>
+    <p align="justify">
+I pericoli e le preoccupazioni etiche legate all'uso e alla costruzione di LLM e dove è appropriato o inappropriato utilizzarli
+    </p>
+  </li>
+</ul>
+
+<b>Come è organizzato questo libro: una tabella di marcia</b>
+
+<p align="justify">
+In questo libro, inizieremo con le basi di come gli LLM elaborano il linguaggio umano, gli algoritmi che li rendono possibili e come apprendono dai dati. Da lì, esploreremo come la tecnologia LLM possa essere applicata ad attività che vanno oltre il testo e concluderemo con una discussione sull'uso degli LLM e sulle implicazioni di questa tecnologia.
+</p>
+
+<p align="justify">
+Il Capitolo 1 fornisce una comprensione approfondita degli LLM e dell'IA generativa in un linguaggio semplice. Esploreremo le differenze tra il modo in cui gli esseri umani e le macchine interagiscono con il linguaggio e inizieremo ad analizzare più approfonditamente ciò che rende gli LLM così efficaci, introducendone i limiti e le potenziali problematiche legate al loro utilizzo.
+</p>
+
+<p align="justify">
+I capitoli da 2 a 5 approfondiscono ciò che accade sotto il cofano, concentrandosi sulla meccanica piuttosto che sulla matematica. Nel capitolo 2, spieghiamo come i grandi modelli linguistici elaborano il testo in modo da poterlo utilizzare, prima di addentrarci nei meccanismi interni di come gli elementi che inseriamo in un LLM conducono infine all'output generativo che producono nel capitolo 3. Il capitolo 4 discute come tutto ciò sia possibile, il processo di addestramento di un LLM su enormi quantità di testo e perché questo addestramento può non produrre i risultati attesi. Il capitolo 5 descrive come possiamo controllare e vincolare un LLM e i suoi output per applicazioni specifiche.
+</p>
+
+<p align="justify">
+Il capitolo 6 va oltre il lavoro con le lingue ed esplora l'uso degli LLM per lo sviluppo di software, la matematica formale e altro ancora, includendo testo, immagini, audio e video.
+</p>
+
+<p align="justify">
+Ora che abbiamo trattato i meccanismi, i capitoli da 7 a 9 introducono le considerazioni alla base dell'utilizzo degli LLM in applicazioni reali. In primo luogo, affrontiamo molti dei preconcetti, dei limiti e delle potenzialità degli LLM nel capitolo 7. Nel capitolo 8, discutiamo diversi scenari per la progettazione di soluzioni che utilizzano gli LLM e identifichiamo situazioni in cui le scelte ovvie potrebbero non essere le migliori. Qualsiasi discussione sull'uso degli LLM non sarebbe completa senza affrontare le implicazioni etiche della creazione e dell'utilizzo degli LLM, che affrontiamo nel capitolo 9. Gli LLM rappresentano un rischio esistenziale per l'umanità? Quali sono gli aspetti etici e le implicazioni della formazione basata sulla maggior quantità di dati possibile da Internet? Unisciti a noi in questo viaggio e scoprirai che, lungo il percorso, avrai acquisito le conoscenze necessarie per sviluppare un pensiero critico su questa nuova e avvincente tecnologia.
+</p>
+
+<p align="justify">
+Nel libro troverete numerosi riferimenti ad altre fonti di informazione che approfondiscono i diversi aspetti degli LLM da noi trattati. Raccogliamo tutti questi riferimenti in una sezione bibliografica alla fine del libro, offrendo un facile accesso all'intero elenco di risorse in un unico posto. Vi invitiamo a continuare a esplorare gli LLM consultando queste fonti e approfondendo gli argomenti che meglio si allineano ai vostri interessi.
+</p>
+  </td>
+</table>
+
 <h2>1 Quadro generale: cosa sono gli LLM?</h2>
 
 <table align="center">
