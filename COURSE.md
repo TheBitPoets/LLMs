@@ -82,7 +82,10 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 - [Mappa curricolare](docs/course/curriculum-map.md)
 - [Criteri di completamento](docs/course/definition-of-done.md)
 - [Standard visuale e animazioni](docs/course/visual-standard.md)
+- [Catalogo delle visualizzazioni e provenienza](docs/course/visual-catalog.md)
 - [Visuale interattiva: previsione next-token](visuals/next-token-prediction.html)
+- [Visuale interattiva: percorso dei dati locale e cloud](visuals/local-vs-cloud-data-journey.html)
+- [Visuale interattiva: richiesta Ollama e memoria](visuals/ollama-request-and-memory.html)
 - [Inventario e selezione Manning](docs/course/sources/manning-inventory-and-selection.md)
 - [Valutazione di Build Applications with Local AI Models](docs/course/sources/local-ai-models-review.md)
 
