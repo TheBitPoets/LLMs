@@ -91,11 +91,12 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 - [Visuale interattiva: Pollicino, dalle probabilità ai bit](visuals/pollicino-probabilities-to-bits.html)
 - [Inventario e selezione Manning](docs/course/sources/manning-inventory-and-selection.md)
 - [Valutazione di Build Applications with Local AI Models](docs/course/sources/local-ai-models-review.md)
+- [Catalogo modelli - snapshot 4 settembre 2026](docs/course/catalog/models-2026-09-04.md)
+- [Timeline ragionata dei paper](docs/course/research/paper-timeline.md)
 
 ## Prossimi passi di progettazione
 
-1. Inventariare le fonti possedute e mapparle sul tronco comune.
-2. Scrivere i venti moduli seguendo la mappa curricolare.
-3. Implementare i laboratori Ollama, valutazione e Pollicino prioritari.
-4. Preparare verifiche, rubriche e progetti finali per i due livelli.
-5. Mantenere separati una timeline dei paper e un catalogo datato dei modelli di frontiera.
+1. Scrivere i venti moduli seguendo la mappa curricolare.
+2. Implementare i laboratori Ollama, valutazione e Pollicino prioritari.
+3. Preparare verifiche, rubriche e progetti finali per i due livelli.
+4. Collaudare il percorso end-to-end sui profili hardware supportati.
