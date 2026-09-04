@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Pipeline RAG con evidenza</title><desc id="desc">La query recupera chunk, li filtra e li passa al modello; un verificatore controlla citazioni e supporto.</desc>
+  <defs><style>.t{font:700 30px sans-serif;fill:#17345f}.s{font:21px sans-serif;fill:#172033}.b{fill:#eef4ff;stroke:#2457a6;stroke-width:3}.g{fill:#edf9f1;stroke:#25834c;stroke-width:3}.w{fill:#fff7e7;stroke:#bb7517;stroke-width:3}.a{stroke:#42536d;stroke-width:4;fill:none;marker-end:url(#m)}</style><marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#42536d"/></marker></defs>
+  <text class="t" x="600" y="48" text-anchor="middle">RAG: recuperare prima, generare dopo</text>
+  <rect class="b" x="35" y="170" width="180" height="110" rx="18"/><text class="s" x="125" y="220" text-anchor="middle">Query</text><text class="s" x="125" y="252" text-anchor="middle">utente</text>
+  <path class="a" d="M215 225 H260"/><rect class="g" x="260" y="170" width="190" height="110" rx="18"/><text class="s" x="355" y="220" text-anchor="middle">Retrieval</text><text class="s" x="355" y="252" text-anchor="middle">chunk + ID</text>
+  <path class="a" d="M450 225 H495"/><rect class="g" x="495" y="170" width="190" height="110" rx="18"/><text class="s" x="590" y="220" text-anchor="middle">Rerank</text><text class="s" x="590" y="252" text-anchor="middle">e filtri</text>
+  <path class="a" d="M685 225 H730"/><rect class="w" x="730" y="170" width="190" height="110" rx="18"/><text class="s" x="825" y="220" text-anchor="middle">Modello</text><text class="s" x="825" y="252" text-anchor="middle">con evidenza</text>
+  <path class="a" d="M920 225 H965"/><rect class="b" x="965" y="170" width="200" height="110" rx="18"/><text class="s" x="1065" y="215" text-anchor="middle">Risposta</text><text class="s" x="1065" y="247" text-anchor="middle">+ citazioni</text>
+  <path class="a" d="M1065 280 V370 H600"/><rect class="w" x="380" y="355" width="440" height="110" rx="18"/><text class="s" x="600" y="402" text-anchor="middle">Verifica: la fonte esiste?</text><text class="s" x="600" y="434" text-anchor="middle">Il passaggio supporta davvero il claim?</text>
+  <text class="s" x="600" y="525" text-anchor="middle">I documenti recuperati sono dati non fidati, non istruzioni privilegiate.</text>
+</svg>
+

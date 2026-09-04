@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "id": "llm-activity-m16-safe-agent",
+  "titolo": "M16 — Tool use, agenti e MCP",
+  "tipo": "laboratorio",
+  "difficolta": "E",
+  "argomenti": [
+    "tool use",
+    "autorizzazioni e MCP"
+  ],
+  "consegna": "Implementa un tool read-only e una macchina a stati con policy e conferma degli effetti.",
+  "student_support_mode": "feedback-tecnico",
+  "contesto": {
+    "percorso": "percorso-annuale",
+    "uda": "uda-05-engineering"
+  },
+  "content_ids": [
+    "llm-content-m16"
+  ],
+  "source_refs": [
+    {
+      "source_id": "llm-source-modules",
+      "href": "docs/course/modules/M16-agenti-mcp.md"
+    }
+  ],
+  "assets": [
+    {
+      "type": "starter",
+      "path": "student/README.md",
+      "target_path": "README.md",
+      "visibility": "student",
+      "description": "Traccia e checklist consegnate allo studente"
+    },
+    {
+      "type": "teacher_only",
+      "path": "teacher/SOLUTION.md",
+      "visibility": "teacher",
+      "description": "Criteri, soluzione e domande per la discussione"
+    }
+  ],
+  "correzione": {
+    "compila": true,
+    "test": true,
+    "sandbox": true,
+    "ai_feedback": true
+  },
+  "metriche": {
+    "tempo_stimato_minuti": 150,
+    "traccia_tempo_dichiarato": true,
+    "traccia_sessioni_thebitlab": true,
+    "traccia_eventi_didattici": true,
+    "traccia_errori_compilazione": true
+  },
+  "rubrica": [
+    {
+      "criterio": "Evidenze riproducibili",
+      "punti": 4
+    },
+    {
+      "criterio": "Spiegazione e decisioni",
+      "punti": 3
+    },
+    {
+      "criterio": "Correttezza tecnica",
+      "punti": 2
+    },
+    {
+      "criterio": "Limiti dichiarati",
+      "punti": 1
+    }
+  ]
+}

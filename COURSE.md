@@ -78,6 +78,14 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 
 ## Documenti correnti del corso
 
+- [Dispense complete — PDF studente](output/pdf/dispense-llm-studente.pdf)
+- [Dispense complete — PDF docente con soluzioni](output/pdf/dispense-llm-docente.pdf)
+- [Dispense navigabili — HTML studente](dist/dispense-llm-studente.html)
+- [Content Pack TheBitLab v1](content/llm/content-pack.json)
+- [Matrice di copertura TheBitLab](content/llm/COVERAGE.md)
+- [Course Design 2026/27](doc/course_designs/llm_2026_2027.json)
+- [Percorso generato dalla Course Board](doc/PERCORSO_DIDATTICO.md)
+- [Activity A–F](activities/llm)
 - [Percorso didattico Pollicino](docs/course/pollicino-learning-path.md)
 - [Mappa curricolare](docs/course/curriculum-map.md)
 - [Criteri di completamento](docs/course/definition-of-done.md)
@@ -108,8 +116,10 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 
 ## Stato e manutenzione
 
-La prima edizione candidata contiene moduli, laboratori, visuali, valutazioni e
-guida docente. Resta il rehearsal end-to-end sul profilo hardware supportato,
+La prima edizione candidata contiene dispense complete, Content Pack TheBitLab,
+Course Design, Activity, laboratori, visuali, valutazioni e guida docente. Il
+pack resta nello stato editoriale `reviewed`: richiede approvazione esplicita
+del docente. Resta inoltre il rehearsal end-to-end sul profilo hardware supportato,
 concordato dopo il completamento dei corsi dell'anno scolastico. Fino ad allora
 non viene creato il tag `course-v1` e non si dichiara validazione in classe.
 

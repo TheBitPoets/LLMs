@@ -1,8 +1,11 @@
 # LLMs
 
-> **Indice del corso:** il percorso 2026/27 su due livelli inizia in
-> [`COURSE.md`](COURSE.md). Il testo sorgente seguente resta una fonte
-> concettuale del corso, non la sua struttura curricolare.
+> **Dispense complete 2026/27:** [PDF studente](output/pdf/dispense-llm-studente.pdf) ·
+> [PDF docente](output/pdf/dispense-llm-docente.pdf) ·
+> [HTML studente](dist/dispense-llm-studente.html) ·
+> [Indice e percorso](COURSE.md). Il corso è anche un
+> [Content Pack TheBitLab v1](content/llm/README.md). Il testo storico seguente
+> resta una fonte concettuale e non è la struttura curricolare corrente.
 
 <table>
   <td>
@@ -5099,7 +5102,6 @@ La proliferazione di dati generati dagli LLM può potenzialmente influenzare gli
     </p>
   </li>
 </ul>
-
 
 
 

@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "id": "llm-activity-m08-post-training",
+  "titolo": "M08 — Post-training e reasoning",
+  "tipo": "debug-didattico",
+  "difficolta": "D",
+  "argomenti": [
+    "SFT",
+    "preferenze",
+    "RL e reasoning"
+  ],
+  "consegna": "Confronta risposta diretta, scomposizione e tool su problemi verificabili a budget fissato.",
+  "student_support_mode": "feedback-tecnico",
+  "contesto": {
+    "percorso": "percorso-annuale",
+    "uda": "uda-03-modelli-locali"
+  },
+  "content_ids": [
+    "llm-content-m08"
+  ],
+  "source_refs": [
+    {
+      "source_id": "llm-source-modules",
+      "href": "docs/course/modules/M08-post-training-reasoning.md"
+    }
+  ],
+  "assets": [
+    {
+      "type": "starter",
+      "path": "student/README.md",
+      "target_path": "README.md",
+      "visibility": "student",
+      "description": "Traccia e checklist consegnate allo studente"
+    },
+    {
+      "type": "teacher_only",
+      "path": "teacher/SOLUTION.md",
+      "visibility": "teacher",
+      "description": "Criteri, soluzione e domande per la discussione"
+    }
+  ],
+  "correzione": {
+    "compila": false,
+    "test": false,
+    "sandbox": false,
+    "ai_feedback": true
+  },
+  "metriche": {
+    "tempo_stimato_minuti": 75,
+    "traccia_tempo_dichiarato": true,
+    "traccia_sessioni_thebitlab": true,
+    "traccia_eventi_didattici": true,
+    "traccia_errori_compilazione": false
+  },
+  "rubrica": [
+    {
+      "criterio": "Evidenze riproducibili",
+      "punti": 4
+    },
+    {
+      "criterio": "Spiegazione e decisioni",
+      "punti": 3
+    },
+    {
+      "criterio": "Correttezza tecnica",
+      "punti": 2
+    },
+    {
+      "criterio": "Limiti dichiarati",
+      "punti": 1
+    }
+  ]
+}

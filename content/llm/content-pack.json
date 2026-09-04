@@ -1,0 +1,706 @@
+{
+  "schema_version": "thebitlab.content-pack.v1",
+  "id": "llm-pack-2026-2027",
+  "title": "LLM 2026/27 — Practitioner e AI Engineer",
+  "version": "0.9.0",
+  "status": "reviewed",
+  "language": "it",
+  "audience": {
+    "school_level": "secondaria-secondo-grado-e-formazione-adulti",
+    "subject": "Intelligenza artificiale e LLM",
+    "year": 0
+  },
+  "ownership": {
+    "content_origin": "original-course-material",
+    "redistribution_status": "project-license-to-review",
+    "editorial_copying_allowed": false
+  },
+  "references": [
+    {
+      "id": "llm-ref-course-curriculum",
+      "kind": "curriculum",
+      "role": "coverage-reference",
+      "provider": "school",
+      "title": "Curricolo LLM 2026/27 a doppio livello",
+      "access": "project",
+      "license_status": "reference-only"
+    },
+    {
+      "id": "llm-ref-local-ai-manning",
+      "kind": "book",
+      "role": "teacher-reference",
+      "provider": "manning",
+      "title": "Build Applications with Local AI Models (MEAP v6)",
+      "access": "licensed",
+      "license_status": "licensed-reference-only"
+    },
+    {
+      "id": "llm-ref-transformer",
+      "kind": "paper",
+      "role": "technical-reference",
+      "provider": "arxiv",
+      "title": "Attention Is All You Need",
+      "uri": "https://arxiv.org/abs/1706.03762",
+      "access": "public",
+      "license_status": "reference-only"
+    },
+    {
+      "id": "llm-ref-ollama",
+      "kind": "documentation",
+      "role": "technical-reference",
+      "provider": "ollama",
+      "title": "Ollama documentation",
+      "uri": "https://docs.ollama.com/",
+      "access": "public",
+      "license_status": "reference-and-license-aware-reuse"
+    },
+    {
+      "id": "llm-ref-papers",
+      "kind": "bibliography",
+      "role": "technical-reference",
+      "provider": "local",
+      "title": "Timeline ragionata dei paper LLM",
+      "access": "project",
+      "license_status": "project-license"
+    }
+  ],
+  "sources": [
+    {
+      "id": "llm-source-modules",
+      "kind": "source-package",
+      "label": "Dispense originali LLM 2026/27",
+      "type": "markdown",
+      "provider": "local",
+      "role": "approved-course-content",
+      "path": "docs/course/modules",
+      "files": [
+        "README.md",
+        "M00-orientamento.md",
+        "M01-ecosistema.md",
+        "M02-next-token.md",
+        "M03-token-byte-embedding.md",
+        "M04-apprendimento.md",
+        "M05-attention-transformer.md",
+        "M06-architetture-moderne.md",
+        "M07-dati-scaling.md",
+        "M08-post-training-reasoning.md",
+        "M09-pesi-formati-licenze.md",
+        "M10-hardware-quantizzazione.md",
+        "M11-ollama.md",
+        "M12-sampling-prompting.md",
+        "M13-app-conversazionali.md",
+        "M14-valutazione.md",
+        "M15-rag.md",
+        "M16-agenti-mcp.md",
+        "M17-fine-tuning.md",
+        "M18-sistemi-kernel.md",
+        "M19-capstone-pollicino.md"
+      ],
+      "license_status": "project-license-to-review",
+      "indexing_status": "ready"
+    },
+    {
+      "id": "llm-source-glossary",
+      "kind": "source-package",
+      "label": "Glossario originale LLM",
+      "type": "markdown",
+      "provider": "local",
+      "role": "approved-course-content",
+      "path": "docs/course/handbook",
+      "files": [
+        "GLOSSARY.md"
+      ],
+      "license_status": "project-license-to-review",
+      "indexing_status": "ready"
+    }
+  ],
+  "coverage": {
+    "path": "content/llm/COVERAGE.md",
+    "status": "reviewed"
+  },
+  "content_items": [
+    {
+      "id": "llm-content-m00",
+      "kind": "module",
+      "path": "docs/course/modules/M00-orientamento.md",
+      "order": 1,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "baseline",
+        "limiti-e-uso-responsabile"
+      ],
+      "activity_ids": [
+        "llm-activity-m00-baseline"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M00-orientamento.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m01",
+      "kind": "module",
+      "path": "docs/course/modules/M01-ecosistema.md",
+      "order": 2,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "modello",
+        "runtime",
+        "applicazione",
+        "locale-e-cloud"
+      ],
+      "activity_ids": [
+        "llm-activity-m01-ecosystem-map"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M01-ecosistema.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m02",
+      "kind": "module",
+      "path": "docs/course/modules/M02-next-token.md",
+      "order": 3,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "probabilita-e-previsione-next-token"
+      ],
+      "activity_ids": [
+        "llm-activity-m02-next-token"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M02-next-token.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m03",
+      "kind": "module",
+      "path": "docs/course/modules/M03-token-byte-embedding.md",
+      "order": 4,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "tokenizzazione",
+        "byte-ed-embedding"
+      ],
+      "activity_ids": [
+        "llm-activity-m03-token-inspector"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M03-token-byte-embedding.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m04",
+      "kind": "module",
+      "path": "docs/course/modules/M04-apprendimento.md",
+      "order": 5,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "loss",
+        "gradient-descent-e-generalizzazione"
+      ],
+      "activity_ids": [
+        "llm-activity-m04-learning-curve"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M04-apprendimento.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m05",
+      "kind": "module",
+      "path": "docs/course/modules/M05-attention-transformer.md",
+      "order": 6,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "attention-causale-e-blocco-transformer"
+      ],
+      "activity_ids": [
+        "llm-activity-m05-attention"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M05-attention-transformer.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-ref-transformer",
+          "role": "technical-reference",
+          "locator": "Scaled Dot-Product Attention"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m06",
+      "kind": "module",
+      "path": "docs/course/modules/M06-architetture-moderne.md",
+      "order": 7,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "rope",
+        "gqa",
+        "moe-e-long-context"
+      ],
+      "activity_ids": [
+        "llm-activity-m06-architectures"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M06-architetture-moderne.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m07",
+      "kind": "module",
+      "path": "docs/course/modules/M07-dati-scaling.md",
+      "order": 8,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "dataset",
+        "scaling-law-e-data-governance"
+      ],
+      "activity_ids": [
+        "llm-activity-m07-data-card"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M07-dati-scaling.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m08",
+      "kind": "module",
+      "path": "docs/course/modules/M08-post-training-reasoning.md",
+      "order": 9,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "sft",
+        "preferenze",
+        "rl-e-reasoning"
+      ],
+      "activity_ids": [
+        "llm-activity-m08-post-training"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M08-post-training-reasoning.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m09",
+      "kind": "module",
+      "path": "docs/course/modules/M09-pesi-formati-licenze.md",
+      "order": 10,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "model-card",
+        "formati-e-licenze"
+      ],
+      "activity_ids": [
+        "llm-activity-m09-model-selection"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M09-pesi-formati-licenze.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-ref-local-ai-manning",
+          "role": "teacher-reference",
+          "locator": "indice e concetti pertinenti; nessuna riproduzione"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m10",
+      "kind": "module",
+      "path": "docs/course/modules/M10-hardware-quantizzazione.md",
+      "order": 11,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "memoria",
+        "throughput-e-quantizzazione"
+      ],
+      "activity_ids": [
+        "llm-activity-m10-memory-budget"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M10-hardware-quantizzazione.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-ref-local-ai-manning",
+          "role": "teacher-reference",
+          "locator": "indice e concetti pertinenti; nessuna riproduzione"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m11",
+      "kind": "module",
+      "path": "docs/course/modules/M11-ollama.md",
+      "order": 12,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "ollama",
+        "api-locale-e-riproducibilita"
+      ],
+      "activity_ids": [
+        "llm-activity-m11-ollama"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M11-ollama.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-ref-local-ai-manning",
+          "role": "teacher-reference",
+          "locator": "indice e concetti pertinenti; nessuna riproduzione"
+        },
+        {
+          "id": "llm-ref-ollama",
+          "role": "technical-reference",
+          "locator": "API and model management"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m12",
+      "kind": "module",
+      "path": "docs/course/modules/M12-sampling-prompting.md",
+      "order": 13,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "temperature",
+        "top-k",
+        "top-p-e-output-strutturato"
+      ],
+      "activity_ids": [
+        "llm-activity-m12-sampling"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M12-sampling-prompting.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m13",
+      "kind": "module",
+      "path": "docs/course/modules/M13-app-conversazionali.md",
+      "order": 14,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "chat",
+        "stato",
+        "streaming-ed-error-handling"
+      ],
+      "activity_ids": [
+        "llm-activity-m13-chatbot"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M13-app-conversazionali.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-ref-local-ai-manning",
+          "role": "teacher-reference",
+          "locator": "indice e concetti pertinenti; nessuna riproduzione"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m14",
+      "kind": "module",
+      "path": "docs/course/modules/M14-valutazione.md",
+      "order": 15,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "dataset",
+        "metriche",
+        "judge-e-regressione"
+      ],
+      "activity_ids": [
+        "llm-activity-m14-evaluation"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M14-valutazione.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-ref-local-ai-manning",
+          "role": "teacher-reference",
+          "locator": "indice e concetti pertinenti; nessuna riproduzione"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m15",
+      "kind": "module",
+      "path": "docs/course/modules/M15-rag.md",
+      "order": 16,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "retrieval",
+        "grounding-e-prompt-injection"
+      ],
+      "activity_ids": [
+        "llm-activity-m15-rag"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M15-rag.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-ref-local-ai-manning",
+          "role": "teacher-reference",
+          "locator": "indice e concetti pertinenti; nessuna riproduzione"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m16",
+      "kind": "module",
+      "path": "docs/course/modules/M16-agenti-mcp.md",
+      "order": 17,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "tool-use",
+        "autorizzazioni-e-mcp"
+      ],
+      "activity_ids": [
+        "llm-activity-m16-safe-agent"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M16-agenti-mcp.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m17",
+      "kind": "module",
+      "path": "docs/course/modules/M17-fine-tuning.md",
+      "order": 18,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "lora",
+        "distillazione-e-scelta-dell-adattamento"
+      ],
+      "activity_ids": [
+        "llm-activity-m17-adaptation"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M17-fine-tuning.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m18",
+      "kind": "module",
+      "path": "docs/course/modules/M18-sistemi-kernel.md",
+      "order": 19,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "prefill",
+        "decode",
+        "kv-cache-e-kernel"
+      ],
+      "activity_ids": [
+        "llm-activity-m18-inference-kernel"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M18-sistemi-kernel.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    },
+    {
+      "id": "llm-content-m19",
+      "kind": "module",
+      "path": "docs/course/modules/M19-capstone-pollicino.md",
+      "order": 20,
+      "status": "reviewed",
+      "curriculum_topics": [
+        "capstone",
+        "piccolo-lm-e-pollicino"
+      ],
+      "activity_ids": [
+        "llm-activity-m19-pollicino"
+      ],
+      "source_refs": [
+        {
+          "id": "llm-source-modules",
+          "role": "content-origin",
+          "locator": "docs/course/modules/M19-capstone-pollicino.md"
+        },
+        {
+          "id": "llm-ref-papers",
+          "role": "technical-reference",
+          "locator": "docs/course/research/paper-timeline.md"
+        }
+      ]
+    }
+  ],
+  "course_designs": [
+    {
+      "id": "llm-course-2026-2027",
+      "path": "doc/course_designs/llm_2026_2027.json",
+      "status": "reviewed"
+    }
+  ],
+  "activity_roots": [
+    "activities/llm"
+  ],
+  "policies": {
+    "provenance_required": true,
+    "teacher_review_required_before_publish": true,
+    "student_teacher_asset_separation_required": true,
+    "ai_is_not_primary_source": true,
+    "restricted_source_copying_forbidden": true
+  }
+}

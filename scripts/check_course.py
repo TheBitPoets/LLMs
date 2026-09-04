@@ -33,6 +33,53 @@ def main() -> int:
             fail(f"{path}: verifica/rubrica mancante", errors)
         if "Laboratorio" not in text and "Attività" not in text and expected != "M19":
             fail(f"{path}: laboratorio/attività mancante", errors)
+        if len(text.split()) < 500:
+            fail(f"{path}: dispensa troppo breve ({len(text.split())} parole)", errors)
+        for heading in (
+            "Problema iniziale",
+            "Esempio minimo",
+            "Esercizi A–F",
+            "Sintesi inclusiva",
+            "Fonti e collegamenti",
+        ):
+            if heading not in text:
+                fail(f"{path}: sezione richiesta mancante: {heading}", errors)
+
+    pack_path = ROOT / "content/llm/content-pack.json"
+    try:
+        pack = json.loads(pack_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        fail(f"Content Pack non leggibile: {exc}", errors)
+        pack = {}
+    if pack.get("schema_version") != "thebitlab.content-pack.v1":
+        fail("Content Pack: schema_version non conforme", errors)
+    if pack.get("status") not in {"draft", "reviewed", "approved"}:
+        fail("Content Pack: stato editoriale non valido", errors)
+    content_items = pack.get("content_items", [])
+    if not isinstance(content_items, list) or len(content_items) != 20:
+        fail(f"Content Pack: attesi 20 content item, trovati {len(content_items) if isinstance(content_items, list) else 'n/d'}", errors)
+    activity_ids = {
+        aid
+        for item in content_items if isinstance(item, dict)
+        for aid in item.get("activity_ids", []) if isinstance(aid, str)
+    }
+    activities = sorted((ROOT / "activities/llm").glob("*/activity.json"))
+    if len(activities) != 20:
+        fail(f"attese 20 Activity TheBitLab, trovate {len(activities)}", errors)
+    for activity_path in activities:
+        try:
+            activity = json.loads(activity_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            fail(f"{activity_path}: JSON non valido: {exc}", errors)
+            continue
+        if activity.get("id") not in activity_ids:
+            fail(f"{activity_path}: id non collegato dal Content Pack", errors)
+        if activity.get("schema_version") != "1.0":
+            fail(f"{activity_path}: schema Activity non supportato", errors)
+        for asset in activity.get("assets", []):
+            target = activity_path.parent / str(asset.get("path", ""))
+            if not target.is_file():
+                fail(f"{activity_path}: asset mancante {asset.get('path')}", errors)
 
     for path in ROOT.rglob("*.md"):
         text = path.read_text(encoding="utf-8")
@@ -52,6 +99,11 @@ def main() -> int:
         for marker in ("prefers-reduced-motion", "Domanda diagnostica", "Limite della visuale"):
             if marker not in text:
                 fail(f"{path}: marker visuale mancante: {marker}", errors)
+
+    static_visuals = sorted((ROOT / "visuals/static").glob("*.svg"))
+    rendered_visuals = sorted((ROOT / "visuals/static/rendered").glob("*.png"))
+    if len(static_visuals) != 7 or len(rendered_visuals) != 7:
+        fail(f"attese 7 figure statiche SVG+PNG, trovate {len(static_visuals)}+{len(rendered_visuals)}", errors)
 
     json.loads((ROOT / "labs/fixtures/rag-corpus.json").read_text(encoding="utf-8"))
     for line_no, line in enumerate((ROOT / "labs/fixtures/predictions.jsonl").read_text(encoding="utf-8").splitlines(), 1):
@@ -74,7 +126,10 @@ def main() -> int:
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    print(f"COURSE CHECK OK: {len(modules)} moduli, {len(visuals)} visuali, link locali validi")
+    print(
+        f"COURSE CHECK OK: {len(modules)} dispense, {len(activities)} Activity, "
+        f"{len(visuals)} visuali interattive, {len(static_visuals)} figure statiche, link locali validi"
+    )
     return 0
 
 
