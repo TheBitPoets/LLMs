@@ -26,12 +26,13 @@ non vengono inventati TTFT, token/s, memoria, digest o risultati di qualità.
 
 **Course content complete / hardware validation pending.**
 
-Il branch può essere sottoposto a review e unito come prima edizione candidata.
-Non creare il tag `course-v1` e non dichiarare “validato in classe” finché:
+La prima edizione candidata è stata integrata in `main` con la PR #1 e commit
+di merge `af41651b09880981506a83d7d53a4f22bde061bf`. Non creare il tag
+`course-v1` e non dichiarare “validato in classe” finché:
 
 1. il rehearsal end-to-end non produce evidence package;
-2. una revisione della draft PR non trova finding bloccanti;
-3. il docente non registra tempo reale e problemi del primo pilot.
+2. il docente non registra tempo reale e problemi del primo pilot;
+3. gli eventuali finding del rehearsal non sono chiusi o accettati esplicitamente.
 
 Le implementazioni neurali avanzate di Pollicino restano roadmap del progetto
 esterno; il corso include e verifica solo il codec didattico/statistico presente
