@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Da ollama run alla risposta</title>
+  <style>
+    :root{color-scheme:light dark;--bg:#f6f8fa;--surface:#fff;--text:#1f2328;--muted:#59636e;--border:#d0d7de;--blue:#0969da;--blue-soft:#ddf4ff;--green:#1a7f37;--green-soft:#dafbe1;--orange:#bc4c00;--orange-soft:#fff1e5;--red:#cf222e;--red-soft:#ffebe9;--shadow:0 8px 24px rgba(140,149,159,.18)}
+    @media(prefers-color-scheme:dark){:root{--bg:#0d1117;--surface:#161b22;--text:#e6edf3;--muted:#9da7b1;--border:#30363d;--blue:#58a6ff;--blue-soft:#102a44;--green:#3fb950;--green-soft:#12351f;--orange:#ffa657;--orange-soft:#3a2415;--red:#ff7b72;--red-soft:#3d1519;--shadow:none}}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 system-ui,sans-serif}main{width:min(1120px,94vw);margin:2rem auto 4rem}h1,h2{line-height:1.2}.lead{max-width:78ch;color:var(--muted)}.stage,.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px}.stage{padding:clamp(1rem,3vw,2rem);box-shadow:var(--shadow)}
+    .settings{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1.2rem}.setting{display:flex;flex-direction:column;gap:.3rem}.setting label{font-weight:650}.setting input,.setting select{width:100%;font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.5rem}.setting output{color:var(--muted)}
+    .fit{padding:.8rem 1rem;border-radius:10px;background:var(--green-soft);border:1px solid var(--green);margin-bottom:1rem}.fit.no{background:var(--red-soft);border-color:var(--red)}.meter{height:1.1rem;background:var(--bg);border:1px solid var(--border);border-radius:999px;overflow:hidden;margin:.45rem 0}.meter>span{display:block;height:100%;background:var(--green);transition:width .35s}.fit.no .meter>span{background:var(--red)}
+    .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;align-items:stretch}.node{border:1px solid var(--border);border-radius:10px;padding:.8rem;min-height:142px;background:var(--bg);position:relative;transition:transform .2s}.node.current{border:2px solid var(--blue);background:var(--blue-soft);transform:translateY(-4px)}.node.done{border-color:var(--green)}.num{display:grid;place-items:center;width:1.65rem;height:1.65rem;border-radius:50%;background:var(--border);font-weight:750;margin-bottom:.5rem}.current .num{background:var(--blue);color:#fff}.node small{display:block;color:var(--muted);margin-top:.35rem}
+    .explanation{border-left:5px solid var(--blue);padding:.2rem 1rem;min-height:7rem;margin:1.2rem 0}.explanation h2{margin:.2rem 0}.controls{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}.controls button{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.55rem .8rem;cursor:pointer}.controls button:hover,.controls button:focus-visible{border-color:var(--blue);outline:3px solid var(--blue-soft)}button:disabled{opacity:.45}.progress{margin-left:auto;color:var(--muted)}
+    .math,.question{margin-top:1.3rem;padding:1rem;border-radius:10px;background:var(--bg)}code{font-size:.96em}.legend{display:flex;gap:1rem;flex-wrap:wrap;color:var(--muted);font-size:.9rem}.dot{display:inline-block;width:.7rem;height:.7rem;border-radius:50%;margin-right:.3rem;background:var(--green)}.dot.orange{background:var(--orange)}
+    @media(max-width:850px){.settings{grid-template-columns:1fr 1fr}.pipeline{grid-template-columns:1fr}.node{min-height:auto}.progress{width:100%;margin-left:0}}@media(max-width:520px){.settings{grid-template-columns:1fr}}
+    @media(prefers-reduced-motion:reduce){.node,.meter>span{transition:none}}
+    @media print{body{background:#fff;color:#000}.controls{display:none}.stage{box-shadow:none}.settings{grid-template-columns:repeat(4,1fr)}.pipeline{grid-template-columns:repeat(5,1fr)}.node{min-height:135px}.node.current{transform:none;background:#eee}}
+  </style>
+</head>
+<body><main>
+  <h1>Da <code>ollama run</code> alla risposta</h1>
+  <p class="lead">Il file del modello è sul disco, ma per calcolare deve essere caricato in memoria. Modifica i valori, verifica se il modello entra e poi segui una richiesta dall'app fino ai token in streaming.</p>
+  <section class="stage" aria-labelledby="step-title">
+    <div class="settings">
+      <div class="setting"><label for="parameters">Parametri</label><select id="parameters"><option value="2">2B</option><option value="4" selected>4B</option><option value="8">8B</option><option value="14">14B</option><option value="32">32B</option></select></div>
+      <div class="setting"><label for="bits">Quantizzazione</label><select id="bits"><option value="4" selected>4 bit</option><option value="8">8 bit</option><option value="16">16 bit</option></select></div>
+      <div class="setting"><label for="context">Contesto</label><input id="context" type="range" min="2" max="64" step="2" value="8"><output id="context-value"></output></div>
+      <div class="setting"><label for="memory">Memoria disponibile</label><input id="memory" type="range" min="4" max="64" step="2" value="16"><output id="memory-value"></output></div>
+    </div>
+    <div class="fit" id="fit" aria-live="polite"><strong id="fit-title"></strong><div class="meter" aria-hidden="true"><span id="meter-fill"></span></div><span id="fit-text"></span></div>
+    <div class="legend"><span><i class="dot"></i>stima dei pesi</span><span><i class="dot orange"></i>KV cache e margine del runtime non sono gratuiti</span></div>
+    <div class="pipeline" id="pipeline"></div>
+    <div class="explanation" aria-live="polite"><h2 id="step-title"></h2><p id="step-text"></p><p id="observe"></p></div>
+    <div class="controls"><button id="previous">← Precedente</button><button id="play">Riproduci</button><button id="next">Successivo →</button><button id="reset">Ricomincia</button><span class="progress" id="progress"></span></div>
+    <div class="math"><strong>Vista tecnica</strong><p><code>memoria_pesi ≈ parametri × bit / 8</code>. La visuale aggiunge un margine didattico per runtime e KV cache che cresce con il contesto. È una stima iniziale, non sostituisce una misura con <code>ollama ps</code> o gli strumenti del sistema.</p></div>
+    <div class="question"><strong>Domanda diagnostica</strong><p>Un modello da 8 GB salvato sul disco entra sicuramente in un computer con 8 GB di memoria?</p><details><summary>Mostra la risposta</summary><p>No. Oltre ai pesi servono memoria per sistema operativo, runtime, buffer, contesto e KV cache. Occorre margine; quando manca, l'esecuzione rallenta drasticamente o fallisce.</p></details></div>
+  </section>
+  <p><strong>Limite della visuale:</strong> la KV cache reale dipende da architettura, numero di layer, dimensione degli head, precisione, batch e runtime. La formula visualizzata serve a scartare scelte impossibili, non a promettere prestazioni.</p>
+  <p><small>Adattamento didattico originale. Concetti confrontati con K. Kamigusa, <em>Build Applications with Local AI Models on a Mac</em>, MEAP V06, figura 3.1 e sezioni 4.3–4.4; nessuna figura editoriale è incorporata.</small></p>
+<script>
+  const steps=[
+    {name:"Richiesta",label:"App o terminale",small:"Prompt + parametri",text:"Il client invia il prompt all'API locale. Il runtime non è il modello: è il programma che lo gestisce.",observe:"Osserva: indirizzo, modello richiesto, template e parametri."},
+    {name:"Runtime",label:"Server Ollama",small:"Riceve e orchestra",text:"Ollama riceve la richiesta, individua il modello e prepara l'esecuzione.",observe:"Osserva: servizio attivo, log, versione e modello esatto."},
+    {name:"Caricamento",label:"Disco → memoria",small:"Pesi e metadati",text:"Se non è già residente, il modello viene letto dal disco e caricato in memoria. Spazio su disco e memoria disponibile sono risorse diverse.",observe:"Osserva: tempo di caricamento e memoria realmente occupata."},
+    {name:"Inferenza",label:"Prefill + decode",small:"CPU / GPU",text:"Il prompt viene elaborato nel prefill; poi il decode produce un token alla volta riusando la KV cache.",observe:"Osserva: tempo al primo token e token al secondo separatamente."},
+    {name:"Streaming",label:"Token nell'app",small:"Risposta incrementale",text:"I token tornano progressivamente al client. Lo streaming migliora la percezione di velocità, non riduce necessariamente il lavoro totale.",observe:"Osserva: errori, stop condition e risposta completa."}
+  ];
+  let current=0,timer=null;const $=id=>document.getElementById(id);
+  function estimate(){
+    const p=Number($("parameters").value),bits=Number($("bits").value),ctx=Number($("context").value),available=Number($("memory").value);
+    const weights=p*bits/8; const overhead=Math.max(1.2,weights*.12)+ctx*.045; const total=weights+overhead; const fits=total<=available*.85;
+    $("context-value").value=`${ctx}k token`; $("memory-value").value=`${available} GB`; $("fit").classList.toggle("no",!fits);
+    $("fit-title").textContent=fits?"Stima: configurazione plausibile":"Stima: memoria insufficiente o senza margine";
+    $("fit-text").textContent=`Pesi ≈ ${weights.toFixed(1)} GB; totale didattico ≈ ${total.toFixed(1)} GB su ${available} GB disponibili.`;
+    $("meter-fill").style.width=`${Math.min(100,total/available*100)}%`;
+  }
+  function render(){
+    $("pipeline").innerHTML=steps.map((s,i)=>`<div class="node ${i===current?'current':''} ${i<current?'done':''}"><span class="num">${i+1}</span><strong>${s.name}</strong><div>${s.label}</div><small>${s.small}</small></div>`).join('');
+    $("step-title").textContent=`${current+1}. ${steps[current].name}`; $("step-text").textContent=steps[current].text; $("observe").innerHTML=`<strong>${steps[current].observe.split(':')[0]}:</strong>${steps[current].observe.split(':').slice(1).join(':')}`;
+    $("previous").disabled=current===0; $("next").disabled=current===steps.length-1; $("play").textContent=timer?"Pausa":"Riproduci"; $("progress").textContent=`Passo ${current+1} di ${steps.length}`;estimate();
+  }
+  for(const id of ["parameters","bits","context","memory"])$(id).addEventListener("input",render);
+  $("previous").onclick=()=>{current=Math.max(0,current-1);render()};$("next").onclick=()=>{current=Math.min(steps.length-1,current+1);render()};$("reset").onclick=()=>{clearInterval(timer);timer=null;current=0;render()};
+  $("play").onclick=()=>{if(timer){clearInterval(timer);timer=null;render();return}if(current===steps.length-1)current=0;timer=setInterval(()=>{if(current===steps.length-1){clearInterval(timer);timer=null}else current++;render()},1900);render()};render();
+</script></main></body></html>
