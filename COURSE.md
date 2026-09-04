@@ -106,9 +106,13 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 - [Rehearsal end-to-end](docs/course/rehearsal/README.md)
 - [Stato di rilascio e gate residuo](docs/course/release-status.md)
 
-## Prossimi passi di progettazione
+## Stato e manutenzione
 
-1. Scrivere i venti moduli seguendo la mappa curricolare.
-2. Implementare i laboratori Ollama, valutazione e Pollicino prioritari.
-3. Preparare verifiche, rubriche e progetti finali per i due livelli.
-4. Collaudare il percorso end-to-end sui profili hardware supportati.
+La prima edizione candidata contiene moduli, laboratori, visuali, valutazioni e
+guida docente. Resta il rehearsal end-to-end sul profilo hardware supportato,
+concordato dopo il completamento dei corsi dell'anno scolastico. Fino ad allora
+non viene creato il tag `course-v1` e non si dichiara validazione in classe.
+
+Il catalogo dei modelli è uno snapshot: aggiornarlo senza riscrivere i concetti
+stabili. Evidenze del pilot, tempi reali e failure case alimenteranno la seconda
+edizione.
