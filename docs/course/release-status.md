@@ -8,7 +8,7 @@ Data audit documentale: 4 settembre 2026.
 - 20 moduli Practitioner/AI Engineer;
 - snapshot modelli datato e fonti ufficiali;
 - timeline ragionata dei paper;
-- sei visuali interattive originali;
+- dieci visuali interattive originali;
 - dodici laboratori minimi tramite runner standard-library;
 - fixture, baseline e test negativi;
 - diagnostica, prova finale, rubriche e guida docente;
@@ -36,4 +36,3 @@ Non creare il tag `course-v1` e non dichiarare “validato in classe” finché:
 Le implementazioni neurali avanzate di Pollicino restano roadmap del progetto
 esterno; il corso include e verifica solo il codec didattico/statistico presente
 nel runner e non confonde questo risultato con un Byte Transformer completato.
-
