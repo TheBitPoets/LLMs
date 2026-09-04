@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "timestamp_utc": "YYYY-MM-DDTHH:MM:SSZ",
+  "repository_commit": "REQUIRED",
+  "runner": {"python": "REQUIRED", "ollama": "OPTIONAL"},
+  "hardware": {"os": "REQUIRED", "cpu": "REQUIRED", "gpu": "OPTIONAL", "memory_bytes": 0},
+  "model": {"name": "REQUIRED_FOR_MODEL_LABS", "tag": "", "digest": "", "quantization": "", "license_url": ""},
+  "generation": {"template": "", "temperature": 0, "top_p": 1, "seed": 7, "context_tokens": 0},
+  "fixtures": [{"path": "", "sha256": ""}],
+  "metrics": {},
+  "evidence_kind": "measured|simulated|expected",
+  "limitations": []
+}
+
