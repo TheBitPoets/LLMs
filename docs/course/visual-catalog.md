@@ -13,6 +13,10 @@ tastiera o stampa.
 | [Dal testo ai numeri](../../visuals/token-byte-embedding-lab.html) | M03 | Il modello vede parole; caratteri, byte, token e ID sono equivalenti. | Testo libero, quattro viste, embedding illustrativo. | Sintesi originale dei meccanismi di tokenizzazione ed embedding. |
 | [Attention: Query, Key e Value](../../visuals/attention-qkv-lab.html) | M05 | Attention recupera una parola o costituisce da sola una spiegazione del modello. | Query selezionabile, maschera causale, score, softmax e somma dei Value. | Vaswani et al., *Attention Is All You Need* (2017). |
 | [Pollicino: dalle probabilità ai bit](../../visuals/pollicino-probabilities-to-bits.html) | M02, M19 | Una previsione probabilistica non può contribuire a una ricostruzione esatta. | Messaggio A/B modificabile, intervalli progressivi, bit e decodifica. | Codifica aritmetica adattiva e roadmap `kinderp/pollicino`; esempio originale. |
+| [MHA, GQA e MQA](../../visuals/mha-gqa-mqa-memory.html) | M06, M10, M18 | Parametri totali, attivi e KV cache sono la stessa quantità. | Query head, gruppi KV, contesto e stima memoria. | GQA e model config moderne; esempio originale. |
+| [Sampling controls](../../visuals/sampling-controls-lab.html) | M02, M12 | Sampling e temperature migliorano la conoscenza del modello. | Temperature, top-k, top-p, seed e 12 estrazioni. | Strategie di decoding; esempio originale. |
+| [RAG: dalla domanda alla citazione](../../visuals/rag-evidence-journey.html) | M14, M15, M16 | Una fonte recuperata è automaticamente corretta e può impartire istruzioni. | Fonte trovata/assente/ostile e pipeline in cinque gate. | RAG, provenance bundle e prompt-injection defense. |
+| [Prefill, decode e KV cache](../../visuals/prefill-decode-kv-cache.html) | M10, M13, M18 | Prompt e output hanno lo stesso profilo di costo; streaming elimina il calcolo. | Lunghezze prompt/output e cambio fase. | Serving autoregressivo e KV cache; esempio originale. |
 
 ## Come usarle in classe
 
@@ -35,10 +39,8 @@ registrano:
 - limite dichiarato e verifica diagnostica;
 - assenza o autorizzazione di eventuale materiale editoriale incorporato.
 
-## Backlog prioritario
+## Backlog successivo non bloccante
 
-| Priorità | Visuale | Modulo | Stato atteso |
-| ---: | --- | --- | --- |
-| 1 | MHA, MQA e GQA | M06 | Confronto della condivisione KV e del costo di memoria. |
-| 2 | Sampling lab | M12 | Temperature, top-k, top-p e seed sulla stessa distribuzione. |
-| 3 | RAG con citazioni | M15 | Query, retrieval, reranking, contesto, risposta e astensione. |
+Le nove visuali coprono il nucleo concettuale e i laboratori principali. La
+seconda iterazione potrà aggiungere loss landscape, RoPE tridimensionale,
+post-training, formati GGUF/safetensors e un profiler con tracce hardware reali.
