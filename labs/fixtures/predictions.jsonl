@@ -1,0 +1,7 @@
+{"id":"b1","category":"baseline","expected":"roma","predicted":"roma"}
+{"id":"b2","category":"baseline","expected":"8","predicted":"7"}
+{"id":"n1","category":"normal","expected":"ollama","predicted":"Ollama"}
+{"id":"n2","category":"normal","expected":"token","predicted":"token"}
+{"id":"e1","category":"edge","expected":"astensione","predicted":"risposta inventata"}
+{"id":"e2","category":"edge","expected":"locale","predicted":"locale"}
+

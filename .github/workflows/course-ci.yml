@@ -1,0 +1,37 @@
+name: Course CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Structural checks
+        run: python3 scripts/check_course.py
+      - name: Unit tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Parse JavaScript in visual labs
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          for (const name of fs.readdirSync('visuals').filter(x => x.endsWith('.html'))) {
+            const html = fs.readFileSync(`visuals/${name}`, 'utf8');
+            for (const match of html.matchAll(/<script>([\s\S]*?)<\/script>/gi)) {
+              new Function(match[1]);
+            }
+            console.log(`${name}: JavaScript parses`);
+          }
+          NODE
+

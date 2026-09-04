@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+evidence/
+reports/
+.DS_Store
+
