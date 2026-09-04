@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "id": "llm-activity-m00-baseline",
+  "titolo": "M00 — Orientamento e baseline",
+  "tipo": "studio-guidato",
+  "difficolta": "A",
+  "argomenti": [
+    "baseline",
+    "limiti e uso responsabile"
+  ],
+  "consegna": "Costruisci baseline, ipotesi e manifest di evidenza per un compito LLM scelto.",
+  "student_support_mode": "senza-aiuto",
+  "contesto": {
+    "percorso": "percorso-annuale",
+    "uda": "uda-01-fondamenti"
+  },
+  "content_ids": [
+    "llm-content-m00"
+  ],
+  "source_refs": [
+    {
+      "source_id": "llm-source-modules",
+      "href": "docs/course/modules/M00-orientamento.md"
+    }
+  ],
+  "assets": [
+    {
+      "type": "starter",
+      "path": "student/README.md",
+      "target_path": "README.md",
+      "visibility": "student",
+      "description": "Traccia e checklist consegnate allo studente"
+    },
+    {
+      "type": "teacher_only",
+      "path": "teacher/SOLUTION.md",
+      "visibility": "teacher",
+      "description": "Criteri, soluzione e domande per la discussione"
+    }
+  ],
+  "correzione": {
+    "compila": false,
+    "test": false,
+    "sandbox": false,
+    "ai_feedback": false
+  },
+  "metriche": {
+    "tempo_stimato_minuti": 45,
+    "traccia_tempo_dichiarato": true,
+    "traccia_sessioni_thebitlab": true,
+    "traccia_eventi_didattici": true,
+    "traccia_errori_compilazione": false
+  },
+  "rubrica": [
+    {
+      "criterio": "Evidenze riproducibili",
+      "punti": 4
+    },
+    {
+      "criterio": "Spiegazione e decisioni",
+      "punti": 3
+    },
+    {
+      "criterio": "Correttezza tecnica",
+      "punti": 2
+    },
+    {
+      "criterio": "Limiti dichiarati",
+      "punti": 1
+    }
+  ]
+}

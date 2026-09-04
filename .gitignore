@@ -3,4 +3,5 @@ __pycache__/
 evidence/
 reports/
 .DS_Store
-
+tmp/
+dist/*.pdf

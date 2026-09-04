@@ -1,46 +1,99 @@
-# M11 - Ollama e inferenza locale
+# M11 — Ollama e inferenza locale
 
-**Domanda guida:** come avviamo e controlliamo un modello locale?  
-**Durata:** 4 ore Practitioner; 8 ore AI Engineer.  
-**Prerequisiti:** M09–M10; terminale di base.
+**Domanda guida:** come scegliamo, eseguiamo e documentiamo un modello locale?
+**Durata:** 4 ore Practitioner; 8 ore AI Engineer.
+**Prerequisiti:** M09–M10; terminale e HTTP di base.
 
 ## Obiettivi osservabili
 
-Installare/verificare Ollama, eseguire pull/run/show/list/ps, chiamare l'API,
-creare un Modelfile e produrre un evidence report. L'AI Engineer analizza log,
-streaming, timeout, keep-alive e riproducibilità.
+Saprai installare e verificare Ollama, acquisire un modello compatibile, usare CLI e API, fissare parametri, osservare streaming e gestire errori. Il livello AI Engineer documenta template, opzioni, lifecycle, concorrenza e riproducibilità.
 
-## Lezione intuitiva
+## Problema iniziale
 
-Ollama è il runtime/server, non il modello. Riceve una richiesta, carica pesi e
-metadati, esegue prefill/decode e invia token al client. Aprire
-[il ciclo della richiesta](../../../visuals/ollama-request-and-memory.html).
+Digitare `ollama run nome` produce una risposta, ma non certifica quale artefatto sia stato usato, quanta memoria richieda o se il test sia ripetibile. Il laboratorio trasforma la demo in un esperimento tracciabile.
 
-Il primo modello non va fissato per sempre nel testo. Al momento del laboratorio
-si consulta lo snapshot corrente e si sceglie una taglia compatibile. Sul Mac
-M4 Pro 36 GB si parte didatticamente da 4B–9B quantizzati; su macchine 8–16 GB
-da 0.8B–4B, poi si misura.
+## Teoria Practitioner
 
-## Laboratorio Practitioner
+Ollama gestisce modelli, avvia un server locale ed espone API. Prima verifica la documentazione corrente: comandi, tag e disponibilità cambiano. `ollama list` mostra gli artefatti locali; `ollama show` ne espone informazioni; `ollama run` apre una sessione; l'API consente a un'applicazione di inviare richieste senza simulare la tastiera.
 
-1. registrare OS/hardware e versione `ollama --version`;
-2. verificare il servizio e la porta locale;
-3. `ollama pull <tag>` e registrare digest/dimensione;
-4. `ollama show <tag>` prima di `ollama run <tag>`;
-5. chiamare `/api/generate` con streaming disabilitato, poi abilitato;
-6. salvare prompt, options, tempi e risposta in JSONL;
-7. ripetere offline dopo il download.
+Apri [il ciclo della richiesta](../../../visuals/ollama-request-and-memory.html). Il prompt passa al template chat e al tokenizer; il runtime carica i pesi, esegue prefill e poi decode; la risposta può arrivare in streaming. “localhost” limita il percorso di rete solo se bind, proxy e applicazioni sono configurati correttamente.
 
-Non inserire dati personali. Un Modelfile controlla base, template/system e
-parametri, non modifica magicamente la conoscenza dei pesi.
+## Esempio minimo
 
-## Test e ripristino
+```bash
+ollama --version
+ollama list
+ollama show MODELLO
+ollama run MODELLO "Rispondi soltanto con OK"
+```
 
-Test negativi: servizio spento, tag errato, timeout, JSON non valido e memoria
-insufficiente. Il client deve mostrare un errore utile e non perdere il report.
-Ripristino: verificare servizio, `ollama list`, spazio disco e ridurre tag/context.
+Sostituisci `MODELLO` con un tag scelto dal catalogo **verificato il giorno della prova**. Conserva output dei primi tre comandi e il digest quando disponibile. Non inserire il nome di un modello nel corso stabile: il catalogo datato gestisce le parti volatili.
 
-## Verifica
+Una richiesta API tipica:
 
-Esecuzione 3, manifest 2, API/stream 2, error handling 2, privacy 1. Fonte:
-[Ollama documentation](https://docs.ollama.com/) e libro Kamigusa posseduto.
+```bash
+curl http://localhost:11434/api/chat -d '{
+  "model": "MODELLO",
+  "messages": [{"role": "user", "content": "Rispondi con OK"}],
+  "stream": false,
+  "options": {"temperature": 0}
+}'
+```
+
+## Esempio realistico
+
+Costruisci un piccolo client Python con timeout, controllo dello status HTTP, parsing esplicito e log senza contenuto sensibile. Esegui una fixture di dieci prompt, registra configurazione e tempi e salva output separati. Se il server non risponde, l'app deve mostrare un errore utile; non deve bloccarsi indefinitamente.
+
+## Livello AI Engineer: template e lifecycle
+
+L'API riceve ruoli e opzioni, ma il runtime deve serializzarli nel template previsto dal checkpoint. Un template incompatibile può degradare un ottimo modello. Ispeziona il Modelfile o i metadati e differenzia system prompt, messaggi, stop token e parametri di sampling.
+
+Il lifecycle comprende download, verifica, caricamento, keep-alive, scaricamento e aggiornamento. Un tag mobile può cambiare: per benchmark conserva digest, data e versione Ollama. Con richieste concorrenti misura queueing e memoria; il throughput aggregato può crescere mentre la latenza per utente peggiora.
+
+## Gestione sicura degli errori
+
+- timeout di connessione e risposta;
+- modello assente o non caricabile;
+- memoria insufficiente;
+- risposta troncata o JSON invalido;
+- stream interrotto;
+- server esposto su interfacce non previste;
+- aggiornamento che cambia comportamento.
+
+Ogni errore deve produrre messaggio, codice o evidenza diagnostica senza mostrare segreti.
+
+## Errori frequenti
+
+- Copiare un comando con modello non adatto al proprio hardware.
+- Non registrare digest, versione e template.
+- Assumere che `temperature: 0` garantisca bitwise determinism.
+- Usare retry infiniti.
+- Pubblicare il server sulla LAN senza autenticazione o policy.
+
+## Esercizi A–F
+
+- **A:** verifica servizio, elenco e metadati.
+- **B:** modifica un parametro e confronta output.
+- **C:** scrivi un client con timeout e validazione.
+- **D:** diagnostica quattro failure case preparati.
+- **E:** costruisci un'app locale con streaming e log riproducibile.
+- **F:** realizza serving controllato con benchmark, policy e rollback.
+
+## Laboratorio
+
+Segui `docs/course/rehearsal/README.md` quando sarà disponibile il Mac M4 Pro 36 GB. Prima del rehearsal puoi esercitarti con `python3 labs/course_lab.py ollama-request`, che costruisce e valida una richiesta senza dichiarare esecuzione hardware.
+
+## Verifica rapida
+
+Mostra la differenza tra CLI e API; identifica modello e runtime; dimostra timeout e gestione di un modello assente; spiega quali dati servono per ripetere la prova.
+
+## Sintesi inclusiva
+
+Ollama rende semplice iniziare, non elimina le decisioni. Un'esecuzione seria fissa artefatto, runtime, template, parametri, hardware e fixture. L'applicazione deve gestire errori e proteggere il confine locale.
+
+## Fonti e collegamenti
+
+- [Documentazione Ollama](https://docs.ollama.com/)
+- [Catalogo modelli del corso](../catalog/models-2026-09-04.md)
+- [Rehearsal Ollama](../rehearsal/README.md)
+- Activity: `llm-activity-m11-ollama`

@@ -1,42 +1,70 @@
-# M12 - Sampling e prompting
+# M12 — Sampling e prompting
 
-**Domanda guida:** perché lo stesso modello può rispondere diversamente?  
-**Durata:** 3 ore Practitioner; 8 ore AI Engineer.  
+**Domanda guida:** come controlliamo una distribuzione senza fingere di cambiare il modello?
+**Durata:** 3 ore Practitioner; 8 ore AI Engineer.
 **Prerequisiti:** M02 e M11.
 
 ## Obiettivi osservabili
 
-Distinguere greedy, temperature, top-k, top-p, seed e stop; costruire prompt
-con input delimitato e output strutturato; misurare stabilità. L'AI Engineer
-implementa sampler e parser con vincoli.
+Saprai spiegare temperature, top-k, top-p, seed, stop e lunghezza; progettare prompt con istruzioni, dati e formato separati; validare output strutturati. Il livello AI Engineer misura entropia, calibrazione e interazioni tra decoder e grammar constraints.
 
-## Lezione intuitiva
+## Problema iniziale
 
-Il prompt modifica il contesto; il sampler decide come scegliere dalla
-distribuzione. Temperature riscalda/raffredda le differenze; top-k conserva i
-k candidati maggiori; top-p conserva il più piccolo insieme con massa almeno p.
-L'ordine delle operazioni e l'implementazione del runtime contano.
+Lo stesso modello produce una poesia creativa e un JSON rigoroso. Non servono necessariamente pesi diversi: prompt, template e decoder cambiano il comportamento. Ma nessun parametro garantisce da solo correttezza.
 
-Un prompt robusto dichiara ruolo operativo, task, dati delimitati, vincoli e
-schema. Non deve chiedere al modello di “essere accurato” al posto di una
-verifica. Structured output riduce errori sintattici quando runtime/modello lo
-supportano; non rende veri i campi.
+## Teoria Practitioner
+
+La **temperature** riscalda o concentra la distribuzione. **Top-k** conserva i k candidati più probabili. **Top-p** conserva il più piccolo insieme con massa cumulativa almeno p. Dopo il filtro si rinormalizza e si campiona. Seed e implementazione influenzano la ripetibilità; stop e limite token controllano la terminazione.
+
+Apri [Sampling controls](../../../visuals/sampling-controls-lab.html). Osserva che temperature, top-k e top-p interagiscono: non sono tre manopole indipendenti. Per compiti fattuali o strutturati si parte da bassa variabilità; per esplorazione creativa si può aumentarla e generare più candidati.
+
+Un prompt robusto separa ruolo/obiettivo, input non fidato, vincoli, formato e criteri. Delimitare un documento non lo rende sicuro: il modello può seguire istruzioni contenute nei dati. L'applicazione deve validare e limitare le conseguenze.
+
+## Esempio minimo
+
+Con probabilità `[0,50, 0,25, 0,15, 0,10]`, top-k 2 conserva i primi due; top-p 0,70 conserva anch'esso due elementi perché raggiungono 0,75. Con distribuzioni diverse i due filtri selezionano insiemi differenti.
+
+## Esempio realistico
+
+Vuoi estrarre `nome`, `data` e `importo`. Definisci schema, chiedi JSON senza testo extra, usa structured output se disponibile, valida tipi e campi, rifiuta o riprova con limite. Non inserire direttamente l'output in SQL o in un comando. La validazione è parte della funzione applicativa.
+
+## Livello AI Engineer: decoder e vincoli
+
+Applicare temperature ai logits precede normalmente top-k/top-p, ma dettagli del runtime possono cambiare. Repetition penalty e frequency/presence penalty non sono equivalenti e possono danneggiare codice o dati. Constrained decoding maschera token che renderebbero impossibile completare una grammatica: garantisce sintassi entro il vincolo, non verità dei valori.
+
+Misura diversità con tasso di duplicazione o entropia e qualità con test specifici. La calibrazione confronta probabilità dichiarata e frequenza osservata; i logits degli LLM non sono automaticamente probabilità affidabili di correttezza semantica.
+
+## Errori frequenti
+
+- Usare temperature come “livello di intelligenza”.
+- Cambiare più parametri contemporaneamente.
+- Credere che JSON valido sia contenuto corretto.
+- Inserire dati non fidati dentro istruzioni privilegiate.
+- Usare prompt segreti come unico controllo di sicurezza.
+
+## Esercizi A–F
+
+- **A:** applica top-k e top-p a distribuzioni date.
+- **B:** modifica un prompt ambiguo separando dati e istruzioni.
+- **C:** crea schema e validatore per un output.
+- **D:** diagnostica una combinazione che tronca sempre la risposta.
+- **E:** costruisci un confronto controllato tra decoder.
+- **F:** implementa constrained decoding o un gateway con policy e test avversariali.
 
 ## Laboratorio
 
-Sulla stessa distribuzione eseguire 100 campioni per configurazione e
-confrontare frequenze/diversità. Poi chiedere estrazione JSON da cinque testi,
-validare schema e distinguere parse rate da field accuracy. Baseline regex o
-parser manuale. Test negativi: campo assente, testo ostile e risposta troncata.
+Usa la visuale e `python3 labs/course_lab.py sampling`. Con modello locale disponibile, esegui una griglia piccola cambiando una sola variabile, conserva output e valuta formato, diversità, correttezza e costo.
 
-## AI Engineer
+## Verifica rapida
 
-Implementare softmax stabile, top-k/top-p, RNG con seed e test statistici
-semplici. Per output vincolato studiare decoding grammar-aware e validazione
-post-hoc; misurare retry e latenza.
+Calcola un insieme top-p; spiega temperature contro top-k; progetta un prompt con input non fidato; indica che cosa garantisce e non garantisce una grammatica.
 
-## Verifica
+## Sintesi inclusiva
 
-Parametri 3, esperimento 2, schema/validazione 2, distinzione sintassi/verità 2,
-riproducibilità 1.
+Il decoder sceglie dalla distribuzione prodotta dal modello. Le manopole controllano varietà e terminazione, non aggiungono conoscenza. Prompt chiari aiutano; schema, validazione e limiti rendono l'applicazione affidabile.
 
+## Fonti e collegamenti
+
+- [The Curious Case of Neural Text Degeneration](https://arxiv.org/abs/1904.09751)
+- [Visuale sampling](../../../visuals/sampling-controls-lab.html)
+- Activity: `llm-activity-m12-sampling`

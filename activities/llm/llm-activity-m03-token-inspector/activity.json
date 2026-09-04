@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "id": "llm-activity-m03-token-inspector",
+  "titolo": "M03 — Token, byte ed embedding",
+  "tipo": "laboratorio",
+  "difficolta": "C",
+  "argomenti": [
+    "tokenizzazione",
+    "byte ed embedding"
+  ],
+  "consegna": "Ispeziona testo, byte, token e ID e dimostra un round trip senza perdita.",
+  "student_support_mode": "feedback-tecnico",
+  "contesto": {
+    "percorso": "percorso-annuale",
+    "uda": "uda-01-fondamenti"
+  },
+  "content_ids": [
+    "llm-content-m03"
+  ],
+  "source_refs": [
+    {
+      "source_id": "llm-source-modules",
+      "href": "docs/course/modules/M03-token-byte-embedding.md"
+    }
+  ],
+  "assets": [
+    {
+      "type": "starter",
+      "path": "student/README.md",
+      "target_path": "README.md",
+      "visibility": "student",
+      "description": "Traccia e checklist consegnate allo studente"
+    },
+    {
+      "type": "teacher_only",
+      "path": "teacher/SOLUTION.md",
+      "visibility": "teacher",
+      "description": "Criteri, soluzione e domande per la discussione"
+    }
+  ],
+  "correzione": {
+    "compila": true,
+    "test": true,
+    "sandbox": true,
+    "ai_feedback": true
+  },
+  "metriche": {
+    "tempo_stimato_minuti": 75,
+    "traccia_tempo_dichiarato": true,
+    "traccia_sessioni_thebitlab": true,
+    "traccia_eventi_didattici": true,
+    "traccia_errori_compilazione": true
+  },
+  "rubrica": [
+    {
+      "criterio": "Evidenze riproducibili",
+      "punti": 4
+    },
+    {
+      "criterio": "Spiegazione e decisioni",
+      "punti": 3
+    },
+    {
+      "criterio": "Correttezza tecnica",
+      "punti": 2
+    },
+    {
+      "criterio": "Limiti dichiarati",
+      "punti": 1
+    }
+  ]
+}

@@ -19,7 +19,9 @@ jobs:
         with:
           node-version: "22"
       - name: Structural checks
-        run: python3 scripts/check_course.py
+        run: |
+          python3 scripts/scaffold_thebitlab_pack.py --check
+          python3 scripts/check_course.py
       - name: Unit tests
         run: python3 -m unittest discover -s tests -v
       - name: Parse JavaScript in visual labs
@@ -34,4 +36,3 @@ jobs:
             console.log(`${name}: JavaScript parses`);
           }
           NODE
-

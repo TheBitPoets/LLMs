@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Ciclo autoregressivo next-token</title><desc id="desc">Dal contesto ai logits, alle probabilità e alla scelta del token che rientra nel contesto.</desc>
+  <defs><style>.t{font:700 30px sans-serif;fill:#17345f}.s{font:22px sans-serif;fill:#172033}.b{fill:#eef4ff;stroke:#2457a6;stroke-width:3}.a{stroke:#42536d;stroke-width:4;fill:none;marker-end:url(#m)}</style><marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#42536d"/></marker></defs>
+  <text class="t" x="600" y="48" text-anchor="middle">Una previsione alla volta</text>
+  <rect class="b" x="55" y="155" width="230" height="110" rx="18"/><text class="s" x="170" y="205" text-anchor="middle">Contesto</text><text class="s" x="170" y="237" text-anchor="middle">x₁ … xₜ</text>
+  <path class="a" d="M285 210 H355"/><rect class="b" x="355" y="155" width="210" height="110" rx="18"/><text class="s" x="460" y="205" text-anchor="middle">Modello</text><text class="s" x="460" y="237" text-anchor="middle">logits</text>
+  <path class="a" d="M565 210 H635"/><rect class="b" x="635" y="155" width="210" height="110" rx="18"/><text class="s" x="740" y="205" text-anchor="middle">Softmax</text><text class="s" x="740" y="237" text-anchor="middle">p(token)</text>
+  <path class="a" d="M845 210 H915"/><rect class="b" x="915" y="155" width="230" height="110" rx="18"/><text class="s" x="1030" y="205" text-anchor="middle">Scelta</text><text class="s" x="1030" y="237" text-anchor="middle">greedy / sample</text>
+  <path class="a" d="M1030 265 C1030 420 170 420 170 270"/><text class="s" x="600" y="455" text-anchor="middle">Il token scelto entra nel contesto: il ciclo riparte</text>
+</svg>
+

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Attention con Query Key e Value</title><desc id="desc">La Query viene confrontata con le Key, la softmax produce pesi che combinano i Value.</desc>
+  <defs><style>.t{font:700 30px sans-serif;fill:#17345f}.s{font:22px sans-serif;fill:#172033}.b{fill:#eef4ff;stroke:#2457a6;stroke-width:3}.p{fill:#f4eeff;stroke:#7546b8;stroke-width:3}.a{stroke:#42536d;stroke-width:4;fill:none;marker-end:url(#m)}</style><marker id="m" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#42536d"/></marker></defs>
+  <text class="t" x="600" y="48" text-anchor="middle">Attention: cercare, confrontare, raccogliere</text>
+  <rect class="b" x="60" y="180" width="190" height="100" rx="18"/><text class="s" x="155" y="223" text-anchor="middle">Query</text><text class="s" x="155" y="253" text-anchor="middle">che cosa cerco?</text>
+  <rect class="b" x="330" y="90" width="190" height="100" rx="18"/><text class="s" x="425" y="133" text-anchor="middle">Key</text><text class="s" x="425" y="163" text-anchor="middle">come confronto?</text>
+  <rect class="b" x="330" y="320" width="190" height="100" rx="18"/><text class="s" x="425" y="363" text-anchor="middle">Value</text><text class="s" x="425" y="393" text-anchor="middle">cosa trasporto?</text>
+  <path class="a" d="M250 215 L330 155"/><path class="a" d="M520 140 H630"/><rect class="p" x="630" y="90" width="220" height="100" rx="18"/><text class="s" x="740" y="133" text-anchor="middle">Score + mask</text><text class="s" x="740" y="163" text-anchor="middle">poi softmax</text>
+  <path class="a" d="M740 190 V320"/><path class="a" d="M520 370 H630"/><rect class="p" x="630" y="320" width="220" height="100" rx="18"/><text class="s" x="740" y="363" text-anchor="middle">Somma pesata</text><text class="s" x="740" y="393" text-anchor="middle">dei Value</text>
+  <path class="a" d="M850 370 H950"/><rect class="b" x="950" y="320" width="190" height="100" rx="18"/><text class="s" x="1045" y="363" text-anchor="middle">Output</text><text class="s" x="1045" y="393" text-anchor="middle">contestuale</text>
+  <text class="s" x="815" y="500" text-anchor="middle">La maschera causale impedisce di usare il futuro.</text>
+</svg>
+

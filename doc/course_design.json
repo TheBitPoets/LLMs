@@ -1,0 +1,425 @@
+{
+  "schema_version": "1.0",
+  "id": "llm-course-2026-2027",
+  "title": "LLM 2026/27 — Practitioner e AI Engineer",
+  "description": "Percorso annuale a doppio livello con teoria intuitiva, matematica, laboratori locali e capstone Pollicino.",
+  "source_ids": [
+    "llm-source-modules",
+    "llm-source-glossary"
+  ],
+  "sources": [
+    {
+      "id": "llm-source-modules",
+      "label": "Dispense originali LLM 2026/27",
+      "type": "markdown",
+      "provider": "local",
+      "path": "docs/course/modules",
+      "files": [
+        "README.md",
+        "M00-orientamento.md",
+        "M01-ecosistema.md",
+        "M02-next-token.md",
+        "M03-token-byte-embedding.md",
+        "M04-apprendimento.md",
+        "M05-attention-transformer.md",
+        "M06-architetture-moderne.md",
+        "M07-dati-scaling.md",
+        "M08-post-training-reasoning.md",
+        "M09-pesi-formati-licenze.md",
+        "M10-hardware-quantizzazione.md",
+        "M11-ollama.md",
+        "M12-sampling-prompting.md",
+        "M13-app-conversazionali.md",
+        "M14-valutazione.md",
+        "M15-rag.md",
+        "M16-agenti-mcp.md",
+        "M17-fine-tuning.md",
+        "M18-sistemi-kernel.md",
+        "M19-capstone-pollicino.md"
+      ],
+      "indexing_status": "ready"
+    },
+    {
+      "id": "llm-source-glossary",
+      "label": "Glossario originale LLM",
+      "type": "markdown",
+      "provider": "local",
+      "path": "docs/course/handbook",
+      "files": [
+        "GLOSSARY.md"
+      ],
+      "indexing_status": "ready"
+    }
+  ],
+  "years": [
+    {
+      "id": "percorso-annuale",
+      "title": "Percorso annuale 2026/27",
+      "description": "Tronco Practitioner per la classe; approfondimenti AI Engineer per studio avanzato.",
+      "weekly_hours": 2,
+      "weeks": 34,
+      "udas": [
+        {
+          "id": "uda-01-fondamenti",
+          "title": "Fondamenti intuitivi",
+          "path": "docs/course/modules",
+          "weeks": 6,
+          "items": [
+            {
+              "id": "item-m00",
+              "title": "Orientamento e baseline",
+              "source_id": "llm-source-modules",
+              "source": "M00-orientamento.md",
+              "href": "docs/course/modules/M00-orientamento.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m00-baseline"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M00 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m01",
+              "title": "Mappa dell'ecosistema",
+              "source_id": "llm-source-modules",
+              "source": "M01-ecosistema.md",
+              "href": "docs/course/modules/M01-ecosistema.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m01-ecosystem-map"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M01 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m02",
+              "title": "Predire il simbolo successivo",
+              "source_id": "llm-source-modules",
+              "source": "M02-next-token.md",
+              "href": "docs/course/modules/M02-next-token.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m02-next-token"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M02 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m03",
+              "title": "Token, byte ed embedding",
+              "source_id": "llm-source-modules",
+              "source": "M03-token-byte-embedding.md",
+              "href": "docs/course/modules/M03-token-byte-embedding.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m03-token-inspector"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M03 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            }
+          ]
+        },
+        {
+          "id": "uda-02-transformer",
+          "title": "Come si addestra e funziona un Transformer",
+          "path": "docs/course/modules",
+          "weeks": 7,
+          "items": [
+            {
+              "id": "item-m04",
+              "title": "Apprendere dai dati",
+              "source_id": "llm-source-modules",
+              "source": "M04-apprendimento.md",
+              "href": "docs/course/modules/M04-apprendimento.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m04-learning-curve"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M04 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m05",
+              "title": "Attention e Transformer",
+              "source_id": "llm-source-modules",
+              "source": "M05-attention-transformer.md",
+              "href": "docs/course/modules/M05-attention-transformer.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m05-attention"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M05 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m06",
+              "title": "Architetture moderne",
+              "source_id": "llm-source-modules",
+              "source": "M06-architetture-moderne.md",
+              "href": "docs/course/modules/M06-architetture-moderne.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m06-architectures"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M06 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m07",
+              "title": "Pre-training, dati e scaling",
+              "source_id": "llm-source-modules",
+              "source": "M07-dati-scaling.md",
+              "href": "docs/course/modules/M07-dati-scaling.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m07-data-card"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M07 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            }
+          ]
+        },
+        {
+          "id": "uda-03-modelli-locali",
+          "title": "Scegliere ed eseguire modelli locali",
+          "path": "docs/course/modules",
+          "weeks": 7,
+          "items": [
+            {
+              "id": "item-m08",
+              "title": "Post-training e reasoning",
+              "source_id": "llm-source-modules",
+              "source": "M08-post-training-reasoning.md",
+              "href": "docs/course/modules/M08-post-training-reasoning.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m08-post-training"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M08 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m09",
+              "title": "Pesi, formati e licenze",
+              "source_id": "llm-source-modules",
+              "source": "M09-pesi-formati-licenze.md",
+              "href": "docs/course/modules/M09-pesi-formati-licenze.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m09-model-selection"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M09 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m10",
+              "title": "Hardware e quantizzazione",
+              "source_id": "llm-source-modules",
+              "source": "M10-hardware-quantizzazione.md",
+              "href": "docs/course/modules/M10-hardware-quantizzazione.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m10-memory-budget"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M10 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m11",
+              "title": "Ollama e inferenza locale",
+              "source_id": "llm-source-modules",
+              "source": "M11-ollama.md",
+              "href": "docs/course/modules/M11-ollama.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m11-ollama"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M11 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            }
+          ]
+        },
+        {
+          "id": "uda-04-applicazioni",
+          "title": "Costruire e valutare applicazioni",
+          "path": "docs/course/modules",
+          "weeks": 8,
+          "items": [
+            {
+              "id": "item-m12",
+              "title": "Sampling e prompting",
+              "source_id": "llm-source-modules",
+              "source": "M12-sampling-prompting.md",
+              "href": "docs/course/modules/M12-sampling-prompting.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m12-sampling"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M12 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m13",
+              "title": "Applicazioni conversazionali",
+              "source_id": "llm-source-modules",
+              "source": "M13-app-conversazionali.md",
+              "href": "docs/course/modules/M13-app-conversazionali.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m13-chatbot"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M13 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m14",
+              "title": "Valutazione",
+              "source_id": "llm-source-modules",
+              "source": "M14-valutazione.md",
+              "href": "docs/course/modules/M14-valutazione.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m14-evaluation"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M14 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m15",
+              "title": "Embedding, ricerca e RAG",
+              "source_id": "llm-source-modules",
+              "source": "M15-rag.md",
+              "href": "docs/course/modules/M15-rag.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m15-rag"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M15 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            }
+          ]
+        },
+        {
+          "id": "uda-05-engineering",
+          "title": "AI engineering, sistemi e capstone",
+          "path": "docs/course/modules",
+          "weeks": 6,
+          "items": [
+            {
+              "id": "item-m16",
+              "title": "Tool use, agenti e MCP",
+              "source_id": "llm-source-modules",
+              "source": "M16-agenti-mcp.md",
+              "href": "docs/course/modules/M16-agenti-mcp.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m16-safe-agent"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M16 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m17",
+              "title": "Fine-tuning e adapter",
+              "source_id": "llm-source-modules",
+              "source": "M17-fine-tuning.md",
+              "href": "docs/course/modules/M17-fine-tuning.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m17-adaptation"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M17 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m18",
+              "title": "Sistemi e kernel d'inferenza",
+              "source_id": "llm-source-modules",
+              "source": "M18-sistemi-kernel.md",
+              "href": "docs/course/modules/M18-sistemi-kernel.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m18-inference-kernel"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M18 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            },
+            {
+              "id": "item-m19",
+              "title": "Costruire e integrare",
+              "source_id": "llm-source-modules",
+              "source": "M19-capstone-pollicino.md",
+              "href": "docs/course/modules/M19-capstone-pollicino.md",
+              "level": 1,
+              "activity_ids": [
+                "llm-activity-m19-pollicino"
+              ],
+              "frame": {
+                "status": "reviewed",
+                "objectives": "Raggiungere gli obiettivi osservabili di M19 ai livelli Practitioner e AI Engineer.",
+                "next_step": "Completare verifica rapida e Activity collegata."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

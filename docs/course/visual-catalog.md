@@ -26,6 +26,24 @@ tastiera o stampa.
 4. aprire la vista tecnica usando gli stessi oggetti della vista intuitiva;
 5. chiudere con la domanda diagnostica, non con il semplice replay.
 
+## Figure statiche per le dispense
+
+Le animazioni non sono adatte alla stampa. Il volume usa sette ricostruzioni
+SVG originali che conservano le relazioni essenziali e restano nitide in A4:
+
+| Figura | Modulo | Versione interattiva collegata |
+| --- | --- | --- |
+| `visuals/static/local-cloud.svg` | M01 | percorso locale/cloud |
+| `visuals/static/next-token.svg` | M02 | ciclo next-token |
+| `visuals/static/token-embedding.svg` | M03 | testo, byte, token, embedding |
+| `visuals/static/attention-qkv.svg` | M05 | attention Q/K/V |
+| `visuals/static/rag-pipeline.svg` | M15 | RAG ed evidenza |
+| `visuals/static/prefill-decode.svg` | M18 | prefill, decode e KV cache |
+| `visuals/static/pollicino-codec.svg` | M19 | probabilità, coder e checksum |
+
+Gli SVG non incorporano scansioni, illustrazioni o testi Manning. Sono stati
+disegnati per questo corso a partire dalle relazioni tecniche citate nei moduli.
+
 ## Provenienza e trasformazione
 
 Le coordinate bibliografiche indicano la relazione o il problema didattico
@@ -41,6 +59,7 @@ registrano:
 
 ## Backlog successivo non bloccante
 
-Le nove visuali coprono il nucleo concettuale e i laboratori principali. La
+Le dieci visuali interattive e le sette figure statiche coprono il nucleo
+concettuale e i laboratori principali. La
 seconda iterazione potrà aggiungere loss landscape, RoPE tridimensionale,
 post-training, formati GGUF/safetensors e un profiler con tracce hardware reali.
