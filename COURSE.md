@@ -94,6 +94,13 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 - [Catalogo modelli - snapshot 4 settembre 2026](docs/course/catalog/models-2026-09-04.md)
 - [Timeline ragionata dei paper](docs/course/research/paper-timeline.md)
 - [Indice dei venti moduli](docs/course/modules/README.md)
+- [Kit dei laboratori](labs/README.md)
+- [Guida docente](docs/course/teacher/teacher-guide.md)
+- [Guida ai laboratori](docs/course/teacher/lab-guide.md)
+- [Diagnostica iniziale/finale](docs/course/assessments/diagnostic.md)
+- [Prova pratica finale](docs/course/assessments/final-practical.md)
+- [Rehearsal end-to-end](docs/course/rehearsal/README.md)
+- [Stato di rilascio e gate residuo](docs/course/release-status.md)
 
 ## Prossimi passi di progettazione
 
