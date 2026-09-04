@@ -86,6 +86,9 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 - [Visuale interattiva: previsione next-token](visuals/next-token-prediction.html)
 - [Visuale interattiva: percorso dei dati locale e cloud](visuals/local-vs-cloud-data-journey.html)
 - [Visuale interattiva: richiesta Ollama e memoria](visuals/ollama-request-and-memory.html)
+- [Visuale interattiva: testo, byte, token ed embedding](visuals/token-byte-embedding-lab.html)
+- [Visuale interattiva: attention Query, Key e Value](visuals/attention-qkv-lab.html)
+- [Visuale interattiva: Pollicino, dalle probabilità ai bit](visuals/pollicino-probabilities-to-bits.html)
 - [Inventario e selezione Manning](docs/course/sources/manning-inventory-and-selection.md)
 - [Valutazione di Build Applications with Local AI Models](docs/course/sources/local-ai-models-review.md)
 
