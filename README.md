@@ -1,5 +1,9 @@
 # LLMs
 
+> **Indice del corso:** il percorso 2026/27 su due livelli inizia in
+> [`COURSE.md`](COURSE.md). Il testo sorgente seguente resta una fonte
+> concettuale del corso, non la sua struttura curricolare.
+
 <table>
   <td>
   <h2>Introduzione</h2>
