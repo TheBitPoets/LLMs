@@ -93,6 +93,7 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 - [Valutazione di Build Applications with Local AI Models](docs/course/sources/local-ai-models-review.md)
 - [Catalogo modelli - snapshot 4 settembre 2026](docs/course/catalog/models-2026-09-04.md)
 - [Timeline ragionata dei paper](docs/course/research/paper-timeline.md)
+- [Indice dei venti moduli](docs/course/modules/README.md)
 
 ## Prossimi passi di progettazione
 
