@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Il ciclo next-token</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f6f8fa;
+      --surface: #ffffff;
+      --text: #1f2328;
+      --muted: #59636e;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --chosen: #1a7f37;
+      --chosen-soft: #dafbe1;
+      --shadow: 0 8px 24px rgba(140,149,159,.18);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --surface: #161b22;
+        --text: #e6edf3;
+        --muted: #9da7b1;
+        --border: #30363d;
+        --accent: #58a6ff;
+        --accent-soft: #102a44;
+        --chosen: #3fb950;
+        --chosen-soft: #12351f;
+        --shadow: none;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main { width: min(1080px, 94vw); margin: 2rem auto 4rem; }
+    h1, h2 { line-height: 1.25; font-weight: 650; }
+    h1 { margin-bottom: .25rem; }
+    .lead { color: var(--muted); max-width: 70ch; margin-top: 0; }
+    .stage, .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    .stage { padding: clamp(1rem, 3vw, 2rem); }
+    .stepper { display: grid; grid-template-columns: repeat(5, 1fr); gap: .5rem; margin-bottom: 1.5rem; }
+    .step-dot {
+      border: 1px solid var(--border); border-radius: 999px; padding: .35rem .5rem;
+      color: var(--muted); text-align: center; font-size: .86rem;
+    }
+    .step-dot.active { border-color: var(--accent); color: var(--text); background: var(--accent-soft); }
+    .flow { display: grid; grid-template-columns: 1fr 1.25fr; gap: 1.25rem; align-items: start; }
+    .panel { padding: 1.1rem; min-height: 310px; box-shadow: none; }
+    .tokens { display: flex; gap: .4rem; flex-wrap: wrap; margin: 1rem 0; }
+    .token { border: 1px solid var(--border); border-radius: 6px; padding: .35rem .55rem; background: var(--bg); }
+    .token.new { border-color: var(--chosen); background: var(--chosen-soft); }
+    .candidate { display: grid; grid-template-columns: 5rem 1fr 4rem; align-items: center; gap: .6rem; margin: .55rem 0; }
+    .bar-shell { height: 1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+    .bar { height: 100%; width: 0; background: var(--accent); transition: width .45s ease; }
+    .candidate.chosen .bar { background: var(--chosen); }
+    .candidate.chosen .word { font-weight: 700; color: var(--chosen); }
+    .explanation { border-left: 4px solid var(--accent); padding-left: 1rem; min-height: 6.5rem; }
+    .controls { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: 1.25rem; }
+    button, input { font: inherit; }
+    button {
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      padding: .55rem .8rem; border-radius: 7px; cursor: pointer;
+    }
+    button:hover, button:focus-visible { border-color: var(--accent); outline: 3px solid var(--accent-soft); }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+    .temperature { margin-left: auto; display: flex; align-items: center; gap: .55rem; }
+    input[type="range"] { width: 9rem; accent-color: var(--accent); }
+    .math { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; background: var(--bg); }
+    .question { margin-top: 1.5rem; }
+    details { margin-top: .7rem; }
+    @media (max-width: 760px) {
+      .flow { grid-template-columns: 1fr; }
+      .stepper { grid-template-columns: 1fr; }
+      .temperature { width: 100%; margin-left: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Il modello costruisce una probabilità, un token alla volta</h1>
+  <p class="lead">Avanza con i controlli. La stessa scena passa dall'intuizione alla formula senza cambiare oggetti o colori.</p>
+
+  <section class="stage" aria-labelledby="stage-title">
+    <h2 id="stage-title">Il ciclo next-token</h2>
+    <div class="stepper" id="stepper" aria-label="Passi della generazione"></div>
+
+    <div class="flow">
+      <div class="panel">
+        <strong>Contesto corrente</strong>
+        <div class="tokens" id="tokens" aria-live="polite"></div>
+        <p id="context-note">Il modello riceve i token già presenti.</p>
+      </div>
+
+      <div class="panel">
+        <strong>Candidati per il token successivo</strong>
+        <div id="candidates" aria-label="Distribuzione dei candidati"></div>
+      </div>
+    </div>
+
+    <div class="explanation" aria-live="polite">
+      <h2 id="step-title"></h2>
+      <p id="step-text"></p>
+    </div>
+
+    <div class="controls">
+      <button id="previous" type="button">← Precedente</button>
+      <button id="play" type="button">Riproduci</button>
+      <button id="next" type="button">Successivo →</button>
+      <button id="reset" type="button">Ricomincia</button>
+      <label class="temperature" for="temperature">
+        Temperatura <output id="temperature-value">1,0</output>
+        <input id="temperature" type="range" min="0.4" max="1.8" value="1" step="0.1">
+      </label>
+    </div>
+
+    <div class="math">
+      <strong>Vista rigorosa</strong>
+      <p>La softmax trasforma i logits <em>z</em> in probabilità. La temperatura <em>T</em> modifica quanto la distribuzione è concentrata:</p>
+      <p><code>pᵢ(T) = exp(zᵢ/T) / Σⱼ exp(zⱼ/T)</code></p>
+      <p id="temperature-note"></p>
+    </div>
+
+    <div class="question">
+      <strong>Domanda diagnostica</strong>
+      <p>Abbassare la temperatura rende il modello più competente o cambia soltanto il modo in cui scegliamo dalla distribuzione?</p>
+      <details><summary>Mostra la risposta</summary><p>Non aggiunge conoscenza e non modifica i pesi. Rende più probabili le scelte già favorite dal modello; può aumentare la ripetibilità, non la competenza.</p></details>
+    </div>
+  </section>
+
+  <p><strong>Limite della visuale:</strong> i candidati sono parole leggibili, ma un modello reale sceglie token che possono essere parole, parti di parola, spazi o byte. Le probabilità sono un esempio, non l'output di un modello specifico.</p>
+</main>
+
+<script>
+  const baseTokens = ["Il", "cielo", "è"];
+  const candidates = [
+    { word: "blu", logit: 2.1 },
+    { word: "sereno", logit: 1.25 },
+    { word: "grigio", logit: 0.9 },
+    { word: "immenso", logit: 0.25 }
+  ];
+  const steps = [
+    { title: "1. Contesto", text: "Il modello riceve i token già presenti. Non cerca una frase memorizzata: calcola che cosa potrebbe seguire questo contesto." },
+    { title: "2. Logits", text: "Per ogni token possibile produce un punteggio grezzo, chiamato logit. Un logit maggiore indica una preferenza relativa, non ancora una probabilità." },
+    { title: "3. Softmax", text: "La softmax converte tutti i punteggi in probabilità che sommano a 100%. Ora possiamo confrontare i candidati sulla stessa scala." },
+    { title: "4. Scelta", text: "Un algoritmo di sampling sceglie un token dalla distribuzione. Il più probabile è favorito, ma non deve vincere sempre." },
+    { title: "5. Nuovo ciclo", text: "Il token scelto viene aggiunto al contesto. Il modello ripete lo stesso processo per generare il token successivo." }
+  ];
+  let current = 0;
+  let timer = null;
+
+  const $ = id => document.getElementById(id);
+  const softmax = (temperature) => {
+    const scaled = candidates.map(c => c.logit / temperature);
+    const max = Math.max(...scaled);
+    const exp = scaled.map(x => Math.exp(x - max));
+    const total = exp.reduce((a, b) => a + b, 0);
+    return exp.map(x => x / total);
+  };
+
+  function render() {
+    const temperature = Number($("temperature").value);
+    const probabilities = softmax(temperature);
+    const chosenIndex = probabilities.indexOf(Math.max(...probabilities));
+
+    $("stepper").innerHTML = steps.map((s, i) =>
+      `<div class="step-dot ${i === current ? "active" : ""}">${s.title}</div>`
+    ).join("");
+    $("step-title").textContent = steps[current].title;
+    $("step-text").textContent = steps[current].text;
+
+    const visibleTokens = [...baseTokens];
+    if (current === 4) visibleTokens.push(candidates[chosenIndex].word);
+    $("tokens").innerHTML = visibleTokens.map((t, i) =>
+      `<span class="token ${i >= baseTokens.length ? "new" : ""}">${t}</span>`
+    ).join("");
+    $("context-note").textContent = current === 4
+      ? "Il token scelto entra nel contesto: la previsione successiva sarà diversa."
+      : "Il modello riceve i token già presenti.";
+
+    $("candidates").innerHTML = candidates.map((c, i) => {
+      const showLogit = current >= 1;
+      const showProbability = current >= 2;
+      const chosen = current >= 3 && i === chosenIndex;
+      const value = showProbability ? `${(probabilities[i] * 100).toFixed(1)}%` : showLogit ? c.logit.toFixed(2) : "?";
+      const width = showProbability ? probabilities[i] * 100 : showLogit ? (c.logit / 2.1) * 100 : 0;
+      return `<div class="candidate ${chosen ? "chosen" : ""}">
+        <span class="word">${c.word}</span>
+        <span class="bar-shell"><span class="bar" style="width:${width}%"></span></span>
+        <span>${value}</span>
+      </div>`;
+    }).join("");
+
+    $("temperature-value").value = temperature.toFixed(1).replace(".", ",");
+    $("temperature-note").textContent = temperature < 0.8
+      ? "Temperatura bassa: la distribuzione si concentra sui candidati già favoriti."
+      : temperature > 1.2
+        ? "Temperatura alta: la distribuzione diventa più piatta e aumenta la varietà."
+        : "Temperatura intermedia: le preferenze del modello restano visibili senza diventare deterministiche.";
+    $("previous").disabled = current === 0;
+    $("next").disabled = current === steps.length - 1;
+    $("play").textContent = timer ? "Pausa" : "Riproduci";
+  }
+
+  $("previous").addEventListener("click", () => { current = Math.max(0, current - 1); render(); });
+  $("next").addEventListener("click", () => { current = Math.min(steps.length - 1, current + 1); render(); });
+  $("reset").addEventListener("click", () => { current = 0; clearInterval(timer); timer = null; render(); });
+  $("temperature").addEventListener("input", render);
+  $("play").addEventListener("click", () => {
+    if (timer) { clearInterval(timer); timer = null; render(); return; }
+    if (current === steps.length - 1) current = 0;
+    timer = setInterval(() => {
+      if (current === steps.length - 1) { clearInterval(timer); timer = null; }
+      else current += 1;
+      render();
+    }, 1800);
+    render();
+  });
+  render();
+</script>
+</body>
+</html>
