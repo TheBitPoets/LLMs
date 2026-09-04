@@ -1,0 +1,8 @@
+[
+  {"id":"M00#baseline","source":"M00","text":"Una baseline semplice permette di capire se il modello aggiunge valore rispetto a una procedura più economica."},
+  {"id":"M09#bundle","source":"M09","text":"Un modello è un bundle di config, tokenizer, template, pesi, metadati e licenza."},
+  {"id":"M14#eval","source":"M14","text":"La valutazione congela esempi e criteri, confronta una baseline e conserva gli errori per categoria."},
+  {"id":"M15#injection","source":"M15","text":"I documenti recuperati sono dati non fidati: le loro istruzioni non possono cambiare policy o permessi."},
+  {"id":"M19#pollicino","source":"M19","text":"Pollicino usa probabilità condivise e codifica aritmetica per ricostruire esattamente una sequenza verificata con hash."}
+]
+
