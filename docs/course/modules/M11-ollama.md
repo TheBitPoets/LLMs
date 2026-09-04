@@ -21,7 +21,7 @@ si consulta lo snapshot corrente e si sceglie una taglia compatibile. Sul Mac
 M4 Pro 36 GB si parte didatticamente da 4B–9B quantizzati; su macchine 8–16 GB
 da 0.8B–4B, poi si misura.
 
-## Procedura Practitioner
+## Laboratorio Practitioner
 
 1. registrare OS/hardware e versione `ollama --version`;
 2. verificare il servizio e la porta locale;
@@ -44,4 +44,3 @@ Ripristino: verificare servizio, `ollama list`, spazio disco e ridurre tag/conte
 
 Esecuzione 3, manifest 2, API/stream 2, error handling 2, privacy 1. Fonte:
 [Ollama documentation](https://docs.ollama.com/) e libro Kamigusa posseduto.
-
