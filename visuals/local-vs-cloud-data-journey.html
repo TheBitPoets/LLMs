@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dove viaggia il prompt? Locale e cloud</title>
+  <style>
+    :root{color-scheme:light dark;--bg:#f6f8fa;--surface:#fff;--text:#1f2328;--muted:#59636e;--border:#d0d7de;--blue:#0969da;--blue-soft:#ddf4ff;--green:#1a7f37;--green-soft:#dafbe1;--orange:#bc4c00;--orange-soft:#fff1e5;--red:#cf222e;--shadow:0 8px 24px rgba(140,149,159,.18)}
+    @media(prefers-color-scheme:dark){:root{--bg:#0d1117;--surface:#161b22;--text:#e6edf3;--muted:#9da7b1;--border:#30363d;--blue:#58a6ff;--blue-soft:#102a44;--green:#3fb950;--green-soft:#12351f;--orange:#ffa657;--orange-soft:#3a2415;--red:#ff7b72;--shadow:none}}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 system-ui,sans-serif} main{width:min(1120px,94vw);margin:2rem auto 4rem} h1,h2,h3{line-height:1.2} .lead{max-width:74ch;color:var(--muted)}
+    .stage,.card,.note{background:var(--surface);border:1px solid var(--border);border-radius:14px}.stage{padding:clamp(1rem,3vw,2rem);box-shadow:var(--shadow)}
+    .toolbar,.controls{display:flex;flex-wrap:wrap;gap:.65rem;align-items:center}.toolbar{margin:1rem 0 1.4rem}.toolbar label{font-weight:650} select,button{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.55rem .75rem} button{cursor:pointer} button:hover,button:focus-visible,select:focus-visible{border-color:var(--blue);outline:3px solid var(--blue-soft)} button:disabled{opacity:.45;cursor:not-allowed}
+    .routes{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.card{padding:1rem;position:relative;overflow:hidden}.card.active{border:2px solid var(--blue)}.boundary{border:2px dashed var(--green);border-radius:12px;padding:1rem;min-height:315px}.cloud .boundary{border-color:var(--orange)}
+    .nodes{display:grid;grid-template-columns:1fr;gap:.65rem}.node{position:relative;border:1px solid var(--border);border-radius:9px;padding:.7rem;background:var(--bg);transition:transform .2s,background .2s}.node.current{background:var(--blue-soft);border-color:var(--blue);transform:scale(1.015)}.node.done{border-color:var(--green)}.cloud .node.done{border-color:var(--orange)}
+    .arrow{text-align:center;color:var(--muted);height:1.1rem;line-height:1}.packet{display:inline-block;width:.85rem;height:.85rem;border-radius:50%;background:var(--blue);margin-right:.4rem;vertical-align:-.05rem}.current .packet{animation:pulse 1s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.45);box-shadow:0 0 0 8px color-mix(in srgb,var(--blue) 18%,transparent)}}
+    .stepbox{margin:1.25rem 0;border-left:5px solid var(--blue);padding:.15rem 1rem;min-height:7rem}.stepbox h2{margin:.2rem 0}.stepbox p{margin:.35rem 0}.badge{display:inline-block;font-size:.82rem;font-weight:700;border-radius:999px;padding:.15rem .55rem;background:var(--green-soft);color:var(--green)}.cloud .badge{background:var(--orange-soft);color:var(--orange)}
+    .controls{margin-top:1rem}.progress{margin-left:auto;color:var(--muted)}.compare{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1.3rem}.note{padding:.8rem}.note strong{display:block}.question{margin-top:1.4rem;padding-top:1rem;border-top:1px solid var(--border)} details{margin-top:.6rem}
+    @media(max-width:760px){.routes,.compare{grid-template-columns:1fr}.progress{width:100%;margin-left:0}.boundary{min-height:auto}}
+    @media(prefers-reduced-motion:reduce){.node{transition:none}.current .packet{animation:none}}
+    @media print{body{background:#fff;color:#000}.controls,.toolbar{display:none}.stage{box-shadow:none}.node{break-inside:avoid}.routes{grid-template-columns:1fr 1fr}.card{border:1px solid #777}.node.current,.node.done{background:#eee}}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Dove viaggia il prompt?</h1>
+  <p class="lead">Segui lo stesso messaggio in un sistema locale e in uno cloud. “Locale” e “cloud” descrivono il percorso dei dati, non una graduatoria assoluta di qualità o sicurezza.</p>
+  <section class="stage" aria-labelledby="scene-title">
+    <div class="toolbar">
+      <label for="scenario">Scenario:</label>
+      <select id="scenario">
+        <option value="notes">Riassumere appunti personali</option>
+        <option value="public">Inventare titoli per un evento pubblico</option>
+        <option value="offline">Lavorare senza connessione</option>
+      </select>
+      <span id="recommendation" class="badge"></span>
+    </div>
+    <div class="routes">
+      <article class="card local" id="local-card">
+        <h2>Modello locale</h2>
+        <div class="boundary">
+          <span class="badge">Dentro il dispositivo</span>
+          <div class="nodes" id="local-route"></div>
+        </div>
+      </article>
+      <article class="card cloud" id="cloud-card">
+        <h2>Servizio cloud</h2>
+        <div class="boundary">
+          <span class="badge">Infrastruttura del fornitore</span>
+          <div class="nodes" id="cloud-route"></div>
+        </div>
+      </article>
+    </div>
+    <div class="stepbox" aria-live="polite">
+      <h2 id="scene-title"></h2><p id="explanation"></p><p id="evidence"></p>
+    </div>
+    <div class="controls">
+      <button id="previous" type="button">← Precedente</button>
+      <button id="play" type="button">Riproduci</button>
+      <button id="next" type="button">Successivo →</button>
+      <button id="reset" type="button">Ricomincia</button>
+      <span class="progress" id="progress"></span>
+    </div>
+    <div class="compare" aria-label="Confronto delle decisioni">
+      <div class="note"><strong>Privacy</strong><span id="privacy"></span></div>
+      <div class="note"><strong>Connessione</strong><span id="connection"></span></div>
+      <div class="note"><strong>Capacità e costo</strong><span id="capability"></span></div>
+    </div>
+    <div class="question">
+      <strong>Domanda diagnostica</strong>
+      <p>Se esegui un modello sul tuo computer, puoi concludere automaticamente che nessun dato uscirà dal dispositivo?</p>
+      <details><summary>Mostra la risposta</summary><p>No. Devi verificare tutta l'applicazione: telemetria, strumenti esterni, aggiornamenti, ricerca web e codice che avvolge il modello. “Pesi locali” non significa automaticamente “sistema completamente offline”.</p></details>
+    </div>
+  </section>
+  <p><strong>Limite della visuale:</strong> il cloud può offrire contratti di non conservazione e controlli aziendali; un computer locale può essere compromesso o configurato male. La scelta richiede requisiti, non slogan.</p>
+  <p><small>Adattamento didattico originale. Concetti confrontati con K. Kamigusa, <em>Build Applications with Local AI Models on a Mac</em>, MEAP V06, figure 1.1 e 3.2; nessuna figura editoriale è incorporata.</small></p>
+</main>
+<script>
+  const routes={
+    local:["App sul dispositivo","Runtime locale","Pesi in RAM / VRAM","Calcolo sul dispositivo","Risposta nell'app"],
+    cloud:["App sul dispositivo","Internet + API","Servizio di inferenza","Modello nel data center","Risposta via Internet"]
+  };
+  const steps=[
+    {title:"1. Scrivi il prompt",text:"Il messaggio nasce nell'app. In entrambi i casi esiste già una responsabilità: che dati stai includendo?",evidence:"Controlla il contenuto prima dell'invio."},
+    {title:"2. Il percorso si separa",text:"Nel locale l'app parla con un runtime sul dispositivo. Nel cloud il messaggio attraversa rete e API del fornitore.",evidence:"Il confine di fiducia cambia qui."},
+    {title:"3. Il modello viene eseguito",text:"I pesi locali devono entrare nella memoria disponibile. Il provider cloud usa hardware remoto che non gestisci direttamente.",evidence:"Locale: misura RAM/VRAM. Cloud: verifica servizio, regione e condizioni."},
+    {title:"4. Nascono i token di risposta",text:"Il modello calcola probabilità e genera token. Il meccanismo di base è simile; cambiano infrastruttura, modello disponibile e controllo.",evidence:"Non confondere dove gira il modello con quanto è capace."},
+    {title:"5. La risposta ritorna",text:"In locale la risposta resta nel percorso interno configurato. Nel cloud torna attraverso il servizio e la rete.",evidence:"Conserva una mappa dei dati dell'intera applicazione."}
+  ];
+  const scenarios={
+    notes:{label:"Locale favorito",privacy:"Dati sensibili: minimizzare i passaggi esterni.",connection:"Può funzionare offline dopo il download.",capability:"Limitato dall'hardware, senza costo per token."},
+    public:{label:"Confronta entrambi",privacy:"Contenuto pubblico, ma verifica sempre i metadati.",connection:"Il cloud richiede rete; il locale no.",capability:"Valuta qualità, latenza e costo sul compito reale."},
+    offline:{label:"Locale necessario",privacy:"I dati restano nel perimetro configurato.",connection:"Il requisito offline esclude una dipendenza cloud.",capability:"Scegli un modello che entri davvero in memoria."}
+  };
+  let current=0,timer=null;
+  const $=id=>document.getElementById(id);
+  function routeHtml(items){return items.map((x,i)=>`${i?'<div class="arrow" aria-hidden="true">↓</div>':''}<div class="node ${i===current?'current':''} ${i<current?'done':''}"><span class="packet"></span>${x}</div>`).join('')}
+  function render(){
+    $("local-route").innerHTML=routeHtml(routes.local); $("cloud-route").innerHTML=routeHtml(routes.cloud);
+    $("scene-title").textContent=steps[current].title; $("explanation").textContent=steps[current].text; $("evidence").innerHTML=`<strong>Da verificare:</strong> ${steps[current].evidence}`;
+    const s=scenarios[$("scenario").value]; $("recommendation").textContent=s.label; $("privacy").textContent=s.privacy; $("connection").textContent=s.connection; $("capability").textContent=s.capability;
+    $("previous").disabled=current===0; $("next").disabled=current===steps.length-1; $("play").textContent=timer?"Pausa":"Riproduci"; $("progress").textContent=`Passo ${current+1} di ${steps.length}`;
+  }
+  $("previous").onclick=()=>{current=Math.max(0,current-1);render()}; $("next").onclick=()=>{current=Math.min(steps.length-1,current+1);render()};
+  $("reset").onclick=()=>{clearInterval(timer);timer=null;current=0;render()}; $("scenario").onchange=render;
+  $("play").onclick=()=>{if(timer){clearInterval(timer);timer=null;render();return}if(current===steps.length-1)current=0;timer=setInterval(()=>{if(current===steps.length-1){clearInterval(timer);timer=null}else current++;render()},1900);render()};
+  render();
+</script>
+</body>
+</html>
