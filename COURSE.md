@@ -79,11 +79,15 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 ## Documenti correnti del corso
 
 - [Percorso didattico Pollicino](docs/course/pollicino-learning-path.md)
+- [Mappa curricolare](docs/course/curriculum-map.md)
+- [Criteri di completamento](docs/course/definition-of-done.md)
+- [Standard visuale e animazioni](docs/course/visual-standard.md)
+- [Visuale interattiva: previsione next-token](visuals/next-token-prediction.html)
 
 ## Prossimi passi di progettazione
 
 1. Inventariare le fonti possedute e mapparle sul tronco comune.
-2. Congelare il primo modulo LLM Practitioner e il profilo hardware scolastico.
-3. Implementare i primi quattro laboratori Pollicino prima del modello neurale.
-4. Definire un harness ripetibile per confrontare modelli locali con Ollama.
+2. Scrivere i venti moduli seguendo la mappa curricolare.
+3. Implementare i laboratori Ollama, valutazione e Pollicino prioritari.
+4. Preparare verifiche, rubriche e progetti finali per i due livelli.
 5. Mantenere separati una timeline dei paper e un catalogo datato dei modelli di frontiera.
