@@ -40,7 +40,7 @@ identity, test modello errato/stream corrotto, bit-per-byte, throughput, memoria
 e total description length inclusi modello/bootstrap. PollicinoNet è un
 esperimento separato su codebook condivisi e link scarsi, non prova del codec neurale.
 
-## Difesa e rubrica
+## Verifica, difesa e rubrica
 
 | Dimensione | Punti |
 | --- | ---: |
@@ -55,4 +55,3 @@ esperimento separato su codebook condivisi e link scarsi, non prova del codec ne
 Soglia 60/100; correttezza, sicurezza e provenienza non possono essere zero.
 La presentazione deve rispondere a una variazione imprevista di input, non solo
 riprodurre una demo preparata.
-
