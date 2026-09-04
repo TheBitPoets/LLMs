@@ -83,6 +83,8 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 - [Criteri di completamento](docs/course/definition-of-done.md)
 - [Standard visuale e animazioni](docs/course/visual-standard.md)
 - [Visuale interattiva: previsione next-token](visuals/next-token-prediction.html)
+- [Inventario e selezione Manning](docs/course/sources/manning-inventory-and-selection.md)
+- [Valutazione di Build Applications with Local AI Models](docs/course/sources/local-ai-models-review.md)
 
 ## Prossimi passi di progettazione
 
