@@ -18,10 +18,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Install PDF validator
+        run: python3 -m pip install --disable-pip-version-check pypdf==6.10.0
       - name: Structural checks
         run: |
           python3 scripts/scaffold_thebitlab_pack.py --check
           python3 scripts/check_course.py
+          python3 scripts/check_pdfs.py
       - name: Unit tests
         run: python3 -m unittest discover -s tests -v
       - name: Parse JavaScript in visual labs
