@@ -63,7 +63,7 @@ Con mixed precision alcune operazioni usano formati ridotti per velocità e memo
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py gradient --steps 12` per osservare la discesa del gradiente su una regressione scalare. Questo comando non addestra un language model e non calcola cross-entropy o perplexity. Calcola queste ultime con le probabilità dell'esempio; l'estensione con curve train/validation richiede un modello e un dataset separati e non è fornita dal runner minimo.
+Esegui `python3 labs/course_lab.py gradient --steps 12` per osservare una regressione scalare. Poi [E04: training da zero](../engineering/E04-training.md) fornisce un Transformer neurale, split, curve e checkpoint riproducibili. [E00](../engineering/E00-matematica.md) sviluppa softmax, cross-entropy e gradienti.
 
 ## Verifica rapida
 

@@ -170,6 +170,13 @@ valida l'implementazione di ricerca reale.
 
 ## Dichiarazione sullo stato corrente
 
+Aggiornamento del corso, 10 settembre: [E04](engineering/E04-training.md) ed
+[E07](engineering/E07-codec.md) forniscono un Byte Transformer addestrato e un
+codec per tutti i byte con round trip CPU verificati. Questa implementazione
+didattica è nel repository LLMs. Non modifica né attesta lo stato corrente dei
+repository esterni Pollicino/PollicinoNet, non ricontrollati in questo incremento.
+Portabilità numerica, integrazione e prove radio rimangono verifiche distinte.
+
 Al 4 settembre 2026 la roadmap canonica di Pollicino presenta predittori
 classici, Byte Transformer, codec neurale e identificazione generativa come
 lavoro pianificato. PollicinoNet dispone di più infrastruttura implementata ed

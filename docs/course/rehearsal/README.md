@@ -12,6 +12,11 @@ affermazioni su Ollama richiedono invece una macchina reale supportata.
 
 ## Sequenza
 
+Installare anche `python3 -m pip install -r labs/engineering/requirements-cpu.txt`
+prima della suite completa. I test neurali sono CPU; il confronto delle
+prestazioni Ollama resta una prova separata. Questa sequenza va eseguita
+quando riprenderà il rehearsal, come concordato.
+
 ```bash
 git rev-parse HEAD
 python3 -m unittest discover -s tests -v
@@ -29,6 +34,7 @@ posto dopo per rendere più leggibile la sequenza del laboratorio.
 
 ## Gate
 
+- eseguire chat a più turni, RAG/eval e agente MCP secondo E01-E03, con report;
 - tutti i test automatici passano sul commit;
 - modello/digest/licenza/quantizzazione sono registrati;
 - smoke online e offline passano senza dati personali;

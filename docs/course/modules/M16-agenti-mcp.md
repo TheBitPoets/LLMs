@@ -20,7 +20,9 @@ MCP è un protocollo per esporre strumenti e risorse con descrizioni standard a 
 
 ## Esempio minimo
 
-Tool `meteo(città)` accetta solo una stringa e non ha effetti. Tool `invia_email(destinatario,testo)` ha effetto esterno e dati personali: richiede destinatario risolto, anteprima, conferma e idempotency key. Non basta chiedere al modello “sei sicuro?”.
+Il tool `meteo(città)` accetta solo una stringa e non ha effetti.
+
+Il tool `invia_email(destinatario,testo)` ha effetto esterno e dati personali: richiede destinatario risolto, anteprima, conferma e idempotency key. Non basta chiedere al modello “sei sicuro?”.
 
 ## Esempio realistico
 
@@ -61,7 +63,7 @@ Le operazioni con effetti usano idempotency key per evitare duplicati dopo timeo
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py agent --request 'CALCOLA: (12 + 8) / 5'`. È un parser deterministico con calcolatore, senza pianificazione LLM né protocollo MCP. L'estensione con tool finto, validazione, autorizzazione e conferma richiede un'applicazione separata. Il percorso pratico S00-S05 aggiunge sviluppo con coding agent e un adapter locale di sola proposta, mantenendo distinta la verifica del software da quella di un agente reale.
+Esegui `python3 labs/course_lab.py agent --request 'CALCOLA: (12 + 8) / 5'` come baseline deterministica. [E03: agenti e MCP](../engineering/E03-agenti-mcp.md) aggiunge tool calling con Ollama, allowlist, budget e un server MCP stdio verificato fra processi. S00-S05 insegna lo sviluppo con coding agent e la separazione fra proposta e operazioni con effetti.
 
 ## Verifica rapida
 

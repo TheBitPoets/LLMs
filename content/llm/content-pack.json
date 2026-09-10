@@ -2,7 +2,7 @@
   "schema_version": "thebitlab.content-pack.v1",
   "id": "llm-pack-2026-2027",
   "title": "LLM 2026/27 — Practitioner e AI Engineer",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "status": "reviewed",
   "language": "it",
   "audience": {
@@ -112,6 +112,29 @@
       ],
       "license_status": "project-license-to-review",
       "indexing_status": "ready"
+    },
+    {
+      "id": "llm-source-engineering",
+      "kind": "source-package",
+      "label": "Implementazioni e matematica AI Engineer",
+      "type": "markdown",
+      "provider": "local",
+      "role": "approved-course-content",
+      "path": "docs/course/engineering",
+      "files": [
+        "README.md",
+        "REPORT-template.md",
+        "E00-matematica.md",
+        "E01-chat.md",
+        "E02-rag.md",
+        "E03-agenti-mcp.md",
+        "E04-training.md",
+        "E05-lora.md",
+        "E06-inferenza.md",
+        "E07-codec.md"
+      ],
+      "license_status": "project-license-to-review",
+      "indexing_status": "ready"
     }
   ],
   "coverage": {
@@ -195,6 +218,11 @@
           "id": "llm-ref-papers",
           "role": "technical-reference",
           "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E00-matematica.md"
         }
       ]
     },
@@ -221,6 +249,11 @@
           "id": "llm-ref-papers",
           "role": "technical-reference",
           "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E00-matematica.md"
         }
       ]
     },
@@ -247,6 +280,11 @@
           "id": "llm-ref-papers",
           "role": "technical-reference",
           "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E04-training.md"
         }
       ]
     },
@@ -277,6 +315,11 @@
           "id": "llm-ref-transformer",
           "role": "technical-reference",
           "locator": "Scaled Dot-Product Attention"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E04-training.md"
         }
       ]
     },
@@ -304,6 +347,11 @@
           "id": "llm-ref-papers",
           "role": "technical-reference",
           "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E06-inferenza.md"
         }
       ]
     },
@@ -330,6 +378,11 @@
           "id": "llm-ref-papers",
           "role": "technical-reference",
           "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E04-training.md"
         }
       ]
     },
@@ -419,6 +472,11 @@
           "id": "llm-ref-local-ai-manning",
           "role": "teacher-reference",
           "locator": "indice e concetti pertinenti; nessuna riproduzione"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E06-inferenza.md"
         }
       ]
     },
@@ -455,6 +513,11 @@
           "id": "llm-ref-ollama",
           "role": "technical-reference",
           "locator": "API and model management"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E01-chat.md"
         }
       ]
     },
@@ -482,6 +545,11 @@
           "id": "llm-ref-papers",
           "role": "technical-reference",
           "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E02-rag.md"
         }
       ]
     },
@@ -514,6 +582,11 @@
           "id": "llm-ref-local-ai-manning",
           "role": "teacher-reference",
           "locator": "indice e concetti pertinenti; nessuna riproduzione"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E01-chat.md"
         }
       ]
     },
@@ -546,6 +619,11 @@
           "id": "llm-ref-local-ai-manning",
           "role": "teacher-reference",
           "locator": "indice e concetti pertinenti; nessuna riproduzione"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E02-rag.md"
         }
       ]
     },
@@ -577,6 +655,11 @@
           "id": "llm-ref-local-ai-manning",
           "role": "teacher-reference",
           "locator": "indice e concetti pertinenti; nessuna riproduzione"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E02-rag.md"
         }
       ]
     },
@@ -603,6 +686,11 @@
           "id": "llm-ref-papers",
           "role": "technical-reference",
           "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E03-agenti-mcp.md"
         }
       ]
     },
@@ -629,6 +717,11 @@
           "id": "llm-ref-papers",
           "role": "technical-reference",
           "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E05-lora.md"
         }
       ]
     },
@@ -656,6 +749,11 @@
           "id": "llm-ref-papers",
           "role": "technical-reference",
           "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E06-inferenza.md"
         }
       ]
     },
@@ -682,6 +780,11 @@
           "id": "llm-ref-papers",
           "role": "technical-reference",
           "locator": "docs/course/research/paper-timeline.md"
+        },
+        {
+          "id": "llm-source-engineering",
+          "role": "content-origin",
+          "locator": "docs/course/engineering/E07-codec.md"
         }
       ]
     }

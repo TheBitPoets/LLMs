@@ -26,3 +26,9 @@ Data card, hash/deduplica e controllo train-test documentato.
 - [ ] Non ho inserito dati personali o segreti nei prompt.
 - [ ] Ho confrontato il risultato con una baseline.
 - [ ] Ho indicato almeno un caso in cui la soluzione può fallire.
+
+## Esempi eseguibili distribuiti
+
+Gli asset `example` contengono codice originale e test pubblici. Sono esempi svolti da studiare, non la consegna completata. Esegui `python3 -m unittest discover -s tests -v` dalla root dello scaffold.
+
+Prima dei test neurali installa `python3 -m pip install -r labs/engineering/requirements-cpu.txt`. Consulta il capitolo E04-training.md nella Course Board. Le prove Ollama richiedono servizio e modelli installati; quelle CPU usano fixture incluse. I report vanno in una directory nuova e devono distinguere simulazione e misure.

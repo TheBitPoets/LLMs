@@ -1,26 +1,17 @@
 # Guida docente M03 — Token, byte ed embedding
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M03 - Byte, token e embedding
 
-Catena byte-token-ID-embedding e uguaglianza dimostrata tra input e output.
+La lettera «è» occupa due byte in UTF-8, ma un tokenizer può rappresentarla
+con uno o più token. Gli ID sono indici discreti; la lookup restituisce righe
+della matrice embedding. La distanza fra ID numerici non misura somiglianza
+semantica. Per il round trip richiedere uguaglianza dei byte, includendo
+accenti, newline e spazi finali. Unicode apparentemente identico può avere
+rappresentazioni diverse: normalizzare prima della prova cambia il problema.
+E02 usa vettori prodotti da un modello embedding, mentre E04 usa embedding
+allenabili dei byte dentro il Transformer: funzioni e addestramenti differenti.
+Correggere chi assume che una similarità coseno di 0,8 significhi «80% vero».
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

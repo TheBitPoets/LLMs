@@ -37,6 +37,34 @@
       "path": "teacher/SOLUTION.md",
       "visibility": "teacher",
       "description": "Criteri, soluzione e domande per la discussione"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/course_lab.py",
+      "target_path": "labs/course_lab.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/tests/test_course_lab.py",
+      "target_path": "tests/test_course_lab.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/fixtures/predictions.jsonl",
+      "target_path": "labs/fixtures/predictions.jsonl",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/fixtures/rag-corpus.json",
+      "target_path": "labs/fixtures/rag-corpus.json",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
     }
   ],
   "correzione": {

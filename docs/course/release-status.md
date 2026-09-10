@@ -1,63 +1,74 @@
-# Stato di rilascio e lavoro residuo
+# Stato di rilascio e verifiche residue
 
-Audit aggiornato: **10 settembre 2026**.
+Aggiornamento: **10 settembre 2026, edizione LLM 0.10.0**.
 
-## Valutazione corretta
+## Materiali e implementazioni
 
-**Il corso è in ampliamento: non resta soltanto il test hardware.** La precedente
-frase «Course materials complete» era troppo forte rispetto alle implementazioni
-disponibili. Avere capitoli per tutti gli argomenti non significa avere già
-laboratori completi e soluzioni sviluppate per tutti gli obiettivi AI Engineer.
+Il percorso dispone ora di 20 moduli LLM, otto capitoli engineering E00-E07
+con matematica e implementazioni, e sei lezioni pratiche S00-S05 sullo sviluppo
+software con coding agent. Le soluzioni dei venti moduli sono sviluppate per
+argomento e separate dagli asset studente.
 
-## Materiali disponibili
+Il piano annuale resta di 34 settimane per 2 ore. E00-E07 approfondisce i
+moduli esistenti; lo studio integrale AI Engineer richiede circa 32 ore
+aggiuntive. S00-S05 conserva il proprio Course Design di 12 ore e le due
+estensioni personali di 6 ore. Queste stime non sostituiscono i tempi in classe.
 
-- 20 moduli LLM con spiegazioni Practitioner/AI Engineer, glossario e apparati.
-- Content Pack LLM v1, Course Design annuale 34 settimane × 2 ore e 20 Activity.
-- Sei lezioni aggiuntive S00-S05 sullo sviluppo software con coding agent,
-  Content Pack autonomo, Course Design di 12 ore e sei Activity A-F.
-- Progetto PrenotaLab: starter deliberatamente incompleto, specifica R01-R08,
-  test pubblici e soluzione docente con memoria, SQLite e transazioni.
-- Adapter Ollama per proposte JSON e relativi test con risposta simulata;
-  nessuna prenotazione viene creata da una risposta LLM.
-- Riferimenti Manning verificati su schede pubbliche il 10 settembre;
-  capitoli liveBook non letti in questa sessione per errore di accesso 403.
-- Dispense PDF studente/docente, visuali interattive e figure originali.
-- Runner minimo con esperimenti di probabilità, byte, gradienti, attention,
-  memoria euristica, sampling, valutazione di fixture e codec A/B.
-- Correzione dei comandi inesistenti o privi di argomenti nelle dispense;
-  controllo automatico che gli esempi CLI siano accettati dal parser reale.
+## Evidenze disponibili
 
-## Limiti concreti da completare nel percorso LLM
+| Obiettivo | Implementazione e verifica |
+| --- | --- |
+| Chat | Stato, streaming, cronologia, timeout e cancellazione; test HTTP locale con risposte simulate |
+| RAG | Embedding Ollama, ranking, generazione JSON, citazioni letterali e astensione; test di contratto e fixture eval |
+| Agenti | Ciclo di tool calling con allowlist, budget e traccia; provider simulato nei test |
+| MCP | Sottoinsieme stdio 2025-06-18; handshake, discovery e chiamata fra processi reali |
+| Training | Transformer byte da 84.288 parametri, corpus originale, split e checkpoint; training CPU eseguito |
+| LoRA | 1.216 parametri sulla head; pesi base invariati, miglioramento target e regressione base misurati |
+| Inferenza | Reference, tiled online softmax e funzione di libreria; equivalenza, KV cache e tempi CPU |
+| Codec | Tutti i byte e file vuoto, predittore adattivo o neurale; otto round trip e confronto gzip con costo del modello |
+| Software con AI | PrenotaLab, specifiche, test, soluzione SQLite e adapter di sola proposta |
+| Modelli recenti | Nuovo catalogo datato 10 settembre con fonti ufficiali |
 
-| Obiettivo | Disponibilità corrente | Lavoro ancora necessario |
-| --- | --- | --- |
-| Chat applicativa | Richiesta Ollama non streaming | Client con stato, streaming, cancel e test end-to-end |
-| RAG completo | Retrieval lessicale sulle fixture | Embedding, generazione con fonti ed eval end-to-end |
-| Agenti e MCP | Parser/calcolatore deterministico | Applicazione con tool calling reale e integrazione MCP verificata |
-| Training e LoRA | Teoria, regressione scalare e tracce | Piccolo modello neurale, training riproducibile, adapter ed eval |
-| Kernel d'inferenza | Calcolo Python e visuali | Reference numerica, kernel ottimizzato e misure hardware |
-| Pollicino neurale | Codec A/B didattico esatto | Codifica byte generale, modello neurale e integrazione nel progetto esterno |
-| Soluzioni dei 20 moduli | Criteri e quick-check | Ulteriori soluzioni eseguibili per gli obiettivi avanzati |
-| Modelli recentissimi | Snapshot 4 settembre | Nuova verifica datata delle release e prove sul compito |
+Le misure e i piccoli checkpoint originali sono in
+[output/engineering](../../output/engineering). Il modello non è un assistente
+generale: i dati condividono template sintetici. LoRA peggiora il dominio
+originale; il tiled Python è più lento del riferimento nella prova; il codec
+neurale non batte gzip nei casi misurati. Questi risultati fanno parte delle
+lezioni e non vengono presentati come successi universali.
 
-Il supplemento software dispone di un proprio progetto eseguibile e verificato
-con test automatici. Gli esercizi avanzati di confronto modelli e revisione
-dello schema con chiarimenti sono consegne da svolgere, non misure già raccolte.
+## Verifiche che restano realmente aperte
 
-## Verifiche e gate distinti
+1. **Rehearsal sul Mac M4 Pro 36 GB**, rinviato come concordato dopo tutti i
+   corsi dell'anno: eseguire chat, RAG, tool calling e confronto di almeno due
+   modelli Ollama reali; registrare digest, memoria, tempi, qualità ed errori.
+2. **Revisione docente** di contenuti, soluzioni e tempi effettivi prima
+   dell'uso in classe e dell'approvazione didattica del pack.
+3. **Freeze del Course Bundle**, successivo ai gate: stato `approved` e tag
+   `course-v1` non vengono anticipati.
 
-La CI controlla struttura, link, metadati generati, JavaScript, test Python e
-integrità dei PDF. I PDF devono superare lettura strict, controllo xref/EOF,
-lettura degli stream di ogni pagina e ispezione visiva dopo la rigenerazione.
-La verifica dei blob GitHub deve confrontarne lo SHA con il file locale,
-per evitare la troncatura binaria che aveva reso invalidi i PDF precedenti.
+I laboratori applicativi sono implementati e testati a livello di contratto;
+non sono dichiarati collaudati con ogni modello del catalogo. Mancano ancora
+le misure live Ollama sul profilo supportato, richieste dalla definition of done.
+Quindi il completamento dei materiali non equivale ancora alla chiusura di
+tutti i criteri di rilascio.
 
-Il rehearsal sul Mac M4 Pro 36 GB resta rinviato come concordato. Non sono
-stati misurati in questo ambiente digest, memoria, TTFT, token/s o qualità di
-modelli locali reali. Le risposte simulate degli unit test non sostituiscono
-una sessione con coding agent né il confronto locale/cloud.
+L'integrazione nel progetto esterno PollicinoNet, la portabilità numerica
+bit-per-bit del codec fra hardware diversi e kernel CUDA competitivi restano
+estensioni di ricerca, non prerequisiti del capstone locale di questa edizione.
 
-Il pack LLM conserva `reviewed`, il supplemento software è `draft`. Il docente
-deve rivedere contenuti, soluzioni e tempi prima di portarli ad `approved` e
-generare un Course Bundle immutabile. Non creare `course-v1` né dichiarare
-«validato in classe» prima di chiudere i residui e raccogliere le evidenze.
+## Content Pack, PDF e pubblicazione
+
+Il [verbale di verifica](engineering/VALIDATION.md) riporta ambiente, comandi,
+65 test superati, validazione canonica e controllo delle dispense.
+
+Il pack LLM usa `thebitlab.content-pack.v1`, conserva `reviewed` e indicizza
+i capitoli engineering originali senza gli apparati docente. Le Activity
+distribuiscono esempi e test attraverso asset dichiarati. Il supplemento
+software conserva `draft`. I riferimenti Manning rimangono teacher-reference:
+le schede pubbliche sono state consultate, i capitoli liveBook non sono stati
+letti in questa sessione per il precedente errore di accesso.
+
+La CI controlla metadati generati, link, test Python, JavaScript e PDF.
+I PDF devono superare apertura strict, xref/EOF e lettura di tutte le pagine,
+oltre al controllo visivo dopo la build. I blob pubblicati vengono confrontati
+con gli SHA locali, includendo PDF e checkpoint, per evitare troncature.

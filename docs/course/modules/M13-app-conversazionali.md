@@ -82,7 +82,7 @@ La backpressure impedisce che produttore e consumatore saturino memoria. Con mol
 
 ## Laboratorio
 
-Parti dal client minimo e usa un server mock prima del modello reale. Testa risposta valida, timeout, JSON invalido, stream interrotto e cancel. Solo dopo collega Ollama e registra manifest e metriche.
+Completa [E01: chat affidabile](../engineering/E01-chat.md): client con stato, streaming, cancel e cronologia coerente, corredato da test HTTP riproducibili. Usa il mock per i casi negativi, poi collega Ollama e registra manifest e metriche reali.
 
 ## Verifica rapida
 

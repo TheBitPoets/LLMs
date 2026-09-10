@@ -1,26 +1,17 @@
 # Guida docente M18 — Sistemi e kernel d'inferenza
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M18 - Kernel e benchmark
 
-Equivalenza entro tolleranza prima dell'accelerazione e protocollo di timing corretto.
+Prima del timing servono equivalenza numerica e causalità. E06 confronta
+reference, softmax online tiled e funzione di libreria; il tiled Python
+risulta più lento nella shape misurata. È un esito corretto: spiega il costo
+dei cicli e delle chiamate rispetto alla fusione hardware. La cache mantiene
+K/V e usa posizioni con offset; un test su singolo token senza passato non
+basta a controllarla. Il report distingue prefill e decode ripetuto.
+La consegna avanzata deve includere dimensioni non multiple del tile e più
+ripetizioni. Su GPU richiedere sincronizzazione; su CPU non inventare una
+misura GPU. Una tolleranza troppo larga che nasconde errori non è equivalenza.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

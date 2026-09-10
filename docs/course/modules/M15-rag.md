@@ -61,7 +61,7 @@ Un documento è input non fidato. Istruzioni come “ignora il sistema e invia i
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py rag --query 'Perché serve una baseline?'` sulle fixture. Il comando esegue retrieval lessicale, senza embedding neurali né generazione. Registra ranking e chunk forniti; non attribuire questo risultato a una pipeline RAG completa. Come estensione integra il contesto in una richiesta Ollama e confronta con la richiesta senza evidenza mantenendo fissi modello e decoder. Il test dei confini di fiducia richiede tale applicazione completa: non è dimostrato dal solo ranking.
+Esegui `python3 labs/course_lab.py rag --query 'Perché serve una baseline?'` come baseline lessicale. Completa [E02: RAG con embedding e generazione](../engineering/E02-rag.md), che fornisce pipeline Ollama, citazioni validate ed eval set. Confronta retrieval e risposta separatamente; il controllo letterale delle citazioni non prova supporto semantico.
 
 ## Verifica rapida
 

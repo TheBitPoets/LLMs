@@ -59,7 +59,7 @@ registrano:
 
 ## Backlog successivo non bloccante
 
-Le dieci visuali interattive e le sette figure statiche coprono il nucleo
+Le undici visuali interattive e le nove figure statiche coprono il nucleo
 concettuale e i laboratori principali. La
 seconda iterazione potrà aggiungere loss landscape, RoPE tridimensionale,
 post-training, formati GGUF/safetensors e un profiler con tracce hardware reali.
@@ -71,3 +71,11 @@ accompagnano S01-S03. Sono originali, senza asset Manning incorporati.
 La simulazione confronta minuti occupati e confronti sugli estremi; non
 esegue il servizio Python né un modello. Include domanda diagnostica,
 controlli da tastiera e rispetto di prefers-reduced-motion.
+
+## Curve reali di training e regressione
+
+La [figura engineering](../../visuals/static/engineering-training.svg) deriva
+esclusivamente dal [report CPU originale](../../output/engineering/training-report.json).
+Mostra train/validation e la regressione introdotta da LoRA sul dominio base.
+Si rigenera con `python3 scripts/build_engineering_figures.py` (Matplotlib).
+Non contiene asset editoriali, non simula benchmark di modelli di frontiera.

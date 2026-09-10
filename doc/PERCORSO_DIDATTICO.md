@@ -8,6 +8,7 @@ Per modificarlo, aggiorna la struttura con la Course Design Board e poi rigenera
 
 - `llm-source-modules` — Dispense originali LLM 2026/27 (provider `local`, stato `ready`) · docs/course/modules · `README.md`, `M00-orientamento.md`, `M01-ecosistema.md`, `M02-next-token.md`, `M03-token-byte-embedding.md`, `M04-apprendimento.md`, `M05-attention-transformer.md`, `M06-architetture-moderne.md`, `M07-dati-scaling.md`, `M08-post-training-reasoning.md`, `M09-pesi-formati-licenze.md`, `M10-hardware-quantizzazione.md`, `M11-ollama.md`, `M12-sampling-prompting.md`, `M13-app-conversazionali.md`, `M14-valutazione.md`, `M15-rag.md`, `M16-agenti-mcp.md`, `M17-fine-tuning.md`, `M18-sistemi-kernel.md`, `M19-capstone-pollicino.md`
 - `llm-source-glossary` — Glossario originale LLM (provider `local`, stato `ready`) · docs/course/handbook · `GLOSSARY.md`
+- `llm-source-engineering` — Implementazioni e matematica AI Engineer (provider `local`, stato `ready`) · docs/course/engineering · `README.md`, `REPORT-template.md`, `E00-matematica.md`, `E01-chat.md`, `E02-rag.md`, `E03-agenti-mcp.md`, `E04-training.md`, `E05-lora.md`, `E06-inferenza.md`, `E07-codec.md`
 
 ## Sintesi dei percorsi
 

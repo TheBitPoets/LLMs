@@ -7,7 +7,7 @@
   "argomenti": [
     "attention causale e blocco Transformer"
   ],
-  "consegna": "Implementa o calcola scaled dot-product attention e verifica la causalità.",
+  "consegna": "Calcola scaled dot-product attention e aggiungi un test indipendente che rilevi una maschera causale con offset errato durante il decode con cache.",
   "student_support_mode": "feedback-tecnico",
   "contesto": {
     "percorso": "percorso-annuale",
@@ -20,6 +20,10 @@
     {
       "source_id": "llm-source-modules",
       "href": "docs/course/modules/M05-attention-transformer.md"
+    },
+    {
+      "source_id": "llm-source-engineering",
+      "href": "docs/course/engineering/E04-training.md"
     }
   ],
   "assets": [
@@ -35,6 +39,209 @@
       "path": "teacher/SOLUTION.md",
       "visibility": "teacher",
       "description": "Criteri, soluzione e domande per la discussione"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/course_lab.py",
+      "target_path": "labs/course_lab.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/tests/test_course_lab.py",
+      "target_path": "tests/test_course_lab.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/fixtures/predictions.jsonl",
+      "target_path": "labs/fixtures/predictions.jsonl",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/fixtures/rag-corpus.json",
+      "target_path": "labs/fixtures/rag-corpus.json",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/README.md",
+      "target_path": "labs/engineering/README.md",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/__init__.py",
+      "target_path": "labs/engineering/__init__.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/agent.py",
+      "target_path": "labs/engineering/agent.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/byte_codec.py",
+      "target_path": "labs/engineering/byte_codec.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/client.py",
+      "target_path": "labs/engineering/client.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/codec_experiment.py",
+      "target_path": "labs/engineering/codec_experiment.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/fixtures/documents.json",
+      "target_path": "labs/engineering/fixtures/documents.json",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/fixtures/rag-eval.json",
+      "target_path": "labs/engineering/fixtures/rag-eval.json",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/fixtures/text/adapt-test.txt",
+      "target_path": "labs/engineering/fixtures/text/adapt-test.txt",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/fixtures/text/adapt-train.txt",
+      "target_path": "labs/engineering/fixtures/text/adapt-train.txt",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/fixtures/text/adapt-valid.txt",
+      "target_path": "labs/engineering/fixtures/text/adapt-valid.txt",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/fixtures/text/base-test.txt",
+      "target_path": "labs/engineering/fixtures/text/base-test.txt",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/fixtures/text/base-train.txt",
+      "target_path": "labs/engineering/fixtures/text/base-train.txt",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/fixtures/text/base-valid.txt",
+      "target_path": "labs/engineering/fixtures/text/base-valid.txt",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/generate.py",
+      "target_path": "labs/engineering/generate.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/inference.py",
+      "target_path": "labs/engineering/inference.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/make_corpus.py",
+      "target_path": "labs/engineering/make_corpus.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/mcp.py",
+      "target_path": "labs/engineering/mcp.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/rag.py",
+      "target_path": "labs/engineering/rag.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/requirements-cpu.txt",
+      "target_path": "labs/engineering/requirements-cpu.txt",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/run.py",
+      "target_path": "labs/engineering/run.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/tiny_lm.py",
+      "target_path": "labs/engineering/tiny_lm.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/engineering/train.py",
+      "target_path": "labs/engineering/train.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/tests/test_engineering_apps.py",
+      "target_path": "tests/test_engineering_apps.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/tests/test_engineering_neural.py",
+      "target_path": "tests/test_engineering_neural.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
     }
   ],
   "correzione": {

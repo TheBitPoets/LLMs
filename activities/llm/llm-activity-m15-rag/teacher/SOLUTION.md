@@ -1,26 +1,17 @@
 # Guida docente M15 — Embedding, ricerca e RAG
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M15 - RAG e citazioni
 
-Metriche retrieval ed end-to-end, citazioni supportate e injection senza privilegi.
+La risposta «LAB-A ha 24 posti» deve citare il chunk della stanza A, con
+estratto realmente presente. L'ID inventato viene rifiutato dal validatore.
+Un estratto corretto associato a un'affermazione sulla stanza B non supera
+la correzione semantica, anche se supera il controllo di sottostringa.
+Senza chunk sopra soglia il codice si astiene senza generazione; una soglia
+troppo severa può aumentare astensioni improprie. Il documento ostile resta
+testo e il generatore non ha tool, quindi non può compiere effetti tramite
+la pipeline. Non concludere per questo che il testo generato sia immune da
+injection. L'eval live va conservato anche se il modello piccolo fallisce.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

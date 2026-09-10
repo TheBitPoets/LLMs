@@ -1,0 +1,7 @@
+[
+  {"id":"opening","query":"A che ora chiude la biblioteca?","documents":["opening"],"contains":"14:00"},
+  {"id":"loan","query":"Quanti giorni dura il prestito dei libri?","documents":["loan"],"contains":"14"},
+  {"id":"lab-a","query":"Quanti posti ha LAB-A?","documents":["room-a"],"contains":"24"},
+  {"id":"lab-b","query":"Quanti posti ha LAB-B?","documents":["room-b"],"contains":"18"},
+  {"id":"unknown","query":"Quanto costa il biglietto del museo?","documents":[],"contains":""}
+]

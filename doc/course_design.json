@@ -5,7 +5,8 @@
   "description": "Percorso annuale a doppio livello con teoria intuitiva, matematica, laboratori locali e capstone Pollicino.",
   "source_ids": [
     "llm-source-modules",
-    "llm-source-glossary"
+    "llm-source-glossary",
+    "llm-source-engineering"
   ],
   "sources": [
     {
@@ -47,6 +48,26 @@
       "path": "docs/course/handbook",
       "files": [
         "GLOSSARY.md"
+      ],
+      "indexing_status": "ready"
+    },
+    {
+      "id": "llm-source-engineering",
+      "label": "Implementazioni e matematica AI Engineer",
+      "type": "markdown",
+      "provider": "local",
+      "path": "docs/course/engineering",
+      "files": [
+        "README.md",
+        "REPORT-template.md",
+        "E00-matematica.md",
+        "E01-chat.md",
+        "E02-rag.md",
+        "E03-agenti-mcp.md",
+        "E04-training.md",
+        "E05-lora.md",
+        "E06-inferenza.md",
+        "E07-codec.md"
       ],
       "indexing_status": "ready"
     }

@@ -1,26 +1,18 @@
 # Guida docente M07 — Pre-training, dati e scaling
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M07 - Dati e contaminazione
 
-Data card, hash/deduplica e controllo train-test documentato.
+Nel corpus E04 il controllo fra insiemi di righe trova duplicati esatti.
+Questo non trova parafrasi né template condivisi. Una soluzione migliore per
+valutare trasferimento a un dominio nuovo separa per fonte, argomento o tempo
+prima del campionamento delle finestre. Suddividere finestre sovrapposte dopo
+averle estratte può copiare gran parte dello stesso testo fra train e test.
+La data card deve dichiarare origine sintetica, generatore, licenza e limiti,
+non soltanto il numero di righe. Non è possibile inferire una scaling law
+affidabile da due modelli minuscoli addestrati con budget non confrontabili.
+Chiedere quale dato cambierebbe la decisione di raccolta e quale contaminazione
+resterebbe invisibile a un hash esatto.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

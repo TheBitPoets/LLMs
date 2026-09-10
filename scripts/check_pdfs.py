@@ -59,6 +59,11 @@ def reader_check(path: Path, minimum_pages: int) -> int:
     teacher_marker = "Guida docente: PrenotaLab"
     if ("docente" in path.name) != (teacher_marker in text):
         raise ValueError("apparati PrenotaLab studente/docente non separati")
+    for index in range(8):
+        if f"E{index:02} -" not in text:
+            raise ValueError(f"capitolo engineering E{index:02} mancante")
+    if ("docente" in path.name) != ("Soluzioni ragionate dei venti moduli" in text):
+        raise ValueError("soluzioni engineering studente/docente non separate")
     return pages
 
 

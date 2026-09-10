@@ -1,0 +1,11 @@
+{
+  "prompt": "stanza=",
+  "continuation": "roti1.\nscsti aucscsti=ula=ula=D; ;etborihoteteditititivititeti=tititi=tititititi",
+  "bytes_hex": "726f7469312e0a73637374692061756373637374693d756c613d756c613d443b203b6574626f7269686f74657465646974697469746976697469746574693d7469746974693d74697469746974697469",
+  "valid_utf8": true,
+  "temperature": 0,
+  "seed": 7,
+  "checkpoint_sha256": "cbdddf88b647f217eee0fd515f6d3526b97947860c7e39448c1559df63cb11eb",
+  "adapter_sha256": "8e012aa94927d57e15f1cf2c4072bf56dd735c6ccbb9c7cead0c170b71522744",
+  "policy": "last 64 bytes, positions reset per window; no EOS or instruction tuning"
+}

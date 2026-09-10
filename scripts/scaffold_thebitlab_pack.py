@@ -45,13 +45,33 @@ UDAS = [
     ("uda-05-engineering", "AI engineering, sistemi e capstone", 6, range(16, 20)),
 ]
 
+ENGINEERING = {
+    2: "E00-matematica.md", 3: "E00-matematica.md", 4: "E04-training.md",
+    5: "E04-training.md", 6: "E06-inferenza.md", 7: "E04-training.md",
+    10: "E06-inferenza.md", 11: "E01-chat.md", 12: "E02-rag.md",
+    13: "E01-chat.md", 14: "E02-rag.md", 15: "E02-rag.md",
+    16: "E03-agenti-mcp.md", 17: "E05-lora.md", 18: "E06-inferenza.md",
+    19: "E07-codec.md",
+}
+ENGINEERING_CODE = {4, 5, 7, 10, 11, 13, 14, 15, 16, 17, 18, 19}
+
+
+def example_files(index: int) -> list[Path]:
+    files = [ROOT / "labs/course_lab.py", ROOT / "tests/test_course_lab.py",
+             *sorted((ROOT / "labs/fixtures").glob("*"))]
+    if index in ENGINEERING_CODE:
+        files += [p for p in sorted((ROOT / "labs/engineering").rglob("*"))
+                  if p.is_file() and "__pycache__" not in p.parts]
+        files += [ROOT / "tests/test_engineering_apps.py", ROOT / "tests/test_engineering_neural.py"]
+    return files
+
 TASKS = {
     0: "Costruisci baseline, ipotesi e manifest di evidenza per un compito LLM scelto.",
     1: "Disegna il percorso dei dati nelle varianti locale, cloud e ibrida e motiva la scelta.",
     2: "Calcola e simula distribuzioni next-token, sorpresa e costo ideale in bit.",
     3: "Ispeziona testo, byte, token e ID e dimostra un round trip senza perdita.",
-    4: "Genera e interpreta curve train/validation distinguendo apprendimento, overfitting e leakage.",
-    5: "Implementa o calcola scaled dot-product attention e verifica la causalità.",
+    4: "Partendo dal training di riferimento E04, separa un argomento dal training e confronta le curve con lo split a template; motiva il cambiamento di generalizzazione.",
+    5: "Calcola scaled dot-product attention e aggiungi un test indipendente che rilevi una maschera causale con offset errato durante il decode con cache.",
     6: "Confronta MHA, GQA, MQA, RoPE e MoE collegando ogni tecnica a costo e beneficio.",
     7: "Crea una data card, deduplica un corpus giocattolo e controlla contaminazione degli split.",
     8: "Confronta risposta diretta, scomposizione e tool su problemi verificabili a budget fissato.",
@@ -59,13 +79,13 @@ TASKS = {
     10: "Stima e poi misura pesi, KV cache, TTFT e token/s per configurazioni confrontabili.",
     11: "Interroga Ollama da CLI e API, fissando digest e parametri e gestendo almeno due errori.",
     12: "Confronta strategie di sampling e valida un output strutturato con input non fidato.",
-    13: "Costruisci un client conversazionale con adapter, timeout, cancel e test tramite mock.",
+    13: "Estendi il client E01 con una policy che mantenga soltanto le ultime due coppie complete e aggiungi un test di errore dopo il primo frammento, senza alterare la storia confermata.",
     14: "Progetta ed esegui un eval set preregistrato con baseline, soglie e categorie di errore.",
-    15: "Costruisci una pipeline RAG con ranking osservabile, citazioni verificabili e test injection.",
-    16: "Implementa un tool read-only e una macchina a stati con policy e conferma degli effetti.",
-    17: "Motiva prompting/RAG/LoRA su casi dati e misura un adattamento senza contaminare il test.",
-    18: "Confronta reference e kernel ottimizzato con test numerici e benchmark sincronizzato.",
-    19: "Consegna l'app locale valutata oppure il ramo Pollicino con round trip e costi completi.",
+    15: "Estendi E02 con almeno sei nuove domande, comprese parafrasi, assenza di fonte e un falso supporto semantico; confronta due configurazioni di retrieval a generatore fisso.",
+    16: "Aggiungi una terza stanza al tool E03 aggiornando schema, policy e test; verifica argomenti extra e budget. Progetta separatamente la conferma richiesta da un futuro tool con effetti.",
+    17: "Confronta due ranghi LoRA sul modello E05 usando validation per la scelta e un limite di regressione preregistrato; riporta un unico confronto finale sul test.",
+    18: "Estendi E06 a tre lunghezze e due tile, includendo una dimensione non multipla; verifica equivalenza prima dei tempi e consegna tutte le ripetizioni con mediana.",
+    19: "Consegna un'app locale valutata su un bisogno nuovo oppure estendi E07 con un corpus binario indipendente, casi negativi e confronto di tutti i costi; eseguire soltanto l'esempio fornito non basta.",
 }
 
 EXPECTED = {
@@ -131,6 +151,8 @@ def build_manifest() -> dict:
             refs.append({"id": "llm-ref-transformer", "role": "technical-reference", "locator": "Scaled Dot-Product Attention"})
         if i == 11:
             refs.append({"id": "llm-ref-ollama", "role": "technical-reference", "locator": "API and model management"})
+        if i in ENGINEERING:
+            refs.append({"id": "llm-source-engineering", "role": "content-origin", "locator": f"docs/course/engineering/{ENGINEERING[i]}"})
         items.append({
             "id": module_id(i), "kind": "module", "path": f"docs/course/modules/{filename}",
             "order": i + 1, "status": "reviewed", "curriculum_topics": [portable_id(x) for x in topics.split(",")],
@@ -138,13 +160,14 @@ def build_manifest() -> dict:
         })
     return {
         "schema_version": "thebitlab.content-pack.v1", "id": "llm-pack-2026-2027",
-        "title": "LLM 2026/27 — Practitioner e AI Engineer", "version": "0.9.0", "status": "reviewed", "language": "it",
+        "title": "LLM 2026/27 — Practitioner e AI Engineer", "version": "0.10.0", "status": "reviewed", "language": "it",
         "audience": {"school_level": "secondaria-secondo-grado-e-formazione-adulti", "subject": "Intelligenza artificiale e LLM", "year": 0},
         "ownership": {"content_origin": "original-course-material", "redistribution_status": "project-license-to-review", "editorial_copying_allowed": False},
         "references": references,
         "sources": [
             {"id": "llm-source-modules", "kind": "source-package", "label": "Dispense originali LLM 2026/27", "type": "markdown", "provider": "local", "role": "approved-course-content", "path": "docs/course/modules", "files": files, "license_status": "project-license-to-review", "indexing_status": "ready"},
             {"id": "llm-source-glossary", "kind": "source-package", "label": "Glossario originale LLM", "type": "markdown", "provider": "local", "role": "approved-course-content", "path": "docs/course/handbook", "files": ["GLOSSARY.md"], "license_status": "project-license-to-review", "indexing_status": "ready"},
+            {"id": "llm-source-engineering", "kind": "source-package", "label": "Implementazioni e matematica AI Engineer", "type": "markdown", "provider": "local", "role": "approved-course-content", "path": "docs/course/engineering", "files": ["README.md", "REPORT-template.md", *[p.name for p in sorted((ROOT / "docs/course/engineering").glob("E??-*.md"))]], "license_status": "project-license-to-review", "indexing_status": "ready"},
         ],
         "coverage": {"path": "content/llm/COVERAGE.md", "status": "reviewed"},
         "content_items": items,
@@ -174,13 +197,13 @@ def build_design(manifest: dict) -> dict:
         }
         for source in manifest["sources"]
     ]
-    return {"schema_version": "1.0", "id": "llm-course-2026-2027", "title": "LLM 2026/27 — Practitioner e AI Engineer", "description": "Percorso annuale a doppio livello con teoria intuitiva, matematica, laboratori locali e capstone Pollicino.", "source_ids": ["llm-source-modules", "llm-source-glossary"], "sources": projected_sources, "years": [{"id": "percorso-annuale", "title": "Percorso annuale 2026/27", "description": "Tronco Practitioner per la classe; approfondimenti AI Engineer per studio avanzato.", "weekly_hours": 2, "weeks": 34, "udas": udas}]}
+    return {"schema_version": "1.0", "id": "llm-course-2026-2027", "title": "LLM 2026/27 — Practitioner e AI Engineer", "description": "Percorso annuale a doppio livello con teoria intuitiva, matematica, laboratori locali e capstone Pollicino.", "source_ids": [s["id"] for s in projected_sources], "sources": projected_sources, "years": [{"id": "percorso-annuale", "title": "Percorso annuale 2026/27", "description": "Tronco Practitioner per la classe; approfondimenti AI Engineer per studio avanzato.", "weekly_hours": 2, "weeks": 34, "udas": udas}]}
 
 
 def build_activity(index: int, row: tuple[str, str, str, str, str, int, str]) -> dict:
     filename, title, topics, difficulty, kind, minutes, slug = row
     aid = activity_id(index, slug)
-    compile_required = index in {3, 5, 10, 11, 13, 14, 15, 16, 18, 19}
+    compile_required = index in {3, 4, 5, 7, 10, 11, 13, 14, 15, 16, 17, 18, 19}
     return {
         "schema_version": "1.0", "id": aid, "titolo": f"M{index:02d} — {title}", "tipo": kind, "difficolta": difficulty,
         "argomenti": [x.strip() for x in topics.split(",")],
@@ -188,10 +211,11 @@ def build_activity(index: int, row: tuple[str, str, str, str, str, int, str]) ->
         "student_support_mode": "senza-aiuto" if index in {0, 19} else "studio-guidato" if kind == "studio-guidato" else "feedback-tecnico",
         "contesto": {"percorso": "percorso-annuale", "uda": find_uda(index)},
         "content_ids": [module_id(index)],
-        "source_refs": [{"source_id": "llm-source-modules", "href": f"docs/course/modules/{filename}"}],
+        "source_refs": [{"source_id": "llm-source-modules", "href": f"docs/course/modules/{filename}"}] + ([{"source_id": "llm-source-engineering", "href": f"docs/course/engineering/{ENGINEERING[index]}"}] if index in ENGINEERING else []),
         "assets": [
             {"type": "starter", "path": "student/README.md", "target_path": "README.md", "visibility": "student", "description": "Traccia e checklist consegnate allo studente"},
             {"type": "teacher_only", "path": "teacher/SOLUTION.md", "visibility": "teacher", "description": "Criteri, soluzione e domande per la discussione"},
+            *[{"type": "example", "path": f"examples/{p.relative_to(ROOT).as_posix()}", "target_path": p.relative_to(ROOT).as_posix(), "visibility": "student", "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"} for p in example_files(index)],
         ],
         "correzione": {"compila": compile_required, "test": compile_required, "sandbox": compile_required, "ai_feedback": index not in {0, 19}},
         "metriche": {"tempo_stimato_minuti": minutes, "traccia_tempo_dichiarato": True, "traccia_sessioni_thebitlab": True, "traccia_eventi_didattici": True, "traccia_errori_compilazione": compile_required},
@@ -204,7 +228,11 @@ def student_readme(index: int, title: str) -> str:
 
 
 def teacher_solution(index: int, title: str) -> str:
-    return f"""# Guida docente M{index:02d} — {title}\n\nQuesto file è riservato al docente e non va incluso nello scaffold studente.\n\n## Esito di riferimento\n\n{EXPECTED[index]}\n\nNon esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.\n\n## Evidenze minime\n\n- artefatto coerente con la consegna specifica;\n- manifest di evidenza completo;\n- confronto con baseline e almeno un caso limite;\n- distinzione esplicita tra misura, simulazione e aspettativa.\n\n## Correzione\n\nUsare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.\n\n## Domande orali\n\n1. Quale decisione cambieresti passando da locale a cloud?\n2. Qual è il principale limite della tua prova?\n3. Quale controllo renderebbe la conclusione più robusta?\n"""
+    source = (ROOT / "docs/course/engineering/TEACHER.md").read_text(encoding="utf-8")
+    section = re.search(rf"^## M{index:02d} - .*?(?=^## M\d\d - |\Z)", source, re.M | re.S)
+    if section:
+        return f"# Guida docente M{index:02d} — {title}\n\nRiservato al docente.\n\n{section.group(0).strip()}\n\nRubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.\n"
+    raise ValueError(f"Soluzione curata M{index:02d} mancante")
 
 
 def expected_files(manifest: dict, design: dict) -> dict[Path, str]:
@@ -218,7 +246,12 @@ def expected_files(manifest: dict, design: dict) -> dict[Path, str]:
         base = ROOT / "activities/llm" / activity_id(i, slug)
         files[base / "activity.json"] = json_text(build_activity(i, row))
         files[base / "student/README.md"] = student_readme(i, title)
+        files[base / "student/README.md"] += "\n## Esempi eseguibili distribuiti\n\nGli asset `example` contengono codice originale e test pubblici. Sono esempi svolti da studiare, non la consegna completata. Esegui `python3 -m unittest discover -s tests -v` dalla root dello scaffold.\n"
+        if i in ENGINEERING_CODE:
+            files[base / "student/README.md"] += f"\nPrima dei test neurali installa `python3 -m pip install -r labs/engineering/requirements-cpu.txt`. Consulta il capitolo {ENGINEERING[i]} nella Course Board. Le prove Ollama richiedono servizio e modelli installati; quelle CPU usano fixture incluse. I report vanno in una directory nuova e devono distinguere simulazione e misure.\n"
         files[base / "teacher/SOLUTION.md"] = teacher_solution(i, title)
+        for source in example_files(i):
+            files[base / "examples" / source.relative_to(ROOT)] = source.read_text(encoding="utf-8")
     return files
 
 
