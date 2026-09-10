@@ -1,11 +1,15 @@
 # LLMs
 
-> **Dispense 2026/27 in ampliamento:** [PDF studente](output/pdf/dispense-llm-studente.pdf) ·
+> **Dispense 2026/27, edizione 0.10.0:** [PDF studente](output/pdf/dispense-llm-studente.pdf) ·
 > [PDF docente](output/pdf/dispense-llm-docente.pdf) ·
 > [HTML studente](dist/dispense-llm-studente.html) ·
 > [Indice e percorso](COURSE.md). Il corso è anche un
 > [Content Pack TheBitLab v1](content/llm/README.md). Il testo storico seguente
 > resta una fonte concettuale e non è la struttura curricolare corrente.
+
+[Otto capitoli engineering](docs/course/engineering/README.md) con chat, RAG,
+MCP, Transformer da zero, LoRA, KV cache e codec neurale, corredati da
+[codice e misure CPU](labs/engineering/README.md).
 
 Nuovo [percorso pratico con coding agent](docs/course/ai-software/README.md):
 sei lezioni su specifiche, contesto, implementazione, debugging, pattern e
@@ -5109,7 +5113,6 @@ La proliferazione di dati generati dagli LLM può potenzialmente influenzare gli
     </p>
   </li>
 </ul>
-
 
 
 

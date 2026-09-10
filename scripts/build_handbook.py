@@ -14,6 +14,7 @@ OUT = ROOT / "dist"
 PDF_OUT = ROOT / "output/pdf"
 MODULES = sorted((ROOT / "docs/course/modules").glob("M??-*.md"))
 PRACTICE = sorted((ROOT / "docs/course/ai-software").glob("S??-*.md"))
+ENGINEERING = sorted((ROOT / "docs/course/engineering").glob("E??-*.md"))
 
 
 def read(path: Path) -> str:
@@ -65,7 +66,7 @@ def front_matter(title: str, subtitle: str) -> str:
 title: "{title}"
 subtitle: "{subtitle}"
 author: "TheBitPoets"
-date: "Edizione 2026/27 — LLM 0.9.0 e pratica software 0.1.0"
+date: "Edizione 2026/27 — LLM 0.10.0 e pratica software 0.1.0"
 lang: it-IT
 rights: "Materiale originale del progetto; fonti esterne citate"
 ---
@@ -89,6 +90,10 @@ def compose(teacher: bool) -> str:
     subtitle = "Practitioner e AI Engineer · teoria, matematica, laboratori e Pollicino"
     parts = [front_matter(title, subtitle), read(ROOT / "docs/course/modules/README.md")]
     parts.extend(read(path) for path in MODULES)
+    parts.append(read(ROOT / "docs/course/engineering/README.md"))
+    parts.extend(read(path) for path in ENGINEERING)
+    parts.append(read(ROOT / "docs/course/engineering/REPORT-template.md"))
+    parts.append(read(ROOT / "docs/course/catalog/models-2026-09-10.md"))
     parts.append(read(ROOT / "docs/course/ai-software/README.md"))
     parts.extend(read(path) for path in PRACTICE)
     parts.append(read(ROOT / "docs/course/ai-software/REPORT-template.md"))
@@ -101,6 +106,7 @@ def compose(teacher: bool) -> str:
             read(ROOT / "docs/course/teacher/lab-guide.md"),
             read(ROOT / "docs/course/teacher/quick-check-solutions.md"),
             read(ROOT / "docs/course/ai-software/TEACHER.md"),
+            read(ROOT / "docs/course/engineering/TEACHER.md"),
             read(ROOT / "docs/course/assessments/diagnostic.md"),
             read(ROOT / "docs/course/assessments/final-practical.md"),
         ])

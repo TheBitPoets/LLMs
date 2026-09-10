@@ -1,0 +1,42 @@
+{
+  "model": null,
+  "embedding_model": null,
+  "inventory": null,
+  "embedding_inventory": null,
+  "prompt": "Quanti posti ha LAB-A?",
+  "mode": "real-local-stdio",
+  "result": {
+    "transport": "real-local-stdio",
+    "tools": {
+      "tools": [
+        {
+          "name": "lookup_room",
+          "description": "Read the synthetic classroom catalogue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "room": {
+                "type": "string",
+                "enum": [
+                  "LAB-A",
+                  "LAB-B"
+                ]
+              }
+            },
+            "required": [
+              "room"
+            ],
+            "additionalProperties": false
+          },
+          "annotations": {
+            "readOnlyHint": true
+          }
+        }
+      ]
+    },
+    "result": {
+      "seats": 24,
+      "equipment": "computer"
+    }
+  }
+}

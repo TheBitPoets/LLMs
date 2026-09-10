@@ -6,7 +6,7 @@ Applica la dispensa M19 e produci un risultato verificabile.
 
 ## Consegna specifica
 
-Consegna l'app locale valutata oppure il ramo Pollicino con round trip e costi completi.
+Consegna un'app locale valutata su un bisogno nuovo oppure estendi E07 con un corpus binario indipendente, casi negativi e confronto di tutti i costi; eseguire soltanto l'esempio fornito non basta.
 
 ## Procedura comune
 
@@ -26,3 +26,9 @@ Artefatti riproducibili; nel ramo lossless uguaglianza byte-per-byte obbligatori
 - [ ] Non ho inserito dati personali o segreti nei prompt.
 - [ ] Ho confrontato il risultato con una baseline.
 - [ ] Ho indicato almeno un caso in cui la soluzione può fallire.
+
+## Esempi eseguibili distribuiti
+
+Gli asset `example` contengono codice originale e test pubblici. Sono esempi svolti da studiare, non la consegna completata. Esegui `python3 -m unittest discover -s tests -v` dalla root dello scaffold.
+
+Prima dei test neurali installa `python3 -m pip install -r labs/engineering/requirements-cpu.txt`. Consulta il capitolo E07-codec.md nella Course Board. Le prove Ollama richiedono servizio e modelli installati; quelle CPU usano fixture incluse. I report vanno in una directory nuova e devono distinguere simulazione e misure.

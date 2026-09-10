@@ -1,26 +1,17 @@
 # Guida docente M12 — Sampling e prompting
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M12 - Sampling e output strutturato
 
-Una variabile cambiata per volta, schema validato e limiti del decoder.
+Nel confronto cambiare una variabile alla volta. Temperatura influenza la
+concentrazione, top-k limita il numero di candidati, top-p limita la massa
+cumulata; l'ordine delle operazioni conta. Un decoder greedy può essere
+ripetibile nel medesimo ambiente ma non rende vero il contenuto. Per JSON
+distinguere sintassi, schema e correttezza semantica: `{ "posti": 99 }` può
+essere JSON perfetto e dato sbagliato. E02 valida citazioni e schema, E03
+valida tool e argomenti prima dell'esecuzione. Il criterio minimo include
+un output malformato e uno formalmente valido ma non supportato dai dati.
+Non assegnare pieno punteggio a una singola risposta riuscita senza confronto.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

@@ -1,26 +1,17 @@
 # Guida docente M02 — Predire il simbolo successivo
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M02 - Probabilità e bit
 
-Distribuzioni normalizzate, calcoli corretti e spiegazione del limite probabilità/verità.
+Con logits $(\ln2,0)$ la distribuzione è $(2/3,1/3)$. Se il target è il secondo
+simbolo, la loss è $\ln3$ nat e $\log_2 3$ bit. Aggiungere una costante a tutti
+i logits non cambia la softmax: numeratore e denominatore sono moltiplicati
+per lo stesso fattore. Moltiplicarli invece cambia la concentrazione.
+Il comando `python3 labs/course_lab.py softmax --logits 0 1 2` permette di
+controllare normalizzazione e sorpresa. La correzione deve distinguere alta
+probabilità da verità: il modello può assegnare alta probabilità a un errore
+frequente. Nel ramo Pollicino le probabilità controllano il costo di codifica,
+mentre il decoder deve ricostruire anche simboli a bassa probabilità.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

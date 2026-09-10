@@ -29,8 +29,14 @@ presente e verificato automaticamente; non equivale a validazione in classe.
 
 ## Gate residui
 
+La versione 0.10.0 collega i capitoli originali E00-E07 come source-package
+indicizzabile, senza includere gli apparati docente. Le venti Activity hanno
+esempi Python e test pubblici; dodici includono il kit engineering completo.
+Ogni soluzione docente deriva da una sezione curata specifica per modulo.
+Training, LoRA, KV cache e codec sono stati eseguiti su CPU; chat e RAG hanno
+test di trasporto con provider simulato, MCP ha anche un subprocess reale.
+
 - revisione docente riga per riga delle dispense e delle soluzioni;
 - esecuzione delle Activity dipendenti da Ollama sul profilo Mac M4 Pro 36 GB;
 - registrazione di tempi, memoria, versioni e failure case;
 - solo dopo: stato `approved` e pubblicazione del Course Bundle immutabile.
-

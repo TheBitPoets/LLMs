@@ -5,6 +5,12 @@ Questa directory contiene il manifest di authoring conforme a
 sono in `docs/course/modules/`: il manifest le espone come source Markdown
 indicizzabile senza crearne una seconda copia.
 
+La versione 0.10.0 aggiunge come source-package `docs/course/engineering/`:
+otto capitoli E00-E07 e report di laboratorio, con apparati docente esclusi
+dall'indice. Le Activity distribuiscono codice e test come asset `example`.
+La prova di export isolato verifica che il capstone funzioni senza file
+presenti soltanto nel repository autore.
+
 Il pack collega quattro contratti distinti:
 
 - contenuti e provenienza: `content/llm/content-pack.json`;
@@ -31,4 +37,5 @@ TheBitLab:
 ```bash
 python -m scripts.content_pack_contract validate \
   /percorso/LLMs/content/llm/content-pack.json --root /percorso/LLMs
+python -m scripts.validate_activity /percorso/LLMs/activities/llm/*/activity.json
 ```

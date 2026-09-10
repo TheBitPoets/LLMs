@@ -1,0 +1,94 @@
+{
+  "mode": "measured-cpu",
+  "cases": [
+    {
+      "case": "empty",
+      "mode": "adaptive",
+      "input_bytes": 0,
+      "archive_bytes_including_header": 240,
+      "shared_checkpoint_bytes": 0,
+      "first_transfer_bytes": 240,
+      "gzip_bytes": 20,
+      "roundtrip_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "elapsed_seconds": 0.00013810800010105595
+    },
+    {
+      "case": "empty",
+      "mode": "neural",
+      "input_bytes": 0,
+      "archive_bytes_including_header": 303,
+      "shared_checkpoint_bytes": 347451,
+      "first_transfer_bytes": 347754,
+      "gzip_bytes": 20,
+      "roundtrip_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "elapsed_seconds": 0.9138164979995054
+    },
+    {
+      "case": "all-bytes",
+      "mode": "adaptive",
+      "input_bytes": 256,
+      "archive_bytes_including_header": 518,
+      "shared_checkpoint_bytes": 0,
+      "first_transfer_bytes": 518,
+      "gzip_bytes": 279,
+      "roundtrip_sha256": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+      "elapsed_seconds": 0.010554477001278428
+    },
+    {
+      "case": "all-bytes",
+      "mode": "neural",
+      "input_bytes": 256,
+      "archive_bytes_including_header": 675,
+      "shared_checkpoint_bytes": 347451,
+      "first_transfer_bytes": 348126,
+      "gzip_bytes": 279,
+      "roundtrip_sha256": "40aff2e9d2d8922e47afd4648e6967497158785fbd1da870e7110266bf944880",
+      "elapsed_seconds": 0.39419434500086936
+    },
+    {
+      "case": "random-256",
+      "mode": "adaptive",
+      "input_bytes": 256,
+      "archive_bytes_including_header": 504,
+      "shared_checkpoint_bytes": 0,
+      "first_transfer_bytes": 504,
+      "gzip_bytes": 279,
+      "roundtrip_sha256": "dbb3d810b12898509d37d2301beca56fbefef5643d4b86f3c477d481acdea1d2",
+      "elapsed_seconds": 0.013409598002908751
+    },
+    {
+      "case": "random-256",
+      "mode": "neural",
+      "input_bytes": 256,
+      "archive_bytes_including_header": 677,
+      "shared_checkpoint_bytes": 347451,
+      "first_transfer_bytes": 348128,
+      "gzip_bytes": 279,
+      "roundtrip_sha256": "dbb3d810b12898509d37d2301beca56fbefef5643d4b86f3c477d481acdea1d2",
+      "elapsed_seconds": 0.4678949459994328
+    },
+    {
+      "case": "synthetic-text",
+      "mode": "adaptive",
+      "input_bytes": 148,
+      "archive_bytes_including_header": 359,
+      "shared_checkpoint_bytes": 0,
+      "first_transfer_bytes": 359,
+      "gzip_bytes": 60,
+      "roundtrip_sha256": "2f201fe281cb3d0cc3a329c3d4ecad2b6ba7ec9d3642ad6d2b2595b00a37f112",
+      "elapsed_seconds": 0.007380152001132956
+    },
+    {
+      "case": "synthetic-text",
+      "mode": "neural",
+      "input_bytes": 148,
+      "archive_bytes_including_header": 317,
+      "shared_checkpoint_bytes": 347451,
+      "first_transfer_bytes": 347768,
+      "gzip_bytes": 60,
+      "roundtrip_sha256": "2f201fe281cb3d0cc3a329c3d4ecad2b6ba7ec9d3642ad6d2b2595b00a37f112",
+      "elapsed_seconds": 0.28435123699819087
+    }
+  ],
+  "limits": "not a claim of better compression; neural CDF needs same numerical environment; not PollicinoNet integration"
+}

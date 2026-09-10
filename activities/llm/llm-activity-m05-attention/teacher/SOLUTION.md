@@ -1,26 +1,17 @@
 # Guida docente M05 — Attention e Transformer
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M05 - Attention causale
 
-Righe softmax a uno, valori finiti e causal invariance verificata.
+Con una query che assegna punteggi 0 e $\ln2$ a due chiavi ammesse, i pesi
+sono 1/3 e 2/3. L'output è la stessa combinazione dei value, non delle key.
+In TinyLM una testa ha dimensione 12; la matrice dei punteggi ha dimensioni
+tempo×tempo per testa. Il test decisivo modifica i token futuri e confronta
+i logits del prefisso: devono restare uguali entro la tolleranza numerica.
+Una softmax con righe a somma uno può comunque guardare il futuro se manca
+la maschera: la sola normalizzazione non è prova sufficiente.
+E04 fornisce il modello e `test_engineering_neural.py` il controllo di
+causalità. Chiedere allo studente di spiegare l'offset della maschera con cache.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

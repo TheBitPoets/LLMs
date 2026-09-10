@@ -1,26 +1,18 @@
 # Guida docente M13 — Applicazioni conversazionali
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M13 - Stato della chat
 
-Provider sostituibile, mock deterministico e stati di errore/cancel verificati.
+Riferimento: `ChatSession` in `client.py`. Dopo un errore a metà streaming
+la storia deve essere esattamente quella precedente all'invio; il frammento
+può essere stato visualizzato ma non deve essere confermato come turno.
+La policy elimina coppie complete, non metà conversazione, e preserva il
+sistema. Un limite di caratteri non è un limite token esatto. Il test con
+server HTTP locale controlla sia chiusura sia stato di cancellazione.
+Per la consegna «ultime due coppie» la soluzione corretta applica il limite
+al contesto da inviare e aggiorna la storia solo a completamento. Cancellare
+durante una lettura bloccante può attendere il timeout: non promettere arresto
+istantaneo senza cambiare il trasporto.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

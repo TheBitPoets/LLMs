@@ -1,0 +1,4 @@
+scheda: aula=A; posti=30; attivita=python.
+scheda: aula=B; posti=24; attivita=reti.
+scheda: aula=C; posti=18; attivita=robotica.
+scheda: aula=D; posti=18; attivita=python.

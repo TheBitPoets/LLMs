@@ -6,7 +6,7 @@ Applica la dispensa M16 e produci un risultato verificabile.
 
 ## Consegna specifica
 
-Implementa un tool read-only e una macchina a stati con policy e conferma degli effetti.
+Aggiungi una terza stanza al tool E03 aggiornando schema, policy e test; verifica argomenti extra e budget. Progetta separatamente la conferma richiesta da un futuro tool con effetti.
 
 ## Procedura comune
 
@@ -26,3 +26,9 @@ Schema, allowlist, least privilege, conferma, idempotenza e audit.
 - [ ] Non ho inserito dati personali o segreti nei prompt.
 - [ ] Ho confrontato il risultato con una baseline.
 - [ ] Ho indicato almeno un caso in cui la soluzione può fallire.
+
+## Esempi eseguibili distribuiti
+
+Gli asset `example` contengono codice originale e test pubblici. Sono esempi svolti da studiare, non la consegna completata. Esegui `python3 -m unittest discover -s tests -v` dalla root dello scaffold.
+
+Prima dei test neurali installa `python3 -m pip install -r labs/engineering/requirements-cpu.txt`. Consulta il capitolo E03-agenti-mcp.md nella Course Board. Le prove Ollama richiedono servizio e modelli installati; quelle CPU usano fixture incluse. I report vanno in una directory nuova e devono distinguere simulazione e misure.

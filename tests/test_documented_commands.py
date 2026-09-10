@@ -10,7 +10,9 @@ class DocumentedCommands(unittest.TestCase):
     def test_module_commands_parse(self):
         root = Path(__file__).resolve().parents[1]
         count = 0
-        for path in sorted((root / "docs/course/modules").glob("M??-*.md")):
+        paths = [*sorted((root / "docs/course/modules").glob("M??-*.md")),
+                 *sorted((root / "docs/course/engineering").glob("*.md"))]
+        for path in paths:
             for command in re.findall(r"`(python3 labs/course_lab\.py [^`]+)`", path.read_text()):
                 with self.subTest(module=path.name, command=command):
                     parser().parse_args(shlex.split(command)[2:])

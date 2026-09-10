@@ -1,0 +1,11 @@
+{
+  "prompt": "Ada studia",
+  "continuation": " reti nel laboratorio C.\nTonia studi reti nel laboratorio B.\nAda studia ron pyth",
+  "bytes_hex": "2072657469206e656c206c61626f7261746f72696f20432e0a546f6e69612073747564692072657469206e656c206c61626f7261746f72696f20422e0a4164612073747564696120726f6e2070797468",
+  "valid_utf8": true,
+  "temperature": 0,
+  "seed": 7,
+  "checkpoint_sha256": "cbdddf88b647f217eee0fd515f6d3526b97947860c7e39448c1559df63cb11eb",
+  "adapter_sha256": null,
+  "policy": "last 64 bytes, positions reset per window; no EOS or instruction tuning"
+}

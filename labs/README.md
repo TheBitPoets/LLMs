@@ -3,6 +3,10 @@
 Il [progetto PrenotaLab](ai_software/README.md) aggiunge sei laboratori
 di sviluppo con coding agent: specifiche, patch, debugging, pattern e consegna.
 
+Il [kit engineering](engineering/README.md) completa chat, RAG, tool calling,
+MCP, training da zero, LoRA, inferenza e codec byte. Le applicazioni usano la
+libreria standard; la parte neurale richiede PyTorch e ha misure CPU versionate.
+
 Il kit base usa solo Python 3.11+ e non richiede credenziali. Ogni comando
 produce JSON su stdout; con `--output report.json` salva lo stesso evidence
 report. I comandi `ollama` e `benchmark` richiedono un servizio Ollama locale.

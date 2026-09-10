@@ -94,6 +94,6 @@ Ollama rende semplice iniziare, non elimina le decisioni. Un'esecuzione seria fi
 ## Fonti e collegamenti
 
 - [Documentazione Ollama](https://docs.ollama.com/)
-- [Catalogo modelli del corso](../catalog/models-2026-09-04.md)
+- [Catalogo modelli del corso](../catalog/models-2026-09-10.md)
 - [Rehearsal Ollama](../rehearsal/README.md)
 - Activity: `llm-activity-m11-ollama`

@@ -1,26 +1,17 @@
 # Guida docente M11 — Ollama e inferenza locale
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M11 - Runtime locale
 
-Richiesta riproducibile, risposta validata, timeout e diagnostica priva di segreti.
+La prova completa richiede servizio Ollama attivo, modello presente e una
+richiesta valida. E01 salva versione e inventario; lo studente deve controllare
+che la voce del modello contenga il digest effettivo. Un tag non trovato o
+un servizio spento devono produrre diagnosi e codice d'errore, non una risposta
+inventata. I test HTTP simulati verificano il client ma non certificano
+compatibilità del modello o velocità del runtime. Per il recupero avviare il
+servizio o installare il tag scelto, poi ripetere lo stesso comando.
+Una richiesta a loopback non prova che qualunque modello del catalogo sia
+locale: verificare origine e artefatto, evitando tag cloud per la prova offline.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

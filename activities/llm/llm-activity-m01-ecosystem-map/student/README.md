@@ -26,3 +26,7 @@ Diagramma a strati con trust boundary, dati, rischi e matrice decisionale.
 - [ ] Non ho inserito dati personali o segreti nei prompt.
 - [ ] Ho confrontato il risultato con una baseline.
 - [ ] Ho indicato almeno un caso in cui la soluzione può fallire.
+
+## Esempi eseguibili distribuiti
+
+Gli asset `example` contengono codice originale e test pubblici. Sono esempi svolti da studiare, non la consegna completata. Esegui `python3 -m unittest discover -s tests -v` dalla root dello scaffold.

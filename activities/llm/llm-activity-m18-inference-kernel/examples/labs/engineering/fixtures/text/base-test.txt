@@ -1,0 +1,7 @@
+Ada studia robotica nel laboratorio A.
+Luca studia dati nel laboratorio B.
+Mia studia reti nel laboratorio C.
+Nico studia reti nel laboratorio A.
+Sara studia python nel laboratorio B.
+Sara studia robotica nel laboratorio C.
+Toni studia robotica nel laboratorio A.

@@ -79,5 +79,5 @@ L'esperienza “scrivo e ricevo una risposta” nasconde una catena. Separare to
 ## Fonti e collegamenti
 
 - [Visuale locale/cloud](../../../visuals/local-vs-cloud-data-journey.html)
-- [Catalogo modelli datato](../catalog/models-2026-09-04.md)
+- [Catalogo modelli datato](../catalog/models-2026-09-10.md)
 - Activity: `llm-activity-m01-ecosystem-map`

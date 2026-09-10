@@ -84,6 +84,8 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 
 ## Documenti correnti del corso
 
+- [Otto capitoli engineering: matematica e implementazioni](docs/course/engineering/README.md)
+- [Codice eseguibile e riproduzione delle misure](labs/engineering/README.md)
 - [Dispense — PDF studente, inclusa pratica software](output/pdf/dispense-llm-studente.pdf)
 - [Dispense — PDF docente con apparati di correzione](output/pdf/dispense-llm-docente.pdf)
 - [Coding agent e software engineering: sei lezioni pratiche](docs/course/ai-software/README.md)
@@ -114,7 +116,7 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 - [Visuale interattiva: prefill, decode e KV cache](visuals/prefill-decode-kv-cache.html)
 - [Inventario e selezione Manning](docs/course/sources/manning-inventory-and-selection.md)
 - [Valutazione di Build Applications with Local AI Models](docs/course/sources/local-ai-models-review.md)
-- [Catalogo modelli - snapshot 4 settembre 2026](docs/course/catalog/models-2026-09-04.md)
+- [Catalogo modelli - snapshot 10 settembre 2026](docs/course/catalog/models-2026-09-10.md)
 - [Timeline ragionata dei paper](docs/course/research/paper-timeline.md)
 - [Indice dei venti moduli](docs/course/modules/README.md)
 - [Kit dei laboratori](labs/README.md)
@@ -128,9 +130,10 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 ## Stato e manutenzione
 
 La prima edizione contiene dispense, Content Pack TheBitLab, Course Design,
-Activity, laboratori minimi, visuali e guida docente. La copertura degli argomenti
-non equivale al completamento di tutte le implementazioni richieste: lo
-[stato di rilascio](docs/course/release-status.md) elenca le lacune pratiche.
+Activity con esempi eseguibili, visuali e guida docente. Otto capitoli E00-E07
+completano matematica, chat, RAG, MCP, training, LoRA, kernel e codec neurale;
+lo [stato di rilascio](docs/course/release-status.md) distingue implementazioni,
+misure CPU e verifiche ancora da raccogliere sul profilo scolastico.
 Il pack LLM conserva lo stato editoriale `reviewed`; il nuovo supplemento
 software è `draft`. Entrambi richiedono approvazione didattica prima del Bundle.
 Resta il rehearsal end-to-end sul profilo hardware supportato, concordato dopo

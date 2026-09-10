@@ -1,26 +1,18 @@
 # Guida docente M17 — Fine-tuning e adapter
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M17 - Adapter e regressione
 
-Decisione motivata, eval congelato, curve e controllo delle regressioni.
+Il riferimento E05 apprende 1.216 parametri sulla head. Con B iniziale zero,
+l'output iniziale coincide con il base; congelare i parametri si controlla
+anche confrontando i tensori prima/dopo. Nel report target loss 6,449→1,471,
+base loss 0,295→4,759: l'adattamento fallisce un requisito di mantenimento
+delle prestazioni originali. Una soluzione corretta non nasconde questa
+regressione e propone un esperimento, non una cura certa.
+Per confrontare ranghi, usare validation per scegliere e un test finale
+separato; non richiedere che il rango maggiore vinca. Il loader controlla
+l'hash del base prima di caricare l'adapter. LoRA sulla sola head non equivale
+a QLoRA o a un fine-tuning completo di tutte le proiezioni.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

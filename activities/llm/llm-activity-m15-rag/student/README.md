@@ -6,7 +6,7 @@ Applica la dispensa M15 e produci un risultato verificabile.
 
 ## Consegna specifica
 
-Costruisci una pipeline RAG con ranking osservabile, citazioni verificabili e test injection.
+Estendi E02 con almeno sei nuove domande, comprese parafrasi, assenza di fonte e un falso supporto semantico; confronta due configurazioni di retrieval a generatore fisso.
 
 ## Procedura comune
 
@@ -26,3 +26,9 @@ Metriche retrieval ed end-to-end, citazioni supportate e injection senza privile
 - [ ] Non ho inserito dati personali o segreti nei prompt.
 - [ ] Ho confrontato il risultato con una baseline.
 - [ ] Ho indicato almeno un caso in cui la soluzione può fallire.
+
+## Esempi eseguibili distribuiti
+
+Gli asset `example` contengono codice originale e test pubblici. Sono esempi svolti da studiare, non la consegna completata. Esegui `python3 -m unittest discover -s tests -v` dalla root dello scaffold.
+
+Prima dei test neurali installa `python3 -m pip install -r labs/engineering/requirements-cpu.txt`. Consulta il capitolo E02-rag.md nella Course Board. Le prove Ollama richiedono servizio e modelli installati; quelle CPU usano fixture incluse. I report vanno in una directory nuova e devono distinguere simulazione e misure.

@@ -1,26 +1,18 @@
 # Guida docente M00 — Orientamento e baseline
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M00 - Baseline e domanda verificabile
 
-Ipotesi falsificabile, baseline, variabili controllate e distinzione misura/simulazione.
+Una buona consegna è «estrarre aula e ora da dieci avvisi sintetici, almeno
+otto corretti, zero aule inventate». La baseline può essere una ricerca per
+espressione regolare; confrontarla con LLM solo sugli stessi dieci avvisi.
+Un report corretto separa dati di preparazione e valutazione, registra la
+versione e conserva gli errori. «Il modello capisce la scuola» non è una
+conclusione misurabile. Chiedere allo studente quale esempio metterebbe in
+crisi la baseline: un'aula scritta in lettere è un caso pertinente.
+Il comando `python3 labs/course_lab.py system` registra l'ambiente, ma non
+dimostra alcuna prestazione del modello. Accettare esplicitamente «non misurato»
+nei campi che richiedono Ollama; non accettare valori inventati per completarli.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

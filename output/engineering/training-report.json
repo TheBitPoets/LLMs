@@ -1,0 +1,136 @@
+{
+  "mode": "measured-cpu-synthetic-corpus",
+  "seed": 7,
+  "torch": "2.8.0+cpu",
+  "python": "3.12.14",
+  "machine": "x86_64",
+  "threads": 1,
+  "config": {
+    "vocab": 256,
+    "width": 48,
+    "heads": 4,
+    "layers": 2,
+    "context": 64
+  },
+  "parameter_count": 84288,
+  "training": {
+    "steps": 160,
+    "adapter_steps": 120,
+    "batch": 8,
+    "learning_rate": 0.003,
+    "adapter_learning_rate": 0.02,
+    "optimizer": "AdamW",
+    "weight_decay": 0.01,
+    "clip_norm": 1.0,
+    "checkpoint_selection": "minimum validation loss at evaluation checkpoints",
+    "evaluation": "all next-byte targets except first byte; context reset every 64 positions"
+  },
+  "corpus_sha256": {
+    "base-test.txt": "8b86625b701d1868a5f2b13b314cbb5583a017884252b115f767759ca4c19a81",
+    "adapt-test.txt": "8a1970f56267936c34d0dc2b99f121b6990ac781b1cd28c5b604467546ac77eb",
+    "adapt-valid.txt": "0f6e13e96f76872c0331b1183efbefb047c5e3b92ad4e7d222934e28f1fcc2a7",
+    "base-train.txt": "e83bb784168d6a2b1391c09ae13fee145bbf3892f09fc241dfedac6684c5539c",
+    "adapt-train.txt": "baf978ca3f754f32c33d6fa27de7463f9846f68b7cf737b996779458fa39e830",
+    "base-valid.txt": "3c70d14c3987410e77337c9e87f982b5d6eb2120a5b14f9f8d0e8799ffec91f8"
+  },
+  "initial_validation_nats_per_byte": 5.6725053436751525,
+  "history": [
+    {
+      "step": 1,
+      "train_nats_per_byte": 5.6629438400268555,
+      "validation_nats_per_byte": 5.378485644578473
+    },
+    {
+      "step": 20,
+      "train_nats_per_byte": 2.1113009452819824,
+      "validation_nats_per_byte": 2.0918653403306147
+    },
+    {
+      "step": 40,
+      "train_nats_per_byte": 1.2900511026382446,
+      "validation_nats_per_byte": 1.272337426530554
+    },
+    {
+      "step": 60,
+      "train_nats_per_byte": 1.0244395732879639,
+      "validation_nats_per_byte": 1.0147840418714158
+    },
+    {
+      "step": 80,
+      "train_nats_per_byte": 0.8375811576843262,
+      "validation_nats_per_byte": 0.8256340303550145
+    },
+    {
+      "step": 100,
+      "train_nats_per_byte": 0.7882797122001648,
+      "validation_nats_per_byte": 0.705216490323124
+    },
+    {
+      "step": 120,
+      "train_nats_per_byte": 0.5406423807144165,
+      "validation_nats_per_byte": 0.5338833604144866
+    },
+    {
+      "step": 140,
+      "train_nats_per_byte": 0.3793845474720001,
+      "validation_nats_per_byte": 0.42027815905484284
+    },
+    {
+      "step": 160,
+      "train_nats_per_byte": 0.30341118574142456,
+      "validation_nats_per_byte": 0.3192023903534998
+    }
+  ],
+  "base_test_nats_per_byte": 0.29474133139780717,
+  "base_test_bits_per_byte": 0.42522185715262695,
+  "unigram_test_nats_per_byte": 2.918903026922184,
+  "adapter_target": "output projection only",
+  "adapter_history": [
+    {
+      "step": 1,
+      "train_nats_per_byte": 6.467175006866455,
+      "validation_nats_per_byte": 6.433656073108162
+    },
+    {
+      "step": 20,
+      "train_nats_per_byte": 3.0227913856506348,
+      "validation_nats_per_byte": 3.0298159343680156
+    },
+    {
+      "step": 40,
+      "train_nats_per_byte": 1.891908884048462,
+      "validation_nats_per_byte": 1.840988429551272
+    },
+    {
+      "step": 60,
+      "train_nats_per_byte": 1.6390680074691772,
+      "validation_nats_per_byte": 1.5626560658523716
+    },
+    {
+      "step": 80,
+      "train_nats_per_byte": 1.4751825332641602,
+      "validation_nats_per_byte": 1.4533485481419515
+    },
+    {
+      "step": 100,
+      "train_nats_per_byte": 1.4161986112594604,
+      "validation_nats_per_byte": 1.4150938225775649
+    },
+    {
+      "step": 120,
+      "train_nats_per_byte": 1.3449360132217407,
+      "validation_nats_per_byte": 1.3899720010069228
+    }
+  ],
+  "adapter_trainable_parameters": 1216,
+  "adapt_test_before": 6.449384544327942,
+  "adapt_test_after": 1.471460041246916,
+  "base_test_after_adapter": 4.7593847064464265,
+  "frozen_base_unchanged": true,
+  "elapsed_seconds": 2.6035145460009517,
+  "artifacts_sha256": {
+    "tiny-byte-lm.pt": "cbdddf88b647f217eee0fd515f6d3526b97947860c7e39448c1559df63cb11eb",
+    "head-lora.pt": "8e012aa94927d57e15f1cf2c4072bf56dd735c6ccbb9c7cead0c170b71522744"
+  },
+  "limits": "tiny byte LM; templated synthetic distribution, not natural-language competence or a frontier model"
+}

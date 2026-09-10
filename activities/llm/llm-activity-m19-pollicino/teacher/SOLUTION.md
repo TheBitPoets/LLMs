@@ -1,26 +1,18 @@
 # Guida docente M19 — Costruire e integrare
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M19 - Capstone e codec esatto
 
-Artefatti riproducibili; nel ramo lossless uguaglianza byte-per-byte obbligatoria.
+Nel ramo applicativo richiedere un bisogno definito, baseline, eval e casi
+di errore; E01-E03 forniscono componenti da integrare, S00-S05 il metodo di
+sviluppo. Nel ramo codec, tutti gli otto casi del report ricostruiscono i byte.
+Per il testo sintetico di 148 byte: adattivo 359, neurale 317, gzip 60; il
+neurale aggiunge 347.451 byte di modello al primo trasferimento. Quindi non
+vince quel confronto. L'hash del checkpoint lega la versione, ma non prova
+CDF identiche su CPU diverse. Richiedere un test di corruzione e un mismatch
+di modello; qualunque differenza di byte boccia il criterio lossless.
+L'integrazione fisica PollicinoNet resta separata e non viene simulata come
+prova radio. Il capstone del corso può essere completato senza quel gate.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

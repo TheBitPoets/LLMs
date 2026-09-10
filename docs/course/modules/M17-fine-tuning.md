@@ -67,7 +67,7 @@ In QLoRA il base quantizzato riduce memoria, mentre adapter e stati optimizer us
 
 ## Laboratorio
 
-Costruisci su carta l'albero decisionale tra prompting, RAG e adattamento: il runner non implementa fine-tuning o LoRA. L'estensione reale richiede un modello piccolo, dataset non sensibile e un ambiente di training separato. Prima dell'addestramento congela eval set e criteri; dopo misura task target, regressioni, memoria e latenza. Non presentare l'albero decisionale come evidenza di un training eseguito.
+Completa [E05: LoRA e regressioni](../engineering/E05-lora.md): un adapter sulla head del Transformer viene addestrato realmente e confrontato sui domini target e base. La prova usa pesi float32, non QLoRA. Congela i criteri prima del test e non nascondere il peggioramento sul dominio originale.
 
 ## Verifica rapida
 

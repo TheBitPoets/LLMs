@@ -1,26 +1,17 @@
 # Guida docente M16 — Tool use, agenti e MCP
 
-Questo file è riservato al docente e non va incluso nello scaffold studente.
+Riservato al docente.
 
-## Esito di riferimento
+## M16 - Agente e protocollo
 
-Schema, allowlist, least privilege, conferma, idempotenza e audit.
+La soluzione deve mostrare una traccia con `lookup_room`, argomento `LAB-A`
+e risultato 24 prima della risposta finale. Il numero 24 da solo potrebbe
+essere stato inventato. La policy rifiuta tool sconosciuti e chiavi extra;
+il limite passi arresta un agente che continua a chiedere lo stesso strumento.
+Il test MCP avvia un processo reale, esegue handshake e discovery e verifica
+che una chiamata prima dell'inizializzazione fallisca. Aggiungere una stanza
+richiede aggiornare dati e validazione, non soltanto descrivere il nuovo valore
+nel prompt. `readOnlyHint` non impone permessi. Per operazioni con effetti
+rimandare a S04: approvazione e transazione appartengono all'applicazione.
 
-Non esiste un unico testo da copiare: la soluzione è l'insieme di artefatto, misura e motivazione che soddisfa questo criterio.
-
-## Evidenze minime
-
-- artefatto coerente con la consegna specifica;
-- manifest di evidenza completo;
-- confronto con baseline e almeno un caso limite;
-- distinzione esplicita tra misura, simulazione e aspettativa.
-
-## Correzione
-
-Usare la rubrica nell'`activity.json`. Non premiare una demo isolata come capacità generale. Se l'attività usa un modello, la risposta testuale da sola non basta: devono essere dichiarati revisione, template, parametri, runtime e hardware.
-
-## Domande orali
-
-1. Quale decisione cambieresti passando da locale a cloud?
-2. Qual è il principale limite della tua prova?
-3. Quale controllo renderebbe la conclusione più robusta?
+Rubrica: evidenze 4; spiegazione 3; correttezza 2; limiti 1.

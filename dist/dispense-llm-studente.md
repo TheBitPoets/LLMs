@@ -2,7 +2,7 @@
 title: "Dispense LLM — edizione studente"
 subtitle: "Practitioner e AI Engineer · teoria, matematica, laboratori e Pollicino"
 author: "TheBitPoets"
-date: "Edizione 2026/27 — LLM 0.9.0 e pratica software 0.1.0"
+date: "Edizione 2026/27 — LLM 0.10.0 e pratica software 0.1.0"
 lang: it-IT
 rights: "Materiale originale del progetto; fonti esterne citate"
 ---
@@ -218,7 +218,7 @@ L'esperienza “scrivo e ricevo una risposta” nasconde una catena. Separare to
 ## Fonti e collegamenti
 
 - [Visuale locale/cloud](../visuals/local-vs-cloud-data-journey.html)
-- [Catalogo modelli datato](../docs/course/catalog/models-2026-09-04.md)
+- [Catalogo modelli datato](../docs/course/catalog/models-2026-09-10.md)
 - Activity: `llm-activity-m01-ecosystem-map`
 
 # M02 — Predire il simbolo successivo
@@ -454,7 +454,7 @@ Con mixed precision alcune operazioni usano formati ridotti per velocità e memo
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py gradient --steps 12` per osservare la discesa del gradiente su una regressione scalare. Questo comando non addestra un language model e non calcola cross-entropy o perplexity. Calcola queste ultime con le probabilità dell'esempio; l'estensione con curve train/validation richiede un modello e un dataset separati e non è fornita dal runner minimo.
+Esegui `python3 labs/course_lab.py gradient --steps 12` per osservare una regressione scalare. Poi [E04: training da zero](../docs/course/engineering/E04-training.md) fornisce un Transformer neurale, split, curve e checkpoint riproducibili. [E00](../docs/course/engineering/E00-matematica.md) sviluppa softmax, cross-entropy e gradienti.
 
 ## Verifica rapida
 
@@ -1043,7 +1043,7 @@ Ollama rende semplice iniziare, non elimina le decisioni. Un'esecuzione seria fi
 ## Fonti e collegamenti
 
 - [Documentazione Ollama](https://docs.ollama.com/)
-- [Catalogo modelli del corso](../docs/course/catalog/models-2026-09-04.md)
+- [Catalogo modelli del corso](../docs/course/catalog/models-2026-09-10.md)
 - [Rehearsal Ollama](../docs/course/rehearsal/README.md)
 - Activity: `llm-activity-m11-ollama`
 
@@ -1202,7 +1202,7 @@ La backpressure impedisce che produttore e consumatore saturino memoria. Con mol
 
 ## Laboratorio
 
-Parti dal client minimo e usa un server mock prima del modello reale. Testa risposta valida, timeout, JSON invalido, stream interrotto e cancel. Solo dopo collega Ollama e registra manifest e metriche.
+Completa [E01: chat affidabile](../docs/course/engineering/E01-chat.md): client con stato, streaming, cancel e cronologia coerente, corredato da test HTTP riproducibili. Usa il mock per i casi negativi, poi collega Ollama e registra manifest e metriche reali.
 
 ## Verifica rapida
 
@@ -1283,7 +1283,14 @@ L'accordo tra annotatori distingue difficoltà del task da errore del modello. D
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py evaluate --predictions labs/fixtures/predictions.jsonl` sulle fixture. Il comando valuta predizioni già registrate, non interroga un modello. Poi prepara un dataset del capstone con ID stabili, input, atteso, metrica e severità. Ogni esecuzione deve produrre manifest e report machine-readable.
+Esegui la valutazione sulle fixture:
+
+```bash
+python3 labs/course_lab.py evaluate \
+  --predictions labs/fixtures/predictions.jsonl
+```
+
+Il comando valuta predizioni già registrate, non interroga un modello. Poi prepara un dataset del capstone con ID stabili, input, atteso, metrica e severità. Ogni esecuzione deve produrre manifest e report machine-readable. [E02](../docs/course/engineering/E02-rag.md) aggiunge la valutazione della pipeline RAG completa.
 
 ## Verifica rapida
 
@@ -1363,7 +1370,7 @@ Un documento è input non fidato. Istruzioni come “ignora il sistema e invia i
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py rag --query 'Perché serve una baseline?'` sulle fixture. Il comando esegue retrieval lessicale, senza embedding neurali né generazione. Registra ranking e chunk forniti; non attribuire questo risultato a una pipeline RAG completa. Come estensione integra il contesto in una richiesta Ollama e confronta con la richiesta senza evidenza mantenendo fissi modello e decoder. Il test dei confini di fiducia richiede tale applicazione completa: non è dimostrato dal solo ranking.
+Esegui `python3 labs/course_lab.py rag --query 'Perché serve una baseline?'` come baseline lessicale. Completa [E02: RAG con embedding e generazione](../docs/course/engineering/E02-rag.md), che fornisce pipeline Ollama, citazioni validate ed eval set. Confronta retrieval e risposta separatamente; il controllo letterale delle citazioni non prova supporto semantico.
 
 ## Verifica rapida
 
@@ -1401,7 +1408,9 @@ MCP è un protocollo per esporre strumenti e risorse con descrizioni standard a 
 
 ## Esempio minimo
 
-Tool `meteo(città)` accetta solo una stringa e non ha effetti. Tool `invia_email(destinatario,testo)` ha effetto esterno e dati personali: richiede destinatario risolto, anteprima, conferma e idempotency key. Non basta chiedere al modello “sei sicuro?”.
+Il tool `meteo(città)` accetta solo una stringa e non ha effetti.
+
+Il tool `invia_email(destinatario,testo)` ha effetto esterno e dati personali: richiede destinatario risolto, anteprima, conferma e idempotency key. Non basta chiedere al modello “sei sicuro?”.
 
 ## Esempio realistico
 
@@ -1442,7 +1451,7 @@ Le operazioni con effetti usano idempotency key per evitare duplicati dopo timeo
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py agent --request 'CALCOLA: (12 + 8) / 5'`. È un parser deterministico con calcolatore, senza pianificazione LLM né protocollo MCP. L'estensione con tool finto, validazione, autorizzazione e conferma richiede un'applicazione separata. Il percorso pratico S00-S05 aggiunge sviluppo con coding agent e un adapter locale di sola proposta, mantenendo distinta la verifica del software da quella di un agente reale.
+Esegui `python3 labs/course_lab.py agent --request 'CALCOLA: (12 + 8) / 5'` come baseline deterministica. [E03: agenti e MCP](../docs/course/engineering/E03-agenti-mcp.md) aggiunge tool calling con Ollama, allowlist, budget e un server MCP stdio verificato fra processi. S00-S05 insegna lo sviluppo con coding agent e la separazione fra proposta e operazioni con effetti.
 
 ## Verifica rapida
 
@@ -1527,7 +1536,7 @@ In QLoRA il base quantizzato riduce memoria, mentre adapter e stati optimizer us
 
 ## Laboratorio
 
-Costruisci su carta l'albero decisionale tra prompting, RAG e adattamento: il runner non implementa fine-tuning o LoRA. L'estensione reale richiede un modello piccolo, dataset non sensibile e un ambiente di training separato. Prima dell'addestramento congela eval set e criteri; dopo misura task target, regressioni, memoria e latenza. Non presentare l'albero decisionale come evidenza di un training eseguito.
+Completa [E05: LoRA e regressioni](../docs/course/engineering/E05-lora.md): un adapter sulla head del Transformer viene addestrato realmente e confrontato sui domini target e base. La prova usa pesi float32, non QLoRA. Congela i criteri prima del test e non nascondere il peggioramento sul dominio originale.
 
 ## Verifica rapida
 
@@ -1610,7 +1619,7 @@ Un kernel deve specificare shape, stride, dtype, allineamento, dispositivi e tol
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py attention` per osservare un calcolo didattico in Python e usa la visuale prefill/decode. Il runner non include scheduler né kernel hardware ottimizzati. Nel livello avanzato implementa softmax o matmul in NumPy/framework e una versione ottimizzata come progetto separato; riporta accelerazione solo dopo equivalenza entro tolleranza e misure sul dispositivo dichiarato.
+Esegui `python3 labs/course_lab.py attention` per il calcolo introduttivo. [E06: inferenza e kernel](../docs/course/engineering/E06-inferenza.md) fornisce reference, microkernel tiled con softmax online, confronto con la libreria e misure CPU di prefill/decode e KV cache. L'equivalenza precede il timing; il tiled Python può essere più lento.
 
 ## Verifica rapida
 
@@ -1721,13 +1730,13 @@ Su fixture binarie confronta: file originale, gzip/zstd, modello statistico del 
 
 ## Laboratorio e verifica
 
-Esegui `python3 labs/course_lab.py pollicino --message ABAAB`. Il test esaustivo corrente copre tutte le 2.046 sequenze A/B di lunghezza 1–10. Il codec accetta solo stringhe A/B non vuote fino a 64 simboli: input vuoto e altri simboli devono essere rifiutati. Supportare tutti i byte, file arbitrari e un predittore neurale richiede un nuovo codec/formato e test dedicati; non è una funzione già presente. La prova finale segue `docs/course/assessments/final-practical.md`.
+Esegui `python3 labs/course_lab.py pollicino --message ABAAB` per il codec A/B, il cui test esaustivo copre 2.046 sequenze di lunghezza 1–10. Prosegui con [E07: codec byte e neurale](../docs/course/engineering/E07-codec.md): file vuoti, tutti i byte, checkpoint addestrato, otto round trip misurati, checksum e costo totale confrontato con gzip. La prova finale segue `docs/course/assessments/final-practical.md`.
 
 Rubrica: correttezza/round trip 3; riproducibilità 2; valutazione e baseline 2; architettura e sicurezza 2; limiti e comunicazione 1. Qualunque mancata uguaglianza byte-per-byte rende non superato il ramo lossless.
 
 ## Sintesi inclusiva
 
-Il capstone unisce scelta, esecuzione, applicazione e valutazione. Pollicino aggiunge un vincolo assoluto: gli stessi byte devono tornare. Oggi il toy codec dimostra il meccanismo; il modello neurale resta una roadmap finché non supera determinismo, round trip e benchmark completi.
+Il capstone unisce scelta, esecuzione, applicazione e valutazione. Pollicino aggiunge un vincolo assoluto: gli stessi byte devono tornare. Il codec neurale del corso supera i round trip nell'ambiente CPU dichiarato; portabilità numerica e integrazione PollicinoNet richiedono verifiche separate.
 
 ## Fonti e collegamenti
 
@@ -1735,6 +1744,881 @@ Il capstone unisce scelta, esecuzione, applicazione e valutazione. Pollicino agg
 - [Probabilità → bit](../visuals/pollicino-probabilities-to-bits.html)
 - [Prova pratica finale](../docs/course/assessments/final-practical.md)
 - Activity: `llm-activity-m19-pollicino`
+
+# Laboratori applicativi e implementazioni AI Engineer
+
+Questa sezione completa le implementazioni dei moduli M04-M19. Non aggiunge
+automaticamente ore alle 68 del percorso scolastico: il docente usa gli esempi
+Practitioner nei moduli corrispondenti; lo studio integrale AI Engineer è un
+percorso personale aggiuntivo di circa 32 ore, da adattare ai prerequisiti.
+
+Il codice di riferimento è originale e si trova in
+[labs/engineering](../labs/engineering/README.md). Gli esempi svolti sono
+materiale di studio; le consegne richiedono nuove prove e modifiche. Le soluzioni
+di correzione delle Activity rimangono negli asset riservati al docente.
+
+| Capitolo | Collegamento | Studio avanzato stimato |
+| --- | --- | --- |
+| [E00 Matematica operativa](../docs/course/engineering/E00-matematica.md) | M02-M05 | 4 ore |
+| [E01 Chat affidabile](../docs/course/engineering/E01-chat.md) | M11/M13 | 3 ore |
+| [E02 RAG e valutazione](../docs/course/engineering/E02-rag.md) | M03/M14/M15 | 4 ore |
+| [E03 Agenti e MCP](../docs/course/engineering/E03-agenti-mcp.md) | M16 | 4 ore |
+| [E04 Transformer da zero](../docs/course/engineering/E04-training.md) | M04/M05/M07/M19 | 5 ore |
+| [E05 LoRA e regressioni](../docs/course/engineering/E05-lora.md) | M17 | 3 ore |
+| [E06 Inferenza e kernel](../docs/course/engineering/E06-inferenza.md) | M10/M18 | 5 ore |
+| [E07 Codec neurale](../docs/course/engineering/E07-codec.md) | M19/Pollicino | 4 ore |
+
+Prerequisiti Practitioner: funzioni, liste, file e JSON in Python. Per AI
+Engineer servono anche array, indici, funzioni composte e lettura di grafici;
+E00 costruisce il ponte verso le formule. Usare Python 3.12 per ripetere
+l'ambiente verificato. Le applicazioni usano la libreria standard; i capitoli
+neurali richiedono PyTorch 2.8.0. I grafici pubblicati sono già disponibili.
+
+Tre tipi di evidenza sono distinti: test con provider simulato, protocollo MCP
+eseguito fra processi reali, esperimenti neurali misurati su CPU. Il servizio
+Ollama reale e il profilo Mac scolastico hanno un proprio rehearsal ancora da
+eseguire. Un mock non misura la qualità di un modello scaricato.
+
+Per ogni consegna usare il [report di laboratorio](../docs/course/engineering/REPORT-template.md),
+conservando anche gli insuccessi. Per passare dal codice di esempio a un
+prodotto, proseguire con [S00-S05: sviluppo software con AI](../docs/course/ai-software/README.md).
+
+# E00 - La matematica che serve nel laboratorio
+
+## Obiettivi e intuizione Practitioner
+
+Immagina un mixer: ogni cursore descrive una proprietà, ogni collegamento
+decide quanto quella proprietà influenza un'altra. Un vettore raccoglie i
+cursori, una matrice contiene i pesi dei collegamenti. Non è necessario che
+un singolo cursore significhi sempre «animale» o «verbo»: nei modelli reali le
+caratteristiche possono essere distribuite fra molte coordinate.
+
+Al termine distingui numero, vettore, matrice, probabilità e derivata; sai
+leggere le dimensioni di un'operazione e spiegare perché il training modifica
+i pesi. Nel percorso intuitivo bastano i numeri degli esempi; chi studia AI
+Engineer ricostruisce i passaggi e li collega a `tiny_lm.py`.
+
+## Vettori, matrici e forme
+
+Con $x=(1,2)$ e $w=(3,-1)$, il prodotto scalare è
+$x\cdot w=1\cdot3+2\cdot(-1)=1$. Una matrice $W$ con due righe e tre
+colonne trasforma il vettore riga $x$ in tre numeri: $y=xW+b$.
+La forma è $(1,2)(2,3)+(1,3)=(1,3)$. La somma del bias si ripete per
+ogni esempio del batch: questo è broadcasting, non un nuovo peso per esempio.
+
+Per $B$ sequenze, $T$ posizioni e larghezza $D$, le rappresentazioni hanno
+forma $(B,T,D)$. Una proiezione di attenzione produce query, key e value;
+con $H$ teste, ciascuna testa usa $d=D/H$ coordinate. Nel modello del corso
+$D=48$, $H=4$, quindi $d=12$. Scrivere queste dimensioni prima del codice
+evita errori che una formula senza indici nasconde.
+
+## Da punteggi a probabilità
+
+I logits sono punteggi liberi, anche negativi. La softmax li normalizza:
+
+$$p_i=\frac{e^{z_i-m}}{\sum_j e^{z_j-m}},\qquad m=\max_j z_j.$$
+
+Sottrarre lo stesso $m$ non cambia i rapporti e riduce il rischio di overflow.
+Con logits $(\ln 2,0)$ otteniamo $(2/3,1/3)$. Una temperatura $\tau>0$
+divide i logits prima della softmax: a $\tau=2$ la distribuzione è meno
+concentrata. Temperatura zero è una convenzione di selezione greedy nel
+decoder; non si deve eseguire letteralmente una divisione per zero.
+
+Se il simbolo osservato è il secondo, la loss è $-\ln(1/3)=\ln3$, circa
+1,099 nat. In bit è $-\log_2(1/3)$, circa 1,585. Per $N$ simboli:
+
+$$L=-\frac1N\sum_{t=1}^N\ln p(x_t\mid x_{<t}),
+\qquad \mathrm{PPL}=e^L,\qquad \mathrm{bpb}=L/\ln2.$$
+
+La perplexity è una misura del costo probabilistico medio, non una percentuale
+di risposte vere. Confrontarla fra tokenizer diversi può essere fuorviante:
+un token non contiene sempre lo stesso numero di byte. Nel nostro modello il
+vocabolario è esattamente l'insieme dei 256 byte, quindi bpb è ben definito.
+
+## Derivate, catena e aggiornamento AI Engineer
+
+La derivata dice come cambia la loss per un piccolo cambiamento di parametro.
+Per una softmax seguita da cross-entropy con target one-hot $y$:
+
+$$\frac{\partial L}{\partial z_i}=p_i-y_i.$$
+
+Nell'esempio precedente, target secondo, il gradiente è $(2/3,-2/3)$.
+Un passo di discesa riduce il primo logit e aumenta il secondo. Non servono
+due regole indipendenti per «premiare» e «punire»: il gradiente produce entrambe.
+La formula segue da $L=-z_k+\log\sum_j e^{z_j}$ derivando i due termini.
+
+Per $Y=XW$, se $G=\partial L/\partial Y$, allora
+$\partial L/\partial W=X^TG$ e $\partial L/\partial X=GW^T$.
+Le trasposte fanno coincidere le dimensioni. In una rete composta il gradiente
+attraversa ogni operazione in ordine inverso: è la regola della catena.
+Autograd registra questo grafo; `backward()` calcola derivate, mentre
+`optimizer.step()` aggiorna i pesi. Sono due operazioni diverse.
+
+SGD usa $\theta' = \theta-\eta g$. AdamW stima medie mobili di gradiente e
+quadrato del gradiente, corregge il bias iniziale e applica un decadimento
+separato dei pesi. Il clipping limita la norma del gradiente: non sostituisce
+né il learning rate né una buona separazione dei dati.
+
+## Laboratorio e verifica
+
+Esegui `python3 labs/course_lab.py softmax --logits 0 1 2` e
+`python3 labs/course_lab.py gradient --steps 12`. Prima prevedi cosa accade
+aggiungendo 100 a tutti i logits; poi ripeti la softmax. Calcola a mano loss
+e gradiente nell'esempio a due classi. In E04 controlla che il programma usi
+target spostati di una posizione e che il test resti escluso dalla selezione.
+
+Consegna una pagina con forme delle matrici, un calcolo completo e un errore
+diagnosticato. Per verificare una derivata puoi usare differenze centrali
+$(L(\theta+\epsilon)-L(\theta-\epsilon))/(2\epsilon)$ su un modello minuscolo
+in float64; un epsilon troppo piccolo amplifica gli errori di arrotondamento.
+
+Fonte primaria: [Transformer](https://arxiv.org/abs/1706.03762).
+Il modello didattico usa varianti esplicitate in E04: non replica tutte le
+scelte del paper né le architetture dei modelli di frontiera.
+
+# E01 - Una chat che conserva uno stato coerente
+
+## Obiettivi e intuizione Practitioner
+
+La chat assomiglia a un quaderno che l'applicazione riapre a ogni domanda.
+Il modello vede le pagine inviate nella richiesta, non tutte le conversazioni
+precedenti. Se una risposta arriva a metà e la connessione cade, copiare quel
+frammento nel quaderno come risposta completa crea un ricordo sbagliato.
+
+L'obiettivo è usare una chat locale a più turni, osservare lo streaming e
+spiegare cosa succede a cronologia e interfaccia quando una richiesta fallisce.
+Il riferimento è [client.py](../labs/engineering/client.py), richiamato
+dal [runner](../labs/engineering/run.py). È un'applicazione da terminale;
+una GUI può riusare il medesimo oggetto `ChatSession`.
+
+## Preparazione e prima prova
+
+Avvia Ollama secondo M11. Scegli un tag dalla libreria dopo il controllo di
+memoria e licenza, scaricalo e verifica che compaia in `ollama list`. Il tag
+piccolo seguente è una baseline per provare il collegamento, non un vincitore
+dell'evaluation né una garanzia di tool calling:
+
+```bash
+ollama pull qwen3.5:0.8b
+python3 -m labs.engineering.run chat \
+  --model qwen3.5:0.8b --interactive \
+  --prompt 'Ricorda: il progetto si chiama Aurora.' \
+  --output output/rehearsal/chat.json
+```
+
+Al secondo turno chiedi il nome del progetto; esci con `/quit`. Il runner
+stampa i frammenti mentre arrivano e salva risultati e inventario del runtime
+alla fine. Per la prova usa dati fittizi: il report contiene testo della
+richiesta e risposta. Se il servizio manca, l'errore deve essere visibile e il
+programma termina con codice diverso da zero; avvia il servizio e ripeti.
+
+## Il contratto AI Engineer
+
+`Ollama` limita l'origine HTTP al loopback, la dimensione delle risposte e il
+tempo delle operazioni. Il payload fissa seed, temperatura e output massimo.
+Lo streaming è una sequenza di oggetti JSON delimitati da newline; non si
+deve tentare di leggere tutto il corpo come un singolo JSON.
+
+`ChatSession` passa da idle a streaming. Accumula frammenti in una variabile
+provvisoria e chiama un callback per l'interfaccia. Solo un messaggio finale
+`done=true` permette di aggiungere la coppia utente/assistente alla cronologia.
+EOF anticipato, JSON malformato, errore HTTP e cancellazione lasciano intatta
+la cronologia precedente. Il test controlla lo stato, non soltanto una stringa
+di errore a schermo.
+
+Quando il budget di caratteri è superato vengono eliminati i turni più vecchi
+completi, preservando il messaggio di sistema. Il budget è una protezione
+applicativa approssimata: non è un conteggio token del tokenizer del modello.
+Un messaggio singolo troppo lungo viene rifiutato. Riassumere la storia
+sarebbe una policy diversa, con propri errori da valutare.
+
+La cancellazione usa un evento controllato fra le letture. Con HTTP bloccante
+non garantisce arresto istantaneo durante una lettura: interviene al prossimo
+frammento o al timeout, configurato a 30 secondi. Il contesto chiude la
+connessione quando il generatore termina. Non viene eseguito retry automatico:
+la richiesta potrebbe essere già stata elaborata dal servizio.
+
+## Tempi, test e limite dell'evidenza
+
+Il tempo al primo testo visibile è
+$t_{\text{primo frammento}}-t_{\text{invio}}$; include rete e runtime.
+Un modello che emette reasoning separato può avere tempo al primo testo finale
+diverso dal tempo al primo token interno. Per il throughput usa i contatori
+del provider: `eval_count / (eval_duration / 1e9)` quando il denominatore è
+positivo. Contare caratteri al secondo non equivale a contare token.
+
+```bash
+python3 -m unittest discover -s tests \
+  -p 'test_engineering_apps.py' -v
+```
+
+I test aprono un server HTTP locale che simula risposte e interruzioni, quindi
+verificano trasporto e stato senza scaricare pesi. Non misurano qualità,
+latenza o memoria di Ollama reale. Tale sessione rimane nel rehearsal.
+
+## Consegna e controllo
+
+Practitioner: conduci tre turni, annota quali messaggi servono a rispondere e
+spiega perché riavviare la chat cambia il risultato. AI Engineer: aggiungi una
+policy che mantenga solo le ultime due coppie complete, crea un test per un
+errore dopo il primo frammento e dimostra che la risposta parziale non entra
+nella storia. Consegna codice, test e report; non fissare come test unitario
+la formulazione linguistica di un modello generativo.
+
+Fonte primaria del protocollo: [Ollama Chat API](https://docs.ollama.com/api/chat).
+Riferimento software: separazione adapter/dominio e revisione per specifiche
+nel supplemento S00-S05.
+
+# E02 - RAG con fonti controllabili e valutazione
+
+## Obiettivi e intuizione Practitioner
+
+Pensa a un'interrogazione a libro aperto. Un bibliotecario sceglie pochi
+passaggi, un redattore costruisce la risposta. Se il bibliotecario prende il
+libro sbagliato, un redattore bravissimo può comunque fallire. Se il passaggio
+è corretto, il redattore può ancora interpretarlo male. Per questo misuriamo
+retrieval e risposta separatamente.
+
+Al termine sai ispezionare i passaggi recuperati, riconoscere una citazione
+inventata e chiedere astensione quando manca evidenza. Il codice
+[rag.py](../labs/engineering/rag.py) usa un modello embedding e un
+generatore Ollama distinti. Cinque documenti sintetici includono anche
+un'istruzione ostile, senza dati reali della scuola.
+
+## Laboratorio locale
+
+```bash
+ollama pull all-minilm:22m
+python3 -m labs.engineering.run rag \
+  --model qwen3.5:0.8b --embedding-model all-minilm:22m \
+  --prompt 'Quanti posti ha LAB-A?' \
+  --output output/rehearsal/rag.json
+python3 -m labs.engineering.run rag-eval \
+  --model qwen3.5:0.8b --embedding-model all-minilm:22m \
+  --output output/rehearsal/rag-eval.json
+```
+
+Il generatore deve essere già installato come in E01. `all-minilm:22m` è una
+baseline piccola, non la scelta definitiva per l'italiano. Confrontala con un
+embedding multilingue sullo stesso eval prima di adottarla. Un modello piccolo
+può produrre JSON valido ma contenuti sbagliati, oppure violare lo schema:
+entrambi sono risultati da registrare, non da correggere a mano nel report.
+
+## Come sono costruiti indice e risposta
+
+I documenti sono spezzati in finestre di 48 parole con overlap di 8. Ogni chunk
+ha ID derivato da documento, posizione e hash del testo. L'embedding viene
+calcolato una volta per chunk nell'istanza del laboratorio; non c'è un database
+vettoriale persistente. La query viene trasformata nello stesso spazio.
+
+Per vettori $u,v$, il punteggio è
+
+$$s(u,v)=\frac{\sum_i u_iv_i}{\sqrt{\sum_i u_i^2}\sqrt{\sum_i v_i^2}}.$$
+
+Per esempio $(1,0)$ e $(1,1)$ hanno similarità $1/\sqrt2$, circa 0,707.
+La normalizzazione rende il confronto indipendente dalla lunghezza del
+vettore; non conferisce al numero il significato di probabilità di verità.
+Il codice verifica dimensioni e valori finiti, seleziona i primi tre risultati
+e applica una soglia minima didattica di 0,2. La soglia va calibrata sul
+validation set, non «scoperta» osservando il test finale.
+
+Il generatore riceve domanda e chunk, dichiarati dati non fidati. Restituisce
+un oggetto con `answer`, `abstained` e una lista `citations` con ID e citazione
+testuale. Il validatore richiede che ogni ID appartenga ai chunk forniti e
+che ogni citazione sia una sottostringa letterale del chunk indicato. Senza
+passaggi sopra soglia il sistema si astiene senza chiamare il generatore.
+
+Questo controllo prova provenienza letterale, non entailment: citare «LAB-A
+ha 24 posti» non giustifica «LAB-B ha 24 posti». Una valutazione umana o un
+controllore semantico separato deve verificare il legame fra affermazione e
+fonte. Il generatore RAG non riceve strumenti: un documento ostile non può
+acquisire capacità di scrivere file o inviare messaggi tramite questa pipeline.
+Può tuttavia contaminare il testo della risposta.
+
+## Misurare senza confondere le metriche
+
+Per una domanda con insieme di documenti rilevanti $R$, recall@3 è
+$|R\cap\mathrm{top3}|/|R|$. Nei casi con un solo documento rilevante vale
+zero oppure uno. Per una domanda senza fonte nota il test valuta l'astensione,
+non una recall con denominatore zero.
+
+La fixture di cinque domande controlla anche parole attese nella risposta.
+Questa misura semplice individua regressioni grossolane, ma può accettare
+frasi semanticamente sbagliate: «non ha 24 posti» contiene comunque «24».
+Nel capstone aggiungere etichette umane, parafrasi, domande senza risposta e
+domande con documenti contraddittori. Cinque casi non giustificano stime robuste
+della qualità in produzione.
+
+## Consegna e verifica
+
+Practitioner: confronta risposta senza documenti e con RAG su quattro domande
+note e due ignote; evidenzia ogni affermazione e la fonte che la sostiene.
+AI Engineer: amplia l'eval prima di cambiare chunking o embedding, confronta
+due configurazioni a generatore fisso e cataloga retrieval errato, generazione
+errata, citazione falsa e astensione impropria. Una configurazione è promossa
+soltanto se supera la soglia preregistrata e i casi critici.
+
+Fonti: [Ollama Embed API](https://docs.ollama.com/api/embed) e
+[Chat API](https://docs.ollama.com/api/chat). La pipeline e il corpus sono
+materiale originale del corso.
+
+# E03 - Tool calling e MCP osservabili
+
+## Obiettivi e intuizione Practitioner
+
+Un assistente può compilare una richiesta per la segreteria; la segreteria
+decide se eseguirla secondo regole precise. Nel nostro programma il modello
+propone una chiamata, mentre il codice controlla nome e argomenti. Una frase
+convincente non conferisce permessi.
+
+Il laboratorio cerca informazioni su due laboratori scolastici fittizi.
+L'unico tool è `lookup_room`, di sola lettura. Il ciclo
+[agent.py](../labs/engineering/agent.py) funziona sia con una funzione
+Python sia con un processo MCP separato. Imparerai a distinguere il modello,
+la policy dell'applicazione e il protocollo che trasporta la richiesta.
+
+## Prima il protocollo, poi il modello
+
+```bash
+python3 -m labs.engineering.run mcp-check \
+  --output output/rehearsal/mcp.json
+python3 -m labs.engineering.run agent \
+  --model qwen3.5:0.8b --mcp \
+  --prompt 'Usa lookup_room per sapere i posti di LAB-A.' \
+  --output output/rehearsal/agent.json
+```
+
+Il primo comando non usa un LLM: avvia un vero subprocess, inizializza MCP,
+scopre il tool e lo chiama. Il secondo richiede Ollama e un tag capace di
+tool calling. Il tag piccolo è una prova di compatibilità: se non effettua
+la chiamata, il report deve mostrarlo. Prova poi un modello compatibile più
+capace scelto con il budget hardware; non inventare una traccia di tool a mano.
+
+## La macchina a stati AI Engineer
+
+Il ciclo inizia con messaggio di sistema, domanda e schema del tool. Ricevuta
+la risposta, controlla tutte le chiamate del batch prima di eseguirne una.
+Accetta solo il nome previsto e un oggetto con l'unica chiave `room`, il cui
+valore deve essere `LAB-A` o `LAB-B`. Un nome sconosciuto o un argomento extra
+provoca un errore esplicito. Lo schema inviato al modello non sostituisce
+questi controlli eseguiti dal programma.
+
+Il risultato viene inserito nella storia con ruolo `tool` e nome del tool,
+come previsto dal contratto Ollama usato. Il modello può quindi formulare
+la risposta o proporre un nuovo passo. Il programma limita il ciclo a quattro
+passi e sei chiamate; raggiungere il budget è un errore, non un successo
+silenzioso. Le chiamate identiche sono memoizzate nel singolo ciclo. Questa
+scelta è valida qui perché i dati sono fissi e il tool è read-only; per dati
+mutabili servirebbe una policy di freschezza.
+
+Una risposta finale senza tool call può essere prodotta dal modello, ma non
+prova che abbia consultato il laboratorio. Per il criterio «dato ottenuto dal
+tool» il docente controlla la traccia, non soltanto il numero 24 nel testo.
+
+## Che cosa implementa MCP
+
+[mcp.py](../labs/engineering/mcp.py) implementa un sottoinsieme educativo
+della versione **2025-06-18** su stdio. Il client invia `initialize`, controlla
+la versione e invia `notifications/initialized`; poi usa `tools/list` e
+`tools/call`. Le richieste hanno ID JSON-RPC e le risposte devono riportare
+lo stesso ID. Le notifiche non ricevono risposta. Gli errori distinguono JSON
+non valido, metodo sconosciuto e parametri non validi.
+
+Il server scrive solo messaggi di protocollo su stdout, uno per riga: inserire
+un `print` di debug in quel flusso rompe il trasporto. Esistono limiti di riga
+e timeout del client. La chiusura del contesto termina il processo figlio.
+La fixture non implementa HTTP, autenticazione, sessioni distribuite o ogni
+capacità dello standard. Per un servizio reale usare un SDK mantenuto e
+verificarne la versione; il laboratorio serve a rendere visibile il contratto.
+
+L'indicazione `readOnlyHint` descrive il tool ai client. Non è un controllo
+di sicurezza: la restrizione effettiva deriva dal codice e dai permessi.
+
+## Consegna e valutazione
+
+Practitioner: disegna il confine fra proposta del modello e decisione del
+programma; confronta una risposta ottenuta dal tool con una risposta senza
+chiamate. AI Engineer: aggiungi una terza stanza aggiornando schema, policy,
+fixture e test; prova argomenti extra, ID errato, chiamata prima dell'handshake
+e loop oltre budget. Non aggiungere operazioni con effetti esterni a questo
+esercizio. Il percorso PrenotaLab insegna separatamente proposta, conferma
+umana e transazione.
+
+I test automatici usano un modello simulato per rendere riproducibili gli
+errori e un subprocess MCP reale per verificare il trasporto. La qualità
+della selezione tool con un LLM locale resta una misura del rehearsal.
+
+Fonti primarie: [MCP lifecycle](https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle),
+[MCP tools](https://modelcontextprotocol.io/specification/2025-06-18/server/tools)
+e [Ollama Chat API](https://docs.ollama.com/api/chat).
+
+# E04 - Costruire e addestrare un Transformer da zero
+
+## Obiettivi e intuizione Practitioner
+
+Un modello inizializzato a caso assomiglia a una tastiera che suggerisce
+continuazioni senza aver letto nulla. Il training gli mostra molti prefissi
+e il byte che viene dopo, correggendo gradualmente i collegamenti interni.
+Il nostro modello ha 84.288 parametri: abbastanza per vedere il meccanismo,
+troppo pochi e con dati troppo semplici per confonderlo con un assistente.
+
+Qui «da zero» significa che definiamo architettura e pesi iniziali e facciamo
+training senza checkpoint preaddestrati. PyTorch fornisce tensori, autograd e
+ottimizzatore; non implementiamo una libreria numerica completa. La classe
+[TinyLM](../labs/engineering/tiny_lm.py) è leggibile in un unico file.
+
+## Architettura e forme AI Engineer
+
+Il vocabolario contiene 256 byte. Per input $(B,T)$, la lookup dei token e
+quella delle posizioni producono $(B,T,48)$; la loro somma entra in due blocchi.
+Ogni blocco usa LayerNorm, attenzione causale a quattro teste, residuo,
+LayerNorm, feed-forward 48→192→48 con GELU e secondo residuo.
+Una normalizzazione finale e una matrice 48→256 producono logits per posizione.
+
+Per un vettore $x$ di 48 coordinate, LayerNorm usa media e varianza di quel
+vettore: $\gamma(x-\mu)/\sqrt{\sigma^2+\epsilon}+\beta$.
+Non normalizza mescolando esempi del batch. Il residuo somma l'input alla
+trasformazione, consentendo al blocco di apprendere una correzione.
+
+Per testa, $Q,K,V$ hanno forma $(B,4,T,12)$ e
+
+$$A=\mathrm{softmax}(QK^T/\sqrt{12}+M),\qquad O=AV.$$
+
+$M_{ij}$ vale zero se $j\le i$ e meno infinito altrimenti. Modificare un byte
+futuro non deve modificare i logits precedenti: il test di causalità verifica
+questo comportamento. La maschera impedisce al training di copiare direttamente
+il target dalla posizione successiva.
+
+Questa architettura usa posizioni assolute apprese e LayerNorm, non RoPE,
+RMSNorm, GQA o MoE. M06 spiega quelle varianti. Non si deve attribuirle al
+nostro codice solo perché sono comuni nei modelli recenti.
+
+## Dati e training riproducibile
+
+```bash
+python3 -m pip install -r labs/engineering/requirements-cpu.txt
+python3 -m labs.engineering.train
+python3 -m labs.engineering.generate \
+  --prompt 'Ada studia' --count 80 \
+  --output output/engineering/generation-report.json
+```
+
+I sei file in `fixtures/text` sono originali e sintetici. I documenti sono
+suddivisi per indice in train/validation/test e controllati per duplicati
+esatti. Condividono però nomi e strutture di frase: il test misura nuove
+combinazioni della medesima distribuzione semplice, non generalizzazione al
+linguaggio naturale. Il generatore del corpus permette di riprodurli.
+
+Ogni batch contiene otto finestre da 64 byte. Gli input sono $x_t$ e i target
+sono $x_{t+1}$. Si eseguono 160 passi AdamW, learning rate 0,003, clipping a
+norma 1, seed 7 e un thread CPU. Ogni venti passi si misura la validation e
+si conserva il checkpoint migliore. Il test non decide quando fermarsi.
+La loss di training nel grafico è quella del batch corrente; la validation
+copre tutti i target validi con finestre consecutive e contesto azzerato.
+
+![Curve misurate di training e adattamento](../visuals/static/rendered/engineering-training.png)
+
+## Risultati osservati e interpretazione
+
+Nel report versionato, Python 3.12.14 e PyTorch 2.8.0 CPU x86_64, la loss test
+del modello base è circa **0,295 nat/byte**, contro circa **2,92** della baseline
+unigramma add-one. La conversione produce circa 0,425 bit/byte ideali; un
+archivio reale deve pagare anche intestazione, arrotondamenti e modello.
+
+Il comando di generazione produce byte e un testo di anteprima. Byte casuali
+possono non formare UTF-8 valido: il report conserva l'esadecimale esatto e
+segnala le sostituzioni nell'anteprima. Non è una chat istruita né possiede un
+token di fine sequenza. Dopo 64 byte usa una finestra mobile con posizioni
+azzerate; questa policy va distinta dalla KV cache a contesto fisso di E06.
+
+## Consegna e verifica
+
+Practitioner: confronta una continuazione con le frasi del corpus e indica
+due regolarità apprese e un limite. AI Engineer: prima di guardare il test,
+definisci un nuovo split per argomento, confronta larghezza 24 e 48 a budget
+dichiarato e registra curve, hash, numero di parametri e loss. Se il test
+diventa molto più difficile, spiega il cambiamento di distribuzione.
+
+I test controllano causalità, riduzione della loss su una fixture apprendibile
+e corrispondenza fra inferenza piena e con cache. La fixture di unit test
+dimostra che il training funziona; solo il protocollo separato valuta un task.
+Per ripristinare una prova usa una nuova directory `--output`, conservando
+quella precedente invece di sovrascrivere il confronto.
+
+Fonte primaria: [Attention Is All You Need](https://arxiv.org/abs/1706.03762).
+Le scelte e le differenze rispetto al paper sono dichiarate sopra.
+
+# E05 - LoRA: pochi parametri, effetti da misurare
+
+## Obiettivi e intuizione Practitioner
+
+Pensa a un filtro aggiunto davanti a una macchina fotografica: non ricostruisci
+l'obiettivo, ma l'immagine cambia comunque. LoRA lascia fissi i pesi originali
+e aggiunge una correzione appresa. Congelare i pesi base non significa congelare
+il comportamento del modello che usa la correzione.
+
+Il laboratorio adatta il modello di E04 da frasi semplici a righe strutturate
+su stanze, posti e attività. Mostra sia il miglioramento del nuovo compito sia
+il peggioramento di quello iniziale. Non usa un corpus acquistato né risposte
+di un modello cloud.
+
+## Matrici e gradienti AI Engineer
+
+Per una proiezione $W\in\mathbb R^{d_{out}\times d_{in}}$, LoRA aggiunge
+
+$$W'=W+sBA,\qquad A\in\mathbb R^{r\times d_{in}},
+\quad B\in\mathbb R^{d_{out}\times r},\quad s=\alpha/r.$$
+
+Il rango della correzione non supera $r$. Nella head del nostro modello
+$d_{in}=48$, $d_{out}=256$, $r=4$, $\alpha=8$, quindi $s=2$.
+Invece di aggiornare 12.288 pesi della proiezione, apprendiamo
+$4(48+256)=1.216$ parametri. Questo confronto riguarda la head: l'intero
+modello base contiene 84.288 parametri, tutti congelati durante l'adattamento.
+
+Per input colonna $x$ e gradiente in uscita $g$, i contributi sono
+$\nabla_B L=s\,g(Ax)^T$ e $\nabla_A L=s\,B^Tg\,x^T$.
+La classe `LoRAHead` inizializza A casualmente e B a zero: al primo forward
+il modello coincide con il base, il gradiente di B può essere non nullo e
+quello di A è inizialmente nullo. Inizializzare entrambe a zero impedirebbe
+al prodotto di cominciare ad apprendere.
+
+Per l'inferenza si può calcolare separatamente $Wx+sB(Ax)$ oppure fondere
+$W+sBA$. Il test confronta i due risultati entro tolleranza. Questa equivalenza
+matematica in precisione piena non garantisce equivalenza bit-per-bit dopo
+quantizzazione o su runtime differenti.
+
+## Esecuzione e artefatti
+
+```bash
+python3 -m labs.engineering.train \
+  --output output/engineering --adapter-steps 120
+python3 -m labs.engineering.generate \
+  --checkpoint output/engineering/tiny-byte-lm.pt \
+  --adapter output/engineering/head-lora.pt \
+  --prompt 'stanza=' --count 80 \
+  --output output/engineering/adapter-generation.json
+```
+
+Il primo comando ripete anche il training base: per una nuova configurazione
+scegli una directory distinta. L'adapter contiene solo A, B, rango, scala e
+SHA-256 del checkpoint base. Il caricatore rifiuta un adapter associato a un
+base diverso. Il report controlla con uguaglianza esatta che tutti i parametri
+congelati siano rimasti identici.
+
+Il learning rate dell'adapter è 0,02. Validation e test target sono distinti;
+il test non viene usato per scegliere il passo migliore. Non applichiamo LoRA
+a Q/V o a tutte le proiezioni: questa è una riproduzione minimale dell'idea
+di aggiornamento a basso rango sulla sola head, non una ricetta completa
+per adattare un modello di frontiera. Non è QLoRA: il base resta in float32.
+
+## Un risultato utile anche quando è negativo
+
+Nel report CPU la loss sul test target scende da **6,449 a 1,471 nat/byte**.
+Sul test del dominio base sale però da **0,295 a 4,759**. I pesi congelati
+sono identici, ma la composizione base+adapter ha cambiato comportamento.
+Per un'app che deve mantenere entrambe le competenze questo adattamento non
+supera un criterio ragionevole di regressione.
+
+Anche la generazione libera salvata in `adapter-generation.json` contiene
+sequenze malformate e ripetizioni. La loss valuta predizioni condizionate su
+prefissi corretti del dataset; generando liberamente, il modello deve invece
+continuare anche i propri errori. Una loss target migliore non prova che il
+modello produca record validi in autonomia: serve un'evaluation di generazione.
+
+La soluzione non è eliminare il risultato scomodo dal report. Si possono
+valutare dati misti, scala minore, meno passi, altro rango o instradamento
+esplicito fra base e adapter. Ogni scelta richiede nuova validation e un test
+finale ancora separato. Il fatto che l'adapter occupi poco spazio non prova
+che sia innocuo o che migliori qualunque domanda.
+
+## Consegna e verifica
+
+Practitioner: interpreta le due colonne «dominio base» e «dominio target» e
+decidi se attiveresti sempre l'adapter. AI Engineer: preregistra un limite di
+regressione, confronta due ranghi su validation, verifica parametri allenabili
+e pesi congelati e consegna un unico confronto finale sul test. Aggiungi un
+test che rifiuti un adapter di un checkpoint diverso.
+
+Fonte primaria: [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685).
+Il collegamento pratico con prompting, RAG e distillazione resta M17: i pesi
+non sono il posto adatto per aggiornare continuamente informazioni citabili.
+
+# E06 - Prefill, KV cache e un kernel di attenzione
+
+## Obiettivi e intuizione Practitioner
+
+Quando leggi una frase lunga per rispondere, elabori prima il testo ricevuto.
+Poi aggiungi parole una alla volta. Ricalcolare ogni volta tutti gli appunti
+sarebbe uno spreco: la KV cache conserva key e value delle posizioni già viste.
+Richiede memoria e non elimina il costo di consultare il passato.
+
+Il laboratorio distingue prefill e decode, confronta un calcolo esplicito,
+un microkernel a blocchi e una funzione ottimizzata della libreria. Non parte
+dall'assunto che il codice più complicato sia più veloce.
+
+## Memoria e causalità AI Engineer
+
+Con $L$ livelli, batch $B$, contesto $T$, $H_{kv}$ teste key/value, dimensione
+$d$ e $s$ byte per elemento, la cache occupa idealmente
+
+$$M_{KV}=2LBTH_{kv}ds.$$
+
+Il fattore due rappresenta K e V. Nel modello del corso, per 48 posizioni,
+$L=2$, $B=1$, $H_{kv}=4$, $d=12$, $s=4$: otteniamo 36.864 byte, valore
+controllato contando lo storage dei tensori. Non comprende pesi, attivazioni,
+allocator o memoria del processo. In GQA $H_{kv}$ può essere minore delle
+teste query; il nostro riferimento implementa MHA con numeri uguali.
+
+Con cache lunga $P$ e nuove query indicizzate da $i$, la maschera ammette
+chiavi $j\le P+i$. Usare $j\le i$ senza offset durante il decode nasconderebbe
+quasi tutto il passato. Anche le posizioni apprese devono cominciare da $P$.
+Il test confronta logits ottenuti su tutto il prefisso e con token incrementali.
+
+## Softmax online: elaborare blocchi senza salvare tutti i punteggi
+
+Per una riga di query manteniamo massimo corrente $m$, denominatore $\ell$
+e accumulatore vettoriale $a$. Per un nuovo blocco di punteggi $s_j$ e value
+$v_j$ aggiorniamo:
+
+$$m'=\max(m,\max_j s_j),$$
+$$\ell'=e^{m-m'}\ell+\sum_j e^{s_j-m'},$$
+$$a'=e^{m-m'}a+\sum_j e^{s_j-m'}v_j,\qquad o=a/\ell.$$
+
+Il riscalamento mette i blocchi nello stesso sistema di riferimento numerico.
+Con due punteggi 0 e $\ln2$, i pesi finali sono 1/3 e 2/3 anche se vengono
+letti in blocchi separati. La maschera causale si applica prima degli
+esponenziali; un blocco totalmente mascherato non deve introdurre NaN.
+
+[inference.py](../labs/engineering/inference.py) implementa questa
+ricorrenza con tensori PyTorch e cicli Python. Riduce la matrice temporanea
+dei punteggi a blocchi, ma non realizza la fusione CUDA né l'ottimizzazione
+dell'accesso alla memoria di FlashAttention. La terza variante usa
+`scaled_dot_product_attention` della libreria; il backend effettivo dipende
+dal dispositivo e non va chiamato automaticamente «FlashAttention» su CPU.
+
+## Esperimento riproducibile
+
+```bash
+python3 -m labs.engineering.inference
+python3 -m unittest discover -s tests \
+  -p 'test_engineering_neural.py' -v
+```
+
+Le prove numeriche precedono il benchmark. In float32 CPU l'errore massimo
+del tiled rispetto al riferimento è circa $4,8\cdot10^{-7}$; per i logits
+con cache circa $4,1\cdot10^{-6}$. I test includono lunghezza 19 e tile 7,
+quindi bordi non multipli della dimensione del blocco.
+
+Nel report versionato, su shape $(1,4,64,12)$, la mediana di sette misure
+dopo due warm-up è circa 0,071 ms per il riferimento, 0,650 ms per il tiled
+Python e 0,036 ms per la libreria. **Il tiled didattico è più lento.**
+Il decode ripetendo il prefisso impiega circa 20,6 ms, quello con cache circa
+16,1 ms nella prova registrata. Sono misure CPU piccole e sensibili al carico;
+non predicono token/s di un modello Ollama sul Mac.
+
+## Consegna e controllo
+
+Practitioner: spiega perché un contesto lungo può consumare memoria anche con
+pochi parametri attivi. AI Engineer: varia lunghezza e tile, controlla prima
+errore e finitezza, poi salva tutte le ripetizioni e la mediana. Distingui
+memoria stimata dei tensori, picco del processo e memoria allocata dal device.
+Su un acceleratore servono sincronizzazione o eventi appropriati: il solo
+tempo della chiamata Python può misurare soltanto l'accodamento.
+
+Fonte primaria dell'idea di attenzione esatta con attenzione agli accessi in
+memoria: [FlashAttention](https://arxiv.org/abs/2205.14135).
+La nostra implementazione riproduce la ricorrenza online a scala didattica;
+un kernel CUDA/Triton competitivo resta un progetto avanzato facoltativo.
+
+# E07 - Dal predittore alla ricostruzione esatta di un file
+
+## Obiettivi e intuizione Practitioner
+
+Un modello che «ricorda più o meno» un testo non è un compressore lossless.
+Encoder e decoder devono ricostruire gli stessi byte, anche se rappresentano
+un'immagine, zeri o dati senza struttura. Il modello suggerisce quanto sono
+probabili i byte; il codificatore trasforma quelle probabilità in bit.
+
+Il nuovo [byte_codec.py](../labs/engineering/byte_codec.py) estende
+il precedente esempio A/B a tutti i 256 byte, incluso il file vuoto. Usa un
+predittore statistico adattivo oppure il Transformer di E04. È un laboratorio
+utile a Pollicino, ma non è un'integrazione nel repository PollicinoNet né una
+prova di trasmissione radio.
+
+## Intervalli e frequenze AI Engineer
+
+Per un intervallo intero inclusivo $[l,h]$, ampiezza $R=h-l+1$, cumulata
+$C$ e totale $F$, il byte $b$ seleziona
+
+$$h'=l+\lfloor RC_{b+1}/F\rfloor-1,
+\qquad l'=l+\lfloor RC_b/F\rfloor.$$
+
+Entrambe le formule usano il vecchio $l$. Per due simboli A/B con frequenze
+3 e 1 e intervallo 0..15, A sceglie 0..11, B sceglie 12..15. Il programma
+usa 32 bit e rinormalizzazione E1/E2/E3: emette bit comuni o rinvia quelli
+ambigui finché l'intervallo non consente una decisione. Il decoder esegue le
+stesse divisioni intere, non campiona dalla distribuzione.
+
+Il predittore adattivo parte con frequenza uno per ogni byte, incrementa il
+byte osservato e dimezza i conteggi con arrotondamento quando il totale
+raggiunge 16.384. Il predittore neurale trasforma la softmax in frequenze
+intere positive con totale 4.096: assegna prima uno a ogni byte, distribuisce
+la parte intera delle quote residue e assegna il resto per frazione decrescente,
+risolvendo le parità per indice del byte. Nessun simbolo ha probabilità zero.
+
+Il byte iniziale convenzionale è zero; poi entrambi i lati usano gli ultimi
+64 byte e azzerano le posizioni a ogni finestra. Questa convenzione è fissata
+dal formato del predittore, pur non essendo un token BOS addestrato separatamente.
+La procedura non usa temperatura né decoding generativo.
+
+## Archivio e integrità
+
+L'archivio TBC1 conserva versione, identità del predittore, lunghezza originale,
+numero di bit, hash del payload e hash del file originale. Nel caso neurale
+l'identità include lo SHA-256 del checkpoint. Input troncati, checksum errati,
+modello differente o limite di output superato producono errore. Il decoder
+limita l'output a un milione di byte per questa implementazione educativa.
+
+I checksum rilevano corruzione accidentale, non autenticano un mittente ostile.
+Inoltre checkpoint identico non implica CDF identica su hardware differenti:
+piccole differenze floating-point possono cambiare un arrotondamento. La
+prova neurale è ripetibile nell'ambiente numerico CPU dichiarato; la portabilità
+bit-per-bit richiede un percorso di inferenza canonico o una verifica specifica
+su ogni piattaforma. Il checksum finale rileva una divergenza, non la ripara.
+
+## Esecuzione e confronto onesto
+
+```bash
+python3 -m labs.engineering.codec_experiment
+python3 -m labs.engineering.byte_codec encode \
+  labs/engineering/fixtures/text/base-test.txt /tmp/prova.tbc
+python3 -m labs.engineering.byte_codec decode \
+  /tmp/prova.tbc /tmp/prova-decoded.txt
+```
+
+Le destinazioni devono essere nuove; per ripetere scegli altri nomi. Aggiungi
+`--checkpoint output/engineering/tiny-byte-lm.pt` a entrambi i comandi per la
+variante neurale. Confronta gli hash e, quando entrambi i file sono disponibili,
+anche l'uguaglianza diretta dei byte.
+
+L'esperimento versionato verifica otto round trip: vuoto, tutti i byte, 256
+byte pseudocasuali e testo sintetico, ciascuno con due predittori. Sul testo
+di 148 byte l'archivio adattivo occupa 359 byte, quello neurale 317 e gzip 60.
+Alla prima distribuzione il neurale deve aggiungere 347.451 byte di checkpoint:
+totale 347.768. Nei casi esaminati non batte gzip. Un costo ideale basso della
+loss non elimina metadati e costo del modello condiviso.
+
+## Consegna e criterio assoluto
+
+Practitioner: spiega perché un archivio di 317 byte può essere meno conveniente
+di un file di 148. AI Engineer: aggiungi casi con ripetizioni, UTF-8 e rumore,
+mantieni encoder e decoder separati e verifica un checkpoint errato. Produci
+una tabella con input, payload, archivio, costo condiviso, tempo ed esito.
+Qualunque byte diverso rende fallita la prova lossless, anche se il testo
+«sembra uguale». Le prove di rete e radio rimangono un gate separato.
+
+Fonti e contesto: [percorso Pollicino](../docs/course/pollicino-learning-path.md) e
+[timeline dei paper](../docs/course/research/paper-timeline.md). Il codec e le fixture
+qui pubblicati sono originali e non derivati da immagini o pagine Manning.
+
+# Report di laboratorio engineering
+
+- Autore, data, modulo e commit del corso:
+- Domanda verificabile e criterio di successo deciso prima della prova:
+- Modalità: simulazione / CPU reale / Ollama reale / cloud reale:
+- Python, dipendenze, runtime, sistema, CPU/GPU, memoria disponibile:
+- Modello, repository, revisione o digest, licenza, tokenizer e quantizzazione:
+- Input e hash del dataset; separazione train/validation/test:
+- Seed, parametri, limiti di contesto e output, timeout, budget tool:
+- Comandi esatti e file prodotti:
+- Baseline, metrica, numero di prove, valori individuali e riepilogo:
+- Un caso negativo, errore osservato e ripristino:
+- Conclusione sostenuta dai dati e conclusione che i dati non autorizzano:
+
+Per chat/RAG/tool conservare soltanto prompt didattici non sensibili. Il runner
+salva domanda e risposta: non è un sistema di anonimizzazione. Per il codec
+riportare separatamente payload, archivio completo e costo del checkpoint.
+Per LoRA misurare sia il compito target sia la regressione sul compito base.
+
+# Catalogo modelli - snapshot 10 settembre 2026
+
+Verifica delle pagine ufficiali effettuata il **10 settembre 2026**.
+Questo catalogo descrive disponibilità e caratteristiche dichiarate; non
+contiene benchmark del corso sui modelli elencati. Lo
+[snapshot precedente](../docs/course/catalog/models-2026-09-04.md) resta consultabile come storico.
+I nomi dei modelli non sostituiscono revisione, digest e licenza dell'artefatto.
+
+## Cloud: famiglie correnti da conoscere
+
+- **OpenAI:** GPT-6 Astra, GPT-5.6 Terra e Luna sono presentati nel catalogo
+  corrente per diversi compromessi fra capacità e costo. Confrontare sul
+  compito e registrare ID effettivo, configurazione del reasoning e limiti
+  dell'account. Un catalogo API non prova l'accesso attraverso qualunque piano
+  ChatGPT. Fonte: [OpenAI Models](https://developers.openai.com/api/docs/models).
+- **Anthropic:** Claude Fable 5.1, Opus 5, Sonnet 5 e Haiku 4.5. La pagina
+  distingue ID, contesto e capacità; i primi tre dichiarano contesto da un
+  milione di token, Haiku 200 mila. Contesto disponibile non significa recupero
+  perfetto delle informazioni. Fonte: [Claude Models](https://platform.claude.com/docs/en/models/overview).
+- **Google:** Gemini 3.8 Flash compare fra i modelli correnti; la pagina
+  mantiene anche famiglie precedenti e modelli preview, fra cui 3.1 Pro.
+  Distinguere stable, preview e modelli specializzati per modalità.
+  Fonte: [Gemini Models](https://ai.google.dev/gemini-api/docs/models).
+- **Mistral:** Medium 3.5, Small 4, Large 3 e Ministral 3 offrono casi utili
+  per confrontare famiglie e licenze. Il catalogo può ospitare anche modelli
+  di altri produttori: la presenza di GLM 5.2 non lo rende un modello creato
+  da Mistral. Fonte: [Mistral Models](https://docs.mistral.ai/models).
+
+Non riportiamo prezzi statici come criterio sufficiente: nel confronto
+pratico registrare data, input/output effettivi, eventuale cache, retry e
+strumenti. La selezione cloud è opzionale per il capstone locale.
+
+## Pesi aperti e novità architetturali
+
+La [libreria Ollama](https://ollama.com/library) elenca Gemma 4, Qwen 3.5/3.6,
+gpt-oss e altre famiglie. Un tag nel catalogo non dimostra che il runtime
+installato supporti tutte le modalità, né che la macchina abbia memoria
+sufficiente. Le taglie piccole servono a iniziare la prova di collegamento;
+la scelta finale dipende dall'evaluation italiana del corso.
+
+**Qwen3.8-Flash-Next** è un'aggiunta particolarmente utile a M06. La model
+card ufficiale lo presenta come anteprima sperimentale di un'architettura
+successiva: combina Gated DeltaNet con Qwen Sparse Attention, introduce
+residui con gate e n-gram embedding. Dichiara 125B parametri nel language
+model con 6B attivi, più 51B per n-gram embedding e 4B MTP. La licenza indicata
+è `qwen-community-1.0`; non va estesa automaticamente la licenza di un'altra
+variante Qwen. Fonte: [card ufficiale Flash-Next](https://huggingface.co/Qwen/Qwen3.8-Flash-Next).
+
+Per lo studente: sparse attention sceglie parti del contesto su cui spendere
+calcolo, un gate regola il passaggio di informazione, una tabella n-gram
+aggiunge rappresentazioni legate a brevi sequenze. Sono spiegazioni intuitive
+delle idee, non una prova delle prestazioni dichiarate dal produttore.
+Per l'AI Engineer: leggere configurazione, report e codice di riferimento
+prima di scegliere kernel, memoria o quantizzazione. I parametri «attivi»
+non rappresentano tutto ciò che occorre conservare.
+
+La [card Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) è un altro
+esempio corrente da confrontare. Non assimilarla a Flash-Next soltanto per
+il prefisso del nome. Per queste novità non è stata eseguita una prova locale
+in questo ambiente: nessun suggerimento di download automatico di centinaia
+di gigabyte per la classe.
+
+## Configurazioni di partenza dei laboratori
+
+E01-E03 usano come esempio [qwen3.5:0.8b](https://ollama.com/library/qwen3.5:0.8b)
+e, per embedding, [all-minilm:22m](https://ollama.com/library/all-minilm:22m).
+Il secondo è una baseline piccola, non una nuova uscita né il modello
+multilingue selezionato per il corso. Se JSON, tool calling o retrieval
+falliscono, conservare il risultato e confrontare altri modelli compatibili.
+
+Sul Mac M4 Pro 36 GB il rehearsal confronterà tag quantizzati e dimensioni
+progressive, a parità di dataset e budget. Prima di promuovere un modello:
+licenza accettabile, digest registrato, memoria con margine, qualità minima,
+latenza e casi negativi. Le fonti del catalogo non sostituiscono queste misure.
+
+Per i metodi di sviluppo con coding agent vedere S00-S05 e la
+[selezione Manning verificata il 10 settembre](../docs/course/sources/manning-coding-agents-2026-09-10.md).
+Le pagine pubbliche sono riferimenti; non sono stati ripubblicati capitoli
+o immagini editoriali protetti.
 
 # Percorso pratico: progettare software con coding agent
 
