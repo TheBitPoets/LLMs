@@ -67,7 +67,7 @@ Per la supply chain verifica hash, firma quando disponibile, identità dell'auto
 
 ## Laboratorio
 
-Compila `docs/course/templates/model-decision.md` per due candidati. Esegui `python3 labs/course_lab.py memory` come prima stima, quindi confronta dimensione file e memoria misurata quando il runtime sarà disponibile.
+Compila `docs/course/templates/model-decision.md` per due candidati. Esegui `python3 labs/course_lab.py memory --parameters 4 --bits 4 --context-k 8 --available 16` come prima stima didattica, sostituendo i valori con quelli dei candidati. Overhead e KV cache nel runner sono euristici, non derivati dall'architettura specifica. Confronta dimensione file e memoria misurata quando il runtime sarà disponibile.
 
 ## Verifica rapida
 

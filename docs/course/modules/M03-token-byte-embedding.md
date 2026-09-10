@@ -64,7 +64,7 @@ Per un file, round trip significa `decode(encode(x)) == x`. Normalizzazioni Unic
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py bytes` e prova file con zero byte, UTF-8 multibyte e dati non testuali. Se disponi di un tokenizer reale, registra nome e revisione e confronta rapporto byte/token su tre domini.
+Esegui `python3 labs/course_lab.py bytes --text 'Caffè €'` e `python3 labs/course_lab.py bytes --text ''`. Il comando ispeziona testo UTF-8, non legge file binari e non esegue un tokenizer di un modello reale. Il confronto con byte nulli e dati non testuali richiede un esercizio Python separato. Se disponi di un tokenizer reale, registra nome e revisione e confronta rapporto byte/token su tre domini.
 
 ## Verifica rapida
 

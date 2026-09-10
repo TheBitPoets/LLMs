@@ -23,6 +23,7 @@ jobs:
       - name: Structural checks
         run: |
           python3 scripts/scaffold_thebitlab_pack.py --check
+          python3 scripts/scaffold_ai_software_pack.py --check
           python3 scripts/check_course.py
           python3 scripts/check_pdfs.py
       - name: Unit tests

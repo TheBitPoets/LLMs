@@ -2,7 +2,7 @@
 title: "Dispense LLM — edizione docente"
 subtitle: "Practitioner e AI Engineer · teoria, matematica, laboratori e Pollicino"
 author: "TheBitPoets"
-date: "Edizione 2026/27 — content pack 0.9.0"
+date: "Edizione 2026/27 — LLM 0.9.0 e pratica software 0.1.0"
 lang: it-IT
 rights: "Materiale originale del progetto; fonti esterne citate"
 ---
@@ -50,6 +50,12 @@ implementazione e ricerca. Le verifiche richiedono evidenza osservabile.
 | [M19](../docs/course/modules/M19-capstone-pollicino.md) | Costruire e integrare | 3 + progetto | 24 + progetto |
 
 Le ore AI Engineer includono le ore Practitioner quando il concetto è comune.
+
+Il [supplemento pratico coding agent](../docs/course/ai-software/README.md) è un percorso
+autonomo di 12 ore; non è incluso nei totali di questa tabella. Gli obiettivi
+avanzati descrivono anche esercizi da sviluppare: consultare lo
+[stato di rilascio](../docs/course/release-status.md) per distinguere codice disponibile
+e lavoro ancora da completare.
 
 # M00 — Orientamento e baseline
 
@@ -109,7 +115,7 @@ Una threat model minima considera dati sensibili nel prompt, output falso o dann
 
 ## Laboratorio
 
-Compila la diagnostica iniziale e il template `docs/course/templates/evidence-manifest.json`. Esegui `python3 labs/course_lab.py evidence` e completa i campi mancanti. Non serve ancora installare un modello: lo scopo è imparare a registrare una prova prima di essere affascinati dall'output.
+Compila la diagnostica iniziale e il template `docs/course/templates/evidence-manifest.json`. Esegui `python3 labs/course_lab.py system` per raccogliere i dati di sistema disponibili e completa manualmente il manifest della prova. Non serve ancora installare un modello: lo scopo è imparare a registrare una prova prima di essere affascinati dall'output.
 
 ## Verifica rapida
 
@@ -199,7 +205,7 @@ Nel deployment ibrido puoi usare routing per sensibilità, capacità o costo: cl
 
 ## Laboratorio
 
-Usa la visuale, poi completa una scheda con componenti, proprietario, posizione e dati trattati. Esegui `python3 labs/course_lab.py local-cloud` e confronta la tua classificazione. La consegna non chiede quale soluzione sia “migliore” in assoluto, ma quale soddisfi i vincoli espliciti.
+Usa la visuale, poi completa una scheda con componenti, proprietario, posizione e dati trattati. Confronta la tua classificazione con un compagno indicando il percorso di ogni dato. Questa è un'attività di analisi, senza un comando CLI dedicato. La consegna non chiede quale soluzione sia “migliore” in assoluto, ma quale soddisfi i vincoli espliciti.
 
 ## Verifica rapida
 
@@ -280,7 +286,7 @@ Un buon modello assegna alta probabilità al simbolo osservato. Un codificatore 
 
 ## Laboratorio
 
-Usa la visuale e poi esegui `python3 labs/course_lab.py next-token`. Registra distribuzione, scelta, sorpresa $-\log_2p$ e sequenza. Per Pollicino esegui anche `python3 labs/course_lab.py arithmetic-codec` e verifica che input e output coincidano.
+Usa la visuale e poi esegui `python3 labs/course_lab.py softmax --logits 2 1 0`. Registra la distribuzione e la sorpresa $-\log_2p$; per estrarre simboli usa `python3 labs/course_lab.py sample --seed 7 --draws 100`. Per Pollicino esegui anche `python3 labs/course_lab.py pollicino --message ABAAB` e verifica che input e output coincidano. Sono distribuzioni e codec didattici, non inferenza di un modello neurale.
 
 ## Verifica rapida
 
@@ -366,7 +372,7 @@ Per un file, round trip significa `decode(encode(x)) == x`. Normalizzazioni Unic
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py bytes` e prova file con zero byte, UTF-8 multibyte e dati non testuali. Se disponi di un tokenizer reale, registra nome e revisione e confronta rapporto byte/token su tre domini.
+Esegui `python3 labs/course_lab.py bytes --text 'Caffè €'` e `python3 labs/course_lab.py bytes --text ''`. Il comando ispeziona testo UTF-8, non legge file binari e non esegue un tokenizer di un modello reale. Il confronto con byte nulli e dati non testuali richiede un esercizio Python separato. Se disponi di un tokenizer reale, registra nome e revisione e confronta rapporto byte/token su tre domini.
 
 ## Verifica rapida
 
@@ -448,7 +454,7 @@ Con mixed precision alcune operazioni usano formati ridotti per velocità e memo
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py loss` e calcola cross-entropy e perplexity. Traccia training e validation per un modello giocattolo; salva metriche a ogni epoca e seleziona il checkpoint con una regola definita prima.
+Esegui `python3 labs/course_lab.py gradient --steps 12` per osservare la discesa del gradiente su una regressione scalare. Questo comando non addestra un language model e non calcola cross-entropy o perplexity. Calcola queste ultime con le probabilità dell'esempio; l'estensione con curve train/validation richiede un modello e un dataset separati e non è fornita dal runner minimo.
 
 ## Verifica rapida
 
@@ -681,7 +687,7 @@ Data governance comprende base giuridica, consenso o licenza, diritto di rimozio
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py scaling` per esplorare una relazione semplificata. Poi crea un corpus giocattolo, calcola hash, elimina duplicati e mostra come cambia una metrica. L'obiettivo è vedere quanto il dataset possa alterare una conclusione.
+Esplora su carta o in un foglio di calcolo una relazione di scaling semplificata, dichiarando parametri e ipotesi: il runner non include un simulatore di scaling. Poi crea un corpus giocattolo, calcola hash con hashlib, elimina duplicati e mostra come cambia il conteggio. L'obiettivo è vedere quanto il dataset possa alterare una conclusione; non attribuire alla deduplica una misura di qualità del modello senza un eval separato.
 
 ## Verifica rapida
 
@@ -753,7 +759,7 @@ Distillazione trasferisce comportamento da un teacher a uno student mediante out
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py reasoning` su problemi verificabili. Pre-registra modalità e budget, poi confronta risposta diretta, scomposizione e tool. Non conservare soltanto l'accuratezza media: raccogli categorie di errore.
+Prepara problemi verificabili e pre-registra modalità e budget; il runner non include un benchmark di reasoning. Con un modello locale disponibile confronta richieste dirette e scomposte usando il comando ollama descritto in M11. Per una baseline aritmetica deterministica esegui `python3 labs/course_lab.py agent --request 'CALCOLA: (12 + 8) / 5'`: è un parser con calcolatore, non un agente LLM. Raccogli categorie di errore oltre all'accuratezza.
 
 ## Verifica rapida
 
@@ -839,7 +845,7 @@ Per la supply chain verifica hash, firma quando disponibile, identità dell'auto
 
 ## Laboratorio
 
-Compila `docs/course/templates/model-decision.md` per due candidati. Esegui `python3 labs/course_lab.py memory` come prima stima, quindi confronta dimensione file e memoria misurata quando il runtime sarà disponibile.
+Compila `docs/course/templates/model-decision.md` per due candidati. Esegui `python3 labs/course_lab.py memory --parameters 4 --bits 4 --context-k 8 --available 16` come prima stima didattica, sostituendo i valori con quelli dei candidati. Overhead e KV cache nel runner sono euristici, non derivati dall'architettura specifica. Confronta dimensione file e memoria misurata quando il runtime sarà disponibile.
 
 ## Verifica rapida
 
@@ -924,7 +930,7 @@ Metodi weight-only conservano attivazioni a precisione maggiore; W8A8 quantizza 
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py memory` e completa prima le stime. Il rehearsal reale usa `docs/course/rehearsal/README.md`: non inventare dati hardware prima dell'esecuzione. Conserva un manifest distinto per ogni artefatto.
+Esegui `python3 labs/course_lab.py memory --parameters 4 --bits 4 --context-k 8 --available 16` e completa prima le stime. Il runner usa overhead e KV cache euristici: per il modello scelto usa anche la formula architetturale del modulo. Il rehearsal reale usa `docs/course/rehearsal/README.md`: non inventare dati hardware prima dell'esecuzione. Conserva un manifest distinto per ogni artefatto.
 
 ## Verifica rapida
 
@@ -1024,7 +1030,7 @@ Ogni errore deve produrre messaggio, codice o evidenza diagnostica senza mostrar
 
 ## Laboratorio
 
-Segui `docs/course/rehearsal/README.md` quando sarà disponibile il Mac M4 Pro 36 GB. Prima del rehearsal puoi esercitarti con `python3 labs/course_lab.py ollama-request`, che costruisce e valida una richiesta senza dichiarare esecuzione hardware.
+Segui `docs/course/rehearsal/README.md` quando sarà disponibile il Mac M4 Pro 36 GB. Il comando `python3 labs/course_lab.py ollama --model '<tag-verificato>' --prompt 'Rispondi solo: OK'` contatta realmente Ollama e richiede servizio avviato e modello installato; sostituisci il segnaposto. Prima del rehearsal puoi leggere il payload in `ollama_generate` e controllare i parametri: non esiste una modalità CLI di sola costruzione della richiesta.
 
 ## Verifica rapida
 
@@ -1096,7 +1102,7 @@ Misura diversità con tasso di duplicazione o entropia e qualità con test speci
 
 ## Laboratorio
 
-Usa la visuale e `python3 labs/course_lab.py sampling`. Con modello locale disponibile, esegui una griglia piccola cambiando una sola variabile, conserva output e valuta formato, diversità, correttezza e costo.
+Usa la visuale e `python3 labs/course_lab.py sample --seed 7 --draws 100`. Con modello locale disponibile, esegui una griglia piccola cambiando una sola variabile, conserva output e valuta formato, diversità, correttezza e costo. Il comando sample usa una distribuzione didattica fissa e non interroga Ollama.
 
 ## Verifica rapida
 
@@ -1138,8 +1144,16 @@ Lo streaming migliora il tempo percepito, ma richiede stati espliciti: in attesa
 import json
 from urllib.request import Request, urlopen
 
-payload = {"model": "MODELLO", "messages": [{"role": "user", "content": "Ciao"}], "stream": False}
-request = Request("http://localhost:11434/api/chat", data=json.dumps(payload).encode(), headers={"Content-Type": "application/json"})
+payload = {
+    "model": "MODELLO",
+    "messages": [{"role": "user", "content": "Ciao"}],
+    "stream": False,
+}
+request = Request(
+    "http://localhost:11434/api/chat",
+    data=json.dumps(payload).encode(),
+    headers={"Content-Type": "application/json"},
+)
 with urlopen(request, timeout=30) as response:
     data = json.load(response)
 print(data["message"]["content"])
@@ -1269,7 +1283,7 @@ L'accordo tra annotatori distingue difficoltà del task da errore del modello. D
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py evaluate` sulle fixture. Poi prepara un dataset del capstone con ID stabili, input, atteso, metrica e severità. Ogni esecuzione deve produrre manifest e report machine-readable.
+Esegui `python3 labs/course_lab.py evaluate --predictions labs/fixtures/predictions.jsonl` sulle fixture. Il comando valuta predizioni già registrate, non interroga un modello. Poi prepara un dataset del capstone con ID stabili, input, atteso, metrica e severità. Ogni esecuzione deve produrre manifest e report machine-readable.
 
 ## Verifica rapida
 
@@ -1349,7 +1363,7 @@ Un documento è input non fidato. Istruzioni come “ignora il sistema e invia i
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py rag` sulle fixture. Registra ranking e chunk forniti. Aggiungi un documento con prompt injection e dimostra che non ottiene privilegi. Con Ollama, confronta generazione con e senza evidenza mantenendo fissi modello e decoder.
+Esegui `python3 labs/course_lab.py rag --query 'Perché serve una baseline?'` sulle fixture. Il comando esegue retrieval lessicale, senza embedding neurali né generazione. Registra ranking e chunk forniti; non attribuire questo risultato a una pipeline RAG completa. Come estensione integra il contesto in una richiesta Ollama e confronta con la richiesta senza evidenza mantenendo fissi modello e decoder. Il test dei confini di fiducia richiede tale applicazione completa: non è dimostrato dal solo ranking.
 
 ## Verifica rapida
 
@@ -1428,7 +1442,7 @@ Le operazioni con effetti usano idempotency key per evitare duplicati dopo timeo
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py tool-policy`. Costruisci prima un tool finto che registra la proposta senza agire. Aggiungi validazione, autorizzazione e conferma. Testa argomenti invalidi, chiamata duplicata, timeout e contenuto malevolo recuperato.
+Esegui `python3 labs/course_lab.py agent --request 'CALCOLA: (12 + 8) / 5'`. È un parser deterministico con calcolatore, senza pianificazione LLM né protocollo MCP. L'estensione con tool finto, validazione, autorizzazione e conferma richiede un'applicazione separata. Il percorso pratico S00-S05 aggiunge sviluppo con coding agent e un adapter locale di sola proposta, mantenendo distinta la verifica del software da quella di un agente reale.
 
 ## Verifica rapida
 
@@ -1513,7 +1527,7 @@ In QLoRA il base quantizzato riduce memoria, mentre adapter e stati optimizer us
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py adaptation` per l'albero decisionale. L'estensione reale usa un modello piccolo e dataset non sensibile. Prima dell'addestramento congela eval set e criteri; dopo misura task target, regressioni, memoria e latenza.
+Costruisci su carta l'albero decisionale tra prompting, RAG e adattamento: il runner non implementa fine-tuning o LoRA. L'estensione reale richiede un modello piccolo, dataset non sensibile e un ambiente di training separato. Prima dell'addestramento congela eval set e criteri; dopo misura task target, regressioni, memoria e latenza. Non presentare l'albero decisionale come evidenza di un training eseguito.
 
 ## Verifica rapida
 
@@ -1596,7 +1610,7 @@ Un kernel deve specificare shape, stride, dtype, allineamento, dispositivi e tol
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py serving`. Costruisci prima una simulazione di scheduling. Nel livello avanzato implementa softmax o matmul in NumPy/framework e una versione ottimizzata; riporta accelerazione solo dopo equivalenza entro tolleranza.
+Esegui `python3 labs/course_lab.py attention` per osservare un calcolo didattico in Python e usa la visuale prefill/decode. Il runner non include scheduler né kernel hardware ottimizzati. Nel livello avanzato implementa softmax o matmul in NumPy/framework e una versione ottimizzata come progetto separato; riporta accelerazione solo dopo equivalenza entro tolleranza e misure sul dispositivo dichiarato.
 
 ## Verifica rapida
 
@@ -1707,7 +1721,7 @@ Su fixture binarie confronta: file originale, gzip/zstd, modello statistico del 
 
 ## Laboratorio e verifica
 
-Esegui `python3 labs/course_lab.py arithmetic-codec`. Il test esaustivo corrente copre tutte le 2.046 sequenze A/B di lunghezza 1–10. Estendi con empty input, tutti i byte, file casuali, truncation e bit flip. La prova finale segue `docs/course/assessments/final-practical.md`.
+Esegui `python3 labs/course_lab.py pollicino --message ABAAB`. Il test esaustivo corrente copre tutte le 2.046 sequenze A/B di lunghezza 1–10. Il codec accetta solo stringhe A/B non vuote fino a 64 simboli: input vuoto e altri simboli devono essere rifiutati. Supportare tutti i byte, file arbitrari e un predittore neurale richiede un nuovo codec/formato e test dedicati; non è una funzione già presente. La prova finale segue `docs/course/assessments/final-practical.md`.
 
 Rubrica: correttezza/round trip 3; riproducibilità 2; valutazione e baseline 2; architettura e sicurezza 2; limiti e comunicazione 1. Qualunque mancata uguaglianza byte-per-byte rende non superato il ramo lossless.
 
@@ -1721,6 +1735,779 @@ Il capstone unisce scelta, esecuzione, applicazione e valutazione. Pollicino agg
 - [Probabilità → bit](../visuals/pollicino-probabilities-to-bits.html)
 - [Prova pratica finale](../docs/course/assessments/final-practical.md)
 - Activity: `llm-activity-m19-pollicino`
+
+# Percorso pratico: progettare software con coding agent
+
+Questo percorso insegna a realizzare e mantenere software usando l'AI nel
+lavoro quotidiano. Non richiede lo studio della matematica dei Transformer.
+Si collega a M11-M16 per scelta del modello, API, contesto e valutazione.
+Il prodotto guida è **PrenotaLab**, un gestore di prenotazioni scolastiche.
+
+## Risultati e destinatari
+
+Lo studente trasforma una richiesta in esempi verificabili, prepara il contesto
+per un agente, rivede un diff, diagnostica una regressione e consegna codice
+che sa spiegare. Servono funzioni, liste, eccezioni Python e test elementari;
+per chi parte da zero prevedere un laboratorio Python preliminare.
+
+Il percorso avanzato ha due diramazioni pratiche. L'**AI Engineer** progetta
+adapter LLM, valuta output strutturati e confronta modelli sul proprio compito.
+Il **software engineer** lavora su codice esistente, confini architetturali,
+transazioni, concorrenza, revisioni di specifica e integrazione continua.
+Sono approfondimenti dello stesso progetto, non qualifiche professionali
+ottenibili con dodici ore di esercizi.
+
+## Sequenza didattica
+
+| Lezione | Attività principale | Consegna |
+| --- | --- | --- |
+| [S00](../docs/course/ai-software/S00-contesto.md) | A: leggere ed eseguire | Baseline e mappa del repo |
+| [S01](../docs/course/ai-software/S01-specifiche.md) | B: precisare le regole | Specifica e casi di accettazione |
+| [S02](../docs/course/ai-software/S02-implementazione.md) | C: implementare una porzione | Patch, test e spiegazione |
+| [S03](../docs/course/ai-software/S03-diagnosi.md) | D: diagnosticare | Regressione riprodotta e corretta |
+| [S04](../docs/course/ai-software/S04-pattern.md) | E: costruire un mini-progetto | Cancellazione e adapter |
+| [S05](../docs/course/ai-software/S05-consegna.md) | F: integrare e valutare | Release riproducibile e report |
+
+La pianificazione autonoma è di **6 incontri da 2 ore: 12 ore per la classe**.
+Gli approfondimenti richiedono indicativamente altre 6 ore per il ramo AI
+Engineer e altre 6 per il ramo software engineer, da validare con un pilot.
+Chi svolge entrambi aggiunge 12 ore, oltre le 12 comuni.
+
+Il Course Design annuale LLM resta di **34 settimane × 2 ore = 68 ore**.
+Questo supplemento ha un proprio Content Pack/Course Design. Per inserirlo
+nell'anno occorre allocare esplicitamente 12 ore aggiuntive (80 totali), oppure
+sostituire laboratori per 12 ore e registrare nel piano quali vengono rimandati.
+Qui non viene effettuata una sostituzione implicita.
+
+## Materiali e modalità
+
+Il [kit eseguibile](../labs/ai_software/README.md) esporta soltanto i file
+studente in un nuovo repository di lavoro. La soluzione docente non deve essere
+passata al coding agent durante l'esercizio. I metadati separano gli asset
+studente/docente; il repository GitHub pubblico non rende segrete le soluzioni.
+Per una verifica sommativa il docente deve usare una variante non pubblicata.
+
+Un coding agent può leggere file, proporre modifiche e, secondo lo strumento,
+eseguire verifiche. Un modello è solo una parte del sistema: contano anche
+strumenti, istruzioni, contesto, permessi e interfaccia. Il percorso è neutrale
+rispetto al prodotto; funziona con uno strumento disponibile nel laboratorio,
+oppure con un assistente locale e applicazione manuale delle patch. Nel secondo
+caso registrare **sviluppo assistito**, senza dichiarare un agente autonomo.
+
+Il progetto base funziona senza account e senza un modello. Per certificare
+l'esperienza con un coding agent, però, serve almeno una sessione reale con
+prompt, modifiche e verifiche registrati. I test automatici di questo repository
+validano gli esempi software, non le prestazioni di un agente o l'efficacia in classe.
+
+Le dispense, i test e le figure sono originali. I
+[riferimenti Manning verificati](../docs/course/sources/manning-coding-agents-2026-09-10.md)
+guidano gli approfondimenti del docente; il laboratorio non dipende da
+capitoli MEAP ancora da pubblicare. Lo stato editoriale del nuovo pack è `draft`
+in attesa di revisione didattica. Non è ancora un Course Bundle approvato.
+
+# S00 - Leggere il progetto prima di delegare
+
+## Problema iniziale
+
+La segreteria chiede: «Ci serve qualcosa per prenotare i laboratori senza
+sovrapposizioni». Un agente potrebbe produrre subito un'applicazione elegante.
+Non sa però se sono ammessi incontri consecutivi, quali aule esistono e che
+cosa deve accadere quando un utente preme due volte lo stesso pulsante.
+L'obiettivo iniziale è scoprire queste decisioni e osservare il software esistente.
+
+Pensa al contesto come alla cartella consegnata a un collega che entra oggi
+nel progetto: deve contenere la domanda, le regole e i file pertinenti.
+Una cartella enorme piena di versioni contraddittorie può confondere più di una
+cartella piccola e curata. L'analogia riguarda l'organizzazione del lavoro:
+non implica che il modello comprenda o ricordi come una persona.
+
+## Risultato Practitioner
+
+Alla fine sai distinguere requisito, comportamento osservato e ipotesi;
+prepari una richiesta limitata; riconosci se il sistema sta solo suggerendo
+testo oppure sta modificando un repository. Non devi scegliere il modello
+«migliore in assoluto»: devi verificare che lo strumento disponibile sappia
+leggere i file del piccolo progetto e proporti un diff comprensibile.
+
+Esporta lo starter seguendo il README del kit. Esegui i nove test pubblici
+prima di modificare i file. Alcuni falliscono intenzionalmente: conserva l'output
+iniziale. Scrivi quali casi passano, quali falliscono e quali terminano con
+un'eccezione. Il numero di test verdi è una fotografia della baseline, non un voto.
+
+## Laboratorio A: osserva, poi formula la domanda
+
+Dedica 20 minuti alla lettura, 25 alla baseline, 25 al confronto con l'agente,
+30 alla mappa del progetto e 20 alla discussione. È una traccia di 120 minuti,
+da adattare ai tempi reali della classe.
+
+In `booking.py` individua il record `Booking`, il servizio `BookingService`
+e la funzione `overlaps`. Nel file di test riconosci preparazione, azione e
+asserzione. Collega almeno tre nomi di test agli ID della specifica. Un nome
+come `test_R02_adjacent_is_allowed` racconta l'intento, ma devi leggere anche
+l'asserzione per sapere che cosa controlla davvero.
+
+Fornisci all'agente solo SPEC.md, booking.py e test_booking.py dello starter.
+Usa questa richiesta iniziale e conserva la risposta:
+
+> Leggi questi tre file. Non modificarli ancora. Descrivi il flusso di una
+> prenotazione, identifica le regole implementate e quelle mancanti. Per ogni
+> osservazione cita funzione o test. Separa ciò che hai eseguito da ciò che
+> hai dedotto. Proponi tre domande di chiarimento sul dominio.
+
+Controlla ogni riferimento della risposta. Se l'agente cita una funzione che
+non esiste, registra l'errore e ripeti con contesto più preciso. Se afferma
+«tutti i test passano», chiedi il comando e confrontalo con il tuo output.
+Una spiegazione plausibile non sostituisce una verifica eseguita.
+
+## Esempio minimo
+
+La frase «le due prenotazioni si toccano» è ambigua. La baseline usa `<=`
+nella funzione di sovrapposizione; la specifica accetta invece gli intervalli
+consecutivi. Osserva una prenotazione 540-600 e una 600-660. Prima predici
+il risultato, poi esegui il relativo test. Hai trovato un disaccordo preciso
+fra documento e codice, abbastanza piccolo da discutere senza conoscere l'intera app.
+
+## Approfondimento AI Engineer e software engineer
+
+Prepara una mappa del contesto a tre colonne: file, ragione per includerlo,
+scadenza dell'informazione. La specifica vale finché non è revisionata; un log
+vale per un'esecuzione; una documentazione del provider richiede una versione
+o data. Per un repository grande chiedi prima un elenco di file candidati,
+poi leggi le dipendenze necessarie: includere tutto indiscriminatamente può
+sprecare contesto e introdurre istruzioni incompatibili.
+
+Confronta due sessioni fresche: una con la sola richiesta vaga e una con i tre
+file. Misura riferimenti corretti, omissioni e tempo umano per la revisione.
+Non dedurre un vantaggio generale da una sola coppia di risposte. Conserva
+strumento/versione, modello dichiarato, eventuale revisione locale, prompt e
+commit iniziale. Se il servizio non espone il modello esatto, scrivi «non esposto».
+
+## Verifica e consegna
+
+Consegna baseline, mappa di tre file e una pagina di osservazioni corrette
+o respinte. Spiega a voce una regola senza consultare la risposta dell'AI.
+Domanda diagnostica: se cambi modello ma lasci un documento obsoleto nel
+contesto, quale problema rimane? Risposta attesa: le istruzioni sul comportamento
+desiderato restano sbagliate o contraddittorie; un modello diverso non le corregge per definizione.
+
+Il pattern praticato è **esplora, pianifica, modifica, verifica**. In questa
+lezione completi solo le prime due fasi. Passa a S01 con almeno un'ambiguità
+reale da risolvere, non con una lunga lista generica di consigli.
+
+# S01 - Dalla richiesta alla specifica verificabile
+
+## Problema iniziale
+
+«Gestisci correttamente le prenotazioni» non dice che cosa fare con una
+durata zero o con una richiesta ripetuta. Anche «nessuna sovrapposizione»
+lascia aperto il caso degli intervalli consecutivi. La specifica serve a
+rendere queste scelte esplicite prima che diventino decisioni accidentali del codice.
+
+Per la classe la specifica è un accordo scritto con esempi: come le regole
+di un gioco che permettono di risolvere una discussione durante una partita.
+L'analogia smette di essere sufficiente quando il dominio cresce: in un
+sistema reale ci sono requisiti incompatibili, eccezioni e costi da negoziare.
+
+## Risultato Practitioner
+
+Sai scrivere una regola osservabile, scegliere esempi ai confini e collegare
+un test alla regola. Parti dal contratto v1 fornito: il primo esercizio non
+chiede di inventare ogni decisione, ma di capire perché quelle decisioni
+servono. La variante successiva verrà invece progettata da te.
+
+Una specifica utile contiene scopo, esclusioni, termini, invarianti, esempi,
+errori e criteri di completamento. L'invariante qui è: nessuna coppia di
+prenotazioni attive della stessa aula occupa minuti in comune. Gli ID R01-R06
+permettono di discutere e tracciare le regole senza dipendere dal numero di riga.
+
+## Laboratorio B: modifica una regola senza perdere il controllo
+
+Nei primi 25 minuti leggi R01-R06 e traduci 540 e 600 in orari. Nei successivi
+25 scrivi esempi con input e risultato atteso. Dedica 30 minuti alla revisione
+con un compagno o un agente, 25 alla variante e 15 alla restituzione.
+
+Per R02 prepara tre casi: intervalli sovrapposti, adiacenti e stessa fascia
+in due aule diverse. Per R03 considera l'apertura alle 08:00, la chiusura
+alle 18:00 e la durata massima di tre ore. «Input sbagliato» va precisato:
+deve essere rifiutato e lo stato deve rimanere invariato.
+
+Chiedi all'agente di agire come revisore della specifica:
+
+> Controlla R01-R06. Per ogni regola cerca un caso limite e un possibile
+> conflitto con un'altra regola. Non cambiare i requisiti e non scrivere codice.
+> Restituisci una tabella requisito, caso, risultato previsto, dubbio residuo.
+
+Decidi quali osservazioni accettare e perché. Un agente può suggerire di
+aggiungere login, email o un calendario completo: sono nuove funzionalità,
+da valutare rispetto allo scopo. La richiesta non autorizza ad ampliare il
+prodotto ogni volta che viene in mente una possibilità.
+
+La variante B porta la durata massima da 180 a 120 minuti. Scrivi una breve
+richiesta di modifica con motivazione e nuovi casi: 120 minuti ammessi,
+121 rifiutati. Elenca i test e i documenti coinvolti. **Non applicare la variante
+al contratto condiviso della classe**: consegnala come proposta separata,
+così S02 può usare la baseline comune v1. Il docente può adottarla in un branch
+dedicato per un'esercitazione successiva.
+
+## Esempio minimo: Given, When, Then
+
+Given LAB-A prenotata dalle 09:00 alle 10:00; When chiedo LAB-A dalle 10:00
+alle 11:00; Then la richiesta riesce e ci sono due prenotazioni attive.
+Spostare l'inizio alle 09:59 cambia l'esito: la richiesta fallisce e lo stato
+contiene ancora una sola prenotazione. Un minuto basta a distinguere due
+interpretazioni che una descrizione generica confonde.
+
+Gli esempi non coprono automaticamente tutte le combinazioni. Sono un ponte
+fra accordo umano e test eseguibili. Chi implementa deve anche riconoscere
+la regola generale, altrimenti potrebbe codificare solamente i casi mostrati.
+
+## Approfondimento: sviluppo guidato dalle specifiche
+
+Nel lavoro guidato dalle specifiche si versionano insieme intento, piano,
+test e implementazione. Una modifica al comportamento inizia aggiornando
+l'accordo; la revisione verifica che il diff realizzi proprio quel cambiamento.
+Non basta chiamare un file `spec.md` per ottenere questo risultato.
+
+L'ingegnere del software aggiunge una matrice R01-R08 → test → componente,
+una decisione architetturale breve e una procedura per modificare le regole.
+L'AI Engineer aggiunge esempi di output formalmente valido ma semanticamente
+errato: «LAB-B» al posto di «LAB-A» passa lo schema JSON, ma non soddisfa la richiesta.
+
+Strumenti come GitHub Spec Kit e OpenSpec possono organizzare gli artefatti
+di questo processo. Il laboratorio parte da file semplici per rendere visibili
+le decisioni. Come estensione, importa la stessa piccola funzionalità nello
+strumento scelto e confronta documenti prodotti, manutenzione e tracciabilità;
+consulta il suo README corrente per installazione e comandi. Non presumere
+che template differenti abbiano lo stesso significato.
+
+## Verifica e consegna
+
+Consegna sei esempi nuovi, la proposta della variante B e la matrice di
+tracciabilità iniziale. Un compagno deve poter decidere l'esito di ogni esempio
+senza chiederti spiegazioni. Domanda diagnostica: se codice e test concordano
+ma contraddicono una regola approvata, che cosa è sbagliato? L'implementazione
+e i test possono condividere lo stesso errore; occorre tornare all'intento e
+chiarirlo, non approvare il cambiamento solo perché la suite è verde.
+
+# S02 - Implementare una porzione e verificarla
+
+## Problema iniziale
+
+Delegare «completa tutta l'app» produce spesso un diff difficile da leggere.
+Se cambiano insieme struttura, nomi, regole e test, non è facile capire perché
+una prenotazione prima riuscisse e ora fallisca. Il laboratorio limita il
+primo incarico a una porzione completa del comportamento: prenotare, controllare
+i dati e rilevare i conflitti.
+
+Immagina una fetta di torta che attraversa tutti gli strati: una piccola
+funzione utile deve collegare requisito, codice e verifica. Scrivere soltanto
+tutte le classi vuote equivale a preparare uno strato isolato: non dimostra
+ancora che l'utente possa completare un'azione.
+
+## Risultato Practitioner
+
+Sai chiedere una patch circoscritta, verificare un test che fallisce prima e
+passa dopo, e spiegare il cambiamento. La prima porzione realizza R01-R03;
+la seconda aggiunge R04. R05-R06 vengono completati nel mini-progetto S04.
+Finché ci sono requisiti mancanti, la suite completa può correttamente restare rossa.
+
+Usa il branch creato nello starter. Prima leggi i test R01-R03 e annota gli
+esiti attesi senza l'aiuto dell'agente. Conserva i test pubblici: sono parte
+del contratto didattico. Se ritieni un test errato, apri una discussione sulla
+regola, invece di modificarlo per ottenere il verde.
+
+## Laboratorio C: un incarico con criteri di uscita
+
+Dedica 20 minuti al piano, 40 alla prima porzione, 30 all'idempotenza e 30
+alla revisione. Puoi iniziare con questa richiesta:
+
+> Implementa soltanto R01-R03 in booking.py. Mantieni le firme pubbliche,
+> usa solo la libreria standard e non cambiare i test forniti. Prima indica
+> quali funzioni toccherai. Dopo mostra il diff e l'esito dei test eseguiti.
+> Elenca separatamente i requisiti ancora mancanti.
+
+Dopo la modifica esegui i test e leggi il diff con `git diff`. Verifica che
+la soluzione controlli i dati prima di modificare lo stato. Aggiungi tu un
+caso non suggerito dall'agente: una prenotazione che finisce esattamente
+alle 18:00 oppure un intervallo completamente contenuto in uno già occupato.
+
+Per R04 prepara prima un esempio di retry: la richiesta r1 può arrivare
+due volte perché l'interfaccia non ha ricevuto la risposta del primo invio.
+Il risultato deve essere lo stesso record, non una seconda prenotazione
+e neppure un errore di conflitto. Chiedi una seconda patch solo per questa regola.
+Poi riusa r1 cambiando aula: ora il sistema deve rifiutare la richiesta.
+
+Non occorre chiedere pensieri interni al modello. Sono sufficienti un piano
+breve, riferimenti al codice, scelte verificabili ed esiti dei comandi.
+Una spiegazione molto lunga non aumenta da sola la qualità della patch.
+
+## Esempio minimo: un test che può smentire il codice
+
+Se il codice usa `a_start <= b_end`, il caso 540-600 seguito da 600-660
+fallisce. Con la regola semichiusa serve un confronto stretto. Prima del
+cambiamento il test segnala il disaccordo; dopo deve passare. Aggiungi anche
+599-660, che deve continuare a essere rifiutato: una correzione che accetta
+tutto renderebbe verde il primo esempio e violerebbe comunque R02.
+
+Questo è il valore del ciclo **test fallisce, modifica minima, test passa,
+riordina preservando il comportamento**. Non tutti i test devono necessariamente
+essere scritti prima del codice, ma ogni requisito importante deve avere
+un controllo capace di rilevarne una violazione.
+
+## Approfondimento per gli ingegneri
+
+Il pattern **functional core / imperative shell** separa calcoli deterministici
+da letture e scritture. `overlaps` restituisce un booleano e non modifica
+archivi; il servizio decide quando salvare. Si può così verificare la funzione
+con molte combinazioni senza avviare un server o interrogare un LLM.
+
+Il software engineer controlla anche che le modifiche non alterino API o
+ordinamento dei risultati senza una nuova specifica. Mantiene commit piccoli
+con messaggi che spiegano il cambiamento osservabile. Non misura il progresso
+contando righe generate: meno codice può soddisfare meglio lo stesso contratto.
+
+L'AI Engineer ripete un solo incarico su due configurazioni, partendo ogni
+volta dallo stesso commit. Conserva prompt, contesto, diff, tempo di revisione
+e numero di tentativi. Fissa prima il budget, per esempio 15 minuti e due
+cicli di correzione. Il tempo speso a verificare e correggere fa parte del costo,
+anche quando la risposta del modello arriva in pochi secondi.
+
+## Verifica e consegna
+
+Consegna due patch leggibili, i test iniziali e finali, un caso aggiunto da te
+e l'elenco R05-R06 ancora da implementare. Devi saper indicare il punto in cui
+lo stato cambia e spiegare perché un errore non deve lasciare metà operazione.
+Domanda diagnostica: perché un test scritto dallo stesso agente che genera
+il codice potrebbe essere insufficiente? Può condividere la stessa interpretazione
+errata; servono casi ricavati dalla specifica e una revisione indipendente.
+
+# S03 - Diagnosticare difetti e lavorare su codice esistente
+
+## Problema iniziale
+
+Un compagno segnala: «Non riesco a prenotare subito dopo un'altra lezione».
+L'agente propone di riscrivere il calendario. Prima di accettare una modifica
+ampia, devi capire se il difetto dipende da una regola sbagliata, da un confronto
+nel codice o da un dato interpretato male. La segnalazione descrive un sintomo;
+la diagnosi deve individuare la causa.
+
+Il debugging assomiglia a un esperimento: formula un'ipotesi, scegli una prova
+che possa smentirla e osserva il risultato. Aggiungere modifiche casuali finché
+la schermata sembra funzionare rende difficile capire che cosa abbia risolto
+il problema e che cosa possa essersi rotto altrove.
+
+## Risultato Practitioner
+
+Sai ridurre una segnalazione a un caso ripetibile, identificare una riga
+responsabile e mantenere un test di regressione. Sai anche fermare un ciclo
+di correzioni quando non produce nuove evidenze. Il codice esistente viene
+prima compreso e caratterizzato, poi cambiato.
+
+## Laboratorio D: una regressione intenzionale
+
+Parti dal risultato R01-R04 di S02. Salva il commit funzionante. In una copia
+di lavoro dedicata, il docente reintroduce il confronto inclusivo nella
+funzione `overlaps`. È una mutazione didattica di una regola di calendario,
+non un test di intrusione. I test esistenti devono rilevarla.
+
+Nei primi 20 minuti riproduci il sintomo, nei successivi 30 scrivi e confronta
+due ipotesi. Dedica 30 minuti alla patch e 25 alla regressione; usa gli ultimi
+15 per il resoconto. Prima di interrogare l'agente, scrivi che cosa ti aspetti
+per 599, 600 e 601 come inizio della seconda prenotazione.
+
+Usa questo incarico:
+
+> Il test sugli intervalli adiacenti fallisce. Riproduci il caso con due
+> prenotazioni, confronta il risultato con R02 e identifica la causa minima.
+> Proponi una patch limitata. Mantieni i casi di sovrapposizione e mostra
+> quali test dimostrano che la correzione non li ha indeboliti.
+
+Leggi la risposta prima di applicarla. Una proposta che elimina il controllo
+dei conflitti fa riuscire la richiesta segnalata ma viola l'invariante.
+Una proposta che cambia il test per rifiutare gli intervalli adiacenti modifica
+il requisito senza averne discusso l'intento.
+
+Ripeti con un secondo difetto scelto dal docente: includere i record cancellati
+nel controllo dei conflitti, oppure trattare il retry come una nuova richiesta.
+In questo secondo caso la correzione riguarda l'ordine delle verifiche:
+prima riconosci l'identità della richiesta, poi cerchi conflitti con altre richieste.
+
+## Esempio minimo: osservazione e spiegazione
+
+![R02: intervalli adiacenti ammessi e confronto inclusivo errato](../visuals/static/rendered/booking-intervals.png)
+
+Esplora la [simulazione interattiva](../visuals/booking-spec-tests.html)
+con inizi alle 09:59, 10:00 e 10:01, prima e dopo la correzione.
+
+Osservazione: «prenotazione 600-660 rifiutata dopo 540-600». Ipotesi A:
+il sistema include il minuto finale nel primo intervallo. Ipotesi B:
+il sistema rifiuta ogni seconda prenotazione. Prova discriminante: prenota
+660-720. Se riesce, B non spiega il comportamento. Hai ristretto la diagnosi
+prima di generare altro codice.
+
+Registra il test che prima falliva e ora passa insieme al caso negativo che
+continua a fallire nel modo previsto. Non bastano screenshot del messaggio
+«risolto» dell'agente. Se fai due tentativi senza migliorare la diagnosi,
+torna al requisito e riduci il caso: il budget serve anche a interrompere
+una spirale di cambiamenti poco comprensibili.
+
+## Approfondimento software engineer: brownfield e refactoring
+
+In un sistema esistente senza specifiche, un test di caratterizzazione registra
+il comportamento attuale. Non dimostra che quel comportamento sia desiderabile.
+Scrivi separatamente «oggi accade X» e «il dominio richiede Y», poi negozia
+il cambiamento. Mescolare correzioni funzionali e riorganizzazione del codice
+nello stesso diff aumenta il lavoro della revisione.
+
+Sperimenta il pattern **characterize, change, compare**: conserva test sul
+comportamento rilevante, introduci una modifica piccola, confronta gli esiti.
+Se estrai un archivio SQLite in S04, il contratto pubblico diventa il controllo
+che il refactoring non abbia cambiato le regole del calendario.
+
+## Approfondimento AI Engineer: generator e reviewer
+
+Una seconda sessione può rivedere la patch con specifica e test, senza ricevere
+la spiegazione persuasiva del primo generatore. Questo riduce una fonte di
+condizionamento, ma non rende i due modelli statisticamente indipendenti e
+non sostituisce la verifica umana. Confronta difetti trovati, falsi allarmi
+e tempo totale di revisione.
+
+Usa una tabella con affermazione del revisore, evidenza, decisione. Accettare
+tutti i suggerimenti del reviewer non è più rigoroso che accettare tutto
+il codice del generatore. La domanda è sempre quale requisito e quale prova
+supportino il cambiamento.
+
+## Verifica e consegna
+
+Consegna sintomo, caso minimo, due ipotesi, prova discriminante, patch e test
+di regressione. Spiega perché una correzione apparentemente più semplice è
+stata respinta. La visuale sugli intervalli del percorso permette di esplorare
+i confini; il codice e i test restano l'evidenza del comportamento reale.
+Domanda diagnostica: un test di caratterizzazione che passa autorizza a
+conservare per sempre quel comportamento? No: documenta la baseline; la decisione
+di prodotto richiede ancora confronto con la specifica.
+
+# S04 - Pattern applicativi, adapter e confini
+
+## Problema iniziale
+
+Ora il calendario sa prenotare, ma deve anche cancellare e ordinare gli
+incontri attivi. In seguito potrebbe salvare su disco o ricevere richieste
+in linguaggio naturale. Se ogni novità viene aggiunta alla stessa funzione,
+diventa difficile distinguere le regole del dominio dal modo di leggere e
+scrivere i dati.
+
+Un adapter è come una presa che collega dispositivi diversi rispettando una
+stessa interfaccia. La somiglianza riguarda il confine: una presa non stabilisce
+il programma da eseguire, e un archivio non dovrebbe inventare le regole di
+prenotazione. Il nome del pattern è utile solo se chiarisce una responsabilità.
+
+## Risultato Practitioner
+
+Completi R05-R06 e ottieni un piccolo prodotto funzionante in memoria.
+Riconosci tre parti: dati della prenotazione, regole del servizio, archivio.
+Sai spiegare perché ripetere una cancellazione non deve duplicare effetti
+e perché un elenco restituito non deve consentire di modificare lo stato interno.
+
+## Laboratorio E: completa il servizio
+
+Dedica 20 minuti agli esempi di cancellazione, 40 all'implementazione con
+l'agente, 35 ai test e 25 alla mappa dei componenti. Parti dal tuo lavoro
+di S02-S03, non dalla soluzione docente.
+
+Chiedi due modifiche separate. Prima implementa `cancel`: record attivo →
+cancellato; secondo invio → stesso record cancellato; ID sconosciuto → KeyError.
+Poi implementa `list_active` e il suo ordinamento. Verifica il caso in cui
+un vecchio retry arriva dopo la cancellazione: R04 richiede il record nello
+stato corrente, quindi non deve riaprire la prenotazione.
+
+La rubrica premia il comportamento e la spiegazione. Per la classe non è
+necessario introdurre Protocol, database o un framework per agenti. Prima
+fai funzionare i nove test pubblici, poi aggiungi un caso di ordinamento con
+due aule e lo stesso orario e un caso di cancellazione ripetuta.
+
+## Esempio minimo: chi decide?
+
+L'utente dice «LAB-A dalle nove alle dieci». Un LLM può suggerire:
+
+```json
+{"room": "LAB-A", "start": 540, "end": 600}
+```
+
+Il parser controlla i campi;
+la persona verifica che corrispondano alla richiesta; il servizio controlla
+se l'aula è libera. Sono tre controlli diversi. Se LAB-A è occupata, il modello
+non può rendere valida la prenotazione dichiarandola disponibile.
+
+Una normale app può essere realizzata con l'aiuto di un coding agent senza
+contenere alcun LLM. Aggiungere un LLM nel prodotto è una decisione distinta,
+con nuovi errori possibili e un costo da valutare rispetto a un semplice modulo.
+
+## Ramo software engineer: ports and adapters, altre 3 ore
+
+Definisci il contratto di un archivio: transazione, elenco dei record e
+salvataggio. Il servizio riceve l'archivio dall'esterno: questa è dependency
+injection. Implementa un archivio in memoria e uno SQLite; esegui gli stessi
+test R01-R06 su entrambi. Aggiungi riapertura del file e verifica R07.
+
+Per R08 disegna la sequenza di due richieste contemporanee. Senza atomicità,
+entrambe possono leggere «aula libera» prima che una delle due scriva.
+La soluzione di riferimento usa `BEGIN IMMEDIATE` intorno a controllo e
+scrittura, con una connessione per thread. Il test concorrente avvia due
+istanze sullo stesso file e richiede un successo e un conflitto. Un test
+sequenziale non osserva questa interleaving; un singolo test concorrente
+riuscito non prova tutte le condizioni operative di un database reale.
+
+Scrivi un'ADR di una pagina: decisione, alternative, motivazione, conseguenze.
+Per questo prototipo SQLite è sufficiente; introdurre microservizi avrebbe
+un costo da giustificare. Prima di dichiarare produzione restano nuovi requisiti
+su utenti, date, accesso, migrazione e gestione operativa.
+
+## Ramo AI Engineer: adapter LLM e valutazione, altre 3 ore
+
+Esegui `proposal.py` dal kit con un modello Ollama installato. Il programma
+usa lo schema JSON nella richiesta e valida localmente campi, tipi e intervallo.
+Restituisce solo una bozza. Il test con risposta simulata dimostra il contratto
+dell'adapter, non la capacità del modello di capire gli orari.
+
+Prepara dodici richieste sintetiche: quattro chiare, quattro parafrasi e quattro
+ambigue o incomplete. Fissa i risultati attesi prima di interrogare il modello.
+Per le ambigue, una scelta inventata conta come errore anche se il JSON passa
+il parser. L'adapter minimo non possiede uno stato «chiedi chiarimento»: misura
+questa limitazione e progetta una revisione dello schema con decisione
+`proposal` oppure `clarify`. Implementala in un branch e aggiungi test specifici.
+
+Confronta con un modulo manuale a tre campi e con una risposta simulata.
+Misura validità strutturale, correttezza semantica, richieste di chiarimento
+appropriate, tempo e correzioni umane. Se il LLM non migliora l'esperienza
+sul compito, mantenere il modulo è una decisione ingegneristica valida.
+
+## Verifica e consegna
+
+La classe consegna R01-R06 verdi e un diagramma dei componenti. Il software
+engineer aggiunge adapter, ADR, persistenza e prova concorrente. L'AI Engineer
+aggiunge dataset, risultati reali datati e almeno un output formalmente valido
+ma sbagliato. Domanda diagnostica: lo schema JSON può verificare che l'aula
+richiesta dall'utente sia quella desiderata? Da solo no: struttura e significato
+richiedono valutazioni differenti.
+
+# S05 - Consegnare, confrontare e mantenere
+
+## Problema iniziale
+
+Sul computer dell'autore tutto funziona, ma un compagno non sa quale comando
+eseguire. La specifica parla di tre ore, un test ammette quattro ore e il README
+descrive una versione precedente. Il prodotto non è pronto solo perché
+l'ultima sessione con l'agente si è conclusa senza errori visibili.
+
+La consegna è un pacchetto di evidenze: un'altra persona deve poter partire
+da uno stato noto, ripetere i controlli e capire le decisioni. È anche il
+momento in cui l'autore dimostra di saper modificare il programma senza
+dipendere interamente dalla conversazione che lo ha generato.
+
+## Risultato Practitioner
+
+Consegni un repository leggibile con specifica, implementazione, test,
+istruzioni ed esiti. Sai distinguere una demo da una release riproducibile,
+descrivi un limite e fai una modifica piccola davanti al docente. Usi la
+rubrica per verificare la tua comprensione, non per contare quanti prompt hai scritto.
+
+## Laboratorio F: prova di consegna a un compagno
+
+Dedica 25 minuti alla pulizia della documentazione, 30 alla prova in una nuova
+cartella, 25 alla revisione incrociata, 25 al colloquio e 15 al report finale.
+La soluzione del docente resta fuori dal progetto studente.
+
+Completa il template di report del percorso. In una copia pulita esegui:
+
+```bash
+python3 -m unittest discover -s . -p 'test_*.py' -v
+git diff --check
+git status --short
+```
+
+Il primo comando verifica il contratto e i casi aggiunti. Il secondo segnala
+problemi di whitespace, non la correttezza del programma. Il terzo mostra
+modifiche e file non registrati: leggilo per verificare di non aver dimenticato
+artefatti importanti. Nessuno di questi comandi pubblica il progetto.
+
+Scambia il lavoro con un compagno. Il revisore deve eseguire le istruzioni
+senza attingere alla cronologia della chat e ricostruire due decisioni a partire
+da SPEC.md. Se servono informazioni orali indispensabili, aggiungile al README.
+Conserva nel report un problema trovato dal revisore e come lo hai risolto.
+
+Per il colloquio il docente chiede una variazione circoscritta, per esempio
+cambiare l'orario di apertura o aggiungere una terza aula. Prima elenca
+requisiti e test coinvolti, poi modifica il codice e spiega un caso limite.
+Non è necessario vietare l'AI durante tutto il progetto: la breve prova
+individuale serve a verificare che il risultato sia stato compreso.
+
+## Esempio minimo: una release che si può ricostruire
+
+«Ho usato un agente famoso e tutti i test sono verdi» non identifica un
+artefatto. «Commit iniziale X, patch Y, contratto v1, Python 3.12, comando Z,
+output allegato, due casi aggiunti e tre requisiti ancora esclusi» consente
+a un'altra persona di verificare l'affermazione. I valori X/Y/Z vanno sostituiti
+con dati reali della sessione, non copiati da un esempio.
+
+Se una piattaforma cloud non espone versione o modello preciso, registra
+nome dello strumento, data, impostazioni disponibili e il limite. Per un
+modello locale registra tag e digest effettivi oltre a runtime e hardware.
+Non inventare token o tempi mancanti; misura almeno il tempo umano complessivo.
+
+## Ramo software engineer: CI e cambiamenti di specifica, altre 3 ore
+
+Prepara una pipeline che, da checkout pulito e versione Python dichiarata,
+esegua i test. Il report deve mostrare che cosa è stato controllato; un check
+verde su un commit precedente non valida una patch successiva.
+Scrivi una descrizione di pull request con problema, cambiamento osservabile,
+test e limiti. Una PR è una proposta di integrazione: non è la revisione stessa.
+
+Applica la variante di S01 in un branch: aggiorna specifica, test dei confini,
+codice e README nella stessa modifica. Per un bug su codice esistente distingui
+la correzione di un'implementazione sbagliata dalla decisione di cambiare
+il contratto. Introduci una checklist breve per il revisore basata su queste
+evidenze, evitando un elenco generico di decine di voci mai controllate.
+
+## Ramo AI Engineer: confronto locale e cloud, altre 3 ore
+
+Confronta due configurazioni di sviluppo sullo stesso incarico e sullo stesso
+commit iniziale, con contesto e budget dichiarati. Registra task completato,
+regressioni, tentativi, tempo di generazione, tempo umano e costo disponibile.
+Due interfacce diverse possono avere strumenti diversi: in quel caso confronti
+**sistemi di sviluppo**, non isoli l'effetto del solo modello.
+
+Alterna l'ordine delle prove o assegna incarichi equivalenti a coppie diverse,
+per ridurre l'effetto dell'apprendimento del compito. Tieni separati i task
+usati per perfezionare i prompt e quelli di valutazione finale. Poche prove
+non autorizzano classifiche generali; usa i risultati per la scelta locale
+del laboratorio e annota quando vanno aggiornati.
+
+## Rubrica e criteri di completamento
+
+La valutazione su 10 punti assegna 3 a requisiti ed esempi, 3 a correttezza e
+test indipendenti, 2 a riproducibilità e 2 alla spiegazione individuale.
+Per superare il percorso servono almeno 6 punti, tutti R01-R06 soddisfatti
+e nessuna evidenza inventata. Le estensioni avanzate hanno evidenze aggiuntive:
+non compensano un contratto base rotto.
+
+Consegna codice, specifica, report, diff, output dei test e decisioni accettate
+o respinte dall'agente. Domanda diagnostica finale: quale parte del tuo lavoro
+rimane valida se domani cambi coding agent? Requisiti, esempi, test, confini
+del programma e procedura di verifica sono riutilizzabili; istruzioni e
+configurazione dello strumento devono essere adattate e nuovamente provate.
+
+# Report della sessione PrenotaLab
+
+Compilare con osservazioni reali. «Non misurato» è diverso da zero.
+
+## Identità e obiettivo
+
+- Data e autore/gruppo:
+- Lezione e requisito:
+- Commit iniziale e finale (oppure copia iniziale e diff):
+- Strumento e versione disponibile:
+- Modello, revisione/digest se esposto, runtime, hardware:
+- Modalità: coding agent / sviluppo assistito manuale / senza AI:
+- File forniti come contesto e loro versione:
+- Budget fissato prima della prova (tempo/tentativi/costo):
+
+## Accettazione prima dell'implementazione
+
+| Requisito | Input o stato iniziale | Esito atteso | Test |
+| --- | --- | --- | --- |
+| Da compilare | | | |
+
+## Esiti
+
+- Comando e output della baseline:
+- Prompt e risposte rilevanti (solo dati sintetici):
+- Patch e decisioni del revisore:
+- Test prima/dopo e casi scritti indipendentemente:
+- Tempo totale, tempo umano, tentativi, token/costo se esposti:
+- Fallimenti rimasti e limitazioni:
+- Differenze rispetto alla specifica autorizzate o respinte:
+
+## Decisione architetturale breve
+
+- Problema e contesto:
+- Alternative considerate:
+- Scelta e ragione:
+- Conseguenze e condizione per rivederla:
+
+## Consegna riproducibile
+
+- Comandi eseguiti da cartella pulita:
+- Problema trovato dal compagno revisore:
+- Spiegazione personale di un cambiamento:
+- Prossima prova necessaria, se presente:
+
+# Manning: integrazione software engineering e coding agent
+
+Verifica delle schede pubbliche: **10 settembre 2026**. Questa è una selezione
+mirata per il nuovo percorso pratico, non l'inventario completo dei PDF posseduti.
+Le etichette generiche «you own this product» nelle pagine pubbliche non sono
+state usate per dedurre acquisti dell'account. Non sono stati consumati crediti.
+
+## Priorità di lettura per questo percorso
+
+**1. Spec-Driven Development - Hari Krishnan.** È il riferimento più diretto
+per intento, specifiche versionate e lavoro con coding agent, anche su codice
+esistente. La scheda indica MEAP iniziato e aggiornato ad agosto 2026,
+3 capitoli su 10, pubblicazione stimata primavera 2027. Pertinenza: S01-S03
+e S05. Non aspettare il libro completo per svolgere il laboratorio.
+[Scheda Manning](https://www.manning.com/books/spec-driven-development).
+
+**2. Context Engineering - Boni García.** Collega selezione del contesto,
+retrieval, memoria, strumenti e valutazione. La scheda indica tutti i capitoli
+disponibili in MEAP, ultimo aggiornamento agosto 2026 e pubblicazione stimata
+novembre 2026. Pertinenza: S00 e ramo AI Engineer di S04-S05, oltre a M15-M16.
+[Scheda Manning](https://www.manning.com/books/context-engineering).
+
+**3. AI-Powered Developer - Nathan B. Crocker.** Pubblicato ad agosto 2024;
+copre progettazione, generazione del codice, debugging, test e documentazione.
+Utile per il flusso completo di sviluppo; gli esempi di strumenti e modelli
+vanno confrontati con documentazione corrente. Pertinenza: S00-S05.
+[Scheda Manning](https://www.manning.com/books/ai-powered-developer).
+
+**4. Agent Design Patterns - Peter Belcak.** Riguarda pattern componibili
+per sistemi agentici, affidabilità, costo e controllo umano. La scheda indica
+MEAP iniziato e aggiornato ad agosto 2026, pubblicazione stimata inizio 2027.
+Più utile al ramo AI Engineer che come primo testo per la classe.
+[Scheda Manning](https://www.manning.com/books/agent-design-patterns).
+
+Questa priorità riguarda la pertinenza didattica, non un ordine di acquisto
+automatico. Per scegliere gli 11 PDF rimasti occorre prima riconciliare la
+lista dell'anno precedente: non assumiamo che questi titoli siano assenti.
+
+## Che cosa è stato consultato
+
+Sono state lette le schede pubbliche, descrizioni, stato editoriale e argomenti
+dichiarati. Le aperture liveBook dei tre MEAP hanno restituito HTTP 403 in
+questa sessione: **non si dichiara la lettura integrale dei capitoli né delle
+figure riservate**. L'accesso online dell'utente può essere usato in una sessione
+autenticata disponibile, senza comunicare password nella chat.
+
+Il progetto PrenotaLab, le dispense, i test e la visuale sono originali.
+Le schede bibliografiche sono riferimenti; non sono state copiate pagine,
+illustrazioni o esercizi dei libri nel Content Pack pubblico.
+
+## Documentazione primaria per gli strumenti
+
+- [GitHub Spec Kit](https://github.com/github/spec-kit): struttura del processo
+  guidato dalle specifiche e configurazione corrente.
+- [OpenSpec](https://github.com/Fission-AI/OpenSpec): workflow e artefatti
+  di specifica per assistenti di sviluppo.
+- [GitHub Copilot cloud agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent):
+  capacità e limiti dello strumento corrente.
+- [Claude Code: pratiche di lavoro](https://code.claude.com/docs/en/best-practices):
+  contesto, esplorazione, pianificazione e verifica.
+- [Ollama chat API](https://docs.ollama.com/api/chat): contratto dell'adapter
+  di proposta locale del laboratorio.
+
+Installazione e comandi dei prodotti sono intenzionalmente rimandati ai loro
+README/versioni correnti. Il corso conserva il metodo, gli input di prova e
+le evidenze anche quando cambiano nomi, interfacce e modelli.
 
 # Glossario essenziale LLM
 
@@ -1877,8 +2664,11 @@ utili restano accanto all'italiano.
 
 ## Sequenza dell'anno
 
-Usare la scansione M00–M19 della mappa curricolare. Le 60 ore guidate includono
-recupero e verifiche formative; il capstone usa lavoro aggiuntivo. Se il tempo
+Usare la scansione M00–M19 della mappa curricolare. Il Course Design prevede
+34 settimane da 2 ore, quindi 68 ore guidate; il capstone usa anche lavoro
+autonomo. Le ore delle schede sono stime e vanno riconciliate nel pilot con
+questa allocazione annuale. Il supplemento coding agent S00-S05 aggiunge
+12 ore autonome, senza sottrarle implicitamente al piano LLM. Se il tempo
 si riduce, non eliminare M02, M05, M09–M15 e M19: ridurre invece ablation e
 cataloghi specialistici.
 
@@ -1897,7 +2687,9 @@ cataloghi specialistici.
 
 Non inserire dati personali, sanitari, disciplinari o elaborati identificabili
 in servizi esterni. Il percorso base è locale e usa fixture sintetiche. Tool e
-agenti sono read-only, con allowlist, budget e approvazione. Il docente verifica
+agenti applicativi hanno capacità circoscritte. Nel percorso coding agent
+lo studente autorizza modifiche e test sul repository didattico, con
+revisione del diff. Il docente verifica
 policy d'istituto, licenze e informativa prima di introdurre account/provider.
 
 Il modello non assegna autonomamente voti e non prende decisioni educative ad
@@ -1939,20 +2731,30 @@ dei limiti. Nessuna scansione del libro viene incorporata nelle slide pubbliche.
 
 ## Failure injection e criteri
 
-| Lab | Iniezione docente | Evidenza corretta |
-| --- | --- | --- |
-| L00 | Rimuovere un campo dal manifest copiato | Lo studente rifiuta il confronto incompleto. |
-| L01 | Logits 1000/999/998 | Probabilità finite, somma circa 1. |
-| L02 | `è`, emoji e stringa vuota | Caratteri ≠ byte; round trip esplicito. |
-| L03 | Learning rate 1 | Loss instabile/divergente riconosciuta, non nascosta. |
-| L04 | Modificare il Value futuro | Output precedente invariato con mask causale. |
-| L05 | 14B 8-bit, 64k, 16 GB | Configurazione rifiutata senza margine. |
-| L06 | Stesso seed due volte | Conteggi identici nel runner, senza generalizzare ad altri runtime. |
-| L07 | Numero alterato | Failure case visibile nella categoria corretta. |
-| L08 | Query “xylophone zirconium” | Astensione per overlap nullo. |
-| L09 | `__import__('os')` | Nessuna esecuzione; AST non permesso. |
-| L10 | Bit modificato | Hash/round trip fallisce o output cambia. |
-| L11 | Servizio spento/tag inesistente | Errore controllato, nessun report inventato. |
+**L00 - Rimuovere un campo dal manifest copiato.** Lo studente rifiuta il confronto incompleto.
+
+**L01 - Logits 1000/999/998.** Probabilità finite, somma circa 1.
+
+**L02 - `è`, emoji e stringa vuota.** Caratteri ≠ byte; round trip esplicito.
+
+**L03 - Learning rate 1.** Loss instabile/divergente riconosciuta, non nascosta.
+
+**L04 - Modificare il Value futuro.** Output precedente invariato con mask causale.
+
+**L05 - 14B 8-bit, 64k, 16 GB.** Configurazione rifiutata senza margine.
+
+**L06 - Stesso seed due volte.** Conteggi identici nel runner, senza generalizzare ad altri runtime.
+
+**L07 - Numero alterato.** Failure case visibile nella categoria corretta.
+
+**L08 - Query “xylophone zirconium”.** Astensione per overlap nullo.
+
+**L09 - `__import__('os')`.** Nessuna esecuzione; AST non permesso.
+
+**L10 - Bit modificato.** Hash/round trip fallisce o output cambia.
+
+**L11 - Servizio spento/tag inesistente.** Errore controllato, nessun report inventato.
+
 
 ## Evidenze minime
 
@@ -2052,6 +2854,136 @@ Prefill elabora il prompt; decode produce token sequenziali. KV cache evita rica
 ## M19
 
 La consegna deve essere riproducibile e confrontata con baseline. Nel ramo Pollicino encoder e decoder condividono modello e frequenze canoniche; il test autoritativo è uguaglianza byte-per-byte. Il toy codec non prova ancora un codec neurale produttivo.
+
+# Guida docente: PrenotaLab e coding agent
+
+Materiale di riferimento per correzione e discussione. Nel Content Pack
+questo testo e la soluzione Python sono asset docente; non vengono inclusi
+nello starter esportato. Il repository pubblico rimane accessibile: per una
+prova sommativa predisporre una variante non pubblicata.
+
+## S00 - Baseline e mappa del repository
+
+Nello starter `Booking` rappresenta i dati; `BookingService.reserve` controlla
+solo un conflitto e aggiunge una riga; `overlaps` usa erroneamente confronti
+inclusivi. `cancel` non è implementato e `list_active` conserva l'ordine di
+inserimento. Mancano validazione e idempotenza. I casi happy path, conflitto
+effettivo e due aule diverse passano; adiacenza, validazione, retry, riuso ID,
+cancellazione e ordinamento espongono le lacune.
+
+La mappa corretta collega R02 a `overlaps` e al test di adiacenza; R04 a
+`reserve` e ai due test sul request_id; R05 a `cancel`. Respinge una risposta
+dell'agente che dichiari presenti un database o un endpoint HTTP nello starter.
+Per chi fatica con il codice, usare tre schede cartacee: stato prima, richiesta,
+stato dopo. Questo supporto mantiene osservabile lo stesso risultato didattico.
+
+Evidenza minima: output originale, tre collegamenti corretti e una deduzione
+separata da una misura. La domanda sul documento obsoleto verifica che lo
+studente attribuisca il difetto al contesto, senza invocare automaticamente
+un modello più grande. Non richiedere un account cloud per superare questa fase.
+
+## S01 - Soluzione degli esempi e variante
+
+Esempi v1: LAB-A 540-600 poi 600-660 è ammesso; 599-660 è rifiutato;
+LAB-B 540-600 è indipendente. 480-660 dura 180 ed è ammesso; 480-661
+è rifiutato. 900-1080 è ammesso; 900-1081 è fuori orario.
+Durata zero è rifiutata senza cambiare l'archivio.
+
+Per la variante 120 minuti, R03 passa a durata massima 120; i test nuovi
+devono ammettere 480-600 e rifiutare 480-601. La proposta deve identificare
+specifica, validazione del servizio, test dei confini e documentazione; nel
+ramo LLM anche il parser usa lo stesso limite e va aggiornato. La variante
+rimane separata dal contratto v1 condiviso finché il docente non l'adotta.
+
+Matrice minima: R01→happy path→reserve; R02→adiacenza/conflitto/aule→overlaps
+e reserve; R03→validazione senza effetti→reserve; R04→retry/ID in conflitto→reserve;
+R05→cancel e retry successivo→cancel/reserve; R06→ordinamento→list_active.
+Assegnare credito alle decisioni motivate, non alla lunghezza della specifica.
+
+## S02 - Patch attesa e test indipendenti
+
+La soluzione in `labs/ai_software/reference/booking.py` usa confronti stretti
+per l'intersezione. Valida ID, aula, tipi e intervallo prima della transazione.
+`type(x) is int` esclude bool, che in Python è sottoclasse di int. Il retry
+viene riconosciuto prima del controllo di conflitto; stessa chiave e dati
+diversi producono ValueError. Il record è immutabile.
+
+Non imporre la stessa struttura allo studente: R01-R06 possono essere
+implementati correttamente con una lista privata e senza Protocol. Richiedere
+invece che ogni errore lasci lo stato invariato e che i test pubblici non
+vengano indeboliti. Casi indipendenti utili: intervallo che contiene interamente
+quello esistente; chiusura esatta; ID vuoto; record con stessa chiave ma altra aula.
+
+La prima porzione R01-R03 lascia correttamente rossi i test dei requisiti
+mancanti. Valutare la porzione dichiarata e l'elenco dei residui. Un agente
+che cancella i test mancanti per rendere verde la suite non completa il compito.
+
+## S03 - Diagnosi di riferimento
+
+Per il difetto inclusivo, 600-660 fallisce dopo 540-600 mentre 660-720
+riesce: questo smentisce l'ipotesi «tutte le seconde richieste falliscono».
+Il confronto `<=` include il confine; la correzione usa `<` in entrambe
+le direzioni. Il caso 599-660 deve continuare a produrre conflitto.
+
+Per il retry, controllare il conflitto prima dell'identità provoca un falso
+errore sulla stessa richiesta. Per la cancellazione, cercare la condizione
+`not row.cancelled` nel filtro dei conflitti. Il test deve anche verificare
+il vecchio retry dopo cancel: deve restituire il record cancellato.
+
+Se lo studente chiede una riscrittura generale, invitarlo a indicare quale
+ipotesi la giustifichi. Una patch piccola non è sempre migliore, ma qui la
+causa è circoscritta. Distinguere diagnosi, correzione e refactoring nel report.
+La revisione tramite un secondo agente può suggerire casi; la correttezza
+resta verificata contro il contratto e i comandi eseguiti.
+
+## S04 - Soluzione base e diramazioni avanzate
+
+`cancel` conserva la riga con `cancelled=True`; cancellare fisicamente il
+record perderebbe l'informazione necessaria a R04 dopo un retry. `list_active`
+filtra e ordina, restituendo una nuova lista di record immutabili.
+Un caso nuovo con uguale start e aule diverse controlla il secondo criterio
+di ordinamento; aggiungere ID diversi per verificare il terzo dove applicabile.
+
+Il ramo software engineer usa un contratto Store con `transaction`, `all`
+e `put`. La reference esegue R01-R06 sia in memoria sia su SQLite, verifica
+rollback e riapertura, e usa due thread con connessioni separate per un conflitto.
+Il lock in memoria protegge la transazione; SQLite usa BEGIN IMMEDIATE.
+Gli archivi sono componenti interni: chiamare `put` fuori dal servizio può
+aggirare le regole di dominio, perciò non costituisce l'API del prodotto.
+
+Il ramo AI Engineer dispone di un adapter locale e test con risposta simulata.
+Una bozza LAB-B per richiesta LAB-A è formalmente valida ma semanticamente
+errata. Il parser non può scoprirlo senza confrontare con l'intento.
+Per «prenota domani mattina» mancano dati e il prototipo a giornata singola
+non è appropriato: l'eval deve contare una scelta arbitraria come errore.
+
+La revisione con stato `clarify` è un'estensione assegnata: non è già
+implementata in proposal.py. Accettare uno schema con due varianti disgiunte
+e test per campi obbligatori, stato sconosciuto, domanda vuota e proposta
+completa. Non attribuire qualità reale ai test mock o inventare risultati Ollama.
+
+## S05 - Correzione della consegna
+
+Una consegna sufficiente realizza R01-R06, mantiene i test pubblici e aggiunge
+due casi indipendenti. Include istruzioni eseguibili da cartella pulita e
+un report con almeno una decisione motivata. I 10 punti sono: requisiti 3,
+correttezza/test 3, riproducibilità 2, spiegazione individuale 2; soglia 6
+con contratto base integro ed evidenze autentiche.
+
+Per il colloquio chiedere di anticipare l'esito di un caso prima di eseguirlo.
+Una terza aula coinvolge validazione, esempi e test; nel ramo LLM anche enum
+dello schema e parser. Un cambio di apertura coinvolge i limiti del dominio
+e i test ai confini. La spiegazione deve individuare questi punti prima della patch.
+
+Le sei ore aggiuntive di ciascun ramo sono stime: tre ore in S04 e tre in
+S05. Registrare tempi del pilot. Il corso annuale resta di 68 ore; il nuovo
+percorso autonomo ne richiede altre 12. L'eventuale scelta di sostituire parti
+del piano annuale va registrata con coperture perse e recuperi previsti.
+
+La CI verifica il software di riferimento e la struttura dei materiali.
+Restano distinti il rehearsal con modelli reali, il giudizio didattico del
+docente e la prova in classe. Nessuno di questi viene sostituito da un PDF
+ben formato o da una suite verde.
 
 # Diagnostica iniziale e finale
 

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="640" viewBox="0 0 1000 640" role="img" aria-labelledby="title desc">
+<title id="title">Intervalli adiacenti: specifica e codice</title>
+<desc id="desc">Due prenotazioni dalle 9 alle 10 e dalle 10 alle 11 sono compatibili perché l'estremo finale è escluso. Il confronto inclusivo produce un falso conflitto.</desc>
+<rect width="1000" height="640" rx="20" fill="#f5f7fb"/>
+<g font-family="DejaVu Sans, sans-serif" fill="#13253a">
+<text x="50" y="62" font-size="30" font-weight="bold">Un minuto chiarisce una specifica</text>
+<text x="50" y="102" font-size="20">R02: occupiamo i minuti da start incluso a end escluso.</text>
+<path d="M220 165H860" stroke="#61788f" stroke-width="3"/>
+<g font-size="20" text-anchor="middle"><text x="220" y="150">09:00 / 540</text><text x="460" y="150">10:00 / 600</text><text x="700" y="150">11:00 / 660</text></g>
+<g stroke="#b7c5d3" stroke-width="2" stroke-dasharray="5 7"><path d="M220 165V365"/><path d="M460 165V365"/><path d="M700 165V365"/></g>
+<text x="50" y="236" font-size="18">Prenotazione A</text><rect x="220" y="201" width="240" height="55" rx="8" fill="#2469a0"/><text x="340" y="236" text-anchor="middle" font-size="21" fill="white">540 - 600</text><circle cx="460" cy="228" r="10" fill="#f5f7fb" stroke="#2469a0" stroke-width="4"/>
+<text x="50" y="326" font-size="18">Prenotazione B</text><rect x="460" y="291" width="240" height="55" rx="8" fill="#227454"/><circle cx="460" cy="318" r="9" fill="#227454"/><text x="580" y="326" text-anchor="middle" font-size="21" fill="white">600 - 660</text>
+<rect x="50" y="400" width="435" height="155" rx="12" fill="#e0eee7"/><text x="75" y="436" font-size="23" font-weight="bold">SPECIFICA: ammesse</text><text x="75" y="475" font-size="19">Il minuto 600 appartiene solo a B.</text><text x="75" y="508" font-size="19">Minuti occupati in comune: nessuno.</text>
+<rect x="510" y="400" width="440" height="155" rx="12" fill="#f7e4de"/><text x="535" y="436" font-size="23" font-weight="bold">STARTER: falso conflitto</text><text x="535" y="475" font-size="19">Il confronto inclusivo usa anche end.</text><text x="535" y="508" font-size="19">Un test al confine rivela l'errore.</text>
+<text x="50" y="600" font-size="18">Controesempio: se B inizia a 599, c'è sovrapposizione e va rifiutata.</text>
+</g></svg>

@@ -1,0 +1,144 @@
+{
+  "schema_version": "1.0",
+  "id": "ai-se-course-2026-2027",
+  "title": "Sviluppare software con coding agent",
+  "description": "Supplemento pratico di 12 ore. Estensioni autonome: AI Engineer +6h, software engineer +6h.",
+  "source_ids": [
+    "ai-se-source-lessons"
+  ],
+  "sources": [
+    {
+      "id": "ai-se-source-lessons",
+      "label": "Laboratori originali di sviluppo con coding agent",
+      "type": "markdown",
+      "provider": "local",
+      "path": "docs/course/ai-software",
+      "files": [
+        "README.md",
+        "S00-contesto.md",
+        "S01-specifiche.md",
+        "S02-implementazione.md",
+        "S03-diagnosi.md",
+        "S04-pattern.md",
+        "S05-consegna.md",
+        "REPORT-template.md"
+      ],
+      "indexing_status": "ready"
+    }
+  ],
+  "years": [
+    {
+      "id": "percorso-ai-software",
+      "title": "Laboratorio pratico",
+      "description": "Sei incontri da due ore; non sottratti implicitamente al corso LLM annuale.",
+      "weekly_hours": 2,
+      "weeks": 6,
+      "udas": [
+        {
+          "id": "uda-ai-software",
+          "title": "Dal requisito alla consegna",
+          "path": "docs/course/ai-software",
+          "weeks": 6,
+          "items": [
+            {
+              "id": "item-s00",
+              "title": "Leggere il progetto e preparare il contesto",
+              "source_id": "ai-se-source-lessons",
+              "source": "S00-contesto.md",
+              "href": "docs/course/ai-software/S00-contesto.md",
+              "level": 1,
+              "activity_ids": [
+                "ai-se-activity-s00"
+              ],
+              "frame": {
+                "status": "draft",
+                "objectives": "Esegui lo starter, conserva i fallimenti attesi e collega tre regole a funzioni e test.",
+                "next_step": "Consegnare evidenze e completare la verifica individuale."
+              }
+            },
+            {
+              "id": "item-s01",
+              "title": "Specifiche ed esempi di accettazione",
+              "source_id": "ai-se-source-lessons",
+              "source": "S01-specifiche.md",
+              "href": "docs/course/ai-software/S01-specifiche.md",
+              "level": 1,
+              "activity_ids": [
+                "ai-se-activity-s01"
+              ],
+              "frame": {
+                "status": "draft",
+                "objectives": "Scrivi sei casi e proponi separatamente la variante di durata 120 minuti con tracciabilità.",
+                "next_step": "Consegnare evidenze e completare la verifica individuale."
+              }
+            },
+            {
+              "id": "item-s02",
+              "title": "Implementazione per porzioni verificabili",
+              "source_id": "ai-se-source-lessons",
+              "source": "S02-implementazione.md",
+              "href": "docs/course/ai-software/S02-implementazione.md",
+              "level": 1,
+              "activity_ids": [
+                "ai-se-activity-s02"
+              ],
+              "frame": {
+                "status": "draft",
+                "objectives": "Dal lavoro precedente implementa R01-R04 in patch separate e aggiungi un caso indipendente.",
+                "next_step": "Consegnare evidenze e completare la verifica individuale."
+              }
+            },
+            {
+              "id": "item-s03",
+              "title": "Diagnosi e regressioni su codice esistente",
+              "source_id": "ai-se-source-lessons",
+              "source": "S03-diagnosi.md",
+              "href": "docs/course/ai-software/S03-diagnosi.md",
+              "level": 1,
+              "activity_ids": [
+                "ai-se-activity-s03"
+              ],
+              "frame": {
+                "status": "draft",
+                "objectives": "Riproduci il difetto degli intervalli, confronta due ipotesi e conserva il test di regressione.",
+                "next_step": "Consegnare evidenze e completare la verifica individuale."
+              }
+            },
+            {
+              "id": "item-s04",
+              "title": "Pattern applicativi e adapter",
+              "source_id": "ai-se-source-lessons",
+              "source": "S04-pattern.md",
+              "href": "docs/course/ai-software/S04-pattern.md",
+              "level": 1,
+              "activity_ids": [
+                "ai-se-activity-s04"
+              ],
+              "frame": {
+                "status": "draft",
+                "objectives": "Completa R05-R06; nei rami avanzati aggiungi SQLite oppure valuta la proposta locale LLM.",
+                "next_step": "Consegnare evidenze e completare la verifica individuale."
+              }
+            },
+            {
+              "id": "item-s05",
+              "title": "Consegna e valutazione del processo",
+              "source_id": "ai-se-source-lessons",
+              "source": "S05-consegna.md",
+              "href": "docs/course/ai-software/S05-consegna.md",
+              "level": 1,
+              "activity_ids": [
+                "ai-se-activity-s05"
+              ],
+              "frame": {
+                "status": "draft",
+                "objectives": "Consegna R01-R06 verificati, report, diff, due casi indipendenti e spiegazione individuale.",
+                "next_step": "Consegnare evidenze e completare la verifica individuale."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

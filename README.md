@@ -1,11 +1,18 @@
 # LLMs
 
-> **Dispense complete 2026/27:** [PDF studente](output/pdf/dispense-llm-studente.pdf) ·
+> **Dispense 2026/27 in ampliamento:** [PDF studente](output/pdf/dispense-llm-studente.pdf) ·
 > [PDF docente](output/pdf/dispense-llm-docente.pdf) ·
 > [HTML studente](dist/dispense-llm-studente.html) ·
 > [Indice e percorso](COURSE.md). Il corso è anche un
 > [Content Pack TheBitLab v1](content/llm/README.md). Il testo storico seguente
 > resta una fonte concettuale e non è la struttura curricolare corrente.
+
+Nuovo [percorso pratico con coding agent](docs/course/ai-software/README.md):
+sei lezioni su specifiche, contesto, implementazione, debugging, pattern e
+consegna, con [progetto Python](labs/ai_software/README.md) e
+[Content Pack TheBitLab](content/ai-software/README.md).
+Per ciò che è verificato e ciò che manca consultare lo
+[stato di rilascio](docs/course/release-status.md).
 
 <table>
   <td>
@@ -5102,7 +5109,6 @@ La proliferazione di dati generati dagli LLM può potenzialmente influenzare gli
     </p>
   </li>
 </ul>
-
 
 
 

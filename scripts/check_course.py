@@ -102,8 +102,23 @@ def main() -> int:
 
     static_visuals = sorted((ROOT / "visuals/static").glob("*.svg"))
     rendered_visuals = sorted((ROOT / "visuals/static/rendered").glob("*.png"))
-    if len(static_visuals) != 7 or len(rendered_visuals) != 7:
-        fail(f"attese 7 figure statiche SVG+PNG, trovate {len(static_visuals)}+{len(rendered_visuals)}", errors)
+    if len(static_visuals) < 8 or {p.stem for p in static_visuals} != {p.stem for p in rendered_visuals}:
+        fail(f"attese almeno 8 figure statiche SVG con PNG corrispondenti, trovate {len(static_visuals)}+{len(rendered_visuals)}", errors)
+
+    practice = json.loads((ROOT / "content/ai-software/content-pack.json").read_text())
+    if len(practice["content_items"]) != 6:
+        fail("AI software pack: attese sei lezioni", errors)
+    for item in practice["content_items"]:
+        if not (ROOT / item["path"]).is_file():
+            fail(f"AI software pack: lezione mancante {item['path']}", errors)
+        for aid in item["activity_ids"]:
+            base = ROOT / "activities/ai-software" / aid
+            activity = json.loads((base / "activity.json").read_text())
+            for asset in activity["assets"]:
+                if not (base / asset["path"]).is_file():
+                    fail(f"{aid}: asset mancante {asset['path']}", errors)
+                if asset["path"].startswith("teacher/") and asset["visibility"] != "teacher":
+                    fail(f"{aid}: soluzione esposta nello scaffold studente", errors)
 
     json.loads((ROOT / "labs/fixtures/rag-corpus.json").read_text(encoding="utf-8"))
     for line_no, line in enumerate((ROOT / "labs/fixtures/predictions.jsonl").read_text(encoding="utf-8").splitlines(), 1):

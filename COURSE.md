@@ -61,6 +61,12 @@ Il corso usa progetti complementari invece di un unico esempio sovraccarico:
 
 ## Regola comune sulle evidenze
 
+Il [percorso pratico S00-S05](docs/course/ai-software/README.md) aggiunge
+sviluppo software con coding agent, specifiche, test, debugging, pattern e
+consegna. Prevede 12 ore autonome e due rami aggiuntivi di 6 ore ciascuno,
+per AI Engineer e software engineer. Il suo Course Design è separato:
+non modifica implicitamente le 68 ore del piano annuale.
+
 Ogni affermazione pratica deve indicare:
 
 - modello e revisione esatta;
@@ -78,8 +84,13 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 
 ## Documenti correnti del corso
 
-- [Dispense complete — PDF studente](output/pdf/dispense-llm-studente.pdf)
-- [Dispense complete — PDF docente con soluzioni](output/pdf/dispense-llm-docente.pdf)
+- [Dispense — PDF studente, inclusa pratica software](output/pdf/dispense-llm-studente.pdf)
+- [Dispense — PDF docente con apparati di correzione](output/pdf/dispense-llm-docente.pdf)
+- [Coding agent e software engineering: sei lezioni pratiche](docs/course/ai-software/README.md)
+- [PrenotaLab: starter, test e soluzione docente](labs/ai_software/README.md)
+- [Content Pack pratico e copertura](content/ai-software/README.md)
+- [Manning: titoli per coding agent e specifiche](docs/course/sources/manning-coding-agents-2026-09-10.md)
+- [Visuale: specifica, codice e test al confine](visuals/booking-spec-tests.html)
 - [Dispense navigabili — HTML studente](dist/dispense-llm-studente.html)
 - [Content Pack TheBitLab v1](content/llm/content-pack.json)
 - [Matrice di copertura TheBitLab](content/llm/COVERAGE.md)
@@ -116,12 +127,15 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 
 ## Stato e manutenzione
 
-La prima edizione candidata contiene dispense complete, Content Pack TheBitLab,
-Course Design, Activity, laboratori, visuali, valutazioni e guida docente. Il
-pack resta nello stato editoriale `reviewed`: richiede approvazione esplicita
-del docente. Resta inoltre il rehearsal end-to-end sul profilo hardware supportato,
-concordato dopo il completamento dei corsi dell'anno scolastico. Fino ad allora
-non viene creato il tag `course-v1` e non si dichiara validazione in classe.
+La prima edizione contiene dispense, Content Pack TheBitLab, Course Design,
+Activity, laboratori minimi, visuali e guida docente. La copertura degli argomenti
+non equivale al completamento di tutte le implementazioni richieste: lo
+[stato di rilascio](docs/course/release-status.md) elenca le lacune pratiche.
+Il pack LLM conserva lo stato editoriale `reviewed`; il nuovo supplemento
+software è `draft`. Entrambi richiedono approvazione didattica prima del Bundle.
+Resta il rehearsal end-to-end sul profilo hardware supportato, concordato dopo
+il completamento dei corsi dell'anno scolastico. Nessun tag `course-v1` né
+dichiarazione di validazione in classe viene anticipato.
 
 Il catalogo dei modelli è uno snapshot: aggiornarlo senza riscrivere i concetti
 stabili. Evidenze del pilot, tempi reali e failure case alimenteranno la seconda

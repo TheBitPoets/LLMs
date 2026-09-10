@@ -53,7 +53,7 @@ Distillazione trasferisce comportamento da un teacher a uno student mediante out
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py reasoning` su problemi verificabili. Pre-registra modalità e budget, poi confronta risposta diretta, scomposizione e tool. Non conservare soltanto l'accuratezza media: raccogli categorie di errore.
+Prepara problemi verificabili e pre-registra modalità e budget; il runner non include un benchmark di reasoning. Con un modello locale disponibile confronta richieste dirette e scomposte usando il comando ollama descritto in M11. Per una baseline aritmetica deterministica esegui `python3 labs/course_lab.py agent --request 'CALCOLA: (12 + 8) / 5'`: è un parser con calcolatore, non un agente LLM. Raccogli categorie di errore oltre all'accuratezza.
 
 ## Verifica rapida
 
@@ -69,4 +69,3 @@ Il pre-training costruisce capacità generali di previsione; il post-training or
 - [Direct Preference Optimization](https://arxiv.org/abs/2305.18290)
 - [Timeline dei paper](../research/paper-timeline.md)
 - Activity: `llm-activity-m08-post-training`
-

@@ -63,7 +63,7 @@ Con mixed precision alcune operazioni usano formati ridotti per velocità e memo
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py loss` e calcola cross-entropy e perplexity. Traccia training e validation per un modello giocattolo; salva metriche a ogni epoca e seleziona il checkpoint con una regola definita prima.
+Esegui `python3 labs/course_lab.py gradient --steps 12` per osservare la discesa del gradiente su una regressione scalare. Questo comando non addestra un language model e non calcola cross-entropy o perplexity. Calcola queste ultime con le probabilità dell'esempio; l'estensione con curve train/validation richiede un modello e un dataset separati e non è fornita dal runner minimo.
 
 ## Verifica rapida
 

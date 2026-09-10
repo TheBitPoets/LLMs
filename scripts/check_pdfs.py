@@ -13,8 +13,8 @@ from pypdf.errors import PdfReadError
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED = {
-    ROOT / "output/pdf/dispense-llm-studente.pdf": 70,
-    ROOT / "output/pdf/dispense-llm-docente.pdf": 80,
+    ROOT / "output/pdf/dispense-llm-studente.pdf": 90,
+    ROOT / "output/pdf/dispense-llm-docente.pdf": 100,
 }
 
 
@@ -45,11 +45,20 @@ def reader_check(path: Path, minimum_pages: int) -> int:
 
     # Forza la lettura del content stream di ogni pagina: la sola apertura non
     # basta a rilevare tutti gli stream troncati o gli oggetti irraggiungibili.
+    texts = []
     for page_number, page in enumerate(reader.pages, 1):
         try:
             page.get_contents()
+            texts.append(page.extract_text())
         except Exception as exc:  # pypdf espone eccezioni diverse per stream/filtri
             raise ValueError(f"pagina {page_number} non leggibile: {exc}") from exc
+    text = "\n".join(texts)
+    for index in range(6):
+        if f"S{index:02} -" not in text:
+            raise ValueError(f"supplemento software S{index:02} mancante")
+    teacher_marker = "Guida docente: PrenotaLab"
+    if ("docente" in path.name) != (teacher_marker in text):
+        raise ValueError("apparati PrenotaLab studente/docente non separati")
     return pages
 
 

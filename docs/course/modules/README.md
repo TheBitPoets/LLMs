@@ -29,3 +29,8 @@ implementazione e ricerca. Le verifiche richiedono evidenza osservabile.
 
 Le ore AI Engineer includono le ore Practitioner quando il concetto è comune.
 
+Il [supplemento pratico coding agent](../ai-software/README.md) è un percorso
+autonomo di 12 ore; non è incluso nei totali di questa tabella. Gli obiettivi
+avanzati descrivono anche esercizi da sviluppare: consultare lo
+[stato di rilascio](../release-status.md) per distinguere codice disponibile
+e lavoro ancora da completare.

@@ -56,7 +56,7 @@ Una threat model minima considera dati sensibili nel prompt, output falso o dann
 
 ## Laboratorio
 
-Compila la diagnostica iniziale e il template `docs/course/templates/evidence-manifest.json`. Esegui `python3 labs/course_lab.py evidence` e completa i campi mancanti. Non serve ancora installare un modello: lo scopo è imparare a registrare una prova prima di essere affascinati dall'output.
+Compila la diagnostica iniziale e il template `docs/course/templates/evidence-manifest.json`. Esegui `python3 labs/course_lab.py system` per raccogliere i dati di sistema disponibili e completa manualmente il manifest della prova. Non serve ancora installare un modello: lo scopo è imparare a registrare una prova prima di essere affascinati dall'output.
 
 ## Verifica rapida
 
@@ -77,4 +77,3 @@ Un LLM genera continuazioni probabili; l'applicazione decide come usarlo. Prima 
 - [Mappa curricolare](../curriculum-map.md)
 - [Manifest di evidenza](../templates/evidence-manifest.json)
 - Activity: `llm-activity-m00-baseline`
-

@@ -63,7 +63,7 @@ Un buon modello assegna alta probabilità al simbolo osservato. Un codificatore 
 
 ## Laboratorio
 
-Usa la visuale e poi esegui `python3 labs/course_lab.py next-token`. Registra distribuzione, scelta, sorpresa $-\log_2p$ e sequenza. Per Pollicino esegui anche `python3 labs/course_lab.py arithmetic-codec` e verifica che input e output coincidano.
+Usa la visuale e poi esegui `python3 labs/course_lab.py softmax --logits 2 1 0`. Registra la distribuzione e la sorpresa $-\log_2p$; per estrarre simboli usa `python3 labs/course_lab.py sample --seed 7 --draws 100`. Per Pollicino esegui anche `python3 labs/course_lab.py pollicino --message ABAAB` e verifica che input e output coincidano. Sono distribuzioni e codec didattici, non inferenza di un modello neurale.
 
 ## Verifica rapida
 

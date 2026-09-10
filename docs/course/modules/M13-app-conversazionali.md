@@ -24,8 +24,16 @@ Lo streaming migliora il tempo percepito, ma richiede stati espliciti: in attesa
 import json
 from urllib.request import Request, urlopen
 
-payload = {"model": "MODELLO", "messages": [{"role": "user", "content": "Ciao"}], "stream": False}
-request = Request("http://localhost:11434/api/chat", data=json.dumps(payload).encode(), headers={"Content-Type": "application/json"})
+payload = {
+    "model": "MODELLO",
+    "messages": [{"role": "user", "content": "Ciao"}],
+    "stream": False,
+}
+request = Request(
+    "http://localhost:11434/api/chat",
+    data=json.dumps(payload).encode(),
+    headers={"Content-Type": "application/json"},
+)
 with urlopen(request, timeout=30) as response:
     data = json.load(response)
 print(data["message"]["content"])
@@ -89,4 +97,3 @@ La chat è un sistema, non una casella di testo. L'applicazione possiede stato, 
 - [Documentazione API Ollama](https://docs.ollama.com/api/introduction)
 - [Valutazione del libro Local AI Models](../sources/local-ai-models-review.md)
 - Activity: `llm-activity-m13-chatbot`
-

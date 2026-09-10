@@ -82,3 +82,9 @@ tenere l'undicesimo credito non impegnato finché non sono disponibili più
 capitoli. Se il credito deve essere usato subito, il libro resta una scelta
 coerente con il requisito kernel. Se invece serve materiale completo adesso,
 lo sostituisce *Build a Multi-Agent System (From Scratch)*, osservato al 77%.
+# Aggiornamento del percorso pratico
+
+Per specifiche, coding agent e pattern applicativi consultare la
+[selezione Manning del 10 settembre 2026](manning-coding-agents-2026-09-10.md).
+La nuova selezione verifica schede pubbliche; non prova il possesso dei titoli
+e non consuma crediti dell'account.

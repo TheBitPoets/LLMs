@@ -66,7 +66,7 @@ Metodi weight-only conservano attivazioni a precisione maggiore; W8A8 quantizza 
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py memory` e completa prima le stime. Il rehearsal reale usa `docs/course/rehearsal/README.md`: non inventare dati hardware prima dell'esecuzione. Conserva un manifest distinto per ogni artefatto.
+Esegui `python3 labs/course_lab.py memory --parameters 4 --bits 4 --context-k 8 --available 16` e completa prima le stime. Il runner usa overhead e KV cache euristici: per il modello scelto usa anche la formula architetturale del modulo. Il rehearsal reale usa `docs/course/rehearsal/README.md`: non inventare dati hardware prima dell'esecuzione. Conserva un manifest distinto per ogni artefatto.
 
 ## Verifica rapida
 
@@ -82,4 +82,3 @@ Prima di scaricare, fai un budget. Memoria abilita il modello; bandwidth, kernel
 - [Visuale KV cache](../../../visuals/prefill-decode-kv-cache.html)
 - [Rehearsal](../rehearsal/README.md)
 - Activity: `llm-activity-m10-memory-budget`
-

@@ -21,8 +21,11 @@ utili restano accanto all'italiano.
 
 ## Sequenza dell'anno
 
-Usare la scansione M00–M19 della mappa curricolare. Le 60 ore guidate includono
-recupero e verifiche formative; il capstone usa lavoro aggiuntivo. Se il tempo
+Usare la scansione M00–M19 della mappa curricolare. Il Course Design prevede
+34 settimane da 2 ore, quindi 68 ore guidate; il capstone usa anche lavoro
+autonomo. Le ore delle schede sono stime e vanno riconciliate nel pilot con
+questa allocazione annuale. Il supplemento coding agent S00-S05 aggiunge
+12 ore autonome, senza sottrarle implicitamente al piano LLM. Se il tempo
 si riduce, non eliminare M02, M05, M09–M15 e M19: ridurre invece ablation e
 cataloghi specialistici.
 
@@ -41,7 +44,9 @@ cataloghi specialistici.
 
 Non inserire dati personali, sanitari, disciplinari o elaborati identificabili
 in servizi esterni. Il percorso base è locale e usa fixture sintetiche. Tool e
-agenti sono read-only, con allowlist, budget e approvazione. Il docente verifica
+agenti applicativi hanno capacità circoscritte. Nel percorso coding agent
+lo studente autorizza modifiche e test sul repository didattico, con
+revisione del diff. Il docente verifica
 policy d'istituto, licenze e informativa prima di introdurre account/provider.
 
 Il modello non assegna autonomamente voti e non prende decisioni educative ad
@@ -70,4 +75,3 @@ il prodotto finale.
 Le figure Manning restano fonti private. In classe e nel repository si usano le
 ricostruzioni originali del catalogo, con citazione del concetto e dichiarazione
 dei limiti. Nessuna scansione del libro viene incorporata nelle slide pubbliche.
-

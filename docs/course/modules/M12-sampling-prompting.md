@@ -53,7 +53,7 @@ Misura diversità con tasso di duplicazione o entropia e qualità con test speci
 
 ## Laboratorio
 
-Usa la visuale e `python3 labs/course_lab.py sampling`. Con modello locale disponibile, esegui una griglia piccola cambiando una sola variabile, conserva output e valuta formato, diversità, correttezza e costo.
+Usa la visuale e `python3 labs/course_lab.py sample --seed 7 --draws 100`. Con modello locale disponibile, esegui una griglia piccola cambiando una sola variabile, conserva output e valuta formato, diversità, correttezza e costo. Il comando sample usa una distribuzione didattica fissa e non interroga Ollama.
 
 ## Verifica rapida
 

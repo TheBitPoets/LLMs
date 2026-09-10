@@ -1,5 +1,8 @@
 # Laboratori eseguibili
 
+Il [progetto PrenotaLab](ai_software/README.md) aggiunge sei laboratori
+di sviluppo con coding agent: specifiche, patch, debugging, pattern e consegna.
+
 Il kit base usa solo Python 3.11+ e non richiede credenziali. Ogni comando
 produce JSON su stdout; con `--output report.json` salva lo stesso evidence
 report. I comandi `ollama` e `benchmark` richiedono un servizio Ollama locale.
@@ -52,4 +55,3 @@ python3 -m unittest discover -s tests -v
 
 Il test di unità non contatta Ollama. Il rehearsal hardware è separato perché
 deve registrare il modello e la macchina realmente usati.
-
