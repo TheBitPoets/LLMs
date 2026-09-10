@@ -81,7 +81,7 @@ Ogni errore deve produrre messaggio, codice o evidenza diagnostica senza mostrar
 
 ## Laboratorio
 
-Segui `docs/course/rehearsal/README.md` quando sarà disponibile il Mac M4 Pro 36 GB. Prima del rehearsal puoi esercitarti con `python3 labs/course_lab.py ollama-request`, che costruisce e valida una richiesta senza dichiarare esecuzione hardware.
+Segui `docs/course/rehearsal/README.md` quando sarà disponibile il Mac M4 Pro 36 GB. Il comando `python3 labs/course_lab.py ollama --model '<tag-verificato>' --prompt 'Rispondi solo: OK'` contatta realmente Ollama e richiede servizio avviato e modello installato; sostituisci il segnaposto. Prima del rehearsal puoi leggere il payload in `ollama_generate` e controllare i parametri: non esiste una modalità CLI di sola costruzione della richiesta.
 
 ## Verifica rapida
 

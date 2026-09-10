@@ -61,7 +61,7 @@ Le operazioni con effetti usano idempotency key per evitare duplicati dopo timeo
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py tool-policy`. Costruisci prima un tool finto che registra la proposta senza agire. Aggiungi validazione, autorizzazione e conferma. Testa argomenti invalidi, chiamata duplicata, timeout e contenuto malevolo recuperato.
+Esegui `python3 labs/course_lab.py agent --request 'CALCOLA: (12 + 8) / 5'`. È un parser deterministico con calcolatore, senza pianificazione LLM né protocollo MCP. L'estensione con tool finto, validazione, autorizzazione e conferma richiede un'applicazione separata. Il percorso pratico S00-S05 aggiunge sviluppo con coding agent e un adapter locale di sola proposta, mantenendo distinta la verifica del software da quella di un agente reale.
 
 ## Verifica rapida
 
@@ -76,4 +76,3 @@ Il modello propone; il sistema autorizza ed esegue. Tool e agenti sono potenti p
 - [Model Context Protocol](https://modelcontextprotocol.io/)
 - [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework)
 - Activity: `llm-activity-m16-safe-agent`
-

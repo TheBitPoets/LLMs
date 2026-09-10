@@ -53,7 +53,7 @@ Data governance comprende base giuridica, consenso o licenza, diritto di rimozio
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py scaling` per esplorare una relazione semplificata. Poi crea un corpus giocattolo, calcola hash, elimina duplicati e mostra come cambia una metrica. L'obiettivo è vedere quanto il dataset possa alterare una conclusione.
+Esplora su carta o in un foglio di calcolo una relazione di scaling semplificata, dichiarando parametri e ipotesi: il runner non include un simulatore di scaling. Poi crea un corpus giocattolo, calcola hash con hashlib, elimina duplicati e mostra come cambia il conteggio. L'obiettivo è vedere quanto il dataset possa alterare una conclusione; non attribuire alla deduplica una misura di qualità del modello senza un eval separato.
 
 ## Verifica rapida
 

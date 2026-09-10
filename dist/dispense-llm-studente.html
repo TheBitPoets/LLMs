@@ -94,7 +94,8 @@
 <p class="subtitle">Practitioner e AI Engineer · teoria, matematica,
 laboratori e Pollicino</p>
 <p class="author">TheBitPoets</p>
-<p class="date">Edizione 2026/27 — content pack 0.9.0</p>
+<p class="date">Edizione 2026/27 — LLM 0.9.0 e pratica software
+0.1.0</p>
 </header>
 <nav id="TOC" role="doc-toc">
 <h2 id="toc-title">Indice</h2>
@@ -847,9 +848,231 @@ class="toc-section-number">22.13</span> Sintesi inclusiva</a></li>
 id="toc-fonti-e-collegamenti-19"><span
 class="toc-section-number">22.14</span> Fonti e collegamenti</a></li>
 </ul></li>
+<li><a href="#percorso-pratico-progettare-software-con-coding-agent"
+id="toc-percorso-pratico-progettare-software-con-coding-agent"><span
+class="toc-section-number">23</span> Percorso pratico: progettare
+software con coding agent</a>
+<ul>
+<li><a href="#risultati-e-destinatari"
+id="toc-risultati-e-destinatari"><span
+class="toc-section-number">23.1</span> Risultati e destinatari</a></li>
+<li><a href="#sequenza-didattica" id="toc-sequenza-didattica"><span
+class="toc-section-number">23.2</span> Sequenza didattica</a></li>
+<li><a href="#materiali-e-modalità" id="toc-materiali-e-modalità"><span
+class="toc-section-number">23.3</span> Materiali e modalità</a></li>
+</ul></li>
+<li><a href="#s00---leggere-il-progetto-prima-di-delegare"
+id="toc-s00---leggere-il-progetto-prima-di-delegare"><span
+class="toc-section-number">24</span> S00 - Leggere il progetto prima di
+delegare</a>
+<ul>
+<li><a href="#problema-iniziale-20" id="toc-problema-iniziale-20"><span
+class="toc-section-number">24.1</span> Problema iniziale</a></li>
+<li><a href="#risultato-practitioner"
+id="toc-risultato-practitioner"><span
+class="toc-section-number">24.2</span> Risultato Practitioner</a></li>
+<li><a href="#laboratorio-a-osserva-poi-formula-la-domanda"
+id="toc-laboratorio-a-osserva-poi-formula-la-domanda"><span
+class="toc-section-number">24.3</span> Laboratorio A: osserva, poi
+formula la domanda</a></li>
+<li><a href="#esempio-minimo-20" id="toc-esempio-minimo-20"><span
+class="toc-section-number">24.4</span> Esempio minimo</a></li>
+<li><a href="#approfondimento-ai-engineer-e-software-engineer"
+id="toc-approfondimento-ai-engineer-e-software-engineer"><span
+class="toc-section-number">24.5</span> Approfondimento AI Engineer e
+software engineer</a></li>
+<li><a href="#verifica-e-consegna" id="toc-verifica-e-consegna"><span
+class="toc-section-number">24.6</span> Verifica e consegna</a></li>
+</ul></li>
+<li><a href="#s01---dalla-richiesta-alla-specifica-verificabile"
+id="toc-s01---dalla-richiesta-alla-specifica-verificabile"><span
+class="toc-section-number">25</span> S01 - Dalla richiesta alla
+specifica verificabile</a>
+<ul>
+<li><a href="#problema-iniziale-21" id="toc-problema-iniziale-21"><span
+class="toc-section-number">25.1</span> Problema iniziale</a></li>
+<li><a href="#risultato-practitioner-1"
+id="toc-risultato-practitioner-1"><span
+class="toc-section-number">25.2</span> Risultato Practitioner</a></li>
+<li><a
+href="#laboratorio-b-modifica-una-regola-senza-perdere-il-controllo"
+id="toc-laboratorio-b-modifica-una-regola-senza-perdere-il-controllo"><span
+class="toc-section-number">25.3</span> Laboratorio B: modifica una
+regola senza perdere il controllo</a></li>
+<li><a href="#esempio-minimo-given-when-then"
+id="toc-esempio-minimo-given-when-then"><span
+class="toc-section-number">25.4</span> Esempio minimo: Given, When,
+Then</a></li>
+<li><a href="#approfondimento-sviluppo-guidato-dalle-specifiche"
+id="toc-approfondimento-sviluppo-guidato-dalle-specifiche"><span
+class="toc-section-number">25.5</span> Approfondimento: sviluppo guidato
+dalle specifiche</a></li>
+<li><a href="#verifica-e-consegna-1"
+id="toc-verifica-e-consegna-1"><span
+class="toc-section-number">25.6</span> Verifica e consegna</a></li>
+</ul></li>
+<li><a href="#s02---implementare-una-porzione-e-verificarla"
+id="toc-s02---implementare-una-porzione-e-verificarla"><span
+class="toc-section-number">26</span> S02 - Implementare una porzione e
+verificarla</a>
+<ul>
+<li><a href="#problema-iniziale-22" id="toc-problema-iniziale-22"><span
+class="toc-section-number">26.1</span> Problema iniziale</a></li>
+<li><a href="#risultato-practitioner-2"
+id="toc-risultato-practitioner-2"><span
+class="toc-section-number">26.2</span> Risultato Practitioner</a></li>
+<li><a href="#laboratorio-c-un-incarico-con-criteri-di-uscita"
+id="toc-laboratorio-c-un-incarico-con-criteri-di-uscita"><span
+class="toc-section-number">26.3</span> Laboratorio C: un incarico con
+criteri di uscita</a></li>
+<li><a href="#esempio-minimo-un-test-che-può-smentire-il-codice"
+id="toc-esempio-minimo-un-test-che-può-smentire-il-codice"><span
+class="toc-section-number">26.4</span> Esempio minimo: un test che può
+smentire il codice</a></li>
+<li><a href="#approfondimento-per-gli-ingegneri"
+id="toc-approfondimento-per-gli-ingegneri"><span
+class="toc-section-number">26.5</span> Approfondimento per gli
+ingegneri</a></li>
+<li><a href="#verifica-e-consegna-2"
+id="toc-verifica-e-consegna-2"><span
+class="toc-section-number">26.6</span> Verifica e consegna</a></li>
+</ul></li>
+<li><a
+href="#s03---diagnosticare-difetti-e-lavorare-su-codice-esistente"
+id="toc-s03---diagnosticare-difetti-e-lavorare-su-codice-esistente"><span
+class="toc-section-number">27</span> S03 - Diagnosticare difetti e
+lavorare su codice esistente</a>
+<ul>
+<li><a href="#problema-iniziale-23" id="toc-problema-iniziale-23"><span
+class="toc-section-number">27.1</span> Problema iniziale</a></li>
+<li><a href="#risultato-practitioner-3"
+id="toc-risultato-practitioner-3"><span
+class="toc-section-number">27.2</span> Risultato Practitioner</a></li>
+<li><a href="#laboratorio-d-una-regressione-intenzionale"
+id="toc-laboratorio-d-una-regressione-intenzionale"><span
+class="toc-section-number">27.3</span> Laboratorio D: una regressione
+intenzionale</a></li>
+<li><a href="#esempio-minimo-osservazione-e-spiegazione"
+id="toc-esempio-minimo-osservazione-e-spiegazione"><span
+class="toc-section-number">27.4</span> Esempio minimo: osservazione e
+spiegazione</a></li>
+<li><a
+href="#approfondimento-software-engineer-brownfield-e-refactoring"
+id="toc-approfondimento-software-engineer-brownfield-e-refactoring"><span
+class="toc-section-number">27.5</span> Approfondimento software
+engineer: brownfield e refactoring</a></li>
+<li><a href="#approfondimento-ai-engineer-generator-e-reviewer"
+id="toc-approfondimento-ai-engineer-generator-e-reviewer"><span
+class="toc-section-number">27.6</span> Approfondimento AI Engineer:
+generator e reviewer</a></li>
+<li><a href="#verifica-e-consegna-3"
+id="toc-verifica-e-consegna-3"><span
+class="toc-section-number">27.7</span> Verifica e consegna</a></li>
+</ul></li>
+<li><a href="#s04---pattern-applicativi-adapter-e-confini"
+id="toc-s04---pattern-applicativi-adapter-e-confini"><span
+class="toc-section-number">28</span> S04 - Pattern applicativi, adapter
+e confini</a>
+<ul>
+<li><a href="#problema-iniziale-24" id="toc-problema-iniziale-24"><span
+class="toc-section-number">28.1</span> Problema iniziale</a></li>
+<li><a href="#risultato-practitioner-4"
+id="toc-risultato-practitioner-4"><span
+class="toc-section-number">28.2</span> Risultato Practitioner</a></li>
+<li><a href="#laboratorio-e-completa-il-servizio"
+id="toc-laboratorio-e-completa-il-servizio"><span
+class="toc-section-number">28.3</span> Laboratorio E: completa il
+servizio</a></li>
+<li><a href="#esempio-minimo-chi-decide"
+id="toc-esempio-minimo-chi-decide"><span
+class="toc-section-number">28.4</span> Esempio minimo: chi
+decide?</a></li>
+<li><a href="#ramo-software-engineer-ports-and-adapters-altre-3-ore"
+id="toc-ramo-software-engineer-ports-and-adapters-altre-3-ore"><span
+class="toc-section-number">28.5</span> Ramo software engineer: ports and
+adapters, altre 3 ore</a></li>
+<li><a href="#ramo-ai-engineer-adapter-llm-e-valutazione-altre-3-ore"
+id="toc-ramo-ai-engineer-adapter-llm-e-valutazione-altre-3-ore"><span
+class="toc-section-number">28.6</span> Ramo AI Engineer: adapter LLM e
+valutazione, altre 3 ore</a></li>
+<li><a href="#verifica-e-consegna-4"
+id="toc-verifica-e-consegna-4"><span
+class="toc-section-number">28.7</span> Verifica e consegna</a></li>
+</ul></li>
+<li><a href="#s05---consegnare-confrontare-e-mantenere"
+id="toc-s05---consegnare-confrontare-e-mantenere"><span
+class="toc-section-number">29</span> S05 - Consegnare, confrontare e
+mantenere</a>
+<ul>
+<li><a href="#problema-iniziale-25" id="toc-problema-iniziale-25"><span
+class="toc-section-number">29.1</span> Problema iniziale</a></li>
+<li><a href="#risultato-practitioner-5"
+id="toc-risultato-practitioner-5"><span
+class="toc-section-number">29.2</span> Risultato Practitioner</a></li>
+<li><a href="#laboratorio-f-prova-di-consegna-a-un-compagno"
+id="toc-laboratorio-f-prova-di-consegna-a-un-compagno"><span
+class="toc-section-number">29.3</span> Laboratorio F: prova di consegna
+a un compagno</a></li>
+<li><a href="#esempio-minimo-una-release-che-si-può-ricostruire"
+id="toc-esempio-minimo-una-release-che-si-può-ricostruire"><span
+class="toc-section-number">29.4</span> Esempio minimo: una release che
+si può ricostruire</a></li>
+<li><a
+href="#ramo-software-engineer-ci-e-cambiamenti-di-specifica-altre-3-ore"
+id="toc-ramo-software-engineer-ci-e-cambiamenti-di-specifica-altre-3-ore"><span
+class="toc-section-number">29.5</span> Ramo software engineer: CI e
+cambiamenti di specifica, altre 3 ore</a></li>
+<li><a href="#ramo-ai-engineer-confronto-locale-e-cloud-altre-3-ore"
+id="toc-ramo-ai-engineer-confronto-locale-e-cloud-altre-3-ore"><span
+class="toc-section-number">29.6</span> Ramo AI Engineer: confronto
+locale e cloud, altre 3 ore</a></li>
+<li><a href="#rubrica-e-criteri-di-completamento"
+id="toc-rubrica-e-criteri-di-completamento"><span
+class="toc-section-number">29.7</span> Rubrica e criteri di
+completamento</a></li>
+</ul></li>
+<li><a href="#report-della-sessione-prenotalab"
+id="toc-report-della-sessione-prenotalab"><span
+class="toc-section-number">30</span> Report della sessione
+PrenotaLab</a>
+<ul>
+<li><a href="#identità-e-obiettivo" id="toc-identità-e-obiettivo"><span
+class="toc-section-number">30.1</span> Identità e obiettivo</a></li>
+<li><a href="#accettazione-prima-dellimplementazione"
+id="toc-accettazione-prima-dellimplementazione"><span
+class="toc-section-number">30.2</span> Accettazione prima
+dell'implementazione</a></li>
+<li><a href="#esiti" id="toc-esiti"><span
+class="toc-section-number">30.3</span> Esiti</a></li>
+<li><a href="#decisione-architetturale-breve"
+id="toc-decisione-architetturale-breve"><span
+class="toc-section-number">30.4</span> Decisione architetturale
+breve</a></li>
+<li><a href="#consegna-riproducibile"
+id="toc-consegna-riproducibile"><span
+class="toc-section-number">30.5</span> Consegna riproducibile</a></li>
+</ul></li>
+<li><a href="#manning-integrazione-software-engineering-e-coding-agent"
+id="toc-manning-integrazione-software-engineering-e-coding-agent"><span
+class="toc-section-number">31</span> Manning: integrazione software
+engineering e coding agent</a>
+<ul>
+<li><a href="#priorità-di-lettura-per-questo-percorso"
+id="toc-priorità-di-lettura-per-questo-percorso"><span
+class="toc-section-number">31.1</span> Priorità di lettura per questo
+percorso</a></li>
+<li><a href="#che-cosa-è-stato-consultato"
+id="toc-che-cosa-è-stato-consultato"><span
+class="toc-section-number">31.2</span> Che cosa è stato
+consultato</a></li>
+<li><a href="#documentazione-primaria-per-gli-strumenti"
+id="toc-documentazione-primaria-per-gli-strumenti"><span
+class="toc-section-number">31.3</span> Documentazione primaria per gli
+strumenti</a></li>
+</ul></li>
 <li><a href="#glossario-essenziale-llm"
 id="toc-glossario-essenziale-llm"><span
-class="toc-section-number">23</span> Glossario essenziale LLM</a></li>
+class="toc-section-number">32</span> Glossario essenziale LLM</a></li>
 </ul>
 </nav>
 <h1 data-number="1" id="come-usare-queste-dispense"><span
@@ -1013,6 +1236,12 @@ href="../docs/course/modules/M19-capstone-pollicino.md">M19</a></td>
 </table>
 <p>Le ore AI Engineer includono le ore Practitioner quando il concetto è
 comune.</p>
+<p>Il <a href="../docs/course/ai-software/README.md">supplemento pratico
+coding agent</a> è un percorso autonomo di 12 ore; non è incluso nei
+totali di questa tabella. Gli obiettivi avanzati descrivono anche
+esercizi da sviluppare: consultare lo <a
+href="../docs/course/release-status.md">stato di rilascio</a> per
+distinguere codice disponibile e lavoro ancora da completare.</p>
 <h1 data-number="3" id="m00--orientamento-e-baseline"><span
 class="header-section-number">3</span> M00 — Orientamento e
 baseline</h1>
@@ -1126,9 +1355,10 @@ di arresto e report per il capstone annuale.</li>
 class="header-section-number">3.9</span> Laboratorio</h2>
 <p>Compila la diagnostica iniziale e il template
 <code>docs/course/templates/evidence-manifest.json</code>. Esegui
-<code>python3 labs/course_lab.py evidence</code> e completa i campi
-mancanti. Non serve ancora installare un modello: lo scopo è imparare a
-registrare una prova prima di essere affascinati dall'output.</p>
+<code>python3 labs/course_lab.py system</code> per raccogliere i dati di
+sistema disponibili e completa manualmente il manifest della prova. Non
+serve ancora installare un modello: lo scopo è imparare a registrare una
+prova prima di essere affascinati dall'output.</p>
 <h2 data-number="3.10" id="verifica-rapida"><span
 class="header-section-number">3.10</span> Verifica rapida</h2>
 <ol type="1">
@@ -1310,10 +1540,11 @@ dimostrabile.</li>
 <h2 data-number="4.10" id="laboratorio-1"><span
 class="header-section-number">4.10</span> Laboratorio</h2>
 <p>Usa la visuale, poi completa una scheda con componenti, proprietario,
-posizione e dati trattati. Esegui
-<code>python3 labs/course_lab.py local-cloud</code> e confronta la tua
-classificazione. La consegna non chiede quale soluzione sia “migliore”
-in assoluto, ma quale soddisfi i vincoli espliciti.</p>
+posizione e dati trattati. Confronta la tua classificazione con un
+compagno indicando il percorso di ogni dato. Questa è un'attività di
+analisi, senza un comando CLI dedicato. La consegna non chiede quale
+soluzione sia “migliore” in assoluto, ma quale soddisfi i vincoli
+espliciti.</p>
 <h2 data-number="4.11" id="verifica-rapida-1"><span
 class="header-section-number">4.11</span> Verifica rapida</h2>
 <p>Spiega in 90 secondi il percorso di un prompt locale; indica due
@@ -1453,12 +1684,15 @@ con round trip esatto.</li>
 <h2 data-number="5.10" id="laboratorio-2"><span
 class="header-section-number">5.10</span> Laboratorio</h2>
 <p>Usa la visuale e poi esegui
-<code>python3 labs/course_lab.py next-token</code>. Registra
-distribuzione, scelta, sorpresa
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msub><mo>log</mo><mn>2</mn></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">-\log_2p</annotation></semantics></math>
-e sequenza. Per Pollicino esegui anche
-<code>python3 labs/course_lab.py arithmetic-codec</code> e verifica che
-input e output coincidano.</p>
+<code>python3 labs/course_lab.py softmax --logits 2 1 0</code>. Registra
+la distribuzione e la sorpresa
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msub><mo>log</mo><mn>2</mn></msub><mi>p</mi></mrow><annotation encoding="application/x-tex">-\log_2p</annotation></semantics></math>;
+per estrarre simboli usa
+<code>python3 labs/course_lab.py sample --seed 7 --draws 100</code>. Per
+Pollicino esegui anche
+<code>python3 labs/course_lab.py pollicino --message ABAAB</code> e
+verifica che input e output coincidano. Sono distribuzioni e codec
+didattici, non inferenza di un modello neurale.</p>
 <h2 data-number="5.11" id="verifica-rapida-2"><span
 class="header-section-number">5.11</span> Verifica rapida</h2>
 <ol type="1">
@@ -1621,10 +1855,13 @@ test esaustivi.</li>
 </ul>
 <h2 data-number="6.10" id="laboratorio-3"><span
 class="header-section-number">6.10</span> Laboratorio</h2>
-<p>Esegui <code>python3 labs/course_lab.py bytes</code> e prova file con
-zero byte, UTF-8 multibyte e dati non testuali. Se disponi di un
-tokenizer reale, registra nome e revisione e confronta rapporto
-byte/token su tre domini.</p>
+<p>Esegui <code>python3 labs/course_lab.py bytes --text 'Caffè €'</code>
+e <code>python3 labs/course_lab.py bytes --text ''</code>. Il comando
+ispeziona testo UTF-8, non legge file binari e non esegue un tokenizer
+di un modello reale. Il confronto con byte nulli e dati non testuali
+richiede un esercizio Python separato. Se disponi di un tokenizer reale,
+registra nome e revisione e confronta rapporto byte/token su tre
+domini.</p>
 <h2 data-number="6.11" id="verifica-rapida-3"><span
 class="header-section-number">6.11</span> Verifica rapida</h2>
 <p>Disegna la catena completa; spiega ID contro embedding; mostra un
@@ -1765,10 +2002,12 @@ riprendibile e redigi model card.</li>
 </ul>
 <h2 data-number="7.10" id="laboratorio-4"><span
 class="header-section-number">7.10</span> Laboratorio</h2>
-<p>Esegui <code>python3 labs/course_lab.py loss</code> e calcola
-cross-entropy e perplexity. Traccia training e validation per un modello
-giocattolo; salva metriche a ogni epoca e seleziona il checkpoint con
-una regola definita prima.</p>
+<p>Esegui <code>python3 labs/course_lab.py gradient --steps 12</code>
+per osservare la discesa del gradiente su una regressione scalare.
+Questo comando non addestra un language model e non calcola
+cross-entropy o perplexity. Calcola queste ultime con le probabilità
+dell'esempio; l'estensione con curve train/validation richiede un
+modello e un dataset separati e non è fornita dal runner minimo.</p>
 <h2 data-number="7.11" id="verifica-rapida-4"><span
 class="header-section-number">7.11</span> Verifica rapida</h2>
 <p>Spiega chi modifica i pesi; distingui validation e test; interpreta
@@ -2156,10 +2395,13 @@ decontaminazione e report.</li>
 </ul>
 <h2 data-number="10.9" id="laboratorio-7"><span
 class="header-section-number">10.9</span> Laboratorio</h2>
-<p>Esegui <code>python3 labs/course_lab.py scaling</code> per esplorare
-una relazione semplificata. Poi crea un corpus giocattolo, calcola hash,
-elimina duplicati e mostra come cambia una metrica. L'obiettivo è vedere
-quanto il dataset possa alterare una conclusione.</p>
+<p>Esplora su carta o in un foglio di calcolo una relazione di scaling
+semplificata, dichiarando parametri e ipotesi: il runner non include un
+simulatore di scaling. Poi crea un corpus giocattolo, calcola hash con
+hashlib, elimina duplicati e mostra come cambia il conteggio.
+L'obiettivo è vedere quanto il dataset possa alterare una conclusione;
+non attribuire alla deduplica una misura di qualità del modello senza un
+eval separato.</p>
 <h2 data-number="10.10" id="verifica-rapida-7"><span
 class="header-section-number">10.10</span> Verifica rapida</h2>
 <p>Spiega perché più dati non equivale a dati migliori; distingui
@@ -2281,10 +2523,14 @@ valuta regressioni.</li>
 </ul>
 <h2 data-number="11.9" id="laboratorio-8"><span
 class="header-section-number">11.9</span> Laboratorio</h2>
-<p>Esegui <code>python3 labs/course_lab.py reasoning</code> su problemi
-verificabili. Pre-registra modalità e budget, poi confronta risposta
-diretta, scomposizione e tool. Non conservare soltanto l'accuratezza
-media: raccogli categorie di errore.</p>
+<p>Prepara problemi verificabili e pre-registra modalità e budget; il
+runner non include un benchmark di reasoning. Con un modello locale
+disponibile confronta richieste dirette e scomposte usando il comando
+ollama descritto in M11. Per una baseline aritmetica deterministica
+esegui
+<code>python3 labs/course_lab.py agent --request 'CALCOLA: (12 + 8) / 5'</code>:
+è un parser con calcolatore, non un agente LLM. Raccogli categorie di
+errore oltre all'accuratezza.</p>
 <h2 data-number="11.10" id="verifica-rapida-8"><span
 class="header-section-number">11.10</span> Verifica rapida</h2>
 <p>Distingui SFT, preferenze e RL; spiega perché il post-training non
@@ -2439,9 +2685,12 @@ scan, conversione e rollback.</li>
 <h2 data-number="12.10" id="laboratorio-9"><span
 class="header-section-number">12.10</span> Laboratorio</h2>
 <p>Compila <code>docs/course/templates/model-decision.md</code> per due
-candidati. Esegui <code>python3 labs/course_lab.py memory</code> come
-prima stima, quindi confronta dimensione file e memoria misurata quando
-il runtime sarà disponibile.</p>
+candidati. Esegui
+<code>python3 labs/course_lab.py memory --parameters 4 --bits 4 --context-k 8 --available 16</code>
+come prima stima didattica, sostituendo i valori con quelli dei
+candidati. Overhead e KV cache nel runner sono euristici, non derivati
+dall'architettura specifica. Confronta dimensione file e memoria
+misurata quando il runtime sarà disponibile.</p>
 <h2 data-number="12.11" id="verifica-rapida-9"><span
 class="header-section-number">12.11</span> Verifica rapida</h2>
 <p>Spiega checkpoint contro architettura; formato contro quantizzazione;
@@ -2571,11 +2820,13 @@ batching/offload.</li>
 </ul>
 <h2 data-number="13.10" id="laboratorio-10"><span
 class="header-section-number">13.10</span> Laboratorio</h2>
-<p>Esegui <code>python3 labs/course_lab.py memory</code> e completa
-prima le stime. Il rehearsal reale usa
-<code>docs/course/rehearsal/README.md</code>: non inventare dati
-hardware prima dell'esecuzione. Conserva un manifest distinto per ogni
-artefatto.</p>
+<p>Esegui
+<code>python3 labs/course_lab.py memory --parameters 4 --bits 4 --context-k 8 --available 16</code>
+e completa prima le stime. Il runner usa overhead e KV cache euristici:
+per il modello scelto usa anche la formula architetturale del modulo. Il
+rehearsal reale usa <code>docs/course/rehearsal/README.md</code>: non
+inventare dati hardware prima dell'esecuzione. Conserva un manifest
+distinto per ogni artefatto.</p>
 <h2 data-number="13.11" id="verifica-rapida-10"><span
 class="header-section-number">13.11</span> Verifica rapida</h2>
 <p>Calcola pesi grezzi; spiega perché il totale è maggiore; distingui
@@ -2709,10 +2960,12 @@ policy e rollback.</li>
 <h2 data-number="14.10" id="laboratorio-11"><span
 class="header-section-number">14.10</span> Laboratorio</h2>
 <p>Segui <code>docs/course/rehearsal/README.md</code> quando sarà
-disponibile il Mac M4 Pro 36 GB. Prima del rehearsal puoi esercitarti
-con <code>python3 labs/course_lab.py ollama-request</code>, che
-costruisce e valida una richiesta senza dichiarare esecuzione
-hardware.</p>
+disponibile il Mac M4 Pro 36 GB. Il comando
+<code>python3 labs/course_lab.py ollama --model '&lt;tag-verificato&gt;' --prompt 'Rispondi solo: OK'</code>
+contatta realmente Ollama e richiede servizio avviato e modello
+installato; sostituisci il segnaposto. Prima del rehearsal puoi leggere
+il payload in <code>ollama_generate</code> e controllare i parametri:
+non esiste una modalità CLI di sola costruzione della richiesta.</p>
 <h2 data-number="14.11" id="verifica-rapida-11"><span
 class="header-section-number">14.11</span> Verifica rapida</h2>
 <p>Mostra la differenza tra CLI e API; identifica modello e runtime;
@@ -2820,10 +3073,12 @@ policy e test avversariali.</li>
 </ul>
 <h2 data-number="15.9" id="laboratorio-12"><span
 class="header-section-number">15.9</span> Laboratorio</h2>
-<p>Usa la visuale e <code>python3 labs/course_lab.py sampling</code>.
-Con modello locale disponibile, esegui una griglia piccola cambiando una
+<p>Usa la visuale e
+<code>python3 labs/course_lab.py sample --seed 7 --draws 100</code>. Con
+modello locale disponibile, esegui una griglia piccola cambiando una
 sola variabile, conserva output e valuta formato, diversità, correttezza
-e costo.</p>
+e costo. Il comando sample usa una distribuzione didattica fissa e non
+interroga Ollama.</p>
 <h2 data-number="15.10" id="verifica-rapida-12"><span
 class="header-section-number">15.10</span> Verifica rapida</h2>
 <p>Calcola un insieme top-p; spiega temperature contro top-k; progetta
@@ -2881,11 +3136,19 @@ class="header-section-number">16.4</span> Esempio minimo</h2>
 class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.request <span class="im">import</span> Request, urlopen</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>payload <span class="op">=</span> {<span class="st">&quot;model&quot;</span>: <span class="st">&quot;MODELLO&quot;</span>, <span class="st">&quot;messages&quot;</span>: [{<span class="st">&quot;role&quot;</span>: <span class="st">&quot;user&quot;</span>, <span class="st">&quot;content&quot;</span>: <span class="st">&quot;Ciao&quot;</span>}], <span class="st">&quot;stream&quot;</span>: <span class="va">False</span>}</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>request <span class="op">=</span> Request(<span class="st">&quot;http://localhost:11434/api/chat&quot;</span>, data<span class="op">=</span>json.dumps(payload).encode(), headers<span class="op">=</span>{<span class="st">&quot;Content-Type&quot;</span>: <span class="st">&quot;application/json&quot;</span>})</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> urlopen(request, timeout<span class="op">=</span><span class="dv">30</span>) <span class="im">as</span> response:</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> json.load(response)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data[<span class="st">&quot;message&quot;</span>][<span class="st">&quot;content&quot;</span>])</span></code></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>payload <span class="op">=</span> {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;model&quot;</span>: <span class="st">&quot;MODELLO&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;messages&quot;</span>: [{<span class="st">&quot;role&quot;</span>: <span class="st">&quot;user&quot;</span>, <span class="st">&quot;content&quot;</span>: <span class="st">&quot;Ciao&quot;</span>}],</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;stream&quot;</span>: <span class="va">False</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>request <span class="op">=</span> Request(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;http://localhost:11434/api/chat&quot;</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>json.dumps(payload).encode(),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    headers<span class="op">=</span>{<span class="st">&quot;Content-Type&quot;</span>: <span class="st">&quot;application/json&quot;</span>},</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> urlopen(request, timeout<span class="op">=</span><span class="dv">30</span>) <span class="im">as</span> response:</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> json.load(response)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data[<span class="st">&quot;message&quot;</span>][<span class="st">&quot;content&quot;</span>])</span></code></pre></div>
 <p>Questo frammento è un punto di partenza, non un'app completa: mancano
 validazione, errori, configurazione, log sicuri e test.</p>
 <h2 data-number="16.5" id="esempio-realistico-13"><span
@@ -3124,10 +3387,12 @@ regressione.</li>
 </ul>
 <h2 data-number="17.10" id="laboratorio-14"><span
 class="header-section-number">17.10</span> Laboratorio</h2>
-<p>Esegui <code>python3 labs/course_lab.py evaluate</code> sulle
-fixture. Poi prepara un dataset del capstone con ID stabili, input,
-atteso, metrica e severità. Ogni esecuzione deve produrre manifest e
-report machine-readable.</p>
+<p>Esegui
+<code>python3 labs/course_lab.py evaluate --predictions labs/fixtures/predictions.jsonl</code>
+sulle fixture. Il comando valuta predizioni già registrate, non
+interroga un modello. Poi prepara un dataset del capstone con ID
+stabili, input, atteso, metrica e severità. Ogni esecuzione deve
+produrre manifest e report machine-readable.</p>
 <h2 data-number="17.11" id="verifica-rapida-14"><span
 class="header-section-number">17.11</span> Verifica rapida</h2>
 <p>Trasforma un requisito in soglia; distingui format-validity e
@@ -3246,10 +3511,15 @@ valutata.</li>
 </ul>
 <h2 data-number="18.10" id="laboratorio-15"><span
 class="header-section-number">18.10</span> Laboratorio</h2>
-<p>Esegui <code>python3 labs/course_lab.py rag</code> sulle fixture.
-Registra ranking e chunk forniti. Aggiungi un documento con prompt
-injection e dimostra che non ottiene privilegi. Con Ollama, confronta
-generazione con e senza evidenza mantenendo fissi modello e decoder.</p>
+<p>Esegui
+<code>python3 labs/course_lab.py rag --query 'Perché serve una baseline?'</code>
+sulle fixture. Il comando esegue retrieval lessicale, senza embedding
+neurali né generazione. Registra ranking e chunk forniti; non attribuire
+questo risultato a una pipeline RAG completa. Come estensione integra il
+contesto in una richiesta Ollama e confronta con la richiesta senza
+evidenza mantenendo fissi modello e decoder. Il test dei confini di
+fiducia richiede tale applicazione completa: non è dimostrato dal solo
+ranking.</p>
 <h2 data-number="18.11" id="verifica-rapida-15"><span
 class="header-section-number">18.11</span> Verifica rapida</h2>
 <p>Spiega ogni stadio; distingui recall retrieval e correctness;
@@ -3366,11 +3636,14 @@ test avversariali.</li>
 </ul>
 <h2 data-number="19.10" id="laboratorio-16"><span
 class="header-section-number">19.10</span> Laboratorio</h2>
-<p>Esegui <code>python3 labs/course_lab.py tool-policy</code>.
-Costruisci prima un tool finto che registra la proposta senza agire.
-Aggiungi validazione, autorizzazione e conferma. Testa argomenti
-invalidi, chiamata duplicata, timeout e contenuto malevolo
-recuperato.</p>
+<p>Esegui
+<code>python3 labs/course_lab.py agent --request 'CALCOLA: (12 + 8) / 5'</code>.
+È un parser deterministico con calcolatore, senza pianificazione LLM né
+protocollo MCP. L'estensione con tool finto, validazione, autorizzazione
+e conferma richiede un'applicazione separata. Il percorso pratico
+S00-S05 aggiunge sviluppo con coding agent e un adapter locale di sola
+proposta, mantenendo distinta la verifica del software da quella di un
+agente reale.</p>
 <h2 data-number="19.11" id="verifica-rapida-16"><span
 class="header-section-number">19.11</span> Verifica rapida</h2>
 <p>Spiega chi decide l'esecuzione; indica che cosa MCP standardizza e
@@ -3519,10 +3792,13 @@ dati→training→eval→merge→rollback.</li>
 </ul>
 <h2 data-number="20.10" id="laboratorio-17"><span
 class="header-section-number">20.10</span> Laboratorio</h2>
-<p>Esegui <code>python3 labs/course_lab.py adaptation</code> per
-l'albero decisionale. L'estensione reale usa un modello piccolo e
-dataset non sensibile. Prima dell'addestramento congela eval set e
-criteri; dopo misura task target, regressioni, memoria e latenza.</p>
+<p>Costruisci su carta l'albero decisionale tra prompting, RAG e
+adattamento: il runner non implementa fine-tuning o LoRA. L'estensione
+reale richiede un modello piccolo, dataset non sensibile e un ambiente
+di training separato. Prima dell'addestramento congela eval set e
+criteri; dopo misura task target, regressioni, memoria e latenza. Non
+presentare l'albero decisionale come evidenza di un training
+eseguito.</p>
 <h2 data-number="20.11" id="verifica-rapida-17"><span
 class="header-section-number">20.11</span> Verifica rapida</h2>
 <p>Scegli tra RAG e LoRA in tre scenari; calcola i parametri LoRA;
@@ -3640,10 +3916,13 @@ fallback e benchmark CI.</li>
 </ul>
 <h2 data-number="21.10" id="laboratorio-18"><span
 class="header-section-number">21.10</span> Laboratorio</h2>
-<p>Esegui <code>python3 labs/course_lab.py serving</code>. Costruisci
-prima una simulazione di scheduling. Nel livello avanzato implementa
-softmax o matmul in NumPy/framework e una versione ottimizzata; riporta
-accelerazione solo dopo equivalenza entro tolleranza.</p>
+<p>Esegui <code>python3 labs/course_lab.py attention</code> per
+osservare un calcolo didattico in Python e usa la visuale
+prefill/decode. Il runner non include scheduler né kernel hardware
+ottimizzati. Nel livello avanzato implementa softmax o matmul in
+NumPy/framework e una versione ottimizzata come progetto separato;
+riporta accelerazione solo dopo equivalenza entro tolleranza e misure
+sul dispositivo dichiarato.</p>
 <h2 data-number="21.11" id="verifica-rapida-18"><span
 class="header-section-number">21.11</span> Verifica rapida</h2>
 <p>Spiega prefill contro decode; indica perché serve KV cache; descrivi
@@ -3810,10 +4089,14 @@ manifest e benchmark.</li>
 </ul>
 <h2 data-number="22.12" id="laboratorio-e-verifica"><span
 class="header-section-number">22.12</span> Laboratorio e verifica</h2>
-<p>Esegui <code>python3 labs/course_lab.py arithmetic-codec</code>. Il
+<p>Esegui
+<code>python3 labs/course_lab.py pollicino --message ABAAB</code>. Il
 test esaustivo corrente copre tutte le 2.046 sequenze A/B di lunghezza
-1–10. Estendi con empty input, tutti i byte, file casuali, truncation e
-bit flip. La prova finale segue
+1–10. Il codec accetta solo stringhe A/B non vuote fino a 64 simboli:
+input vuoto e altri simboli devono essere rifiutati. Supportare tutti i
+byte, file arbitrari e un predittore neurale richiede un nuovo
+codec/formato e test dedicati; non è una funzione già presente. La prova
+finale segue
 <code>docs/course/assessments/final-practical.md</code>.</p>
 <p>Rubrica: correttezza/round trip 3; riproducibilità 2; valutazione e
 baseline 2; architettura e sicurezza 2; limiti e comunicazione 1.
@@ -3838,8 +4121,893 @@ bit</a></li>
 pratica finale</a></li>
 <li>Activity: <code>llm-activity-m19-pollicino</code></li>
 </ul>
-<h1 data-number="23" id="glossario-essenziale-llm"><span
-class="header-section-number">23</span> Glossario essenziale LLM</h1>
+<h1 data-number="23"
+id="percorso-pratico-progettare-software-con-coding-agent"><span
+class="header-section-number">23</span> Percorso pratico: progettare
+software con coding agent</h1>
+<p>Questo percorso insegna a realizzare e mantenere software usando l'AI
+nel lavoro quotidiano. Non richiede lo studio della matematica dei
+Transformer. Si collega a M11-M16 per scelta del modello, API, contesto
+e valutazione. Il prodotto guida è <strong>PrenotaLab</strong>, un
+gestore di prenotazioni scolastiche.</p>
+<h2 data-number="23.1" id="risultati-e-destinatari"><span
+class="header-section-number">23.1</span> Risultati e destinatari</h2>
+<p>Lo studente trasforma una richiesta in esempi verificabili, prepara
+il contesto per un agente, rivede un diff, diagnostica una regressione e
+consegna codice che sa spiegare. Servono funzioni, liste, eccezioni
+Python e test elementari; per chi parte da zero prevedere un laboratorio
+Python preliminare.</p>
+<p>Il percorso avanzato ha due diramazioni pratiche. L'<strong>AI
+Engineer</strong> progetta adapter LLM, valuta output strutturati e
+confronta modelli sul proprio compito. Il <strong>software
+engineer</strong> lavora su codice esistente, confini architetturali,
+transazioni, concorrenza, revisioni di specifica e integrazione
+continua. Sono approfondimenti dello stesso progetto, non qualifiche
+professionali ottenibili con dodici ore di esercizi.</p>
+<h2 data-number="23.2" id="sequenza-didattica"><span
+class="header-section-number">23.2</span> Sequenza didattica</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Lezione</th>
+<th>Attività principale</th>
+<th>Consegna</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../docs/course/ai-software/S00-contesto.md">S00</a></td>
+<td>A: leggere ed eseguire</td>
+<td>Baseline e mappa del repo</td>
+</tr>
+<tr class="even">
+<td><a href="../docs/course/ai-software/S01-specifiche.md">S01</a></td>
+<td>B: precisare le regole</td>
+<td>Specifica e casi di accettazione</td>
+</tr>
+<tr class="odd">
+<td><a
+href="../docs/course/ai-software/S02-implementazione.md">S02</a></td>
+<td>C: implementare una porzione</td>
+<td>Patch, test e spiegazione</td>
+</tr>
+<tr class="even">
+<td><a href="../docs/course/ai-software/S03-diagnosi.md">S03</a></td>
+<td>D: diagnosticare</td>
+<td>Regressione riprodotta e corretta</td>
+</tr>
+<tr class="odd">
+<td><a href="../docs/course/ai-software/S04-pattern.md">S04</a></td>
+<td>E: costruire un mini-progetto</td>
+<td>Cancellazione e adapter</td>
+</tr>
+<tr class="even">
+<td><a href="../docs/course/ai-software/S05-consegna.md">S05</a></td>
+<td>F: integrare e valutare</td>
+<td>Release riproducibile e report</td>
+</tr>
+</tbody>
+</table>
+<p>La pianificazione autonoma è di <strong>6 incontri da 2 ore: 12 ore
+per la classe</strong>. Gli approfondimenti richiedono indicativamente
+altre 6 ore per il ramo AI Engineer e altre 6 per il ramo software
+engineer, da validare con un pilot. Chi svolge entrambi aggiunge 12 ore,
+oltre le 12 comuni.</p>
+<p>Il Course Design annuale LLM resta di <strong>34 settimane × 2 ore =
+68 ore</strong>. Questo supplemento ha un proprio Content Pack/Course
+Design. Per inserirlo nell'anno occorre allocare esplicitamente 12 ore
+aggiuntive (80 totali), oppure sostituire laboratori per 12 ore e
+registrare nel piano quali vengono rimandati. Qui non viene effettuata
+una sostituzione implicita.</p>
+<h2 data-number="23.3" id="materiali-e-modalità"><span
+class="header-section-number">23.3</span> Materiali e modalità</h2>
+<p>Il <a href="../labs/ai_software/README.md">kit eseguibile</a> esporta
+soltanto i file studente in un nuovo repository di lavoro. La soluzione
+docente non deve essere passata al coding agent durante l'esercizio. I
+metadati separano gli asset studente/docente; il repository GitHub
+pubblico non rende segrete le soluzioni. Per una verifica sommativa il
+docente deve usare una variante non pubblicata.</p>
+<p>Un coding agent può leggere file, proporre modifiche e, secondo lo
+strumento, eseguire verifiche. Un modello è solo una parte del sistema:
+contano anche strumenti, istruzioni, contesto, permessi e interfaccia.
+Il percorso è neutrale rispetto al prodotto; funziona con uno strumento
+disponibile nel laboratorio, oppure con un assistente locale e
+applicazione manuale delle patch. Nel secondo caso registrare
+<strong>sviluppo assistito</strong>, senza dichiarare un agente
+autonomo.</p>
+<p>Il progetto base funziona senza account e senza un modello. Per
+certificare l'esperienza con un coding agent, però, serve almeno una
+sessione reale con prompt, modifiche e verifiche registrati. I test
+automatici di questo repository validano gli esempi software, non le
+prestazioni di un agente o l'efficacia in classe.</p>
+<p>Le dispense, i test e le figure sono originali. I <a
+href="../docs/course/sources/manning-coding-agents-2026-09-10.md">riferimenti
+Manning verificati</a> guidano gli approfondimenti del docente; il
+laboratorio non dipende da capitoli MEAP ancora da pubblicare. Lo stato
+editoriale del nuovo pack è <code>draft</code> in attesa di revisione
+didattica. Non è ancora un Course Bundle approvato.</p>
+<h1 data-number="24"
+id="s00---leggere-il-progetto-prima-di-delegare"><span
+class="header-section-number">24</span> S00 - Leggere il progetto prima
+di delegare</h1>
+<h2 data-number="24.1" id="problema-iniziale-20"><span
+class="header-section-number">24.1</span> Problema iniziale</h2>
+<p>La segreteria chiede: «Ci serve qualcosa per prenotare i laboratori
+senza sovrapposizioni». Un agente potrebbe produrre subito
+un'applicazione elegante. Non sa però se sono ammessi incontri
+consecutivi, quali aule esistono e che cosa deve accadere quando un
+utente preme due volte lo stesso pulsante. L'obiettivo iniziale è
+scoprire queste decisioni e osservare il software esistente.</p>
+<p>Pensa al contesto come alla cartella consegnata a un collega che
+entra oggi nel progetto: deve contenere la domanda, le regole e i file
+pertinenti. Una cartella enorme piena di versioni contraddittorie può
+confondere più di una cartella piccola e curata. L'analogia riguarda
+l'organizzazione del lavoro: non implica che il modello comprenda o
+ricordi come una persona.</p>
+<h2 data-number="24.2" id="risultato-practitioner"><span
+class="header-section-number">24.2</span> Risultato Practitioner</h2>
+<p>Alla fine sai distinguere requisito, comportamento osservato e
+ipotesi; prepari una richiesta limitata; riconosci se il sistema sta
+solo suggerendo testo oppure sta modificando un repository. Non devi
+scegliere il modello «migliore in assoluto»: devi verificare che lo
+strumento disponibile sappia leggere i file del piccolo progetto e
+proporti un diff comprensibile.</p>
+<p>Esporta lo starter seguendo il README del kit. Esegui i nove test
+pubblici prima di modificare i file. Alcuni falliscono intenzionalmente:
+conserva l'output iniziale. Scrivi quali casi passano, quali falliscono
+e quali terminano con un'eccezione. Il numero di test verdi è una
+fotografia della baseline, non un voto.</p>
+<h2 data-number="24.3"
+id="laboratorio-a-osserva-poi-formula-la-domanda"><span
+class="header-section-number">24.3</span> Laboratorio A: osserva, poi
+formula la domanda</h2>
+<p>Dedica 20 minuti alla lettura, 25 alla baseline, 25 al confronto con
+l'agente, 30 alla mappa del progetto e 20 alla discussione. È una
+traccia di 120 minuti, da adattare ai tempi reali della classe.</p>
+<p>In <code>booking.py</code> individua il record <code>Booking</code>,
+il servizio <code>BookingService</code> e la funzione
+<code>overlaps</code>. Nel file di test riconosci preparazione, azione e
+asserzione. Collega almeno tre nomi di test agli ID della specifica. Un
+nome come <code>test_R02_adjacent_is_allowed</code> racconta l'intento,
+ma devi leggere anche l'asserzione per sapere che cosa controlla
+davvero.</p>
+<p>Fornisci all'agente solo SPEC.md, booking.py e test_booking.py dello
+starter. Usa questa richiesta iniziale e conserva la risposta:</p>
+<blockquote>
+<p>Leggi questi tre file. Non modificarli ancora. Descrivi il flusso di
+una prenotazione, identifica le regole implementate e quelle mancanti.
+Per ogni osservazione cita funzione o test. Separa ciò che hai eseguito
+da ciò che hai dedotto. Proponi tre domande di chiarimento sul
+dominio.</p>
+</blockquote>
+<p>Controlla ogni riferimento della risposta. Se l'agente cita una
+funzione che non esiste, registra l'errore e ripeti con contesto più
+preciso. Se afferma «tutti i test passano», chiedi il comando e
+confrontalo con il tuo output. Una spiegazione plausibile non
+sostituisce una verifica eseguita.</p>
+<h2 data-number="24.4" id="esempio-minimo-20"><span
+class="header-section-number">24.4</span> Esempio minimo</h2>
+<p>La frase «le due prenotazioni si toccano» è ambigua. La baseline usa
+<code>&lt;=</code> nella funzione di sovrapposizione; la specifica
+accetta invece gli intervalli consecutivi. Osserva una prenotazione
+540-600 e una 600-660. Prima predici il risultato, poi esegui il
+relativo test. Hai trovato un disaccordo preciso fra documento e codice,
+abbastanza piccolo da discutere senza conoscere l'intera app.</p>
+<h2 data-number="24.5"
+id="approfondimento-ai-engineer-e-software-engineer"><span
+class="header-section-number">24.5</span> Approfondimento AI Engineer e
+software engineer</h2>
+<p>Prepara una mappa del contesto a tre colonne: file, ragione per
+includerlo, scadenza dell'informazione. La specifica vale finché non è
+revisionata; un log vale per un'esecuzione; una documentazione del
+provider richiede una versione o data. Per un repository grande chiedi
+prima un elenco di file candidati, poi leggi le dipendenze necessarie:
+includere tutto indiscriminatamente può sprecare contesto e introdurre
+istruzioni incompatibili.</p>
+<p>Confronta due sessioni fresche: una con la sola richiesta vaga e una
+con i tre file. Misura riferimenti corretti, omissioni e tempo umano per
+la revisione. Non dedurre un vantaggio generale da una sola coppia di
+risposte. Conserva strumento/versione, modello dichiarato, eventuale
+revisione locale, prompt e commit iniziale. Se il servizio non espone il
+modello esatto, scrivi «non esposto».</p>
+<h2 data-number="24.6" id="verifica-e-consegna"><span
+class="header-section-number">24.6</span> Verifica e consegna</h2>
+<p>Consegna baseline, mappa di tre file e una pagina di osservazioni
+corrette o respinte. Spiega a voce una regola senza consultare la
+risposta dell'AI. Domanda diagnostica: se cambi modello ma lasci un
+documento obsoleto nel contesto, quale problema rimane? Risposta attesa:
+le istruzioni sul comportamento desiderato restano sbagliate o
+contraddittorie; un modello diverso non le corregge per definizione.</p>
+<p>Il pattern praticato è <strong>esplora, pianifica, modifica,
+verifica</strong>. In questa lezione completi solo le prime due fasi.
+Passa a S01 con almeno un'ambiguità reale da risolvere, non con una
+lunga lista generica di consigli.</p>
+<h1 data-number="25"
+id="s01---dalla-richiesta-alla-specifica-verificabile"><span
+class="header-section-number">25</span> S01 - Dalla richiesta alla
+specifica verificabile</h1>
+<h2 data-number="25.1" id="problema-iniziale-21"><span
+class="header-section-number">25.1</span> Problema iniziale</h2>
+<p>«Gestisci correttamente le prenotazioni» non dice che cosa fare con
+una durata zero o con una richiesta ripetuta. Anche «nessuna
+sovrapposizione» lascia aperto il caso degli intervalli consecutivi. La
+specifica serve a rendere queste scelte esplicite prima che diventino
+decisioni accidentali del codice.</p>
+<p>Per la classe la specifica è un accordo scritto con esempi: come le
+regole di un gioco che permettono di risolvere una discussione durante
+una partita. L'analogia smette di essere sufficiente quando il dominio
+cresce: in un sistema reale ci sono requisiti incompatibili, eccezioni e
+costi da negoziare.</p>
+<h2 data-number="25.2" id="risultato-practitioner-1"><span
+class="header-section-number">25.2</span> Risultato Practitioner</h2>
+<p>Sai scrivere una regola osservabile, scegliere esempi ai confini e
+collegare un test alla regola. Parti dal contratto v1 fornito: il primo
+esercizio non chiede di inventare ogni decisione, ma di capire perché
+quelle decisioni servono. La variante successiva verrà invece progettata
+da te.</p>
+<p>Una specifica utile contiene scopo, esclusioni, termini, invarianti,
+esempi, errori e criteri di completamento. L'invariante qui è: nessuna
+coppia di prenotazioni attive della stessa aula occupa minuti in comune.
+Gli ID R01-R06 permettono di discutere e tracciare le regole senza
+dipendere dal numero di riga.</p>
+<h2 data-number="25.3"
+id="laboratorio-b-modifica-una-regola-senza-perdere-il-controllo"><span
+class="header-section-number">25.3</span> Laboratorio B: modifica una
+regola senza perdere il controllo</h2>
+<p>Nei primi 25 minuti leggi R01-R06 e traduci 540 e 600 in orari. Nei
+successivi 25 scrivi esempi con input e risultato atteso. Dedica 30
+minuti alla revisione con un compagno o un agente, 25 alla variante e 15
+alla restituzione.</p>
+<p>Per R02 prepara tre casi: intervalli sovrapposti, adiacenti e stessa
+fascia in due aule diverse. Per R03 considera l'apertura alle 08:00, la
+chiusura alle 18:00 e la durata massima di tre ore. «Input sbagliato» va
+precisato: deve essere rifiutato e lo stato deve rimanere invariato.</p>
+<p>Chiedi all'agente di agire come revisore della specifica:</p>
+<blockquote>
+<p>Controlla R01-R06. Per ogni regola cerca un caso limite e un
+possibile conflitto con un'altra regola. Non cambiare i requisiti e non
+scrivere codice. Restituisci una tabella requisito, caso, risultato
+previsto, dubbio residuo.</p>
+</blockquote>
+<p>Decidi quali osservazioni accettare e perché. Un agente può suggerire
+di aggiungere login, email o un calendario completo: sono nuove
+funzionalità, da valutare rispetto allo scopo. La richiesta non
+autorizza ad ampliare il prodotto ogni volta che viene in mente una
+possibilità.</p>
+<p>La variante B porta la durata massima da 180 a 120 minuti. Scrivi una
+breve richiesta di modifica con motivazione e nuovi casi: 120 minuti
+ammessi, 121 rifiutati. Elenca i test e i documenti coinvolti.
+<strong>Non applicare la variante al contratto condiviso della
+classe</strong>: consegnala come proposta separata, così S02 può usare
+la baseline comune v1. Il docente può adottarla in un branch dedicato
+per un'esercitazione successiva.</p>
+<h2 data-number="25.4" id="esempio-minimo-given-when-then"><span
+class="header-section-number">25.4</span> Esempio minimo: Given, When,
+Then</h2>
+<p>Given LAB-A prenotata dalle 09:00 alle 10:00; When chiedo LAB-A dalle
+10:00 alle 11:00; Then la richiesta riesce e ci sono due prenotazioni
+attive. Spostare l'inizio alle 09:59 cambia l'esito: la richiesta
+fallisce e lo stato contiene ancora una sola prenotazione. Un minuto
+basta a distinguere due interpretazioni che una descrizione generica
+confonde.</p>
+<p>Gli esempi non coprono automaticamente tutte le combinazioni. Sono un
+ponte fra accordo umano e test eseguibili. Chi implementa deve anche
+riconoscere la regola generale, altrimenti potrebbe codificare solamente
+i casi mostrati.</p>
+<h2 data-number="25.5"
+id="approfondimento-sviluppo-guidato-dalle-specifiche"><span
+class="header-section-number">25.5</span> Approfondimento: sviluppo
+guidato dalle specifiche</h2>
+<p>Nel lavoro guidato dalle specifiche si versionano insieme intento,
+piano, test e implementazione. Una modifica al comportamento inizia
+aggiornando l'accordo; la revisione verifica che il diff realizzi
+proprio quel cambiamento. Non basta chiamare un file
+<code>spec.md</code> per ottenere questo risultato.</p>
+<p>L'ingegnere del software aggiunge una matrice R01-R08 → test →
+componente, una decisione architetturale breve e una procedura per
+modificare le regole. L'AI Engineer aggiunge esempi di output
+formalmente valido ma semanticamente errato: «LAB-B» al posto di «LAB-A»
+passa lo schema JSON, ma non soddisfa la richiesta.</p>
+<p>Strumenti come GitHub Spec Kit e OpenSpec possono organizzare gli
+artefatti di questo processo. Il laboratorio parte da file semplici per
+rendere visibili le decisioni. Come estensione, importa la stessa
+piccola funzionalità nello strumento scelto e confronta documenti
+prodotti, manutenzione e tracciabilità; consulta il suo README corrente
+per installazione e comandi. Non presumere che template differenti
+abbiano lo stesso significato.</p>
+<h2 data-number="25.6" id="verifica-e-consegna-1"><span
+class="header-section-number">25.6</span> Verifica e consegna</h2>
+<p>Consegna sei esempi nuovi, la proposta della variante B e la matrice
+di tracciabilità iniziale. Un compagno deve poter decidere l'esito di
+ogni esempio senza chiederti spiegazioni. Domanda diagnostica: se codice
+e test concordano ma contraddicono una regola approvata, che cosa è
+sbagliato? L'implementazione e i test possono condividere lo stesso
+errore; occorre tornare all'intento e chiarirlo, non approvare il
+cambiamento solo perché la suite è verde.</p>
+<h1 data-number="26"
+id="s02---implementare-una-porzione-e-verificarla"><span
+class="header-section-number">26</span> S02 - Implementare una porzione
+e verificarla</h1>
+<h2 data-number="26.1" id="problema-iniziale-22"><span
+class="header-section-number">26.1</span> Problema iniziale</h2>
+<p>Delegare «completa tutta l'app» produce spesso un diff difficile da
+leggere. Se cambiano insieme struttura, nomi, regole e test, non è
+facile capire perché una prenotazione prima riuscisse e ora fallisca. Il
+laboratorio limita il primo incarico a una porzione completa del
+comportamento: prenotare, controllare i dati e rilevare i conflitti.</p>
+<p>Immagina una fetta di torta che attraversa tutti gli strati: una
+piccola funzione utile deve collegare requisito, codice e verifica.
+Scrivere soltanto tutte le classi vuote equivale a preparare uno strato
+isolato: non dimostra ancora che l'utente possa completare
+un'azione.</p>
+<h2 data-number="26.2" id="risultato-practitioner-2"><span
+class="header-section-number">26.2</span> Risultato Practitioner</h2>
+<p>Sai chiedere una patch circoscritta, verificare un test che fallisce
+prima e passa dopo, e spiegare il cambiamento. La prima porzione
+realizza R01-R03; la seconda aggiunge R04. R05-R06 vengono completati
+nel mini-progetto S04. Finché ci sono requisiti mancanti, la suite
+completa può correttamente restare rossa.</p>
+<p>Usa il branch creato nello starter. Prima leggi i test R01-R03 e
+annota gli esiti attesi senza l'aiuto dell'agente. Conserva i test
+pubblici: sono parte del contratto didattico. Se ritieni un test errato,
+apri una discussione sulla regola, invece di modificarlo per ottenere il
+verde.</p>
+<h2 data-number="26.3"
+id="laboratorio-c-un-incarico-con-criteri-di-uscita"><span
+class="header-section-number">26.3</span> Laboratorio C: un incarico con
+criteri di uscita</h2>
+<p>Dedica 20 minuti al piano, 40 alla prima porzione, 30 all'idempotenza
+e 30 alla revisione. Puoi iniziare con questa richiesta:</p>
+<blockquote>
+<p>Implementa soltanto R01-R03 in booking.py. Mantieni le firme
+pubbliche, usa solo la libreria standard e non cambiare i test forniti.
+Prima indica quali funzioni toccherai. Dopo mostra il diff e l'esito dei
+test eseguiti. Elenca separatamente i requisiti ancora mancanti.</p>
+</blockquote>
+<p>Dopo la modifica esegui i test e leggi il diff con
+<code>git diff</code>. Verifica che la soluzione controlli i dati prima
+di modificare lo stato. Aggiungi tu un caso non suggerito dall'agente:
+una prenotazione che finisce esattamente alle 18:00 oppure un intervallo
+completamente contenuto in uno già occupato.</p>
+<p>Per R04 prepara prima un esempio di retry: la richiesta r1 può
+arrivare due volte perché l'interfaccia non ha ricevuto la risposta del
+primo invio. Il risultato deve essere lo stesso record, non una seconda
+prenotazione e neppure un errore di conflitto. Chiedi una seconda patch
+solo per questa regola. Poi riusa r1 cambiando aula: ora il sistema deve
+rifiutare la richiesta.</p>
+<p>Non occorre chiedere pensieri interni al modello. Sono sufficienti un
+piano breve, riferimenti al codice, scelte verificabili ed esiti dei
+comandi. Una spiegazione molto lunga non aumenta da sola la qualità
+della patch.</p>
+<h2 data-number="26.4"
+id="esempio-minimo-un-test-che-può-smentire-il-codice"><span
+class="header-section-number">26.4</span> Esempio minimo: un test che
+può smentire il codice</h2>
+<p>Se il codice usa <code>a_start &lt;= b_end</code>, il caso 540-600
+seguito da 600-660 fallisce. Con la regola semichiusa serve un confronto
+stretto. Prima del cambiamento il test segnala il disaccordo; dopo deve
+passare. Aggiungi anche 599-660, che deve continuare a essere rifiutato:
+una correzione che accetta tutto renderebbe verde il primo esempio e
+violerebbe comunque R02.</p>
+<p>Questo è il valore del ciclo <strong>test fallisce, modifica minima,
+test passa, riordina preservando il comportamento</strong>. Non tutti i
+test devono necessariamente essere scritti prima del codice, ma ogni
+requisito importante deve avere un controllo capace di rilevarne una
+violazione.</p>
+<h2 data-number="26.5" id="approfondimento-per-gli-ingegneri"><span
+class="header-section-number">26.5</span> Approfondimento per gli
+ingegneri</h2>
+<p>Il pattern <strong>functional core / imperative shell</strong> separa
+calcoli deterministici da letture e scritture. <code>overlaps</code>
+restituisce un booleano e non modifica archivi; il servizio decide
+quando salvare. Si può così verificare la funzione con molte
+combinazioni senza avviare un server o interrogare un LLM.</p>
+<p>Il software engineer controlla anche che le modifiche non alterino
+API o ordinamento dei risultati senza una nuova specifica. Mantiene
+commit piccoli con messaggi che spiegano il cambiamento osservabile. Non
+misura il progresso contando righe generate: meno codice può soddisfare
+meglio lo stesso contratto.</p>
+<p>L'AI Engineer ripete un solo incarico su due configurazioni, partendo
+ogni volta dallo stesso commit. Conserva prompt, contesto, diff, tempo
+di revisione e numero di tentativi. Fissa prima il budget, per esempio
+15 minuti e due cicli di correzione. Il tempo speso a verificare e
+correggere fa parte del costo, anche quando la risposta del modello
+arriva in pochi secondi.</p>
+<h2 data-number="26.6" id="verifica-e-consegna-2"><span
+class="header-section-number">26.6</span> Verifica e consegna</h2>
+<p>Consegna due patch leggibili, i test iniziali e finali, un caso
+aggiunto da te e l'elenco R05-R06 ancora da implementare. Devi saper
+indicare il punto in cui lo stato cambia e spiegare perché un errore non
+deve lasciare metà operazione. Domanda diagnostica: perché un test
+scritto dallo stesso agente che genera il codice potrebbe essere
+insufficiente? Può condividere la stessa interpretazione errata; servono
+casi ricavati dalla specifica e una revisione indipendente.</p>
+<h1 data-number="27"
+id="s03---diagnosticare-difetti-e-lavorare-su-codice-esistente"><span
+class="header-section-number">27</span> S03 - Diagnosticare difetti e
+lavorare su codice esistente</h1>
+<h2 data-number="27.1" id="problema-iniziale-23"><span
+class="header-section-number">27.1</span> Problema iniziale</h2>
+<p>Un compagno segnala: «Non riesco a prenotare subito dopo un'altra
+lezione». L'agente propone di riscrivere il calendario. Prima di
+accettare una modifica ampia, devi capire se il difetto dipende da una
+regola sbagliata, da un confronto nel codice o da un dato interpretato
+male. La segnalazione descrive un sintomo; la diagnosi deve individuare
+la causa.</p>
+<p>Il debugging assomiglia a un esperimento: formula un'ipotesi, scegli
+una prova che possa smentirla e osserva il risultato. Aggiungere
+modifiche casuali finché la schermata sembra funzionare rende difficile
+capire che cosa abbia risolto il problema e che cosa possa essersi rotto
+altrove.</p>
+<h2 data-number="27.2" id="risultato-practitioner-3"><span
+class="header-section-number">27.2</span> Risultato Practitioner</h2>
+<p>Sai ridurre una segnalazione a un caso ripetibile, identificare una
+riga responsabile e mantenere un test di regressione. Sai anche fermare
+un ciclo di correzioni quando non produce nuove evidenze. Il codice
+esistente viene prima compreso e caratterizzato, poi cambiato.</p>
+<h2 data-number="27.3"
+id="laboratorio-d-una-regressione-intenzionale"><span
+class="header-section-number">27.3</span> Laboratorio D: una regressione
+intenzionale</h2>
+<p>Parti dal risultato R01-R04 di S02. Salva il commit funzionante. In
+una copia di lavoro dedicata, il docente reintroduce il confronto
+inclusivo nella funzione <code>overlaps</code>. È una mutazione
+didattica di una regola di calendario, non un test di intrusione. I test
+esistenti devono rilevarla.</p>
+<p>Nei primi 20 minuti riproduci il sintomo, nei successivi 30 scrivi e
+confronta due ipotesi. Dedica 30 minuti alla patch e 25 alla
+regressione; usa gli ultimi 15 per il resoconto. Prima di interrogare
+l'agente, scrivi che cosa ti aspetti per 599, 600 e 601 come inizio
+della seconda prenotazione.</p>
+<p>Usa questo incarico:</p>
+<blockquote>
+<p>Il test sugli intervalli adiacenti fallisce. Riproduci il caso con
+due prenotazioni, confronta il risultato con R02 e identifica la causa
+minima. Proponi una patch limitata. Mantieni i casi di sovrapposizione e
+mostra quali test dimostrano che la correzione non li ha indeboliti.</p>
+</blockquote>
+<p>Leggi la risposta prima di applicarla. Una proposta che elimina il
+controllo dei conflitti fa riuscire la richiesta segnalata ma viola
+l'invariante. Una proposta che cambia il test per rifiutare gli
+intervalli adiacenti modifica il requisito senza averne discusso
+l'intento.</p>
+<p>Ripeti con un secondo difetto scelto dal docente: includere i record
+cancellati nel controllo dei conflitti, oppure trattare il retry come
+una nuova richiesta. In questo secondo caso la correzione riguarda
+l'ordine delle verifiche: prima riconosci l'identità della richiesta,
+poi cerchi conflitti con altre richieste.</p>
+<h2 data-number="27.4"
+id="esempio-minimo-osservazione-e-spiegazione"><span
+class="header-section-number">27.4</span> Esempio minimo: osservazione e
+spiegazione</h2>
+<p><img src="../visuals/static/rendered/booking-intervals.png"
+alt="R02: intervalli adiacenti ammessi e confronto inclusivo errato" /></p>
+<p>Esplora la <a href="../visuals/booking-spec-tests.html">simulazione
+interattiva</a> con inizi alle 09:59, 10:00 e 10:01, prima e dopo la
+correzione.</p>
+<p>Osservazione: «prenotazione 600-660 rifiutata dopo 540-600». Ipotesi
+A: il sistema include il minuto finale nel primo intervallo. Ipotesi B:
+il sistema rifiuta ogni seconda prenotazione. Prova discriminante:
+prenota 660-720. Se riesce, B non spiega il comportamento. Hai ristretto
+la diagnosi prima di generare altro codice.</p>
+<p>Registra il test che prima falliva e ora passa insieme al caso
+negativo che continua a fallire nel modo previsto. Non bastano
+screenshot del messaggio «risolto» dell'agente. Se fai due tentativi
+senza migliorare la diagnosi, torna al requisito e riduci il caso: il
+budget serve anche a interrompere una spirale di cambiamenti poco
+comprensibili.</p>
+<h2 data-number="27.5"
+id="approfondimento-software-engineer-brownfield-e-refactoring"><span
+class="header-section-number">27.5</span> Approfondimento software
+engineer: brownfield e refactoring</h2>
+<p>In un sistema esistente senza specifiche, un test di
+caratterizzazione registra il comportamento attuale. Non dimostra che
+quel comportamento sia desiderabile. Scrivi separatamente «oggi accade
+X» e «il dominio richiede Y», poi negozia il cambiamento. Mescolare
+correzioni funzionali e riorganizzazione del codice nello stesso diff
+aumenta il lavoro della revisione.</p>
+<p>Sperimenta il pattern <strong>characterize, change, compare</strong>:
+conserva test sul comportamento rilevante, introduci una modifica
+piccola, confronta gli esiti. Se estrai un archivio SQLite in S04, il
+contratto pubblico diventa il controllo che il refactoring non abbia
+cambiato le regole del calendario.</p>
+<h2 data-number="27.6"
+id="approfondimento-ai-engineer-generator-e-reviewer"><span
+class="header-section-number">27.6</span> Approfondimento AI Engineer:
+generator e reviewer</h2>
+<p>Una seconda sessione può rivedere la patch con specifica e test,
+senza ricevere la spiegazione persuasiva del primo generatore. Questo
+riduce una fonte di condizionamento, ma non rende i due modelli
+statisticamente indipendenti e non sostituisce la verifica umana.
+Confronta difetti trovati, falsi allarmi e tempo totale di
+revisione.</p>
+<p>Usa una tabella con affermazione del revisore, evidenza, decisione.
+Accettare tutti i suggerimenti del reviewer non è più rigoroso che
+accettare tutto il codice del generatore. La domanda è sempre quale
+requisito e quale prova supportino il cambiamento.</p>
+<h2 data-number="27.7" id="verifica-e-consegna-3"><span
+class="header-section-number">27.7</span> Verifica e consegna</h2>
+<p>Consegna sintomo, caso minimo, due ipotesi, prova discriminante,
+patch e test di regressione. Spiega perché una correzione apparentemente
+più semplice è stata respinta. La visuale sugli intervalli del percorso
+permette di esplorare i confini; il codice e i test restano l'evidenza
+del comportamento reale. Domanda diagnostica: un test di
+caratterizzazione che passa autorizza a conservare per sempre quel
+comportamento? No: documenta la baseline; la decisione di prodotto
+richiede ancora confronto con la specifica.</p>
+<h1 data-number="28"
+id="s04---pattern-applicativi-adapter-e-confini"><span
+class="header-section-number">28</span> S04 - Pattern applicativi,
+adapter e confini</h1>
+<h2 data-number="28.1" id="problema-iniziale-24"><span
+class="header-section-number">28.1</span> Problema iniziale</h2>
+<p>Ora il calendario sa prenotare, ma deve anche cancellare e ordinare
+gli incontri attivi. In seguito potrebbe salvare su disco o ricevere
+richieste in linguaggio naturale. Se ogni novità viene aggiunta alla
+stessa funzione, diventa difficile distinguere le regole del dominio dal
+modo di leggere e scrivere i dati.</p>
+<p>Un adapter è come una presa che collega dispositivi diversi
+rispettando una stessa interfaccia. La somiglianza riguarda il confine:
+una presa non stabilisce il programma da eseguire, e un archivio non
+dovrebbe inventare le regole di prenotazione. Il nome del pattern è
+utile solo se chiarisce una responsabilità.</p>
+<h2 data-number="28.2" id="risultato-practitioner-4"><span
+class="header-section-number">28.2</span> Risultato Practitioner</h2>
+<p>Completi R05-R06 e ottieni un piccolo prodotto funzionante in
+memoria. Riconosci tre parti: dati della prenotazione, regole del
+servizio, archivio. Sai spiegare perché ripetere una cancellazione non
+deve duplicare effetti e perché un elenco restituito non deve consentire
+di modificare lo stato interno.</p>
+<h2 data-number="28.3" id="laboratorio-e-completa-il-servizio"><span
+class="header-section-number">28.3</span> Laboratorio E: completa il
+servizio</h2>
+<p>Dedica 20 minuti agli esempi di cancellazione, 40 all'implementazione
+con l'agente, 35 ai test e 25 alla mappa dei componenti. Parti dal tuo
+lavoro di S02-S03, non dalla soluzione docente.</p>
+<p>Chiedi due modifiche separate. Prima implementa <code>cancel</code>:
+record attivo → cancellato; secondo invio → stesso record cancellato; ID
+sconosciuto → KeyError. Poi implementa <code>list_active</code> e il suo
+ordinamento. Verifica il caso in cui un vecchio retry arriva dopo la
+cancellazione: R04 richiede il record nello stato corrente, quindi non
+deve riaprire la prenotazione.</p>
+<p>La rubrica premia il comportamento e la spiegazione. Per la classe
+non è necessario introdurre Protocol, database o un framework per
+agenti. Prima fai funzionare i nove test pubblici, poi aggiungi un caso
+di ordinamento con due aule e lo stesso orario e un caso di
+cancellazione ripetuta.</p>
+<h2 data-number="28.4" id="esempio-minimo-chi-decide"><span
+class="header-section-number">28.4</span> Esempio minimo: chi
+decide?</h2>
+<p>L'utente dice «LAB-A dalle nove alle dieci». Un LLM può
+suggerire:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span><span class="dt">&quot;room&quot;</span><span class="fu">:</span> <span class="st">&quot;LAB-A&quot;</span><span class="fu">,</span> <span class="dt">&quot;start&quot;</span><span class="fu">:</span> <span class="dv">540</span><span class="fu">,</span> <span class="dt">&quot;end&quot;</span><span class="fu">:</span> <span class="dv">600</span><span class="fu">}</span></span></code></pre></div>
+<p>Il parser controlla i campi; la persona verifica che corrispondano
+alla richiesta; il servizio controlla se l'aula è libera. Sono tre
+controlli diversi. Se LAB-A è occupata, il modello non può rendere
+valida la prenotazione dichiarandola disponibile.</p>
+<p>Una normale app può essere realizzata con l'aiuto di un coding agent
+senza contenere alcun LLM. Aggiungere un LLM nel prodotto è una
+decisione distinta, con nuovi errori possibili e un costo da valutare
+rispetto a un semplice modulo.</p>
+<h2 data-number="28.5"
+id="ramo-software-engineer-ports-and-adapters-altre-3-ore"><span
+class="header-section-number">28.5</span> Ramo software engineer: ports
+and adapters, altre 3 ore</h2>
+<p>Definisci il contratto di un archivio: transazione, elenco dei record
+e salvataggio. Il servizio riceve l'archivio dall'esterno: questa è
+dependency injection. Implementa un archivio in memoria e uno SQLite;
+esegui gli stessi test R01-R06 su entrambi. Aggiungi riapertura del file
+e verifica R07.</p>
+<p>Per R08 disegna la sequenza di due richieste contemporanee. Senza
+atomicità, entrambe possono leggere «aula libera» prima che una delle
+due scriva. La soluzione di riferimento usa <code>BEGIN IMMEDIATE</code>
+intorno a controllo e scrittura, con una connessione per thread. Il test
+concorrente avvia due istanze sullo stesso file e richiede un successo e
+un conflitto. Un test sequenziale non osserva questa interleaving; un
+singolo test concorrente riuscito non prova tutte le condizioni
+operative di un database reale.</p>
+<p>Scrivi un'ADR di una pagina: decisione, alternative, motivazione,
+conseguenze. Per questo prototipo SQLite è sufficiente; introdurre
+microservizi avrebbe un costo da giustificare. Prima di dichiarare
+produzione restano nuovi requisiti su utenti, date, accesso, migrazione
+e gestione operativa.</p>
+<h2 data-number="28.6"
+id="ramo-ai-engineer-adapter-llm-e-valutazione-altre-3-ore"><span
+class="header-section-number">28.6</span> Ramo AI Engineer: adapter LLM
+e valutazione, altre 3 ore</h2>
+<p>Esegui <code>proposal.py</code> dal kit con un modello Ollama
+installato. Il programma usa lo schema JSON nella richiesta e valida
+localmente campi, tipi e intervallo. Restituisce solo una bozza. Il test
+con risposta simulata dimostra il contratto dell'adapter, non la
+capacità del modello di capire gli orari.</p>
+<p>Prepara dodici richieste sintetiche: quattro chiare, quattro
+parafrasi e quattro ambigue o incomplete. Fissa i risultati attesi prima
+di interrogare il modello. Per le ambigue, una scelta inventata conta
+come errore anche se il JSON passa il parser. L'adapter minimo non
+possiede uno stato «chiedi chiarimento»: misura questa limitazione e
+progetta una revisione dello schema con decisione <code>proposal</code>
+oppure <code>clarify</code>. Implementala in un branch e aggiungi test
+specifici.</p>
+<p>Confronta con un modulo manuale a tre campi e con una risposta
+simulata. Misura validità strutturale, correttezza semantica, richieste
+di chiarimento appropriate, tempo e correzioni umane. Se il LLM non
+migliora l'esperienza sul compito, mantenere il modulo è una decisione
+ingegneristica valida.</p>
+<h2 data-number="28.7" id="verifica-e-consegna-4"><span
+class="header-section-number">28.7</span> Verifica e consegna</h2>
+<p>La classe consegna R01-R06 verdi e un diagramma dei componenti. Il
+software engineer aggiunge adapter, ADR, persistenza e prova
+concorrente. L'AI Engineer aggiunge dataset, risultati reali datati e
+almeno un output formalmente valido ma sbagliato. Domanda diagnostica:
+lo schema JSON può verificare che l'aula richiesta dall'utente sia
+quella desiderata? Da solo no: struttura e significato richiedono
+valutazioni differenti.</p>
+<h1 data-number="29" id="s05---consegnare-confrontare-e-mantenere"><span
+class="header-section-number">29</span> S05 - Consegnare, confrontare e
+mantenere</h1>
+<h2 data-number="29.1" id="problema-iniziale-25"><span
+class="header-section-number">29.1</span> Problema iniziale</h2>
+<p>Sul computer dell'autore tutto funziona, ma un compagno non sa quale
+comando eseguire. La specifica parla di tre ore, un test ammette quattro
+ore e il README descrive una versione precedente. Il prodotto non è
+pronto solo perché l'ultima sessione con l'agente si è conclusa senza
+errori visibili.</p>
+<p>La consegna è un pacchetto di evidenze: un'altra persona deve poter
+partire da uno stato noto, ripetere i controlli e capire le decisioni. È
+anche il momento in cui l'autore dimostra di saper modificare il
+programma senza dipendere interamente dalla conversazione che lo ha
+generato.</p>
+<h2 data-number="29.2" id="risultato-practitioner-5"><span
+class="header-section-number">29.2</span> Risultato Practitioner</h2>
+<p>Consegni un repository leggibile con specifica, implementazione,
+test, istruzioni ed esiti. Sai distinguere una demo da una release
+riproducibile, descrivi un limite e fai una modifica piccola davanti al
+docente. Usi la rubrica per verificare la tua comprensione, non per
+contare quanti prompt hai scritto.</p>
+<h2 data-number="29.3"
+id="laboratorio-f-prova-di-consegna-a-un-compagno"><span
+class="header-section-number">29.3</span> Laboratorio F: prova di
+consegna a un compagno</h2>
+<p>Dedica 25 minuti alla pulizia della documentazione, 30 alla prova in
+una nuova cartella, 25 alla revisione incrociata, 25 al colloquio e 15
+al report finale. La soluzione del docente resta fuori dal progetto
+studente.</p>
+<p>Completa il template di report del percorso. In una copia pulita
+esegui:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> unittest discover <span class="at">-s</span> . <span class="at">-p</span> <span class="st">&#39;test_*.py&#39;</span> <span class="at">-v</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> diff <span class="at">--check</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> status <span class="at">--short</span></span></code></pre></div>
+<p>Il primo comando verifica il contratto e i casi aggiunti. Il secondo
+segnala problemi di whitespace, non la correttezza del programma. Il
+terzo mostra modifiche e file non registrati: leggilo per verificare di
+non aver dimenticato artefatti importanti. Nessuno di questi comandi
+pubblica il progetto.</p>
+<p>Scambia il lavoro con un compagno. Il revisore deve eseguire le
+istruzioni senza attingere alla cronologia della chat e ricostruire due
+decisioni a partire da SPEC.md. Se servono informazioni orali
+indispensabili, aggiungile al README. Conserva nel report un problema
+trovato dal revisore e come lo hai risolto.</p>
+<p>Per il colloquio il docente chiede una variazione circoscritta, per
+esempio cambiare l'orario di apertura o aggiungere una terza aula. Prima
+elenca requisiti e test coinvolti, poi modifica il codice e spiega un
+caso limite. Non è necessario vietare l'AI durante tutto il progetto: la
+breve prova individuale serve a verificare che il risultato sia stato
+compreso.</p>
+<h2 data-number="29.4"
+id="esempio-minimo-una-release-che-si-può-ricostruire"><span
+class="header-section-number">29.4</span> Esempio minimo: una release
+che si può ricostruire</h2>
+<p>«Ho usato un agente famoso e tutti i test sono verdi» non identifica
+un artefatto. «Commit iniziale X, patch Y, contratto v1, Python 3.12,
+comando Z, output allegato, due casi aggiunti e tre requisiti ancora
+esclusi» consente a un'altra persona di verificare l'affermazione. I
+valori X/Y/Z vanno sostituiti con dati reali della sessione, non copiati
+da un esempio.</p>
+<p>Se una piattaforma cloud non espone versione o modello preciso,
+registra nome dello strumento, data, impostazioni disponibili e il
+limite. Per un modello locale registra tag e digest effettivi oltre a
+runtime e hardware. Non inventare token o tempi mancanti; misura almeno
+il tempo umano complessivo.</p>
+<h2 data-number="29.5"
+id="ramo-software-engineer-ci-e-cambiamenti-di-specifica-altre-3-ore"><span
+class="header-section-number">29.5</span> Ramo software engineer: CI e
+cambiamenti di specifica, altre 3 ore</h2>
+<p>Prepara una pipeline che, da checkout pulito e versione Python
+dichiarata, esegua i test. Il report deve mostrare che cosa è stato
+controllato; un check verde su un commit precedente non valida una patch
+successiva. Scrivi una descrizione di pull request con problema,
+cambiamento osservabile, test e limiti. Una PR è una proposta di
+integrazione: non è la revisione stessa.</p>
+<p>Applica la variante di S01 in un branch: aggiorna specifica, test dei
+confini, codice e README nella stessa modifica. Per un bug su codice
+esistente distingui la correzione di un'implementazione sbagliata dalla
+decisione di cambiare il contratto. Introduci una checklist breve per il
+revisore basata su queste evidenze, evitando un elenco generico di
+decine di voci mai controllate.</p>
+<h2 data-number="29.6"
+id="ramo-ai-engineer-confronto-locale-e-cloud-altre-3-ore"><span
+class="header-section-number">29.6</span> Ramo AI Engineer: confronto
+locale e cloud, altre 3 ore</h2>
+<p>Confronta due configurazioni di sviluppo sullo stesso incarico e
+sullo stesso commit iniziale, con contesto e budget dichiarati. Registra
+task completato, regressioni, tentativi, tempo di generazione, tempo
+umano e costo disponibile. Due interfacce diverse possono avere
+strumenti diversi: in quel caso confronti <strong>sistemi di
+sviluppo</strong>, non isoli l'effetto del solo modello.</p>
+<p>Alterna l'ordine delle prove o assegna incarichi equivalenti a coppie
+diverse, per ridurre l'effetto dell'apprendimento del compito. Tieni
+separati i task usati per perfezionare i prompt e quelli di valutazione
+finale. Poche prove non autorizzano classifiche generali; usa i
+risultati per la scelta locale del laboratorio e annota quando vanno
+aggiornati.</p>
+<h2 data-number="29.7" id="rubrica-e-criteri-di-completamento"><span
+class="header-section-number">29.7</span> Rubrica e criteri di
+completamento</h2>
+<p>La valutazione su 10 punti assegna 3 a requisiti ed esempi, 3 a
+correttezza e test indipendenti, 2 a riproducibilità e 2 alla
+spiegazione individuale. Per superare il percorso servono almeno 6
+punti, tutti R01-R06 soddisfatti e nessuna evidenza inventata. Le
+estensioni avanzate hanno evidenze aggiuntive: non compensano un
+contratto base rotto.</p>
+<p>Consegna codice, specifica, report, diff, output dei test e decisioni
+accettate o respinte dall'agente. Domanda diagnostica finale: quale
+parte del tuo lavoro rimane valida se domani cambi coding agent?
+Requisiti, esempi, test, confini del programma e procedura di verifica
+sono riutilizzabili; istruzioni e configurazione dello strumento devono
+essere adattate e nuovamente provate.</p>
+<h1 data-number="30" id="report-della-sessione-prenotalab"><span
+class="header-section-number">30</span> Report della sessione
+PrenotaLab</h1>
+<p>Compilare con osservazioni reali. «Non misurato» è diverso da
+zero.</p>
+<h2 data-number="30.1" id="identità-e-obiettivo"><span
+class="header-section-number">30.1</span> Identità e obiettivo</h2>
+<ul>
+<li>Data e autore/gruppo:</li>
+<li>Lezione e requisito:</li>
+<li>Commit iniziale e finale (oppure copia iniziale e diff):</li>
+<li>Strumento e versione disponibile:</li>
+<li>Modello, revisione/digest se esposto, runtime, hardware:</li>
+<li>Modalità: coding agent / sviluppo assistito manuale / senza AI:</li>
+<li>File forniti come contesto e loro versione:</li>
+<li>Budget fissato prima della prova (tempo/tentativi/costo):</li>
+</ul>
+<h2 data-number="30.2" id="accettazione-prima-dellimplementazione"><span
+class="header-section-number">30.2</span> Accettazione prima
+dell'implementazione</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Requisito</th>
+<th>Input o stato iniziale</th>
+<th>Esito atteso</th>
+<th>Test</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Da compilare</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 data-number="30.3" id="esiti"><span
+class="header-section-number">30.3</span> Esiti</h2>
+<ul>
+<li>Comando e output della baseline:</li>
+<li>Prompt e risposte rilevanti (solo dati sintetici):</li>
+<li>Patch e decisioni del revisore:</li>
+<li>Test prima/dopo e casi scritti indipendentemente:</li>
+<li>Tempo totale, tempo umano, tentativi, token/costo se esposti:</li>
+<li>Fallimenti rimasti e limitazioni:</li>
+<li>Differenze rispetto alla specifica autorizzate o respinte:</li>
+</ul>
+<h2 data-number="30.4" id="decisione-architetturale-breve"><span
+class="header-section-number">30.4</span> Decisione architetturale
+breve</h2>
+<ul>
+<li>Problema e contesto:</li>
+<li>Alternative considerate:</li>
+<li>Scelta e ragione:</li>
+<li>Conseguenze e condizione per rivederla:</li>
+</ul>
+<h2 data-number="30.5" id="consegna-riproducibile"><span
+class="header-section-number">30.5</span> Consegna riproducibile</h2>
+<ul>
+<li>Comandi eseguiti da cartella pulita:</li>
+<li>Problema trovato dal compagno revisore:</li>
+<li>Spiegazione personale di un cambiamento:</li>
+<li>Prossima prova necessaria, se presente:</li>
+</ul>
+<h1 data-number="31"
+id="manning-integrazione-software-engineering-e-coding-agent"><span
+class="header-section-number">31</span> Manning: integrazione software
+engineering e coding agent</h1>
+<p>Verifica delle schede pubbliche: <strong>10 settembre 2026</strong>.
+Questa è una selezione mirata per il nuovo percorso pratico, non
+l'inventario completo dei PDF posseduti. Le etichette generiche «you own
+this product» nelle pagine pubbliche non sono state usate per dedurre
+acquisti dell'account. Non sono stati consumati crediti.</p>
+<h2 data-number="31.1"
+id="priorità-di-lettura-per-questo-percorso"><span
+class="header-section-number">31.1</span> Priorità di lettura per questo
+percorso</h2>
+<p><strong>1. Spec-Driven Development - Hari Krishnan.</strong> È il
+riferimento più diretto per intento, specifiche versionate e lavoro con
+coding agent, anche su codice esistente. La scheda indica MEAP iniziato
+e aggiornato ad agosto 2026, 3 capitoli su 10, pubblicazione stimata
+primavera 2027. Pertinenza: S01-S03 e S05. Non aspettare il libro
+completo per svolgere il laboratorio. <a
+href="https://www.manning.com/books/spec-driven-development">Scheda
+Manning</a>.</p>
+<p><strong>2. Context Engineering - Boni García.</strong> Collega
+selezione del contesto, retrieval, memoria, strumenti e valutazione. La
+scheda indica tutti i capitoli disponibili in MEAP, ultimo aggiornamento
+agosto 2026 e pubblicazione stimata novembre 2026. Pertinenza: S00 e
+ramo AI Engineer di S04-S05, oltre a M15-M16. <a
+href="https://www.manning.com/books/context-engineering">Scheda
+Manning</a>.</p>
+<p><strong>3. AI-Powered Developer - Nathan B. Crocker.</strong>
+Pubblicato ad agosto 2024; copre progettazione, generazione del codice,
+debugging, test e documentazione. Utile per il flusso completo di
+sviluppo; gli esempi di strumenti e modelli vanno confrontati con
+documentazione corrente. Pertinenza: S00-S05. <a
+href="https://www.manning.com/books/ai-powered-developer">Scheda
+Manning</a>.</p>
+<p><strong>4. Agent Design Patterns - Peter Belcak.</strong> Riguarda
+pattern componibili per sistemi agentici, affidabilità, costo e
+controllo umano. La scheda indica MEAP iniziato e aggiornato ad agosto
+2026, pubblicazione stimata inizio 2027. Più utile al ramo AI Engineer
+che come primo testo per la classe. <a
+href="https://www.manning.com/books/agent-design-patterns">Scheda
+Manning</a>.</p>
+<p>Questa priorità riguarda la pertinenza didattica, non un ordine di
+acquisto automatico. Per scegliere gli 11 PDF rimasti occorre prima
+riconciliare la lista dell'anno precedente: non assumiamo che questi
+titoli siano assenti.</p>
+<h2 data-number="31.2" id="che-cosa-è-stato-consultato"><span
+class="header-section-number">31.2</span> Che cosa è stato
+consultato</h2>
+<p>Sono state lette le schede pubbliche, descrizioni, stato editoriale e
+argomenti dichiarati. Le aperture liveBook dei tre MEAP hanno restituito
+HTTP 403 in questa sessione: <strong>non si dichiara la lettura
+integrale dei capitoli né delle figure riservate</strong>. L'accesso
+online dell'utente può essere usato in una sessione autenticata
+disponibile, senza comunicare password nella chat.</p>
+<p>Il progetto PrenotaLab, le dispense, i test e la visuale sono
+originali. Le schede bibliografiche sono riferimenti; non sono state
+copiate pagine, illustrazioni o esercizi dei libri nel Content Pack
+pubblico.</p>
+<h2 data-number="31.3"
+id="documentazione-primaria-per-gli-strumenti"><span
+class="header-section-number">31.3</span> Documentazione primaria per
+gli strumenti</h2>
+<ul>
+<li><a href="https://github.com/github/spec-kit">GitHub Spec Kit</a>:
+struttura del processo guidato dalle specifiche e configurazione
+corrente.</li>
+<li><a href="https://github.com/Fission-AI/OpenSpec">OpenSpec</a>:
+workflow e artefatti di specifica per assistenti di sviluppo.</li>
+<li><a
+href="https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent">GitHub
+Copilot cloud agent</a>: capacità e limiti dello strumento
+corrente.</li>
+<li><a href="https://code.claude.com/docs/en/best-practices">Claude
+Code: pratiche di lavoro</a>: contesto, esplorazione, pianificazione e
+verifica.</li>
+<li><a href="https://docs.ollama.com/api/chat">Ollama chat API</a>:
+contratto dell'adapter di proposta locale del laboratorio.</li>
+</ul>
+<p>Installazione e comandi dei prodotti sono intenzionalmente rimandati
+ai loro README/versioni correnti. Il corso conserva il metodo, gli input
+di prova e le evidenze anche quando cambiano nomi, interfacce e
+modelli.</p>
+<h1 data-number="32" id="glossario-essenziale-llm"><span
+class="header-section-number">32</span> Glossario essenziale LLM</h1>
 <p>Le definizioni sono operative: indicano come usare il termine nel
 corso. Le grandezze dipendenti da una release appartengono al catalogo
 datato, non al glossario.</p>

@@ -66,7 +66,7 @@ Nel deployment ibrido puoi usare routing per sensibilità, capacità o costo: cl
 
 ## Laboratorio
 
-Usa la visuale, poi completa una scheda con componenti, proprietario, posizione e dati trattati. Esegui `python3 labs/course_lab.py local-cloud` e confronta la tua classificazione. La consegna non chiede quale soluzione sia “migliore” in assoluto, ma quale soddisfi i vincoli espliciti.
+Usa la visuale, poi completa una scheda con componenti, proprietario, posizione e dati trattati. Confronta la tua classificazione con un compagno indicando il percorso di ogni dato. Questa è un'attività di analisi, senza un comando CLI dedicato. La consegna non chiede quale soluzione sia “migliore” in assoluto, ma quale soddisfi i vincoli espliciti.
 
 ## Verifica rapida
 

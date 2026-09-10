@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0",
+  "id": "ai-se-activity-s02",
+  "titolo": "Implementazione per porzioni verificabili",
+  "tipo": "laboratorio",
+  "difficolta": "C",
+  "argomenti": [
+    "test-driven-development"
+  ],
+  "consegna": "Dal lavoro precedente implementa R01-R04 in patch separate e aggiungi un caso indipendente.",
+  "student_support_mode": "feedback-tecnico",
+  "contesto": {
+    "percorso": "percorso-ai-software",
+    "uda": "uda-ai-software"
+  },
+  "content_ids": [
+    "ai-se-content-s02"
+  ],
+  "source_refs": [
+    {
+      "source_id": "ai-se-source-lessons",
+      "href": "docs/course/ai-software/S02-implementazione.md"
+    }
+  ],
+  "assets": [
+    {
+      "type": "starter",
+      "path": "student/README.md",
+      "target_path": "README.md",
+      "visibility": "student",
+      "description": "Consegna specifica della lezione"
+    },
+    {
+      "type": "starter",
+      "path": "student/AGENTS.example.md",
+      "target_path": "AGENTS.example.md",
+      "visibility": "student",
+      "description": "Materiale originale per il laboratorio"
+    },
+    {
+      "type": "starter",
+      "path": "student/SPEC.md",
+      "target_path": "SPEC.md",
+      "visibility": "student",
+      "description": "Materiale originale per il laboratorio"
+    },
+    {
+      "type": "starter",
+      "path": "student/booking.py",
+      "target_path": "booking.py",
+      "visibility": "student",
+      "description": "Materiale originale per il laboratorio"
+    },
+    {
+      "type": "visible_test",
+      "path": "student/test_booking.py",
+      "target_path": "test_booking.py",
+      "visibility": "student",
+      "description": "Materiale originale per il laboratorio"
+    },
+    {
+      "type": "starter",
+      "path": "student/REPORT-template.md",
+      "target_path": "REPORT-template.md",
+      "visibility": "student",
+      "description": "Materiale originale per il laboratorio"
+    },
+    {
+      "type": "teacher_only",
+      "path": "teacher/SOLUTION.md",
+      "visibility": "teacher",
+      "description": "Esiti, spiegazione e correzione della lezione"
+    },
+    {
+      "type": "teacher_only",
+      "path": "teacher/booking.py",
+      "visibility": "teacher",
+      "description": "Implementazione di riferimento R01-R08"
+    }
+  ],
+  "correzione": {
+    "compila": false,
+    "test": true,
+    "sandbox": true,
+    "ai_feedback": true
+  },
+  "metriche": {
+    "tempo_stimato_minuti": 120,
+    "traccia_tempo_dichiarato": true,
+    "traccia_sessioni_thebitlab": true,
+    "traccia_eventi_didattici": true,
+    "traccia_errori_compilazione": false
+  },
+  "rubrica": [
+    {
+      "criterio": "Requisiti ed esempi",
+      "punti": 3
+    },
+    {
+      "criterio": "Correttezza e test indipendenti",
+      "punti": 3
+    },
+    {
+      "criterio": "Riproducibilità",
+      "punti": 2
+    },
+    {
+      "criterio": "Spiegazione individuale",
+      "punti": 2
+    }
+  ]
+}

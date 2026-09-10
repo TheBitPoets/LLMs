@@ -92,7 +92,7 @@ Su fixture binarie confronta: file originale, gzip/zstd, modello statistico del 
 
 ## Laboratorio e verifica
 
-Esegui `python3 labs/course_lab.py arithmetic-codec`. Il test esaustivo corrente copre tutte le 2.046 sequenze A/B di lunghezza 1–10. Estendi con empty input, tutti i byte, file casuali, truncation e bit flip. La prova finale segue `docs/course/assessments/final-practical.md`.
+Esegui `python3 labs/course_lab.py pollicino --message ABAAB`. Il test esaustivo corrente copre tutte le 2.046 sequenze A/B di lunghezza 1–10. Il codec accetta solo stringhe A/B non vuote fino a 64 simboli: input vuoto e altri simboli devono essere rifiutati. Supportare tutti i byte, file arbitrari e un predittore neurale richiede un nuovo codec/formato e test dedicati; non è una funzione già presente. La prova finale segue `docs/course/assessments/final-practical.md`.
 
 Rubrica: correttezza/round trip 3; riproducibilità 2; valutazione e baseline 2; architettura e sicurezza 2; limiti e comunicazione 1. Qualunque mancata uguaglianza byte-per-byte rende non superato il ramo lossless.
 

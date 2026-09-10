@@ -65,7 +65,7 @@ Un kernel deve specificare shape, stride, dtype, allineamento, dispositivi e tol
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py serving`. Costruisci prima una simulazione di scheduling. Nel livello avanzato implementa softmax o matmul in NumPy/framework e una versione ottimizzata; riporta accelerazione solo dopo equivalenza entro tolleranza.
+Esegui `python3 labs/course_lab.py attention` per osservare un calcolo didattico in Python e usa la visuale prefill/decode. Il runner non include scheduler né kernel hardware ottimizzati. Nel livello avanzato implementa softmax o matmul in NumPy/framework e una versione ottimizzata come progetto separato; riporta accelerazione solo dopo equivalenza entro tolleranza e misure sul dispositivo dichiarato.
 
 ## Verifica rapida
 

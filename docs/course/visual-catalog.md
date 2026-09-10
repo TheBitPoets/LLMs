@@ -63,3 +63,11 @@ Le dieci visuali interattive e le sette figure statiche coprono il nucleo
 concettuale e i laboratori principali. La
 seconda iterazione potrà aggiungere loss landscape, RoPE tridimensionale,
 post-training, formati GGUF/safetensors e un profiler con tracce hardware reali.
+# Aggiornamento: specifica, codice e test
+
+La [visuale PrenotaLab](../../visuals/booking-spec-tests.html) e la
+[figura degli intervalli](../../visuals/static/booking-intervals.svg)
+accompagnano S01-S03. Sono originali, senza asset Manning incorporati.
+La simulazione confronta minuti occupati e confronti sugli estremi; non
+esegue il servizio Python né un modello. Include domanda diagnostica,
+controlli da tastiera e rispetto di prefers-reduced-motion.

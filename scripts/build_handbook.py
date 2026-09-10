@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "dist"
 PDF_OUT = ROOT / "output/pdf"
 MODULES = sorted((ROOT / "docs/course/modules").glob("M??-*.md"))
+PRACTICE = sorted((ROOT / "docs/course/ai-software").glob("S??-*.md"))
 
 
 def read(path: Path) -> str:
@@ -31,6 +32,19 @@ def read(path: Path) -> str:
             if len(cells) == 2:
                 converted.extend([f"**{cells[0]}.** {cells[1]}", ""])
         text = "\n".join(converted).strip()
+
+    if path.name == "lab-guide.md":
+        # Il prospetto a tre colonne non entra nel PDF A4: stessi contenuti
+        # in paragrafi, mantenendo la tabella nel sorgente navigabile.
+        converted = []
+        for line in text.splitlines():
+            if line.startswith("|"):
+                cells = [cell.strip() for cell in line.strip("|").split("|")]
+                if len(cells) == 3 and re.match(r"L\d\d$", cells[0]):
+                    converted.extend([f"**{cells[0]} - {cells[1]}.** {cells[2]}", ""])
+            else:
+                converted.append(line)
+        text = "\n".join(converted)
 
     def replace(match: re.Match[str]) -> str:
         label, target = match.group(1), match.group(2)
@@ -51,7 +65,7 @@ def front_matter(title: str, subtitle: str) -> str:
 title: "{title}"
 subtitle: "{subtitle}"
 author: "TheBitPoets"
-date: "Edizione 2026/27 — content pack 0.9.0"
+date: "Edizione 2026/27 — LLM 0.9.0 e pratica software 0.1.0"
 lang: it-IT
 rights: "Materiale originale del progetto; fonti esterne citate"
 ---
@@ -75,6 +89,10 @@ def compose(teacher: bool) -> str:
     subtitle = "Practitioner e AI Engineer · teoria, matematica, laboratori e Pollicino"
     parts = [front_matter(title, subtitle), read(ROOT / "docs/course/modules/README.md")]
     parts.extend(read(path) for path in MODULES)
+    parts.append(read(ROOT / "docs/course/ai-software/README.md"))
+    parts.extend(read(path) for path in PRACTICE)
+    parts.append(read(ROOT / "docs/course/ai-software/REPORT-template.md"))
+    parts.append(read(ROOT / "docs/course/sources/manning-coding-agents-2026-09-10.md"))
     parts.append(read(ROOT / "docs/course/handbook/GLOSSARY.md"))
     if teacher:
         parts.extend([
@@ -82,6 +100,7 @@ def compose(teacher: bool) -> str:
             read(ROOT / "docs/course/teacher/teacher-guide.md"),
             read(ROOT / "docs/course/teacher/lab-guide.md"),
             read(ROOT / "docs/course/teacher/quick-check-solutions.md"),
+            read(ROOT / "docs/course/ai-software/TEACHER.md"),
             read(ROOT / "docs/course/assessments/diagnostic.md"),
             read(ROOT / "docs/course/assessments/final-practical.md"),
         ])

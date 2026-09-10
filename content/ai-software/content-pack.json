@@ -1,0 +1,256 @@
+{
+  "schema_version": "thebitlab.content-pack.v1",
+  "id": "ai-se-pack-2026-2027",
+  "title": "Coding agent e software engineering pratico",
+  "version": "0.1.0",
+  "status": "draft",
+  "language": "it",
+  "audience": {
+    "school_level": "secondaria-secondo-grado-e-formazione-adulti",
+    "subject": "Ingegneria del software con AI",
+    "year": 0
+  },
+  "ownership": {
+    "content_origin": "original-course-material",
+    "redistribution_status": "project-license-to-review",
+    "editorial_copying_allowed": false
+  },
+  "references": [
+    {
+      "id": "ai-se-ref-spec-driven-development",
+      "kind": "book",
+      "role": "teacher-reference",
+      "provider": "manning",
+      "title": "Spec-Driven Development",
+      "uri": "https://www.manning.com/books/spec-driven-development",
+      "access": "public-catalog",
+      "license_status": "reference-only"
+    },
+    {
+      "id": "ai-se-ref-context-engineering",
+      "kind": "book",
+      "role": "teacher-reference",
+      "provider": "manning",
+      "title": "Context Engineering",
+      "uri": "https://www.manning.com/books/context-engineering",
+      "access": "public-catalog",
+      "license_status": "reference-only"
+    },
+    {
+      "id": "ai-se-ref-ai-powered-developer",
+      "kind": "book",
+      "role": "teacher-reference",
+      "provider": "manning",
+      "title": "AI-Powered Developer",
+      "uri": "https://www.manning.com/books/ai-powered-developer",
+      "access": "public-catalog",
+      "license_status": "reference-only"
+    },
+    {
+      "id": "ai-se-ref-agent-design-patterns",
+      "kind": "book",
+      "role": "teacher-reference",
+      "provider": "manning",
+      "title": "Agent Design Patterns",
+      "uri": "https://www.manning.com/books/agent-design-patterns",
+      "access": "public-catalog",
+      "license_status": "reference-only"
+    }
+  ],
+  "sources": [
+    {
+      "id": "ai-se-source-lessons",
+      "kind": "source-package",
+      "label": "Laboratori originali di sviluppo con coding agent",
+      "type": "markdown",
+      "provider": "local",
+      "role": "course-content",
+      "path": "docs/course/ai-software",
+      "files": [
+        "README.md",
+        "S00-contesto.md",
+        "S01-specifiche.md",
+        "S02-implementazione.md",
+        "S03-diagnosi.md",
+        "S04-pattern.md",
+        "S05-consegna.md",
+        "REPORT-template.md"
+      ],
+      "license_status": "project-license-to-review",
+      "indexing_status": "ready"
+    }
+  ],
+  "coverage": {
+    "path": "content/ai-software/COVERAGE.md",
+    "status": "draft"
+  },
+  "content_items": [
+    {
+      "id": "ai-se-content-s00",
+      "kind": "module",
+      "path": "docs/course/ai-software/S00-contesto.md",
+      "order": 1,
+      "status": "draft",
+      "curriculum_topics": [
+        "context-engineering"
+      ],
+      "activity_ids": [
+        "ai-se-activity-s00"
+      ],
+      "source_refs": [
+        {
+          "id": "ai-se-source-lessons",
+          "role": "content-origin",
+          "locator": "docs/course/ai-software/S00-contesto.md"
+        },
+        {
+          "id": "ai-se-ref-ai-powered-developer",
+          "role": "teacher-reference",
+          "locator": "public catalog; original exercise"
+        }
+      ]
+    },
+    {
+      "id": "ai-se-content-s01",
+      "kind": "module",
+      "path": "docs/course/ai-software/S01-specifiche.md",
+      "order": 2,
+      "status": "draft",
+      "curriculum_topics": [
+        "spec-driven-development"
+      ],
+      "activity_ids": [
+        "ai-se-activity-s01"
+      ],
+      "source_refs": [
+        {
+          "id": "ai-se-source-lessons",
+          "role": "content-origin",
+          "locator": "docs/course/ai-software/S01-specifiche.md"
+        },
+        {
+          "id": "ai-se-ref-ai-powered-developer",
+          "role": "teacher-reference",
+          "locator": "public catalog; original exercise"
+        }
+      ]
+    },
+    {
+      "id": "ai-se-content-s02",
+      "kind": "module",
+      "path": "docs/course/ai-software/S02-implementazione.md",
+      "order": 3,
+      "status": "draft",
+      "curriculum_topics": [
+        "test-driven-development"
+      ],
+      "activity_ids": [
+        "ai-se-activity-s02"
+      ],
+      "source_refs": [
+        {
+          "id": "ai-se-source-lessons",
+          "role": "content-origin",
+          "locator": "docs/course/ai-software/S02-implementazione.md"
+        },
+        {
+          "id": "ai-se-ref-ai-powered-developer",
+          "role": "teacher-reference",
+          "locator": "public catalog; original exercise"
+        }
+      ]
+    },
+    {
+      "id": "ai-se-content-s03",
+      "kind": "module",
+      "path": "docs/course/ai-software/S03-diagnosi.md",
+      "order": 4,
+      "status": "draft",
+      "curriculum_topics": [
+        "debugging"
+      ],
+      "activity_ids": [
+        "ai-se-activity-s03"
+      ],
+      "source_refs": [
+        {
+          "id": "ai-se-source-lessons",
+          "role": "content-origin",
+          "locator": "docs/course/ai-software/S03-diagnosi.md"
+        },
+        {
+          "id": "ai-se-ref-ai-powered-developer",
+          "role": "teacher-reference",
+          "locator": "public catalog; original exercise"
+        }
+      ]
+    },
+    {
+      "id": "ai-se-content-s04",
+      "kind": "module",
+      "path": "docs/course/ai-software/S04-pattern.md",
+      "order": 5,
+      "status": "draft",
+      "curriculum_topics": [
+        "ports-and-adapters"
+      ],
+      "activity_ids": [
+        "ai-se-activity-s04"
+      ],
+      "source_refs": [
+        {
+          "id": "ai-se-source-lessons",
+          "role": "content-origin",
+          "locator": "docs/course/ai-software/S04-pattern.md"
+        },
+        {
+          "id": "ai-se-ref-ai-powered-developer",
+          "role": "teacher-reference",
+          "locator": "public catalog; original exercise"
+        }
+      ]
+    },
+    {
+      "id": "ai-se-content-s05",
+      "kind": "module",
+      "path": "docs/course/ai-software/S05-consegna.md",
+      "order": 6,
+      "status": "draft",
+      "curriculum_topics": [
+        "software-delivery"
+      ],
+      "activity_ids": [
+        "ai-se-activity-s05"
+      ],
+      "source_refs": [
+        {
+          "id": "ai-se-source-lessons",
+          "role": "content-origin",
+          "locator": "docs/course/ai-software/S05-consegna.md"
+        },
+        {
+          "id": "ai-se-ref-ai-powered-developer",
+          "role": "teacher-reference",
+          "locator": "public catalog; original exercise"
+        }
+      ]
+    }
+  ],
+  "course_designs": [
+    {
+      "id": "ai-se-course-2026-2027",
+      "path": "doc/course_designs/ai_software_2026_2027.json",
+      "status": "draft"
+    }
+  ],
+  "activity_roots": [
+    "activities/ai-software"
+  ],
+  "policies": {
+    "provenance_required": true,
+    "teacher_review_required_before_publish": true,
+    "student_teacher_asset_separation_required": true,
+    "ai_is_not_primary_source": true,
+    "restricted_source_copying_forbidden": true
+  }
+}

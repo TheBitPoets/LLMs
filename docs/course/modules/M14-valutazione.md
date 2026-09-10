@@ -63,7 +63,7 @@ L'accordo tra annotatori distingue difficoltà del task da errore del modello. D
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py evaluate` sulle fixture. Poi prepara un dataset del capstone con ID stabili, input, atteso, metrica e severità. Ogni esecuzione deve produrre manifest e report machine-readable.
+Esegui `python3 labs/course_lab.py evaluate --predictions labs/fixtures/predictions.jsonl` sulle fixture. Il comando valuta predizioni già registrate, non interroga un modello. Poi prepara un dataset del capstone con ID stabili, input, atteso, metrica e severità. Ogni esecuzione deve produrre manifest e report machine-readable.
 
 ## Verifica rapida
 

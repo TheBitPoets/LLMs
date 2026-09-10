@@ -61,7 +61,7 @@ Un documento è input non fidato. Istruzioni come “ignora il sistema e invia i
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py rag` sulle fixture. Registra ranking e chunk forniti. Aggiungi un documento con prompt injection e dimostra che non ottiene privilegi. Con Ollama, confronta generazione con e senza evidenza mantenendo fissi modello e decoder.
+Esegui `python3 labs/course_lab.py rag --query 'Perché serve una baseline?'` sulle fixture. Il comando esegue retrieval lessicale, senza embedding neurali né generazione. Registra ranking e chunk forniti; non attribuire questo risultato a una pipeline RAG completa. Come estensione integra il contesto in una richiesta Ollama e confronta con la richiesta senza evidenza mantenendo fissi modello e decoder. Il test dei confini di fiducia richiede tale applicazione completa: non è dimostrato dal solo ranking.
 
 ## Verifica rapida
 

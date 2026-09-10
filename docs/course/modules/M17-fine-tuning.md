@@ -67,7 +67,7 @@ In QLoRA il base quantizzato riduce memoria, mentre adapter e stati optimizer us
 
 ## Laboratorio
 
-Esegui `python3 labs/course_lab.py adaptation` per l'albero decisionale. L'estensione reale usa un modello piccolo e dataset non sensibile. Prima dell'addestramento congela eval set e criteri; dopo misura task target, regressioni, memoria e latenza.
+Costruisci su carta l'albero decisionale tra prompting, RAG e adattamento: il runner non implementa fine-tuning o LoRA. L'estensione reale richiede un modello piccolo, dataset non sensibile e un ambiente di training separato. Prima dell'addestramento congela eval set e criteri; dopo misura task target, regressioni, memoria e latenza. Non presentare l'albero decisionale come evidenza di un training eseguito.
 
 ## Verifica rapida
 
