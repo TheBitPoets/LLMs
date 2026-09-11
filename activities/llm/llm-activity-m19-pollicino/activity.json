@@ -243,6 +243,52 @@
       "target_path": "tests/test_engineering_neural.py",
       "visibility": "student",
       "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/final_assessment/student/README.md",
+      "target_path": "labs/final_assessment/student/README.md",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/final_assessment/student/cases.json",
+      "target_path": "labs/final_assessment/student/cases.json",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/final_assessment/student/contract.py",
+      "target_path": "labs/final_assessment/student/contract.py",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "example",
+      "path": "examples/labs/final_assessment/student/notes.json",
+      "target_path": "labs/final_assessment/student/notes.json",
+      "visibility": "student",
+      "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"
+    },
+    {
+      "type": "teacher_only",
+      "path": "teacher/exam/README.md",
+      "visibility": "teacher",
+      "description": "Chiave e strumenti di correzione della prova finale"
+    },
+    {
+      "type": "teacher_only",
+      "path": "teacher/exam/key.json",
+      "visibility": "teacher",
+      "description": "Chiave e strumenti di correzione della prova finale"
+    },
+    {
+      "type": "teacher_only",
+      "path": "teacher/exam/score.py",
+      "visibility": "teacher",
+      "description": "Chiave e strumenti di correzione della prova finale"
     }
   ],
   "correzione": {

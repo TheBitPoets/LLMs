@@ -63,6 +63,8 @@ def example_files(index: int) -> list[Path]:
         files += [p for p in sorted((ROOT / "labs/engineering").rglob("*"))
                   if p.is_file() and "__pycache__" not in p.parts]
         files += [ROOT / "tests/test_engineering_apps.py", ROOT / "tests/test_engineering_neural.py"]
+    if index == 19:
+        files += [p for p in sorted((ROOT / "labs/final_assessment/student").glob("*")) if p.is_file()]
     return files
 
 TASKS = {
@@ -216,6 +218,7 @@ def build_activity(index: int, row: tuple[str, str, str, str, str, int, str]) ->
             {"type": "starter", "path": "student/README.md", "target_path": "README.md", "visibility": "student", "description": "Traccia e checklist consegnate allo studente"},
             {"type": "teacher_only", "path": "teacher/SOLUTION.md", "visibility": "teacher", "description": "Criteri, soluzione e domande per la discussione"},
             *[{"type": "example", "path": f"examples/{p.relative_to(ROOT).as_posix()}", "target_path": p.relative_to(ROOT).as_posix(), "visibility": "student", "description": "Esempio svolto originale e test pubblici; la consegna richiede nuove prove e modifiche"} for p in example_files(index)],
+            *([{"type": "teacher_only", "path": "teacher/exam/"+p.name, "visibility": "teacher", "description": "Chiave e strumenti di correzione della prova finale"} for p in sorted((ROOT / "labs/final_assessment/teacher").glob("*")) if p.is_file()] if index == 19 else []),
         ],
         "correzione": {"compila": compile_required, "test": compile_required, "sandbox": compile_required, "ai_feedback": index not in {0, 19}},
         "metriche": {"tempo_stimato_minuti": minutes, "traccia_tempo_dichiarato": True, "traccia_sessioni_thebitlab": True, "traccia_eventi_didattici": True, "traccia_errori_compilazione": compile_required},
@@ -252,6 +255,11 @@ def expected_files(manifest: dict, design: dict) -> dict[Path, str]:
         files[base / "teacher/SOLUTION.md"] = teacher_solution(i, title)
         for source in example_files(i):
             files[base / "examples" / source.relative_to(ROOT)] = source.read_text(encoding="utf-8")
+        if i == 19:
+            for source in sorted((ROOT / "labs/final_assessment/teacher").glob("*")):
+                if source.is_file():
+                    files[base / "teacher/exam" / source.name] = source.read_text(encoding="utf-8")
+            files[base / "student/README.md"] += "\n## Prova finale assegnabile\n\nIl kit con venti appunti e sei casi è in `labs/final_assessment/student/`. Usa README e contratto di quel kit per la variante d'esame. La chiave e gli strumenti di correzione non fanno parte dello scaffold studente.\n"
     return files
 
 

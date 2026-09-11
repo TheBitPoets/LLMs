@@ -84,6 +84,8 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 
 ## Documenti correnti del corso
 
+- [Kit della prova finale: venti appunti e sei casi](labs/final_assessment/student/README.md)
+- [Correzione della prova finale, riservata al docente](labs/final_assessment/teacher/README.md)
 - [Otto capitoli engineering: matematica e implementazioni](docs/course/engineering/README.md)
 - [Codice eseguibile e riproduzione delle misure](labs/engineering/README.md)
 - [Dispense — PDF studente, inclusa pratica software](output/pdf/dispense-llm-studente.pdf)

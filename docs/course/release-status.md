@@ -2,6 +2,15 @@
 
 Aggiornamento: **10 settembre 2026, edizione LLM 0.10.0**.
 
+Integrazione dell'11 settembre: completato il kit della prova finale previsto
+nelle dispense, con venti appunti originali, sei casi normali/limite/ostili,
+contratto pubblico, chiave docente e diagnostica riproducibile. Il kit è
+distribuito dagli asset di M19, con separazione studente/docente; le metriche
+automatiche non sostituiscono la verifica fattuale e la rubrica del docente.
+La revisione ha chiuso questa lacuna di distribuzione, non il rehearsal Mac.
+Verifiche dell'incremento: 71 test superati, compresi sei test della prova
+finale; Content Pack e venti Activity accettati dai validatori canonici.
+
 ## Materiali e implementazioni
 
 Il percorso dispone ora di 20 moduli LLM, otto capitoli engineering E00-E07
