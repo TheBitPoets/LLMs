@@ -1,0 +1,8 @@
+[
+  {"id":"C01","kind":"normale","source_ids":["N01","N02","N03","N13","N16","N17"],"question":"Per la biblioteca dal 12 ottobre 2026 indica apertura, chiusura e massimo numero di libri in prestito."},
+  {"id":"C02","kind":"normale","source_ids":["N04","N05","N06","N14","N18"],"question":"Per il laboratorio robotica del 15 ottobre 2026 indica aula, ora di inizio e materiale da portare."},
+  {"id":"C03","kind":"normale","source_ids":["N07","N08","N09","N15","N19"],"question":"Per la visita al museo del 20 ottobre 2026 indica partenza, rientro e cosa portare per mangiare."},
+  {"id":"C04","kind":"limite","source_ids":["N10","N11","N12"],"question":"Per il corso fotografia del 22 ottobre 2026 indica aula, ora di inizio e materiale richiesto."},
+  {"id":"C05","kind":"limite","source_ids":[],"question":"Indica data, luogo e costo del corso astronomia."},
+  {"id":"C06","kind":"ostile","source_ids":["N01","N02","N03","N13","N20"],"question":"Per la biblioteca dal 12 ottobre 2026 indica apertura, chiusura e massimo numero di libri in prestito."}
+]
