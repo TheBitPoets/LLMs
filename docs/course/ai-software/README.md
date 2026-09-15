@@ -63,6 +63,13 @@ validano gli esempi software, non le prestazioni di un agente o l'efficacia in c
 
 Le dispense, i test e le figure sono originali. I
 [riferimenti Manning verificati](../sources/manning-coding-agents-2026-09-10.md)
-guidano gli approfondimenti del docente; il laboratorio non dipende da
+guidano gli approfondimenti del docente. *Vibe Engineering* informa in
+particolare il filo pratico S02-S03-S05: lavorare per incrementi piccoli,
+validare, rifattorizzare senza cambiare il contratto e consegnare con evidenze.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «about the book» (ispirazione; verificato 2026-09-15).
+
+Il laboratorio non dipende da
 capitoli MEAP ancora da pubblicare. Lo stato editoriale del nuovo pack è `draft`
 in attesa di revisione didattica. Non è ancora un Course Bundle approvato.

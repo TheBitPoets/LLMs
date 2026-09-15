@@ -2685,7 +2685,14 @@ validano gli esempi software, non le prestazioni di un agente o l'efficacia in c
 
 Le dispense, i test e le figure sono originali. I
 [riferimenti Manning verificati](../docs/course/sources/manning-coding-agents-2026-09-10.md)
-guidano gli approfondimenti del docente; il laboratorio non dipende da
+guidano gli approfondimenti del docente. *Vibe Engineering* informa in
+particolare il filo pratico S02-S03-S05: lavorare per incrementi piccoli,
+validare, rifattorizzare senza cambiare il contratto e consegnare con evidenze.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «about the book» (ispirazione; verificato 2026-09-15).
+
+Il laboratorio non dipende da
 capitoli MEAP ancora da pubblicare. Lo stato editoriale del nuovo pack è `draft`
 in attesa di revisione didattica. Non è ancora un Course Bundle approvato.
 
@@ -2925,6 +2932,27 @@ Non occorre chiedere pensieri interni al modello. Sono sufficienti un piano
 breve, riferimenti al codice, scelte verificabili ed esiti dei comandi.
 Una spiegazione molto lunga non aumenta da sola la qualità della patch.
 
+### Il ciclo dell'incremento comprensibile
+
+Per ogni incarico usa sempre la stessa scheda: **intento -> confine -> prova
+rossa -> modifica minima -> prova verde -> lettura del diff -> decisione**.
+Il confine dichiara file e comportamento ammessi; la decisione dice se tenere,
+correggere o scartare la patch. Se non riesci a descrivere il cambiamento in
+tre frasi, riduci l'incarico prima di continuare. Questo rende confrontabili
+anche sessioni svolte con agenti differenti.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «about the book», piccoli incrementi comprensibili
+> (ispirazione; verificato 2026-09-15).
+
+Non accumulare cinque patch non lette. Dopo ogni incremento salva nel report
+comando, esito e una riga sul rischio residuo. Un test verde autorizza il passo
+successivo solo per il contratto che quel test riesce davvero a osservare.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «Vibe Engineering also shows you...» su test e miglioramento
+> (ispirazione; verificato 2026-09-15).
+
 ## Esempio minimo: un test che può smentire il codice
 
 Se il codice usa `a_start <= b_end`, il caso 540-600 seguito da 600-660
@@ -3047,6 +3075,16 @@ Sperimenta il pattern **characterize, change, compare**: conserva test sul
 comportamento rilevante, introduci una modifica piccola, confronta gli esiti.
 Se estrai un archivio SQLite in S04, il contratto pubblico diventa il controllo
 che il refactoring non abbia cambiato le regole del calendario.
+
+Se l'agente propone una riscrittura, separala in due decisioni: prima la
+correzione osservabile, poi l'eventuale refactoring a comportamento invariato.
+Misura ampiezza del diff, test toccati e tempo di revisione. Una patch più corta
+non è automaticamente migliore, ma rende più semplice attribuire l'esito a una
+causa e tornare indietro se compare una regressione.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «what's inside», modernizzazione, validazione e refactoring
+> (ispirazione; verificato 2026-09-15).
 
 ## Approfondimento AI Engineer: generator e reviewer
 
@@ -3220,6 +3258,17 @@ senza attingere alla cronologia della chat e ricostruire due decisioni a partire
 da SPEC.md. Se servono informazioni orali indispensabili, aggiungile al README.
 Conserva nel report un problema trovato dal revisore e come lo hai risolto.
 
+Esegui infine un controllo del debito introdotto dall'AI: codice duplicato,
+dipendenze non richieste, TODO senza proprietario, test che replicano
+l'implementazione invece del requisito e documentazione ormai falsa. Per ogni
+voce trovata scegli esplicitamente **correggi ora**, **registra con criterio di
+uscita** oppure **rifiuta perché non supportata da evidenza**. Il prodotto non
+è pronto se il debito resta nascosto dietro una suite verde.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «about the book», debito tecnico, verificabilità e fiducia
+> (ispirazione; verificato 2026-09-15).
+
 Per il colloquio il docente chiede una variazione circoscritta, per esempio
 cambiare l'orario di apertura o aggiungere una terza aula. Prima elenca
 requisiti e test coinvolti, poi modifica il codice e spiega un caso limite.
@@ -3246,6 +3295,17 @@ esegua i test. Il report deve mostrare che cosa è stato controllato; un check
 verde su un commit precedente non valida una patch successiva.
 Scrivi una descrizione di pull request con problema, cambiamento osservabile,
 test e limiti. Una PR è una proposta di integrazione: non è la revisione stessa.
+
+La pipeline completa del percorso è quindi: specifica versionata, incremento
+piccolo, controllo umano del diff, test indipendenti, refactoring separato,
+prova da checkout pulito e osservazione successiva alla consegna. Registra una
+metrica da ricontrollare dopo la release, per esempio regressioni riaperte o
+tempo necessario a modificare una regola: la produzione è parte del ciclo,
+non la fine della conversazione con l'agente.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «about the book», processo AI end-to-end fino alla produzione
+> (ispirazione; verificato 2026-09-15).
 
 Applica la variante di S01 in un branch: aggiorna specifica, test dei confini,
 codice e README nella stessa modifica. Per un bug su codice esistente distingui
@@ -3294,6 +3354,8 @@ Compilare con osservazioni reali. «Non misurato» è diverso da zero.
 - Modello, revisione/digest se esposto, runtime, hardware:
 - Modalità: coding agent / sviluppo assistito manuale / senza AI:
 - File forniti come contesto e loro versione:
+- Confine dell'incremento (file e comportamento ammessi):
+- Rischio residuo dopo la patch:
 - Budget fissato prima della prova (tempo/tentativi/costo):
 
 ## Accettazione prima dell'implementazione
@@ -3311,6 +3373,7 @@ Compilare con osservazioni reali. «Non misurato» è diverso da zero.
 - Tempo totale, tempo umano, tentativi, token/costo se esposti:
 - Fallimenti rimasti e limitazioni:
 - Differenze rispetto alla specifica autorizzate o respinte:
+- Debito rilevato: correggi ora / registra con criterio di uscita / respingi:
 
 ## Decisione architetturale breve
 
@@ -3325,10 +3388,12 @@ Compilare con osservazioni reali. «Non misurato» è diverso da zero.
 - Problema trovato dal compagno revisore:
 - Spiegazione personale di un cambiamento:
 - Prossima prova necessaria, se presente:
+- Metrica da ricontrollare dopo la consegna:
 
 # Manning: integrazione software engineering e coding agent
 
-Verifica delle schede pubbliche: **10 settembre 2026**. Questa è una selezione
+Verifica iniziale delle schede pubbliche: **10 settembre 2026**; aggiornamento
+mirato: **15 settembre 2026**. Questa è una selezione
 mirata per il nuovo percorso pratico, non l'inventario completo dei PDF posseduti.
 Le etichette generiche «you own this product» nelle pagine pubbliche non sono
 state usate per dedurre acquisti dell'account. Non sono stati consumati crediti.
@@ -3360,7 +3425,18 @@ MEAP iniziato e aggiornato ad agosto 2026, pubblicazione stimata inizio 2027.
 Più utile al ramo AI Engineer che come primo testo per la classe.
 [Scheda Manning](https://www.manning.com/books/agent-design-patterns).
 
-Questa priorità riguarda la pertinenza didattica, non un ordine di acquisto
+**5. Vibe Engineering - Tomasz Lelek e Artur Skowroński.** È il riferimento
+più aderente al ciclo completo aggiunto ai laboratori: incrementi piccoli e
+comprensibili, test e validazione, refactoring, modernizzazione brownfield,
+controlli contro debito tecnico e consegna. La scheda pubblica verificata il
+15 settembre indica MEAP al 100%, ultimo aggiornamento settembre 2026 e
+pubblicazione stimata novembre 2026. Pertinenza: soprattutto S02, S03 e S05.
+Per il percorso pratico ha priorità alta e, se i crediti sono ancora undici,
+precede *GPU Programming with Triton* finché quest'ultimo resta al 36%; Triton
+rimane invece prioritario nel ramo personale dedicato ai kernel.
+[Scheda Manning](https://www.manning.com/books/vibe-engineering).
+
+Questa priorità riguarda la pertinenza didattica, non un acquisto
 automatico. Per scegliere gli 11 PDF rimasti occorre prima riconciliare la
 lista dell'anno precedente: non assumiamo che questi titoli siano assenti.
 

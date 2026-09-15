@@ -11,6 +11,8 @@ Compilare con osservazioni reali. «Non misurato» è diverso da zero.
 - Modello, revisione/digest se esposto, runtime, hardware:
 - Modalità: coding agent / sviluppo assistito manuale / senza AI:
 - File forniti come contesto e loro versione:
+- Confine dell'incremento (file e comportamento ammessi):
+- Rischio residuo dopo la patch:
 - Budget fissato prima della prova (tempo/tentativi/costo):
 
 ## Accettazione prima dell'implementazione
@@ -28,6 +30,7 @@ Compilare con osservazioni reali. «Non misurato» è diverso da zero.
 - Tempo totale, tempo umano, tentativi, token/costo se esposti:
 - Fallimenti rimasti e limitazioni:
 - Differenze rispetto alla specifica autorizzate o respinte:
+- Debito rilevato: correggi ora / registra con criterio di uscita / respingi:
 
 ## Decisione architetturale breve
 
@@ -42,3 +45,4 @@ Compilare con osservazioni reali. «Non misurato» è diverso da zero.
 - Problema trovato dal compagno revisore:
 - Spiegazione personale di un cambiamento:
 - Prossima prova necessaria, se presente:
+- Metrica da ricontrollare dopo la consegna:

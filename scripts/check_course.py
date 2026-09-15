@@ -106,6 +106,20 @@ def main() -> int:
         fail(f"attese almeno 8 figure statiche SVG con PNG corrispondenti, trovate {len(static_visuals)}+{len(rendered_visuals)}", errors)
 
     practice = json.loads((ROOT / "content/ai-software/content-pack.json").read_text())
+    if practice.get("version") != "0.2.0":
+        fail("AI software pack: attesa versione 0.2.0", errors)
+    policy = ROOT / "docs/course/source-citation-policy.md"
+    if not policy.is_file():
+        fail("regola di provenienza per paragrafo mancante", errors)
+    for relative in (
+        "docs/course/ai-software/README.md",
+        "docs/course/ai-software/S02-implementazione.md",
+        "docs/course/ai-software/S03-diagnosi.md",
+        "docs/course/ai-software/S05-consegna.md",
+    ):
+        citation_text = (ROOT / relative).read_text(encoding="utf-8")
+        if "Vibe Engineering](https://www.manning.com/books/vibe-engineering)" not in citation_text:
+            fail(f"{relative}: citazione puntuale Vibe Engineering mancante", errors)
     if len(practice["content_items"]) != 6:
         fail("AI software pack: attese sei lezioni", errors)
     for item in practice["content_items"]:

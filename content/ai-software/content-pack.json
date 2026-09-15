@@ -2,7 +2,7 @@
   "schema_version": "thebitlab.content-pack.v1",
   "id": "ai-se-pack-2026-2027",
   "title": "Coding agent e software engineering pratico",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "draft",
   "language": "it",
   "audience": {
@@ -53,6 +53,16 @@
       "provider": "manning",
       "title": "Agent Design Patterns",
       "uri": "https://www.manning.com/books/agent-design-patterns",
+      "access": "public-catalog",
+      "license_status": "reference-only"
+    },
+    {
+      "id": "ai-se-ref-vibe-engineering",
+      "kind": "book",
+      "role": "teacher-reference",
+      "provider": "manning",
+      "title": "Vibe Engineering",
+      "uri": "https://www.manning.com/books/vibe-engineering",
       "access": "public-catalog",
       "license_status": "reference-only"
     }

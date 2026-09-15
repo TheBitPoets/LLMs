@@ -1,6 +1,7 @@
 # Manning: integrazione software engineering e coding agent
 
-Verifica delle schede pubbliche: **10 settembre 2026**. Questa è una selezione
+Verifica iniziale delle schede pubbliche: **10 settembre 2026**; aggiornamento
+mirato: **15 settembre 2026**. Questa è una selezione
 mirata per il nuovo percorso pratico, non l'inventario completo dei PDF posseduti.
 Le etichette generiche «you own this product» nelle pagine pubbliche non sono
 state usate per dedurre acquisti dell'account. Non sono stati consumati crediti.
@@ -32,7 +33,18 @@ MEAP iniziato e aggiornato ad agosto 2026, pubblicazione stimata inizio 2027.
 Più utile al ramo AI Engineer che come primo testo per la classe.
 [Scheda Manning](https://www.manning.com/books/agent-design-patterns).
 
-Questa priorità riguarda la pertinenza didattica, non un ordine di acquisto
+**5. Vibe Engineering - Tomasz Lelek e Artur Skowroński.** È il riferimento
+più aderente al ciclo completo aggiunto ai laboratori: incrementi piccoli e
+comprensibili, test e validazione, refactoring, modernizzazione brownfield,
+controlli contro debito tecnico e consegna. La scheda pubblica verificata il
+15 settembre indica MEAP al 100%, ultimo aggiornamento settembre 2026 e
+pubblicazione stimata novembre 2026. Pertinenza: soprattutto S02, S03 e S05.
+Per il percorso pratico ha priorità alta e, se i crediti sono ancora undici,
+precede *GPU Programming with Triton* finché quest'ultimo resta al 36%; Triton
+rimane invece prioritario nel ramo personale dedicato ai kernel.
+[Scheda Manning](https://www.manning.com/books/vibe-engineering).
+
+Questa priorità riguarda la pertinenza didattica, non un acquisto
 automatico. Per scegliere gli 11 PDF rimasti occorre prima riconciliare la
 lista dell'anno precedente: non assumiamo che questi titoli siano assenti.
 
