@@ -81,6 +81,16 @@ comportamento rilevante, introduci una modifica piccola, confronta gli esiti.
 Se estrai un archivio SQLite in S04, il contratto pubblico diventa il controllo
 che il refactoring non abbia cambiato le regole del calendario.
 
+Se l'agente propone una riscrittura, separala in due decisioni: prima la
+correzione osservabile, poi l'eventuale refactoring a comportamento invariato.
+Misura ampiezza del diff, test toccati e tempo di revisione. Una patch più corta
+non è automaticamente migliore, ma rende più semplice attribuire l'esito a una
+causa e tornare indietro se compare una regressione.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «what's inside», modernizzazione, validazione e refactoring
+> (ispirazione; verificato 2026-09-15).
+
 ## Approfondimento AI Engineer: generator e reviewer
 
 Una seconda sessione può rivedere la patch con specifica e test, senza ricevere

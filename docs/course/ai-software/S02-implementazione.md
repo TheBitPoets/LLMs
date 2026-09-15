@@ -50,6 +50,27 @@ Non occorre chiedere pensieri interni al modello. Sono sufficienti un piano
 breve, riferimenti al codice, scelte verificabili ed esiti dei comandi.
 Una spiegazione molto lunga non aumenta da sola la qualità della patch.
 
+### Il ciclo dell'incremento comprensibile
+
+Per ogni incarico usa sempre la stessa scheda: **intento -> confine -> prova
+rossa -> modifica minima -> prova verde -> lettura del diff -> decisione**.
+Il confine dichiara file e comportamento ammessi; la decisione dice se tenere,
+correggere o scartare la patch. Se non riesci a descrivere il cambiamento in
+tre frasi, riduci l'incarico prima di continuare. Questo rende confrontabili
+anche sessioni svolte con agenti differenti.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «about the book», piccoli incrementi comprensibili
+> (ispirazione; verificato 2026-09-15).
+
+Non accumulare cinque patch non lette. Dopo ogni incremento salva nel report
+comando, esito e una riga sul rischio residuo. Un test verde autorizza il passo
+successivo solo per il contratto che quel test riesce davvero a osservare.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «Vibe Engineering also shows you...» su test e miglioramento
+> (ispirazione; verificato 2026-09-15).
+
 ## Esempio minimo: un test che può smentire il codice
 
 Se il codice usa `a_start <= b_end`, il caso 540-600 seguito da 600-660

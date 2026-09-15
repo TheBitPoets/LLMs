@@ -37,7 +37,8 @@ def expected_files():
             for slug, title in [("spec-driven-development", "Spec-Driven Development"),
                                 ("context-engineering", "Context Engineering"),
                                 ("ai-powered-developer", "AI-Powered Developer"),
-                                ("agent-design-patterns", "Agent Design Patterns")]]
+                                ("agent-design-patterns", "Agent Design Patterns"),
+                                ("vibe-engineering", "Vibe Engineering")]]
     source = {"id": "ai-se-source-lessons", "kind": "source-package",
               "label": "Laboratori originali di sviluppo con coding agent", "type": "markdown",
               "provider": "local", "role": "course-content", "path": "docs/course/ai-software",
@@ -117,7 +118,7 @@ def expected_files():
                       "title": "Dal requisito alla consegna", "path": source["path"],
                       "weeks": 6, "items": design_items}]}]}
     pack = {"schema_version": "thebitlab.content-pack.v1", "id": "ai-se-pack-2026-2027",
-            "title": "Coding agent e software engineering pratico", "version": "0.1.0",
+            "title": "Coding agent e software engineering pratico", "version": "0.2.0",
             "status": "draft", "language": "it", "audience": {
                 "school_level": "secondaria-secondo-grado-e-formazione-adulti", "subject": "Ingegneria del software con AI", "year": 0},
             "ownership": {"content_origin": "original-course-material",

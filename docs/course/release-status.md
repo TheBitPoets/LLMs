@@ -1,6 +1,13 @@
 # Stato di rilascio e verifiche residue
 
-Aggiornamento: **10 settembre 2026, edizione LLM 0.10.0**.
+Aggiornamento: **15 settembre 2026, edizione LLM 0.10.0; supplemento software 0.2.0**.
+
+L'integrazione del 15 settembre aggiunge *Vibe Engineering* ai riferimenti del
+percorso software e introduce esercizi su incremento comprensibile, controllo
+del debito AI, refactoring separato e osservazione dopo la consegna. È inoltre
+attiva la regola di provenienza puntuale: ogni paragrafo nuovo o riscritto deve
+indicare titolo, sezione e link; la migrazione dei contenuti anteriori è un gate
+necessario prima dello stato `approved`.
 
 Integrazione dell'11 settembre: completato il kit della prova finale previsto
 nelle dispense, con venti appunti originali, sei casi normali/limite/ostili,
@@ -52,7 +59,10 @@ lezioni e non vengono presentati come successi universali.
    modelli Ollama reali; registrare digest, memoria, tempi, qualità ed errori.
 2. **Revisione docente** di contenuti, soluzioni e tempi effettivi prima
    dell'uso in classe e dell'approvazione didattica del pack.
-3. **Freeze del Course Bundle**, successivo ai gate: stato `approved` e tag
+3. **Migrazione della provenienza per paragrafo** dei contenuti anteriori al
+   15 settembre, secondo la regola editoriale; i nuovi paragrafi sono già
+   conformi.
+4. **Freeze del Course Bundle**, successivo ai gate: stato `approved` e tag
    `course-v1` non vengono anticipati.
 
 I laboratori applicativi sono implementati e testati a livello di contratto;

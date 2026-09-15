@@ -43,6 +43,17 @@ senza attingere alla cronologia della chat e ricostruire due decisioni a partire
 da SPEC.md. Se servono informazioni orali indispensabili, aggiungile al README.
 Conserva nel report un problema trovato dal revisore e come lo hai risolto.
 
+Esegui infine un controllo del debito introdotto dall'AI: codice duplicato,
+dipendenze non richieste, TODO senza proprietario, test che replicano
+l'implementazione invece del requisito e documentazione ormai falsa. Per ogni
+voce trovata scegli esplicitamente **correggi ora**, **registra con criterio di
+uscita** oppure **rifiuta perché non supportata da evidenza**. Il prodotto non
+è pronto se il debito resta nascosto dietro una suite verde.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «about the book», debito tecnico, verificabilità e fiducia
+> (ispirazione; verificato 2026-09-15).
+
 Per il colloquio il docente chiede una variazione circoscritta, per esempio
 cambiare l'orario di apertura o aggiungere una terza aula. Prima elenca
 requisiti e test coinvolti, poi modifica il codice e spiega un caso limite.
@@ -69,6 +80,17 @@ esegua i test. Il report deve mostrare che cosa è stato controllato; un check
 verde su un commit precedente non valida una patch successiva.
 Scrivi una descrizione di pull request con problema, cambiamento osservabile,
 test e limiti. Una PR è una proposta di integrazione: non è la revisione stessa.
+
+La pipeline completa del percorso è quindi: specifica versionata, incremento
+piccolo, controllo umano del diff, test indipendenti, refactoring separato,
+prova da checkout pulito e osservazione successiva alla consegna. Registra una
+metrica da ricontrollare dopo la release, per esempio regressioni riaperte o
+tempo necessario a modificare una regola: la produzione è parte del ciclo,
+non la fine della conversazione con l'agente.
+
+> **Fonte/ispirazione:** [Vibe Engineering](https://www.manning.com/books/vibe-engineering),
+> scheda pubblica, § «about the book», processo AI end-to-end fino alla produzione
+> (ispirazione; verificato 2026-09-15).
 
 Applica la variante di S01 in un branch: aggiorna specifica, test dei confini,
 codice e README nella stessa modifica. Per un bug su codice esistente distingui

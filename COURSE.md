@@ -61,6 +61,11 @@ Il corso usa progetti complementari invece di un unico esempio sovraccarico:
 
 ## Regola comune sulle evidenze
 
+Ogni contenuto nuovo o riscritto segue la
+[regola di provenienza per paragrafo](docs/course/source-citation-policy.md):
+titolo, capitolo/paragrafo o sezione, ruolo della fonte e link specifico quando
+disponibile. Gli esempi originali vengono dichiarati come tali.
+
 Il [percorso pratico S00-S05](docs/course/ai-software/README.md) aggiunge
 sviluppo software con coding agent, specifiche, test, debugging, pattern e
 consegna. Prevede 12 ore autonome e due rami aggiuntivi di 6 ore ciascuno,
@@ -105,6 +110,7 @@ esperimento di rete sintetico non costituisce evidenza fisica LoRa.
 - [Mappa curricolare](docs/course/curriculum-map.md)
 - [Criteri di completamento](docs/course/definition-of-done.md)
 - [Standard visuale e animazioni](docs/course/visual-standard.md)
+- [Regola di provenienza per ogni paragrafo](docs/course/source-citation-policy.md)
 - [Catalogo delle visualizzazioni e provenienza](docs/course/visual-catalog.md)
 - [Visuale interattiva: previsione next-token](visuals/next-token-prediction.html)
 - [Visuale interattiva: percorso dei dati locale e cloud](visuals/local-vs-cloud-data-journey.html)
